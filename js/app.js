@@ -60,6 +60,7 @@ function startTest(cfg) {
   else {
     let pool = bank(cfg.course);
     if (cfg.filter === "tema") pool = pool.filter(q => q.t === cfg.topic);
+    if (cfg.filter === "temas") pool = pool.filter(q => (cfg.topics || []).indexOf(q.t) >= 0);
     if (cfg.filter === "bloque") pool = pool.filter(q => q.b === cfg.block);
     if (cfg.filter === "fallos") pool = pool.filter(q => (state.fails[q.id] || 0) > 0);
     if (cfg.filter === "blancos") pool = pool.filter(q => state.blanks[q.id] === 1);
@@ -554,18 +555,40 @@ function vStats() {
 
 /* ---- TEMARIO ---- */
 function vTemario() {
-  const c = COURSES[state.course];
-  const blocks = c.syllabus.map(bl => {
-    const topics = bl.topics.map(t => {
-      const n = bank(state.course).filter(q => q.t === t).length;
-      return '<div class="topic-row"><span>✓ ' + esc(t) + ' <span class="muted">(' + n + ' test)</span></span><span class="badge badge-green">Revisado</span></div>';
-    }).join("");
-    return '<details class="acc" open><summary>' + esc(bl.title) + ' <span class="badge">' + esc(bl.weight) + "</span></summary><div class=\"acc-body\">" + topics + "</div></details>";
+  const T = window.TEMARIO;
+  if (!T) { view().innerHTML = '<div class="view-head"><h1>Temario</h1></div><p class="small muted">Actualizando el temario… recarga en unos segundos.</p>'; return; }
+  const esET = state.course === "cabo";
+  const bloquesHtml = T.bloques.map((b, i) => {
+    if (!esET && b.cap !== 1) return "";
+    const nIds = bank(state.course).filter(q => b.temas.indexOf(q.t) >= 0).length;
+    return '<details class="acc"' + (b.destacar ? " open" : "") + '><summary>' + (b.cap === 1 ? "🟨" : "🟩") + ' <b>' + esc(b.title) + '</b> <span class="badge">' + esc(b.peso) + "</span></summary><div class=\"acc-body\">" +
+      '<p class="small muted" style="margin:6px 0">' + esc(b.intro) + "</p>" +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">' +
+        '<button class="btn btn-gold btn-sm" data-tdoc="' + i + '">⬇️ Dossier del bloque</button>' +
+        (nIds ? '<button class="btn btn-green btn-sm" data-ttest="' + i + '">🎯 Test del bloque (' + nIds + ' preg.)</button>' : '<span class="badge badge-green">test en preparación</span>') +
+      "</div>" +
+      '<p class="small muted">Fuentes: ' + b.fuentes.map(f => '<a href="' + f.u + '" target="_blank" rel="noopener">' + esc(f.t) + "</a>").join(" · ") + "</p>" +
+      "</div></details>";
   }).join("");
-  const log = c.changelog.map(e => "<li><b>" + esc(e.date) + "</b> · " + esc(e.ref) + "<br>" + esc(e.text) + "</li>").join("");
-  view().innerHTML = '<div class="view-head"><h1>Temario · ' + esc(c.name) + "</h1></div>" + courseCards() + blocks +
-    '<div class="card"><h3>🔔 Actualizaciones oficiales aplicadas</h3><ul class="list-clean">' + log + '</ul><p class="small muted">En la versión final: temario completo descargable, esquemas y resúmenes por tema.</p></div>';
+  const reparto = T.examen.reparto.map(r => '<div class="topic-row"><span>· ' + esc(r[0]) + '</span><b>' + r[1] + ' preg.</b></div>').join("");
+  const comp = (esET ? '<details class="acc"><summary>🧰 <b>Cultura militar complementaria</b> <span class="badge">refuerzo</span></summary><div class="acc-body"><p class="small muted">No son bloques propios del temario de Cabo, pero consolidan base (y ayudan en Permanencia y Cabo 1º):</p>' +
+    T.complementarias.map(t => { const n = bank(state.course).filter(q => q.t === t).length; return n ? '<div class="topic-row"><span>· ' + esc(t) + ' <span class="muted">(' + n + ')</span></span><button class="btn btn-green btn-sm" data-ctema="' + esc(t) + '">🎯 Test</button></div>' : '<div class="topic-row"><span>· ' + esc(t) + '</span><span class="badge">pronto</span></div>'; }).join("") + "</div></details>" : "");
+  view().innerHTML = '<div class="view-head"><h1>Temario oficial · ' + esc(COURSES[state.course].name || COURSES[state.course].nombre) + "</h1></div>" + courseCards() +
+    '<div class="card" style="border-color:var(--gold)"><h3>📋 El examen, tal cual es</h3>' +
+    '<p class="small">' + esc(T.examen.preguntas) + " · " + esc(T.examen.duracion) + '<br>' + esc(T.examen.formula) + '<br><b>Notas de corte:</b> ' + esc(T.examen.cortes) + "</p>" +
+    '<h3>Reparto real (examen feb-2026)</h3>' + reparto +
+    '<p class="small muted" style="margin-top:8px">⚠️ <b>La normativa militar (Cap. 1) pesa el 40%</b>: 20 de 50 preguntas. Empieza por ahí.</p></div>' +
+    '<div class="card" style="margin-top:12px"><button class="btn btn-gold btn-block" id="btnTemTodo">⬇️ Descargar TEMARIO COMPLETO (imprimible)</button><p class="small muted" style="margin-top:6px">Se descarga un .html listo para abrir e imprimir como PDF: los 10 bloques, con lo que entra y lo esencial. Fuente: temario MADOC del Rincón de Tropa, enlazado al BOE.</p></div>' +
+    bloquesHtml + comp +
+    '<div class="card" style="margin-top:12px"><h3>🔔 Anti-obsoleto</h3><p class="small muted">Estructura según el temario oficial de la oposición (MADOC, Rincón de Tropa) y el examen real de febrero de 2026 (convocatoria I/25). Si el MADOC modifica el temario o sale convocatoria nueva, actualizamos este dossier y aviso en el canal de tu curso.</p></div>';
   bindCourses();
+  document.querySelector("#btnTemTodo").onclick = () => window.descargarTemarioCompleto();
+  $$("[data-tdoc]").forEach(b => b.onclick = () => window.descargarBloque(parseInt(b.getAttribute("data-tdoc"), 10)));
+  $$("[data-ttest]").forEach(b => b.onclick = () => {
+    const bl = window.TEMARIO.bloques[parseInt(b.getAttribute("data-ttest"), 10)];
+    window.galonStart({ course: state.course, filter: "temas", topics: bl.temas, n: 30, mode: "study", label: bl.title.replace(/^Bloque [IVX]+ · /, "") });
+  });
+  $$("[data-ctema]").forEach(b => b.onclick = () => window.galonStart({ course: state.course, filter: "tema", topic: b.getAttribute("data-ctema"), n: 30, mode: "study" }));
 }
 
 /* ---- RANKING ---- */
@@ -1412,7 +1435,7 @@ const TRAMITA = {
       { id: "instancia", t: "Instancia: modelo oficial de las bases", s: "se publica con la convocatoria en el BOD y se presenta por vía electrónica — aviso automático aquí y en @galon_cabo el día que salga" },
       { id: "foto", t: "Fotografía tipo carné", s: "las bases suelen pedir 1 foto reciente; tenla hecha" },
       { id: "servicios", t: "Justificantes de servicios y destino", s: "patrón de años anteriores: se piden a la unidad; localízalos con tiempo" },
-      { id: "plan", t: "Plan de estudio en marcha", s: "examen tipo I/25: 50 preguntas (Formación Común + FSE, Geografía e Historia, inglés). Entrena con el Simulacro" }
+      { id: "plan", t: "Plan de estudio en marcha", s: "examen tipo I/25: 50 preguntas + 5 reserva en 70 min sobre el temario oficial de Cabo (2 capítulos). Entrena con el Simulacro y los tests del Temario" }
     ]
   },
   cabo1: {
