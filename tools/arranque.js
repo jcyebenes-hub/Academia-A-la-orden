@@ -33,7 +33,8 @@ for (const s of ["SIGTERM", "SIGINT"]) process.on(s, () => {
   saliendo = true;
   console.log("[arranque] parando los 3 motores…");
   hijos.forEach(p => { try { p.kill("SIGTERM"); } catch (e) {} });
-  setTimeout(() => process.exit(0), 2500);
+  /* 10 s de gracia: el servidor sube el volcado de datos a GitHub antes de morir */
+  setTimeout(() => process.exit(0), 10000);
 });
 
 setInterval(() => {}, 60e3); // el padre se queda vivo

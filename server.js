@@ -230,7 +230,7 @@ async function ghPush() {
   if (!GH.tok || !GH.repo) return log("persistencia: ficheros locales (en Render: GITHUB_TOKEN + GITHUB_REPO)");
   ghRestore(await ghGetBundle());
   setTimeout(ghPush, 5000);
-  setInterval(ghPush, 10 * 60e3);
+  setInterval(ghPush, 2 * 60e3); /* cada 2 min: en Render free el disco es efímero */
   process.on("SIGTERM", () => { ghPush().finally(() => process.exit(0)); setTimeout(() => process.exit(0), 4000); });
   log("persistencia GitHub activa →", GH.repo);
 })();
