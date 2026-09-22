@@ -2,6 +2,9 @@
    Solitario o por código de invitación (misma semilla: mismo dado y mismas preguntas para ambos; gana quien acabe en menos tiradas).
    Marca y tablero propios (el Trivial Pursuit es marca de Hasbro: aquí mandan los galones). */
 (function () {
+  const AO = window.AO || {};
+  const st = () => (AO.stateRef ? AO.stateRef() : null);
+  const view = AO.view || (() => document.querySelector("#view"));
   const $ = s => document.querySelector(s);
   const $$ = s => Array.from(document.querySelectorAll(s));
   const esc = t => String(t == null ? "" : t).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -49,7 +52,7 @@
   let G = null; /* estado de partida */
 
   function poolsFor() {
-    const all = (typeof bank === "function" ? bank(state.course) : []).filter(q => q.o && q.o.length === 4);
+    const all = ((AO.bank && st()) ? AO.bank(st().course) : []).filter(q => q.o && q.o.length === 4);
     const pools = CATS.map(c => all.filter(q => c.t.indexOf(q.t) >= 0));
     const total = pools.reduce((s, p) => s + p.length, 0);
     if (total < 60) { /* curso con pocos temas: reparto equitativo de todo el banco */
@@ -114,7 +117,8 @@
 
   /* ---- preguntas ---- */
   function preguntar(cat) {
-    const pool = G.pools[cat] && G.pools[cat].length ? G.pools[cat] : G.pools[(cat + 3) % 6];
+    let pool = G.pools[cat] && G.pools[cat].length ? G.pools[cat] : G.pools[(cat + 3) % 6];
+    if (!pool || !pool.length) pool = CATS.map((c, i) => G.pools[i]).find(p2 => p2.length) || [];
     let idx = Math.floor(G.rng() * pool.length);
     let q = pool[idx % pool.length];
     const clave = cat + ":" + q.id;
@@ -190,7 +194,7 @@
     const msg = gano ? "🏆 ¡VICTORIA! Tablero completo en " + G.tirada + " tiradas" : (cap ? "⏱️ Fin: 60 tiradas · " + Object.keys(G.wedges).length + "/6 quesitos" : "😞 La final te ha caído… ¡otra ronda!");
     $("#tLog").innerHTML = "<b>" + msg + "</b>";
     const btn = $("#tDado"); if (btn) btn.disabled = true;
-    if (typeof state !== "undefined" && state) { state.xp += gano ? 50 : 5; if (typeof save === "function") save(); }
+    if (st()) { st().xp += gano ? 50 : 5; if (AO.save) AO.save(); }
     if (G.modo === "sala") { G.enviadoFin = true; informa(true); }
     else {
       try {
@@ -202,18 +206,18 @@
   }
   function informa(fin) {
     if (!G || G.modo !== "sala" || !G.sala) return;
-    fetch("/api/trivial/estado", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ codigo: G.sala.codigo, jugador: state.name || "Anónimo", wedges: Object.keys(G.wedges).length, tiradas: G.tirada, aciertos: G.aciertos, fin: !!fin || G.fin }) }).catch(() => {});
+    fetch("/api/trivial/estado", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ codigo: G.sala.codigo, jugador: (st() && st().name) || "Anónimo", wedges: Object.keys(G.wedges).length, tiradas: G.tirada, aciertos: G.aciertos, fin: !!fin || G.fin }) }).catch(() => {});
   }
   function sondear() {
     if (!G || G.modo !== "sala" || !G.sala) return;
-    fetch("/api/trivial/ver?codigo=" + encodeURIComponent(G.sala.codigo) + "&u=" + encodeURIComponent(state.name || "")).then(r => r.json()).then(v => {
+    fetch("/api/trivial/ver?codigo=" + encodeURIComponent(G.sala.codigo) + "&u=" + encodeURIComponent((st() && st().name) || "")).then(r => r.json()).then(v => {
       if (!v || v.error) return;
       const mio = G.sala.rol === "de" ? v.de : v.para, riv = G.sala.rol === "de" ? v.para : v.de;
       const el = $("#tRival");
       if (el && riv) el.innerHTML = "⚔️ <b>" + esc(riv.nombre) + "</b>: 🧩 " + riv.wedges + "/6 · " + riv.tiradas + " tiradas" + (riv.fin ? " · ¡TERMINÓ!" : "");
       if (v.ganador && G.fin) {
         const empate = v.ganador === "";
-        $("#tLog").innerHTML = empate ? "🤝 ¡Empate táctico!" : (v.ganador === (state.name || "Anónimo") ? "🏆 ¡VICTORIA en " + G.tirada + " tiradas!" : "😔 Ganó " + esc(v.ganador) + " · revancha cuando quieras");
+        $("#tLog").innerHTML = empate ? "🤝 ¡Empate táctico!" : (v.ganador === ((st() && st().name) || "Anónimo") ? "🏆 ¡VICTORIA en " + G.tirada + " tiradas!" : "😔 Ganó " + esc(v.ganador) + " · revancha cuando quieras");
       }
     }).catch(() => {});
   }
@@ -296,21 +300,21 @@
     $("#tSolo").onclick = () => nuevaPartida("solo");
     $("#tCrear").onclick = async () => {
       try {
-        const r = await fetch("/api/trivial/crear", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ de: state.name || "Anónimo", curso: state.course }) });
+        const r = await fetch("/api/trivial/crear", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ de: (st() && st().name) || "Anónimo", curso: (st() && st().course) || "cabo" }) });
         const v = await r.json();
-        if (v.error) return toast(v.error);
+        if (v.error) return toastT(v.error);
         entrarSala(v, "de");
-      } catch (e) { toast("Sin conexión con el servidor"); }
+      } catch (e) { toastT("Sin conexión con el servidor"); }
     };
     $("#tUnir").onclick = async () => {
       const codigo = ($("#tCodIn").value || "").trim().toUpperCase();
-      if (!codigo) return toast("Escribe el código que te han pasado");
+      if (!codigo) return toastT("Escribe el código que te han pasado");
       try {
-        const r = await fetch("/api/trivial/unir", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ codigo, jugador: state.name || "Anónimo" }) });
+        const r = await fetch("/api/trivial/unir", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ codigo, jugador: (st() && st().name) || "Anónimo" }) });
         const v = await r.json();
-        if (v.error) return toast(v.error);
+        if (v.error) return toastT(v.error);
         entrarSala(v, "para");
-      } catch (e) { toast("Sin conexión con el servidor"); }
+      } catch (e) { toastT("Sin conexión con el servidor"); }
     };
   }
   function entrarSala(v, rol) {

@@ -1624,7 +1624,7 @@ function render() {
       window.__cargandoTrivial = true;
       toast("Cargando el trivial…");
       const sc = document.createElement("script");
-      sc.src = "js/trivial.js?v=70";
+      sc.src = "js/trivial.js?v=74";
       sc.onload = () => { window.__cargandoTrivial = false; render(); };
       sc.onerror = () => { window.__cargandoTrivial = false; toast("Cierra y abre la app para actualizar la caché"); };
       document.head.appendChild(sc);
@@ -1643,6 +1643,7 @@ function render() {
   else if (h === "cuenta" && window.vCuenta) window.vCuenta();
   else vHome();
 }
+window.AO = { bank, stateRef: () => state, toast, save, byId, COURSES, view, render }; /* puente para módulos externos (trivial) */
 window.addEventListener("hashchange", render);
 paintChips();
 if (window.GalonCloudInit) window.GalonCloudInit();
