@@ -110,6 +110,7 @@ function bindCourses(alEntrar) {
 }
 /* hoja inferior "¿Qué preparas hoy?": tiles en vertical (FIN de la ruleta deslizable) · con alEntrar, tocas tu curso y entras directo a Entrenar */
 function abrirCursos(alEntrar) {
+  if (alEntrar && state.opts && state.opts.recordarCurso) { location.hash = "#/entrenar"; return; } /* elección recordada: sin preguntar */
   const old = $("#sheetBg"); if (old) old.remove();
   const ses = id => state.history.filter(h => h.course === id).length;
   const cards = Object.values(COURSES).map(c => {
@@ -126,10 +127,25 @@ function abrirCursos(alEntrar) {
   bg.id = "sheetBg"; bg.className = "sheet-bg";
   bg.innerHTML = '<div class="sheet"><h3>¿Qué preparas hoy?</h3>' +
     '<p class="small muted" style="padding:0 18px 8px;margin:0">' + (alEntrar ? "Toca tu curso y entras directo a Entrenar" : "Toca una tarjeta para cambiar de curso") + '</p>' +
-    '<div style="display:flex;flex-direction:column;gap:10px;padding:4px 16px 8px;overflow-y:auto">' + cards + "</div></div>";
+    '<div style="display:flex;flex-direction:column;gap:10px;padding:4px 16px 8px;overflow-y:auto">' + cards + "</div>" +
+    (alEntrar ? '<button id="tRec" class="btn btn-ghost btn-sm" style="margin:6px 16px 10px;width:calc(100% - 32px)">📌 Recordar mi elección · no volver a preguntar</button>' : "") +
+    "</div>";
   document.body.appendChild(bg);
   bg.onclick = e => { if (e.target === bg) bg.remove(); };
   bindCourses(alEntrar);
+  if (alEntrar) {
+    const rec = $("#tRec");
+    if (rec) {
+      const pintar = () => { rec.textContent = (state.opts && state.opts.recordarCurso) ? "📌 Elección recordada · toca para olvidarla" : "📌 Recordar mi elección · no volver a preguntar"; };
+      pintar();
+      rec.onclick = () => {
+        state.opts = state.opts || {};
+        if (state.opts.recordarCurso) { delete state.opts.recordarCurso; toast("Volverá a preguntarte al entrar"); }
+        else { state.opts.recordarCurso = true; toast("Recordado: entras directo a " + COURSES[state.course].name); bg.remove(); location.hash = "#/entrenar"; }
+        save(); pintar();
+      };
+    }
+  }
 }
 /* efecto RUEDA: la carta del centro crece, las vecinas se atenúan; puntos sincronizados */
 function bindCarrusel(el, dots) {
