@@ -169,8 +169,8 @@ window.vCuenta = async function () {
     const err = m => { const e = $("#cErr"); e.textContent = m; e.style.display = "block"; };
     $("#tabIn").onclick = () => { $("#formIn").style.display = "block"; $("#formUp").style.display = "none"; };
     $("#tabUp").onclick = () => { $("#formIn").style.display = "none"; $("#formUp").style.display = "block"; };
-    $("#formIn").onsubmit = ev => { ev.preventDefault(); api("POST", "/api/login", { email: $("#inEmail").value, password: $("#inPass").value }).then(d => { C.user = d.user; paintChip(); window.cloudSync(true); window.vCuenta(); if (typeof window.abrirCursos === "function") setTimeout(() => abrirCursos(true), 450); }).catch(e => err(e.message)); };
-    $("#formUp").onsubmit = ev => { ev.preventDefault(); api("POST", "/api/register", { name: $("#upName").value, email: $("#upEmail").value, password: $("#upPass").value }).then(d => { C.user = d.user; paintChip(); window.cloudSync(true); window.vCuenta(); if (typeof window.abrirCursos === "function") setTimeout(() => abrirCursos(true), 450); }).catch(e => err(e.message)); };
+    $("#formIn").onsubmit = ev => { ev.preventDefault(); api("POST", "/api/login", { email: $("#inEmail").value, password: $("#inPass").value }).then(d => { C.user = d.user; paintChip(); if (typeof window.abrirCursos === "function") setTimeout(() => window.abrirCursos(true), 450); try { window.cloudSync(true); } catch (e) {} try { window.vCuenta(); } catch (e) {} }).catch(e => err(e.message)); };
+    $("#formUp").onsubmit = ev => { ev.preventDefault(); api("POST", "/api/register", { name: $("#upName").value, email: $("#upEmail").value, password: $("#upPass").value }).then(d => { C.user = d.user; paintChip(); if (typeof window.abrirCursos === "function") setTimeout(() => window.abrirCursos(true), 450); try { window.cloudSync(true); } catch (e) {} try { window.vCuenta(); } catch (e) {} }).catch(e => err(e.message)); };
     return;
   }
   // con sesión

@@ -27,6 +27,8 @@ let toastT = null;
 function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("show"), 2600); }
 
 if (store.get("dark", false)) document.documentElement.classList.add("dark");
+/* migración v78: la elección recordada antigua se libera UNA vez (todos vuelven a que se les pregunte tras actualizar) */
+(function () { const o = state.opts || (state.opts = {}); if (!o.v78) { delete o.recordarCurso; o.v78 = 1; save(); } })();
 
 /* ---- preguntas ---- */
 const BANK_ALL = QUESTIONS.concat(window.QUESTIONS2 || [], window.QUESTIONS3 || [], window.QUESTIONS4 || [], window.QUESTIONS5 || [], window.QUESTIONS6 || [], window.QUESTIONS7 || []);
@@ -111,7 +113,7 @@ function bindCourses(alEntrar) {
 }
 /* hoja inferior "¿Qué preparas hoy?": tiles en vertical (FIN de la ruleta deslizable) · con alEntrar, tocas tu curso y entras directo a Entrenar */
 function abrirCursos(alEntrar) {
-  if (alEntrar && state.opts && state.opts.recordarCurso) { location.hash = "#/entrenar"; return; } /* elección recordada: sin preguntar */
+  if (alEntrar && state.opts && state.opts.recordarCurso) { location.hash = "#/entrenar"; toast("🎓 Curso recordado: " + (COURSES[state.course].name || COURSES[state.course].nombre) + " · para cambiarlo, toca tu usuario arriba"); return; }
   const old = $("#sheetBg"); if (old) old.remove();
   const ses = id => state.history.filter(h => h.course === id).length;
   const cards = Object.values(COURSES).map(c => {
@@ -137,7 +139,7 @@ function abrirCursos(alEntrar) {
   if (alEntrar) {
     const rec = $("#tRec");
     if (rec) {
-      const pintar = () => { rec.textContent = (state.opts && state.opts.recordarCurso) ? "📌 Elección recordada · toca para olvidarla" : "📌 Recordar mi elección · no volver a preguntar"; };
+      const pintar = () => { rec.textContent = (state.opts && state.opts.recordarCurso) ? "☑ Elección recordada · toca el cuadrito para desmarcarla" : "☐ Recordar mi elección · no volver a preguntar"; };
       pintar();
       rec.onclick = () => {
         state.opts = state.opts || {};
