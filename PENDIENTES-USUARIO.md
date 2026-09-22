@@ -33,3 +33,5 @@
 - Navegador de preguntas con líneas verde/roja en todos los tests.
 - Lote examinador COMPLETO: 17 temas · 850 preguntas · 17 cuadernos PDF.
 - 🎡 TRIVIAL DE LA TROPA: ruleta 6 quesitos, solitario y por código (URL 10ª: demand-readings-participate-elimination).
+
+- LOTES DE PREGUNTAS por bloque oficial (v73 trajo temario + dossiers): prioridad Bloque II Seguridad FAS/régimen interior (solo 2 preguntas) y Bloque VII Liderazgo (3). El usuario propuso ir tema a tema.
