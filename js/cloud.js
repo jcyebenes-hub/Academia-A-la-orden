@@ -126,7 +126,7 @@ window.abrirPerfil = function () {
       '<div style="width:52px;height:52px;border-radius:50%;background:var(--gold);color:#101830;font-weight:900;font-size:1.5rem;display:flex;align-items:center;justify-content:center">' + inicial + "</div>" +
       '<div style="flex:1;min-width:0"><b style="font-size:1.05rem">' + (u ? esc(u.name) : "Sin cuenta") + "</b>" +
       '<div class="small muted">' + (u ? (u.plan === "free" ? "Plan Recluta · gratis" + (u.founder ? " · 🏅 fundador" : "") : esc(u.planLabel)) : "Toca entrar para sincronizar tu progreso") + "</div></div>" +
-      (u ? '<div style="text-align:right"><b>' + (typeof state !== "undefined" ? state.xp : 0) + " XP</b><div class="small muted">Nv " + (typeof level === "function" ? level() : 1) + "</div></div>" : "") +
+      (u ? '<div style="text-align:right"><b>' + (typeof state !== "undefined" ? state.xp : 0) + ' XP</b><div class="small muted">Nv ' + (typeof level === "function" ? level() : 1) + "</div></div>" : "") +
     "</div>" +
     '<div style="display:flex;flex-direction:column;gap:8px;padding:8px 16px 18px">' +
       (u ? fila("👤", "Mi perfil", "Datos de la cuenta, facturas y salir", "pfCuenta") : fila("🔑", "Entrar o crear cuenta", "Gratis: ranking real y sync", "pfCuenta")) +
