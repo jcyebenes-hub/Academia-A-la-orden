@@ -51,8 +51,8 @@
 
   let G = null; /* estado de partida */
 
-  function poolsFor() {
-    const all = ((AO.bank && st()) ? AO.bank(st().course) : []).filter(q => q.o && q.o.length === 4);
+  function poolsFor(curso) {
+    const all = ((AO.bank && st()) ? AO.bank(curso || (st() && st().course) || "cabo") : []).filter(q => q.o && q.o.length === 4);
     const pools = CATS.map(c => all.filter(q => c.t.indexOf(q.t) >= 0));
     const total = pools.reduce((s, p) => s + p.length, 0);
     if (total < 60) { /* curso con pocos temas: reparto equitativo de todo el banco */
@@ -73,7 +73,8 @@
       fin: false, gano: false, enviadoFin: false, pollT: null
     };
     G.rng = mulberry32(G.seed);
-    G.pools = poolsFor();
+    G.curso = (st() && st().course) || "cabo";   /* pureza: TODO el trivial usa el curso de la partida */
+    G.pools = poolsFor(G.curso);
     renderBoard();
   }
 
@@ -89,7 +90,12 @@
     if (!dests.length) { toastT("Sin casillas de ese color: tirada perdida"); G.dado = null; refrescaHUD(); return; }
     G.dests = dests;
     marcarDests(true);
-    $("#tLog").innerHTML = "Dado: <b style='color:" + CATS[G.dado].c + "'>" + CATS[G.dado].e + " " + esc(CATS[G.dado].n) + "</b> · toca una casilla brillante";
+    if (dests.length === 1) {
+      $("#tLog").innerHTML = "Dado: <b style='color:" + CATS[G.dado].c + "'>" + CATS[G.dado].e + " " + esc(CATS[G.dado].n) + "</b> · ficha a la casilla… <b>¡pregunta!</b>";
+      setTimeout(() => { if (G && G.dado != null && !document.querySelector("#tqBg")) elegirDest(G.dests[0]); }, 450);
+    } else {
+      $("#tLog").innerHTML = "Dado: <b style='color:" + CATS[G.dado].c + "'>" + CATS[G.dado].e + " " + esc(CATS[G.dado].n) + "</b> · toca UNA de las casillas que <b>BRILLAN</b>";
+    }
   }
   function destinos(desde, color) {
     const conTodas = Object.keys(G.wedges).length >= 6;
@@ -242,7 +248,8 @@
     const tok = NODES[G.pos];
     view().innerHTML =
       '<div class="view-head"><button class="back" id="tSalir">✕</button><h1 style="font-size:1.05rem">🎡 Trivial · ' + (G.modo === "sala" ? "vs código" : "Solitario") + "</h1>" +
-      (G.modo === "sala" ? '<span class="badge" style="margin-left:auto">código ' + esc(G.sala.codigo) + "</span>" : "") + "</div>" +
+      '<span class="badge" style="margin-left:auto">🎓 ' + esc(AO.COURSES && AO.COURSES[G.curso] ? (AO.COURSES[G.curso].name || AO.COURSES[G.curso].nombre) : G.curso) + "</span>" +
+      (G.modo === "sala" ? '<span class="badge">código ' + esc(G.sala.codigo) + "</span>" : "") + "</div>" +
       '<div class="trivial-wrap">' +
       '<svg viewBox="0 0 400 400" class="twheel" id="twheel">' +
         '<circle cx="200" cy="200" r="196" fill="#0d1730"/>' +
@@ -259,12 +266,25 @@
     d.onclick = tirar;
     const sx = $("#tSalir"); if (sx) sx.onclick = () => { if (G && G.pollT) clearInterval(G.pollT); G = null; location.hash = "#/entrenar"; };
     $$("#twheel .tcell").forEach(g => g.addEventListener("click", () => elegirDest(g.getAttribute("data-id"))));
+    /* toque perdonador: aunque des a una casilla vecina, cuenta la más cercana al dedo */
+    const sv = $("#twheel");
+    sv.addEventListener("click", ev => {
+      if (typeof ev.clientX !== "number") return;
+      const r = sv.getBoundingClientRect();
+      const x = (ev.clientX - r.left) * 400 / (r.width || 400), y = (ev.clientY - r.top) * 400 / (r.height || 400);
+      let best = null, bd = 1e9;
+      Object.values(NODES).forEach(N => { if (N.hub) return; const d2 = (N.x - x) * (N.x - x) + (N.y - y) * (N.y - y); if (d2 < bd) { bd = d2; best = N.id; } });
+      if (best && bd <= 30 * 30) elegirDest(best);
+    });
     refrescaHUD();
     if (G.modo === "sala") { G.pollT = setInterval(sondear, 8000); sondear(); }
   }
   function marcarDests(on) {
-    $$("#twheel .tcell").forEach(g => g.classList.remove("dest"));
-    if (on && G.dests) G.dests.forEach(id => { const g = $("#n" + id); if (g) g.classList.add("dest"); });
+    $$("#twheel .tcell").forEach(g => { g.classList.remove("dest"); g.classList.remove("dim"); });
+    if (on && G.dests) {
+      $$("#twheel .tcell").forEach(g => { if (G.dests.indexOf(g.getAttribute("data-id")) < 0) g.classList.add("dim"); });
+      G.dests.forEach(id => { const g = $("#n" + id); if (g) g.classList.add("dest"); });
+    }
   }
   function moverToken() {
     const N = NODES[G.pos], t = $("#tTok");
@@ -288,10 +308,10 @@
     view().innerHTML =
       '<div class="view-head"><h1>🎡 Trivial de la Tropa</h1></div>' +
       '<div class="card" style="margin-bottom:12px"><span class="badge badge-gold">La ruleta del examen</span><h3>6 categorías, 6 quesitos, 1 pregunta final</h3>' +
-      '<p>Tira el dado, elige casilla del color que salga y acierta para moverte. En las casillas ⭐ de cada radio ganas el <b>quesito</b> de esa categoría. Con los 6, al centro: pregunta final y victoria.</p>' +
+      '<p>Tira el dado y responde: si solo hay una casilla posible, la pregunta se abre sola. Si hay varias, toca una de las que <b>brillan</b>. Acierta y avanzas. En las casillas ⭐ de cada radio ganas el <b>quesito</b> de esa categoría. Con los 6, al centro: pregunta final y victoria.</p>' +
       '<div class="tleg">' + CATS.map(c => '<span class="tq" style="border-color:' + c.c + '">' + c.e + " " + esc(c.n) + "</span>").join("") + "</div></div>" +
       '<div class="grid2">' +
-      '<div class="card"><h3>🎲 Solitario</h3><p>Partida libre contra el tablero. Tu mejor marca se guarda.</p><button class="btn btn-green btn-block" id="tSolo">Jugar ya</button></div>' +
+      '<div class="card"><h3>🎲 Solitario</h3><p>Partida libre contra el tablero. <b>Solo preguntas de tu curso</b>: nada de mezclas. Tu mejor marca se guarda.</p><button class="btn btn-green btn-block" id="tSolo">Jugar ya</button></div>' +
       '<div class="card"><h3>⚔️ Por código</h3><p>Mismo tablero y mismos dados para los dos. Gana quien acabe en menos tiradas.</p>' +
       '<button class="btn btn-gold btn-block" id="tCrear">Crear código</button>' +
       '<input id="tCodIn" inputmode="text" autocapitalize="characters" placeholder="CÓDIGO" style="width:100%;margin-top:8px;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);text-transform:uppercase;text-align:center;letter-spacing:.2em;font-weight:800">' +

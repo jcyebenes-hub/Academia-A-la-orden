@@ -328,3 +328,5 @@ label.f{display:block;font-weight:800;margin:12px 0 6px;font-size:.9rem}
 .tile.hero .t-main{display:flex;flex-direction:column;gap:2px;min-width:0}
 .tile.hero .t-main b{font-size:1.02rem}
 .tile.hero .t-go{margin-left:auto;font-weight:800;color:var(--gold);font-size:.78rem;letter-spacing:.06em;white-space:nowrap}
+.tcell.dim{opacity:.32}
+.tcell{transition:opacity .2s}
