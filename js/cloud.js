@@ -106,12 +106,47 @@ function paintChip() {
   let chip = $("#cloudChip");
   if (!chip) {
     chip = document.createElement("a");
-    chip.id = "cloudChip"; chip.href = "#/cuenta"; chip.className = "xp-chip";
+    chip.id = "cloudChip"; chip.href = "javascript:void(0)"; chip.className = "xp-chip";
     const bar = document.querySelector(".app-top .wrap");
     if (bar) bar.appendChild(chip);
   }
   chip.textContent = C.user ? ("👤 " + C.user.name.split(" ")[0] + (C.user.plan !== "free" ? " · " + C.user.plan.toUpperCase() : "")) : "👤 Entrar";
+  chip.onclick = abrirPerfil;
 }
+/* ventana de perfil: tocar tu usuario arriba = perfil + ajustes */
+window.abrirPerfil = function () {
+  const old = $("#sheetBg"); if (old) old.remove();
+  const u = C.user;
+  const inicial = (u && u.name ? u.name : "?").trim().charAt(0).toUpperCase();
+  const fila = (ico, txt, sub, id) => '<button class="opt" id="' + id + '" style="text-align:left"><b style="margin-right:8px">' + ico + '</b><span style="flex:1"><b>' + txt + '</b>' + (sub ? '<br><span class="small muted">' + sub + '</span>' : "") + "</span><span style='color:var(--gold);font-weight:800'>›</span></button>";
+  const bg = document.createElement("div");
+  bg.id = "sheetBg"; bg.className = "sheet-bg";
+  bg.innerHTML = '<div class="sheet">' +
+    '<div style="display:flex;align-items:center;gap:12px;padding:14px 18px 6px">' +
+      '<div style="width:52px;height:52px;border-radius:50%;background:var(--gold);color:#101830;font-weight:900;font-size:1.5rem;display:flex;align-items:center;justify-content:center">' + inicial + "</div>" +
+      '<div style="flex:1;min-width:0"><b style="font-size:1.05rem">' + (u ? esc(u.name) : "Sin cuenta") + "</b>" +
+      '<div class="small muted">' + (u ? (u.plan === "free" ? "Plan Recluta · gratis" + (u.founder ? " · 🏅 fundador" : "") : esc(u.planLabel)) : "Toca entrar para sincronizar tu progreso") + "</div></div>" +
+      (u ? '<div style="text-align:right"><b>' + (typeof state !== "undefined" ? state.xp : 0) + " XP</b><div class="small muted">Nv " + (typeof level === "function" ? level() : 1) + "</div></div>" : "") +
+    "</div>" +
+    '<div style="display:flex;flex-direction:column;gap:8px;padding:8px 16px 18px">' +
+      (u ? fila("👤", "Mi perfil", "Datos de la cuenta, facturas y salir", "pfCuenta") : fila("🔑", "Entrar o crear cuenta", "Gratis: ranking real y sync", "pfCuenta")) +
+      fila("⚙️", "Ajustes", "Modo oscuro, sonido, auto-avance…", "pfAjustes") +
+      (typeof COURSES !== "undefined" ? fila("🎓", "Cambiar de curso", "Cabo · Cabo 1º · Permanente", "pfCurso") : "") +
+      (u ? fila("🚪", "Cerrar sesión", "", "pfSalir") : "") +
+    "</div></div>";
+  document.body.appendChild(bg);
+  bg.onclick = e => { if (e.target === bg) bg.remove(); };
+  const ir = h => { bg.remove(); if (location.hash === h) render(); else location.hash = h; };
+  const el = id => document.getElementById(id);
+  if (el("pfCuenta")) el("pfCuenta").onclick = () => ir("#/cuenta");
+  if (el("pfAjustes")) el("pfAjustes").onclick = () => ir("#/ajustes");
+  if (el("pfCurso")) el("pfCurso").onclick = () => { bg.remove(); if (typeof abrirCursos === "function") abrirCursos(false); };
+  if (el("pfSalir")) el("pfSalir").onclick = () => {
+    if (!confirm("¿Cerrar sesión? Tu progreso local se queda guardado.")) return;
+    bg.remove();
+    api("POST", "/api/logout").then(() => { C.user = null; paintChip(); toast("A la orden. Sesión cerrada"); if (location.hash === "#/cuenta") render(); });
+  };
+};
 
 /* --- vista #/cuenta --- */
 window.vCuenta = async function () {

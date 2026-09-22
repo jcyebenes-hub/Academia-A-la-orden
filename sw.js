@@ -1,5 +1,5 @@
 /* A LA ORDEN — Service Worker demo (caché offline del app-shell) */
-const CACHE = "alaorden-v71";
+const CACHE = "alaorden-v72";
 const ASSETS = ["./", "index.html", "app.html", "css/style.css", "js/data.js", "js/bank2.js", "js/bank3.js", "js/bank4.js", "js/study.js", "js/bank5.js", "js/bank7.js", "js/verdicts.js", "js/trivial.js", "js/app.js", "js/cloud.js", "js/tutor.js", "js/donation.js", "js/convocatorias.js", "js/bod-data.js", "checkout.html", "img/og.jpg", "manifest.json", "icon.svg"];
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
