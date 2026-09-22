@@ -1580,8 +1580,16 @@ function render() {
   else if (h === "plan") vPlan();
   else if (h === "duelo") vDuelo();
   else if (h === "trivial") {
-    if (window.vTrivial) { try { window.vTrivial(); } catch (e) { toast("El trivial no cargó: recargando…"); location.reload(); } }
-    else { toast("Actualizando el trivial…"); location.reload(); } /* sw viejo: fuerza la versión nueva */
+    if (window.vTrivial) { try { window.vTrivial(); } catch (e) { toast("Fallo en el trivial: " + (e && e.message ? e.message : "?")); } }
+    else if (!window.__cargandoTrivial) { /* sin bucles: inyecta el módulo y reintenta UNA vez */
+      window.__cargandoTrivial = true;
+      toast("Cargando el trivial…");
+      const sc = document.createElement("script");
+      sc.src = "js/trivial.js?v=70";
+      sc.onload = () => { window.__cargandoTrivial = false; render(); };
+      sc.onerror = () => { window.__cargandoTrivial = false; toast("Cierra y abre la app para actualizar la caché"); };
+      document.head.appendChild(sc);
+    }
   }
   else if (h === "logros") vLogros();
   else if (h === "diario") vDiario();
