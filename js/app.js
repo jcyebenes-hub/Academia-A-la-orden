@@ -1624,7 +1624,7 @@ function render() {
       window.__cargandoTrivial = true;
       toast("Cargando el trivial…");
       const sc = document.createElement("script");
-      sc.src = "js/trivial.js?v=74";
+      sc.src = "js/trivial.js?v=77";
       sc.onload = () => { window.__cargandoTrivial = false; render(); };
       sc.onerror = () => { window.__cargandoTrivial = false; toast("Cierra y abre la app para actualizar la caché"); };
       document.head.appendChild(sc);

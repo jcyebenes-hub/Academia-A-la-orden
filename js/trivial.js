@@ -92,7 +92,7 @@
     marcarDests(true);
     if (dests.length === 1) {
       $("#tLog").innerHTML = "Dado: <b style='color:" + CATS[G.dado].c + "'>" + CATS[G.dado].e + " " + esc(CATS[G.dado].n) + "</b> · ficha a la casilla… <b>¡pregunta!</b>";
-      setTimeout(() => { if (G && G.dado != null && !document.querySelector("#tqBg")) elegirDest(G.dests[0]); }, 450);
+      setTimeout(() => { if (G && G.dado != null && !document.querySelector("#tqBg")) elegirDest(G.dests[0]); }, 300);
     } else {
       $("#tLog").innerHTML = "Dado: <b style='color:" + CATS[G.dado].c + "'>" + CATS[G.dado].e + " " + esc(CATS[G.dado].n) + "</b> · toca UNA de las casillas que <b>BRILLAN</b>";
     }
@@ -118,6 +118,9 @@
     if (!G || !G.dests || G.dests.indexOf(id) < 0) return;
     marcarDests(false);
     G.destElegida = id;
+    G.posPrev = G.pos;
+    G.pos = id;            /* la ficha avanza YA: si fallas, vuelve atrás */
+    moverToken();
     preguntar(G.dado);
   }
 
@@ -135,8 +138,8 @@
     for (let i = 3; i > 0; i--) { const j = Math.floor(G.rng() * (i + 1)); const t = orden[i]; orden[i] = orden[j]; orden[j] = t; }
     G.orden = orden;
     const bg = document.createElement("div");
-    bg.id = "tqBg"; bg.className = "sheet-bg";
-    bg.innerHTML = '<div class="sheet"><div style="padding:0 18px"><span class="badge" style="background:' + CATS[cat].c + ';color:#101830;font-weight:800">' + CATS[cat].e + " " + esc(CATS[cat].n) + '</span></div>' +
+    bg.id = "tqBg"; bg.className = "tmodal-bg";
+    bg.innerHTML = '<div class="tmodal"><div style="padding:0 18px"><span class="badge" style="background:' + CATS[cat].c + ';color:#101830;font-weight:800">' + CATS[cat].e + " " + esc(CATS[cat].n) + '</span></div>' +
       '<p class="q-text" style="padding:8px 18px 0;margin:0">' + esc(q.q) + "</p>" +
       '<div id="tqOpts" style="padding:10px 16px">' + orden.map((oi, pos) => '<button class="opt" data-o="' + oi + '" style="text-align:left"><b>' + "ABCD"[pos] + '.</b> ' + esc(q.o[oi]) + "</button>").join("") + "</div>" +
       '<div id="tqExpl" style="padding:0 16px"></div></div>';
@@ -150,7 +153,7 @@
       b.disabled = true;
       if (i === q.a) b.classList.add("ok"); else if (i === elegida) b.classList.add("ko");
     });
-    if (ok) { G.aciertos++; try { sfxGood(); } catch (e) {} } else try { sfxBad(); } catch (e) {}
+    if (ok) { G.aciertos++; try { sfxGood(); } catch (e) {} } else { G.pos = G.posPrev || G.pos; moverToken(); try { sfxBad(); } catch (e) {} }
     const N = NODES[G.destElegida];
     let extra = "";
     if (ok) {
@@ -159,7 +162,7 @@
       if (N.hq) { G.wedges[N.cat] = 1; extra = "<br>🧩 <b>Quesito conseguido: " + esc(CATS[N.cat].n) + "!</b>"; }
       if (N.hub) { return final(); }
     }
-    $("#tqExpl").innerHTML = '<div class="explain"><b>' + (ok ? "¡Correcta! ✅" : "Fallada ❌ — correcta: " + "ABCD"[q.a] + ") " + esc(q.o[q.a])) + "</b><br>" + esc(q.x) + "</div>" +
+    $("#tqExpl").innerHTML = '<div class="explain"><b>' + (ok ? "¡Correcta! ✅" : "Fallada ❌ — correcta: " + "ABCD"[q.a] + ") " + esc(q.o[q.a]) + "<br>↩️ La ficha vuelve a su casilla") + "</b><br>" + esc(q.x) + "</div>" +
       '<div class="t-nav" style="justify-content:center"><button class="btn ' + (ok ? "btn-green" : "btn-ghost") + '" id="tqGo">' + (ok ? "🎲 Tira de nuevo" : "➡️ Siguiente tirada") + "</button></div>";
     $("#tqGo").onclick = () => {
       const bg = $("#tqBg"); if (bg) bg.remove();
@@ -179,8 +182,8 @@
     G.q = q;
     const bg = $("#tqBg"); if (bg) bg.remove();
     const b2 = document.createElement("div");
-    b2.id = "tqBg"; b2.className = "sheet-bg";
-    b2.innerHTML = '<div class="sheet"><h3 style="text-align:center">🎖️ PREGUNTA FINAL</h3><div style="padding:0 18px"><span class="badge" style="background:' + CATS[cat].c + ';color:#101830;font-weight:800">' + CATS[cat].e + " " + esc(CATS[cat].n) + '</span></div>' +
+    b2.id = "tqBg"; b2.className = "tmodal-bg";
+    b2.innerHTML = '<div class="tmodal"><h3 style="text-align:center">🎖️ PREGUNTA FINAL</h3><div style="padding:0 18px"><span class="badge" style="background:' + CATS[cat].c + ';color:#101830;font-weight:800">' + CATS[cat].e + " " + esc(CATS[cat].n) + '</span></div>' +
       '<p class="q-text" style="padding:8px 18px 0;margin:0">' + esc(q.q) + "</p>" +
       '<div id="tqOpts" style="padding:10px 16px">' + [0, 1, 2, 3].map(i => '<button class="opt" data-o="' + i + '" style="text-align:left"><b>' + "ABCD"[i] + '.</b> ' + esc(q.o[i]) + "</button>").join("") + "</div>" +
       '<div id="tqExpl" style="padding:0 16px"></div></div>';
@@ -341,7 +344,7 @@
     const msg = "🎡 ¡Trivial de la Tropa! Mi código: " + v.codigo + " — mismo tablero, mismos dados, gana el que acabe en menos tiradas. Entra: " + (typeof PUBLIC_URL !== "undefined" ? PUBLIC_URL : location.origin);
     const bg = document.createElement("div");
     bg.id = "sheetBg"; bg.className = "sheet-bg";
-    bg.innerHTML = '<div class="sheet"><h3 style="text-align:center">Código de partida</h3>' +
+    bg.innerHTML = '<div class="tmodal"><h3 style="text-align:center">Código de partida</h3>' +
       '<div style="font-size:2rem;font-weight:800;letter-spacing:.35em;text-align:center;font-family:ui-monospace,monospace">' + esc(v.codigo) + "</div>" +
       '<p class="small muted center">Compartido por WhatsApp, tu rival entra con este código y jugáis la MISMA partida (misma semilla).</p>' +
       '<div class="t-nav" style="justify-content:center"><a class="btn btn-green" href="https://wa.me/?text=' + encodeURIComponent(msg) + '" target="_blank" rel="noopener">📲 Enviar por WhatsApp</a>' +

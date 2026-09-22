@@ -330,3 +330,8 @@ label.f{display:block;font-weight:800;margin:12px 0 6px;font-size:.9rem}
 .tile.hero .t-go{margin-left:auto;font-weight:800;color:var(--gold);font-size:.78rem;letter-spacing:.06em;white-space:nowrap}
 .tcell.dim{opacity:.32}
 .tcell{transition:opacity .2s}
+
+/* Trivial: ventana de pregunta CENTRAL (emergente con borde dorado) */
+.tmodal-bg{position:fixed;inset:0;background:rgba(4,10,24,.62);z-index:120;display:flex;align-items:center;justify-content:center;padding:16px;animation:galFade .18s}
+.tmodal{background:var(--bg);border-radius:18px;border:2px solid var(--gold);max-width:430px;width:100%;max-height:86vh;overflow-y:auto;box-shadow:0 18px 60px rgba(0,0,0,.5);padding-bottom:14px}
+.tmodal h3{padding:14px 18px 6px;margin:0}
