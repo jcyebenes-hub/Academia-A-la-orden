@@ -140,7 +140,7 @@ window.abrirPerfil = function () {
   const el = id => document.getElementById(id);
   if (el("pfCuenta")) el("pfCuenta").onclick = () => ir("#/cuenta");
   if (el("pfAjustes")) el("pfAjustes").onclick = () => ir("#/ajustes");
-  if (el("pfCurso")) el("pfCurso").onclick = () => { bg.remove(); if (typeof abrirCursos === "function") abrirCursos(false); };
+  if (el("pfCurso")) el("pfCurso").onclick = () => { bg.remove(); if (typeof window.abrirCursos === "function") window.abrirCursos(false); };
   if (el("pfSalir")) el("pfSalir").onclick = () => {
     if (!confirm("¿Cerrar sesión? Tu progreso local se queda guardado.")) return;
     bg.remove();

@@ -1643,7 +1643,8 @@ function render() {
   else if (h === "cuenta" && window.vCuenta) window.vCuenta();
   else vHome();
 }
-window.AO = { bank, stateRef: () => state, toast, save, byId, COURSES, view, render }; /* puente para módulos externos (trivial) */
+window.AO = { bank, stateRef: () => state, toast, save, byId, COURSES, view, render };
+window.abrirCursos = abrirCursos; /* el selector de cursos lo usan módulos externos (perfil, login) */ /* puente para módulos externos (trivial) */
 window.addEventListener("hashchange", render);
 paintChips();
 if (window.GalonCloudInit) window.GalonCloudInit();
