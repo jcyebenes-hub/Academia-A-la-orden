@@ -9,7 +9,9 @@
 - App viva en **https://academia-a-la-orden.onrender.com** (plan Free, Frankfurt, autoDeploy).
 - Repo de código: github.com/jcyebenes-hub/Academia-A-la-orden · datos en repo privado datos-alaorden.
 - Bot de Telegram AHORA vive en Render (el local está apagado: cero conflictos 409).
-- Usuario admin recreado en Render: admin@alaorden.es / admin1234.
+- Usuario admin CREADO Y PERSISTENTE en Render: admin@alaorden.es / admin1234.
+- ✅ PERSISTENCIA VERIFICADA de punta a punta: datos → bundle en repo privado datos-alaorden (cada 2 min y al parar) → restauración al arrancar. Admin sobrevivió a un reinicio forzado (probado).
+- Arreglado en el camino: las variables de entorno van por endpoint dedicado /env-vars (el PATCH las ignoraba); SIGTERM ahora con 10 s de gracia para el volcado.
 - Render Free se duerme ~15 min sin visitas → la 1.ª visita tarda ~50 s en despertar.
 - CADA PUSH al repo = redesperpliegue automático (así se publican las novedades).
 
