@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="oro" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe08a"/><stop offset=".45" stop-color="#d9b64e"/><stop offset="1" stop-color="#8f6d16"/>
+    </linearGradient>
+    <linearGradient id="campo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#22356b"/><stop offset="1" stop-color="#0b1226"/>
+    </linearGradient>
+  </defs>
+  <path d="M256 28 L444 90 V252 C444 362 366 440 256 486 C146 440 68 362 68 252 V90 Z" fill="url(#campo)" stroke="url(#oro)" stroke-width="20"/>
+  <path d="M256 66 L408 116 V250 C408 340 342 406 256 448 C170 406 104 340 104 250 V116 Z" fill="none" stroke="url(#oro)" stroke-width="5" opacity=".45"/>
+  <path d="M256.0 112.0 L266.8 143.1 L299.7 143.8 L273.5 163.7 L283.0 195.2 L256.0 176.4 L229.0 195.2 L238.5 163.7 L212.3 143.8 L245.2 143.1 Z" fill="url(#oro)"/>
+  <path d="M150 292 L256 230 L362 292" fill="none" stroke="url(#oro)" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M150 368 L256 306 L362 368" fill="none" stroke="url(#oro)" stroke-width="36" stroke-linecap="round" stroke-linejoin="round" opacity=".7"/>
+</svg>

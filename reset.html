@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A LA ORDEN · Nueva contraseña</title>
+<meta name="theme-color" content="#143d26">
+<style>
+*{box-sizing:border-box;margin:0}
+body{font-family:Georgia,serif;background:#0f2c1b;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.box{background:#fffdf5;border-radius:18px;max-width:420px;width:100%;padding:30px;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+h1{font-size:19px;color:#143d26;margin-bottom:14px}
+label{display:block;font-size:13px;color:#5c5136;margin:12px 0 4px;font-weight:bold}
+input{width:100%;padding:12px;border:1px solid #cfc49a;border-radius:10px;font-size:16px}
+button{width:100%;margin-top:18px;background:#c9971f;color:#143d26;border:0;border-radius:12px;padding:14px;font-size:16px;font-weight:bold;cursor:pointer}
+.msg{margin-top:12px;font-size:14px;text-align:center;display:none}
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>🔑 Nueva contraseña</h1>
+  <form id="f">
+    <label>Nueva contraseña (mín. 8)</label>
+    <input type="password" id="p1" minlength="8" required autocomplete="new-password">
+    <label>Repite la contraseña</label>
+    <input type="password" id="p2" minlength="8" required autocomplete="new-password">
+    <button type="submit">Guardar contraseña</button>
+  </form>
+  <p class="msg" id="ok" style="color:#1f5c38">✅ Contraseña actualizada. <a href="/app.html#/cuenta">Entrar a la app</a></p>
+  <p class="msg" id="err" style="color:#b3261e"></p>
+</div>
+<script>
+const token = new URLSearchParams(location.search).get("t") || "";
+document.getElementById("f").addEventListener("submit", e => {
+  e.preventDefault();
+  const err = document.getElementById("err");
+  if (document.getElementById("p1").value !== document.getElementById("p2").value) {
+    err.textContent = "Las contraseñas no coinciden"; err.style.display = "block"; return;
+  }
+  fetch("/api/reset-confirm", { method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ token: token, password: document.getElementById("p1").value }) })
+    .then(r => r.json()).then(d => {
+      if (d.ok) { document.getElementById("ok").style.display = "block"; document.getElementById("f").style.display = "none"; }
+      else { err.textContent = d.error || "Enlace no válido"; err.style.display = "block"; }
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+.env
+data/
+*.zip
+nohup.out
+tools/cloudflared
+.DS_Store

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A LA ORDEN · Panel de revisión experta (interno)</title>
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="%23143d26"/><path d="M14 40l18-14 18 14" stroke="%23c9971f" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>'>
+<style>
+*{box-sizing:border-box;margin:0}
+body{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;background:#0f2c1b;color:#e9e6d8;padding:18px}
+header{max-width:880px;margin:0 auto 14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+header h1{font-size:19px;color:#f3d57e;margin-right:auto}
+.badge{background:#1f5c38;color:#d5ecda;border:1px solid #2e7d4f;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700}
+.panel{max-width:880px;margin:0 auto 14px;background:#143d26;border:1px solid #2e7d4f;border-radius:14px;padding:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+select,input[type=search]{background:#0f2c1b;color:#e9e6d8;border:1px solid #2e7d4f;border-radius:8px;padding:8px 10px;font-size:14px}
+button{cursor:pointer;border-radius:8px;padding:9px 14px;font-size:14px;font-weight:700;border:1px solid transparent}
+.b-ok{background:#2e7d4f;color:#fff}.b-ko{background:#b3261e;color:#fff}.b-fix{background:#c9971f;color:#143d26}
+.b-sm{padding:6px 10px;font-size:12.5px;background:rgba(255,255,255,.08);color:#e9e6d8;border-color:#2e7d4f}
+.bar{max-width:880px;margin:0 auto 16px}
+.track{height:10px;background:#0f2c1b;border-radius:99px;overflow:hidden;border:1px solid #2e7d4f}
+.track i{display:block;height:100%;background:linear-gradient(90deg,#c9971f,#e0b34d);width:0}
+.qcard{max-width:880px;margin:0 auto 16px;background:#fffdf5;color:#1c1a12;border-radius:14px;padding:20px;box-shadow:0 12px 30px rgba(0,0,0,.35)}
+.meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px;font-size:12.5px}
+.tag{background:#f4efdd;border:1px solid #e3d9b3;color:#6b5d2e;border-radius:999px;padding:3px 10px;font-weight:700}
+.tag.gen{background:#e8f3ea;border-color:#bcdcc5;color:#1f5c38}
+.tag.st-ok{background:#d5ecda;color:#14532d;border-color:#a9d4b4}
+.tag.st-ko{background:#f6d5d2;color:#7a1408;border-color:#e5b1ac}
+.tag.st-fix{background:#f7ecd0;color:#7a5a0d;border-color:#e3d0a0}
+.qtext{font-size:19px;font-weight:700;margin-bottom:12px;line-height:1.35}
+.opt{padding:9px 12px;border-radius:9px;margin-bottom:7px;background:#f7f3e6;border:1px solid #e3d9b3;font-size:15px}
+.opt.ok{background:#e2f2e6;border-color:#2e7d4f;font-weight:700}
+.xpl{font-size:13.5px;color:#5c5136;margin:10px 0;border-left:3px solid #c9971f;padding-left:10px}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+textarea{width:100%;margin-top:10px;border:1px solid #cfc49a;border-radius:9px;padding:9px;font-size:14px;font-family:inherit;display:none}
+.hint{max-width:880px;margin:0 auto;font-size:12.5px;color:#9db0a1;text-align:center;line-height:1.6}
+kbd{background:#1f5c38;border-radius:5px;padding:1px 6px;font-size:11px}
+#export{position:fixed;right:18px;bottom:18px;background:#c9971f;color:#143d26;border:0;border-radius:12px;padding:13px 18px;font-weight:800;box-shadow:0 10px 24px rgba(0,0,0,.4)}
+.empty{max-width:880px;margin:40px auto;text-align:center;color:#9db0a1}
+</style>
+</head>
+<body>
+<header>
+  <h1>🛡️ A LA ORDEN · Revisión experta de banco</h1>
+  <span class="badge" id="totBadge">—</span>
+  <span class="badge" id="penBadge">—</span>
+  <a class="badge" style="text-decoration:none" href="app.html">← Volver a la app</a>
+</header>
+<div class="panel">
+  <select id="fCourse"><option value="">Todos los cursos</option><option value="cabo">Cabo</option><option value="cabo1">Cabo 1º</option><option value="perm">Permanente</option></select>
+  <select id="fState"><option value="">Todas</option><option value="pend">Solo pendientes</option><option value="ok">Aprobadas</option><option value="ko">Rechazadas</option><option value="fix">Para corregir</option><option value="gen">Solo generadas (borrador)</option></select>
+  <input type="search" id="fSearch" placeholder="Buscar texto o referencia…">
+  <button class="b-sm" id="btnDupes">Ver informe de generación</button>
+  <button class="b-sm" id="btnReset">Borrar veredictos locales</button>
+</div>
+<div class="bar"><div class="track"><i id="prog"></i></div><p class="hint" id="progTxt" style="margin-top:6px"></p></div>
+<div id="stage"></div>
+<p class="hint">Atajos: <kbd>1</kbd> aprobar · <kbd>2</kbd> para corregir · <kbd>3</kbd> rechazar · <kbd>→</kbd> siguiente. Las rechazadas dejan de servirse en la app al exportar <b>js/verdicts.js</b>.</p>
+<button id="export">⬇️ Exportar verdicts.js</button>
+<script src="js/data.js"></script>
+<script src="js/bank2.js"></script>
+<script src="js/bank3.js"></script>
+<script src="js/bank4.js"></script>
+<script src="js/study.js"></script>
+<script src="js/bank5.js"></script>
+<script src="js/verdicts.js"></script>
+<script>
+(function(){
+"use strict";
+const $ = s => document.querySelector(s);
+const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const ALL = [].concat(window.QUESTIONS||[], window.QUESTIONS2||[], window.QUESTIONS3||[], window.QUESTIONS4||[], window.QUESTIONS5||[], window.QUESTIONS6||[]);
+// cargar veredictos: fichero + localStorage
+const V = Object.assign({}, window.VERDICTS || {});
+try { Object.assign(V, JSON.parse(localStorage.getItem("galon_verdicts")||"{}")); } catch(e){}
+const save = () => { try { localStorage.setItem("galon_verdicts", JSON.stringify(V)); } catch(e){} };
+const state = { i: 0, list: [] };
+
+function verdict(id){ const v=V[id]; return v?v.v:null; }
+function applyFilters(){
+  const c=$("#fCourse").value, st=$("#fState").value, q=$("#fSearch").value.trim().toLowerCase();
+  state.list = ALL.filter(x=>{
+    if(c && x.c!==c) return false;
+    const v=verdict(x.id);
+    if(st==="pend" && v) return false;
+    if(st==="ok" && v!=="ok") return false;
+    if(st==="ko" && v!=="ko") return false;
+    if(st==="fix" && v!=="fix") return false;
+    if(st==="gen" && !x.gen) return false;
+    if(q && !( (x.q||"").toLowerCase().includes(q) || (x.r||"").toLowerCase().includes(q) )) return false;
+    return true;
+  });
+  if(state.i >= state.list.length) state.i = 0;
+  paint();
+}
+function paint(){
+  const n=state.list.length, done=ALL.filter(x=>verdict(x.id)).length;
+  $("#totBadge").textContent = "Banco: " + ALL.length + " preguntas";
+  $("#penBadge").textContent = "Revisadas: " + done + "/" + ALL.length;
+  $("#prog").style.width = Math.round(100*done/ALL.length) + "%";
+  $("#progTxt").textContent = "Cola actual: " + n + " · Aprobadas " + ALL.filter(x=>verdict(x.id)==="ok").length + " · Rechazadas " + ALL.filter(x=>verdict(x.id)==="ko").length + " · Para corregir " + ALL.filter(x=>verdict(x.id)==="fix").length;
+  const stage=$("#stage");
+  if(!n){ stage.innerHTML='<p class="empty">Nada que mostrar con estos filtros. 🎉</p>'; return; }
+  const x=state.list[state.i], v=verdict(x.id);
+  const course={cabo:"CABO ET",cabo1:"CABO 1º",perm:"PERMANENTE"}[x.c]||x.c;
+  stage.innerHTML='<div class="qcard">' +
+    '<div class="meta"><span class="tag">'+esc(course)+'</span><span class="tag">'+esc(x.t)+'</span>' +
+    '<span class="tag">Ref: '+esc(x.r||"—")+'</span>'+(x.gen?'<span class="tag gen">⚙️ generada</span>':'<span class="tag">✍️ artesanal</span>')+
+    (v==='ok'?'<span class="tag st-ok">✔ aprobada</span>':v==='ko'?'<span class="tag st-ko">✖ rechazada</span>':v==='fix'?'<span class="tag st-fix">✎ para corregir</span>':'<span class="tag">pendiente</span>')+
+    '<span style="margin-left:auto;font-size:11px;color:#8a8468">'+(state.i+1)+' / '+n+' · id '+esc(x.id)+'</span></div>' +
+    '<p class="qtext">'+esc(x.q)+'</p>' +
+    x.o.map((o,i)=>'<div class="opt'+(i===x.a?' ok':'')+'"><b>'+"ABCD"[i]+'.</b> '+esc(o)+(i===x.a?' ✅':'')+'</div>').join("") +
+    '<p class="xpl"><b>Explicación:</b> '+esc(x.x||"—")+'</p>' +
+    '<div class="acts"><button class="b-ok" data-a="ok">✅ Aprobar</button><button class="b-fix" data-a="fix">✎ Para corregir</button><button class="b-ko" data-a="ko">✖ Rechazar</button>' +
+    '<button class="b-sm" data-a="skip">Siguiente →</button></div>' +
+    '<textarea id="comment" placeholder="Comentario para el equipo (obligatorio al rechazar o corregir)…">'+esc((V[x.id]&&V[x.id].c)||"")+'</textarea></div>';
+  stage.querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>act(b.getAttribute("data-a")));
+}
+function act(a){
+  if(a==="skip"){ state.i=(state.i+1)%state.list.length; paint(); return; }
+  const x=state.list[state.i], c=$("#comment").value.trim();
+  if((a==="ko"||a==="fix") && c.length<3){ alert("Escribe un comentario (mín. 3 caracteres) para rechazar o marcar corrección."); return; }
+  V[x.id]={v:a,c:c,t:Date.now()};
+  save();
+  state.i=(state.i+1)%state.list.length;
+  paint();
+}
+document.addEventListener("keydown",e=>{
+  if(e.target.tagName==="TEXTAREA"||e.target.tagName==="INPUT")return;
+  if(e.key==="1")act("ok"); else if(e.key==="2")act("fix"); else if(e.key==="3")act("ko");
+  else if(e.key==="ArrowRight")act("skip");
+});
+["fCourse","fState","fSearch"].forEach(id=>{ $("#"+id).oninput=applyFilters; $("#"+id).onchange=applyFilters; });
+$("#btnReset").onclick=()=>{ if(confirm("¿Borrar los veredictos guardados en este navegador?")){ localStorage.removeItem("galon_verdicts"); Object.keys(V).forEach(k=>delete V[k]); Object.assign(V,window.VERDICTS||{}); applyFilters(); } };
+$("#btnDupes").onclick=()=>fetch("data/generacion-informe.json").then(r=>r.json()).then(d=>{
+  alert("Informe de generación:\n\n· Hechos: "+d.hechos+"\n· Generadas: "+d.generadas+"\n· Banco total: "+d.total+"\n· Duplicados omitidos: "+d.duplicadosInternosOmitidos+"\n· Solapamientos con el artesanal: "+d.crucesConBancoExistente+"\n· Incidencias: "+(d.errores||[]).length);
+}).catch(()=>alert("No se pudo cargar data/generacion-informe.json"));
+$("#export").onclick=()=>{
+  const js="/* A LA ORDEN — Veredictos del panel de revisión experta (revisar.html)\n   Formato: { \"id_de_pregunta\": { v: \"ok\" | \"ko\" | \"fix\", c: \"comentario\", t: 1690000000000 } }\n   Las preguntas con v:\"ko\" NO se sirven en la app. Exportado: "+new Date().toISOString()+" */\nwindow.VERDICTS = "+JSON.stringify(V,null,1)+";\n";
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([js],{type:"text/javascript"}));
+  a.download="verdicts.js"; a.click();
+};
+applyFilters();
+})();
+</script>
+</body>
+</html>

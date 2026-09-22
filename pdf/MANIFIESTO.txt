@@ -1,0 +1,17 @@
+galon-cabo-01-reales-ordenanzas.pdf|Reales Ordenanzas|50|65
+galon-cabo-02-regimen-disciplinario.pdf|Régimen Disciplinario|50|63
+galon-cabo-03-codigo-penal-militar.pdf|Código Penal Militar|50|67
+galon-cabo-04-derechos-y-deberes.pdf|Derechos y deberes|50|65
+galon-cabo-05-organizacion-defensa.pdf|Organización de la Defensa|50|66
+galon-cabo-06-carrera-militar.pdf|Carrera militar|50|67
+galon-cabo-07-organizacion-et.pdf|Organización del ET|50|65
+galon-cabo-08-ensenanza-militar.pdf|Enseñanza militar|50|66
+galon-cabo-09-transmisiones.pdf|Transmisiones|50|63
+galon-cabo-10-topografia.pdf|Topografía|50|62
+galon-cabo-11-primeros-auxilios.pdf|Primeros auxilios|50|64
+galon-cabo-12-constitucion.pdf|Constitución|50|64
+galon-cabo-13-instruccion-combatiente.pdf|Instrucción del combatiente|50|64
+galon-cabo-14-otan-y-ue.pdf|OTAN y UE|50|62
+galon-cabo-15-armamento-y-tiro.pdf|Armamento y tiro|50|62
+galon-cabo-16-logistica.pdf|Logística|50|62
+galon-cabo-17-instruccion-civica.pdf|Instrucción cívica|50|60

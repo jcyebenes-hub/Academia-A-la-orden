@@ -1,0 +1,13 @@
+{
+ "name": "academia-a-la-orden",
+ "version": "1.0.0",
+ "private": true,
+ "scripts": {
+  "start": "node tools/arranque.js",
+  "bot": "node tools/telegram-bot.js",
+  "agenda": "node tools/agenda-telegram.js"
+ },
+ "engines": {
+  "node": ">=18"
+ }
+}
