@@ -5,6 +5,19 @@
   (El código ya saluda con el nombre nuevo; falta solo el nombre visible en Telegram.)
   → Cuanto antes lo hagas, antes se acabará la confusión con el nombre viejo.
 
+## ✅ HECHO 22-sep: DESPLIEGUE EN RENDER
+- App viva en **https://academia-a-la-orden.onrender.com** (plan Free, Frankfurt, autoDeploy).
+- Repo de código: github.com/jcyebenes-hub/Academia-A-la-orden · datos en repo privado datos-alaorden.
+- Bot de Telegram AHORA vive en Render (el local está apagado: cero conflictos 409).
+- Usuario admin recreado en Render: admin@alaorden.es / admin1234.
+- Render Free se duerme ~15 min sin visitas → la 1.ª visita tarda ~50 s en despertar.
+- CADA PUSH al repo = redesperpliegue automático (así se publican las novedades).
+
+## 🧹 Limpieza de llaves (hazlo cuando quieras)
+- REVOCAR: el token fine-grained `github_pat_…` (no se usa ya) → https://github.com/settings/personal-access-tokens
+- REVOCAR (más adelante, si quieres): la API key de Render `rnd_…` → https://dashboard.render.com/u/settings
+- **NO revocar**: el token clásico `ghp_C2PL…` — está dentro de Render como GITHUB_TOKEN para salvar los datos (si lo revocas, se pierde la persistencia). Algún día lo cambiamos por uno dedicado solo al repo datos-alaorden.
+
 ## 💻 Cuando tengas PC
 1. **Parar el bot local** (si despliegas en Render o similar, evita el error 409 de Telegram).
 2. **PUBLIC_URL propia** (dominio fijo en vez del túnel efímero). `alaorden.es` está LIBRE (~10 €/año, verificado 22-sep-2026).
