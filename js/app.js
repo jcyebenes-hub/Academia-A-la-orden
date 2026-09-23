@@ -33,7 +33,8 @@ if (store.get("dark", false)) document.documentElement.classList.add("dark");
 /* ---- preguntas ---- */
 const BANK_ALL = QUESTIONS.concat(window.QUESTIONS2 || [], window.QUESTIONS3 || [], window.QUESTIONS4 || [], window.QUESTIONS5 || [], window.QUESTIONS6 || [], window.QUESTIONS7 || []);
 const _VERD = window.VERDICTS || {};
-const BANK = BANK_ALL.filter(q => { const v = _VERD[q.id]; return !(v && v.v === "ko"); });
+const BANK = BANK_ALL.filter(q => { const v = _VERD[q.id]; return !(v && v.v === "ko") && q.status !== "borrador" && q.gen !== true; }); /* solo preguntas curadas: los borradores del generador esperan validación */
+BANK.forEach(q => { if (q.x) q.x = String(q.x).replace(/^Respuesta:\s*[a-dA-D][.)]\s*/, "").replace(/^Literal:\s*/, ""); }); /* prefijos redundantes fuera */
 const byId = {}; BANK.forEach(q => byId[q.id] = q);
 
 /* Baraja las opciones de cada pregunta UNA vez por carga de la app: así la correcta
@@ -394,7 +395,7 @@ function paintOpts() {
   });
   if (locked) {
     const good = S.ans[q.id] === q.a;
-    let expl = '<div class="explain" style="border-left:4px solid ' + (good ? "#22c55e" : "#ef4444") + '"><b>' + (good ? "¡Correcta! ✅" : "Fallada ❌") + "</b><br>La respuesta correcta es: <b>" + "ABCD"[q.a] + ") " + esc(q.o[q.a]) + "</b>" + (q.x ? "<br>" + esc(q.x) : "") + '<span class="ref">📖 ' + esc(q.r) + " · " + diffLabel(q.d) + "</span></div>";
+    let expl = '<div class="explain" style="border-left:4px solid ' + (good ? "#22c55e" : "#ef4444") + '"><b>' + (good ? "¡Correcta! ✅" : "❌ Fallada · la buena es la " + "ABCD"[q.a]) + "</b>" + (q.x ? "<br>" + esc(q.x) : "") + '<span class="ref">📖 ' + esc(q.r) + " · " + diffLabel(q.d) + "</span></div>"; /* sin repetir el enunciado de la respuesta: el verde/rojo ya lo señala */
     if (!good && window.GalonTutor) expl += window.GalonTutor.html(q, S.ans[q.id]);
     $("#explain").innerHTML = expl;
   } else $("#explain").innerHTML = "";
