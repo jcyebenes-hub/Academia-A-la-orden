@@ -31,7 +31,7 @@ if (store.get("dark", false)) document.documentElement.classList.add("dark");
 (function () { const o = state.opts || (state.opts = {}); if (!o.v78) { delete o.recordarCurso; o.v78 = 1; save(); } })();
 
 /* ---- preguntas ---- */
-const BANK_ALL = QUESTIONS.concat(window.QUESTIONS2 || [], window.QUESTIONS3 || [], window.QUESTIONS4 || [], window.QUESTIONS5 || [], window.QUESTIONS6 || [], window.QUESTIONS7 || [], window.QUESTIONS8 || [], window.QUESTIONS9 || [], window.QUESTIONS10 || []);
+const BANK_ALL = QUESTIONS.concat(window.QUESTIONS2 || [], window.QUESTIONS3 || [], window.QUESTIONS4 || [], window.QUESTIONS5 || [], window.QUESTIONS6 || [], window.QUESTIONS7 || [], window.QUESTIONS8 || [], window.QUESTIONS9 || [], window.QUESTIONS10 || [], window.QUESTIONS11 || []);
 const _VERD = window.VERDICTS || {};
 const BANK = BANK_ALL.filter(q => { const v = _VERD[q.id]; return !(v && v.v === "ko") && q.status !== "borrador" && q.gen !== true; }); /* solo preguntas curadas: los borradores del generador esperan validación */
 BANK.forEach(q => { if (q.x) q.x = String(q.x).replace(/^Respuesta:\s*[a-dA-D][.)]\s*/, "").replace(/^Literal:\s*/, ""); }); /* prefijos redundantes fuera */

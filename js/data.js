@@ -27,7 +27,7 @@ const COURSES = {
     exam: { questions: 50, reserve: 5, minutes: 70, good: 0.2, bad: 0.05, max: 10, options: 4, formula: "Mismo sistema que Cabo (orientativo en demo)" },
     cutoff: "Según especialidad", color: "#7a5b00",
     syllabus: [
-      { code: "B1", title: "Fase de oposición", weight: "Examen de clasificación", topics: ["El examen", "Mando y liderazgo", "Régimen disciplinario", "Documentación", "Logística", "Seguridad", "Tiro", "Topografía", "Organización", "Geografía", "Historia"] },
+      { code: "B1", title: "Fase de oposición", weight: "Examen de clasificación", topics: ["El examen", "Mando y liderazgo", "Régimen disciplinario", "Documentación", "Logística", "Seguridad", "Tiro", "Topografía", "Organización", "Geografía", "Historia", "Primeros auxilios", "NBQ"] },
       { code: "B2", title: "Fase a distancia", weight: "Puesto de promoción", topics: ["Técnicas de mando", "Inglés", "Administración"] }
     ],
     changelog: [{date:"28-abr-2026",ref:"BOD nº 83 · Res. 551/01505/26 (BOD nº 23)",text:"Convocados el I/26 Concurso-Oposición y el I/26 Curso de Actualización (5T113 2026 001). Ascenso supeditado a obtención de destino."},

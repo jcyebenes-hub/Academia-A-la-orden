@@ -43,3 +43,5 @@
 - LOTE 1 PERMANENCIA HECHO (v84): 58 curadas propias (Situaciones 5, Carrera militar 7, Tropa 4, Seguridad Nacional 4, ESN 5 — incluida la pregunta del contexto geopolítico que cayó al amigo en Moodle—, Doctrina 4, UE 5, OTAN 4, ONU 3, OSCE 3, Misiones 6, Físicas 3, Convocatoria 3, FAS 2) → Permanencia: 159 curadas. Sigue: LOTE 2 CABO 1º (Geografía, Historia, Inglés, Primeros auxilios/NBQ).
 
 - LOTE 2 PERMANENCIA HECHO (v85): 40 curadas (Constitución +10 →22, Defensa Nacional +8 →15, MINISDEF +6 →12, El examen +4 →9, Físicas/Convocatoria/Doctrina/Misiones/Carrera/FAS +2 cada uno) → Permanencia: 199 curadas. Quedan finos solo: Derechos y deberes (6) y OSCE (6). Tras esto: LOTE 2 CABO 1º (Geografía, Historia, Inglés, Primeros auxilios/NBQ).
+
+- LOTE 2 CABO 1º HECHO (v86): 45 curadas (Geografía 12, Historia 12, Inglés +8 →16, Primeros auxilios 8, NBQ 5) → Cabo 1º: 155 curadas · syllabus B1 con Primeros auxilios/NBQ añadidos · trivial cabo1 pools [13,13,7,9,0,14] (solo Transmisiones a 0). Siguiente remesa posible: Transmisiones cabo1 + Derechos y deberes/OSCE perm + validación de borradores.
