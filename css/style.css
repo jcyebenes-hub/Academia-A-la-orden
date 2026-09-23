@@ -335,3 +335,18 @@ label.f{display:block;font-weight:800;margin:12px 0 6px;font-size:.9rem}
 .tmodal-bg{position:fixed;inset:0;background:rgba(4,10,24,.62);z-index:120;display:flex;align-items:center;justify-content:center;padding:16px;animation:galFade .18s}
 .tmodal{background:var(--bg);border-radius:18px;border:2px solid var(--gold);max-width:430px;width:100%;max-height:86vh;overflow-y:auto;box-shadow:0 18px 60px rgba(0,0,0,.5);padding-bottom:14px}
 .tmodal h3{padding:14px 18px 6px;margin:0}
+
+/* ===== Ventana "¿Qué preparas hoy?" (v81) =====
+   1) Tarjetas compactas DENTRO de la ventana (el carrusel de Inicio no se toca):
+      así los 3 cursos + cuadrito caben sin deslizar en móviles normales. */
+.sheet .cslide{min-height:0;padding:12px 12px 10px;gap:2px;border-radius:16px}
+.sheet .cslide .big{font-size:2rem;line-height:1.2}
+.sheet .cslide b{font-size:1rem}
+.sheet .cslide .go{padding-top:3px}
+/* 2) Cuando de todos modos no quepa (pantallas muy pequeñas):
+      la ventana SE DESLIZA ELLA y el fondo queda quieto. */
+.sheet{overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y}
+.sheet-bg{touch-action:none}
+/* 3) Lo mismo para la ventana del trivial (pregunta centrada). */
+.tmodal-bg{touch-action:none}
+.tmodal{overscroll-behavior:contain;touch-action:pan-y}
