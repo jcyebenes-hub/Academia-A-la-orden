@@ -1655,3 +1655,26 @@ paintChips();
 if (window.GalonCloudInit) window.GalonCloudInit();
 render();
 })();
+
+/* ===== AUTO-ACTUALIZACIÓN: adiós al "ábrela dos veces" =====
+   Cuando llega una versión nueva, la app se recarga SOLA una vez.
+   Si estás en medio de un test, espera a que salgas (no te deja a medias). */
+(function () {
+  if (!navigator.serviceWorker || !navigator.serviceWorker.addEventListener) return;
+  let pendiente = false;
+  const aplica = () => {
+    if (pendiente) return; pendiente = true;
+    const h = location.hash || "";
+    if (h.indexOf("#/test") === 0 || h.indexOf("#/results") === 0 || h.indexOf("#/duelo") === 0) {
+      try { toast("🔄 Versión nueva lista: se aplica al salir del test"); } catch (e) {}
+      window.addEventListener("hashchange", () => location.reload(), { once: true });
+    } else location.reload();
+  };
+  navigator.serviceWorker.addEventListener("controllerchange", aplica);
+  /* por si la app queda mucho rato abierta: busca actualizaciones al volver a ella */
+  document.addEventListener && document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") {
+      navigator.serviceWorker.getRegistration && navigator.serviceWorker.getRegistration().then(r => r && r.update && r.update()).catch(() => {});
+    }
+  });
+})();
