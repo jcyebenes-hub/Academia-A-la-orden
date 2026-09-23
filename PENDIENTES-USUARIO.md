@@ -37,3 +37,5 @@
 - LOTES DE PREGUNTAS por bloque oficial (v73 trajo temario + dossiers): prioridad Bloque II Seguridad FAS/régimen interior (solo 2 preguntas) y Bloque VII Liderazgo (3). El usuario propuso ir tema a tema.
 
 - VALIDACIÓN DE BORRADORES: 1.299 preguntas del generador (bank5/QUESTIONS6) fuera de juego desde v82 hasta validarlas en revisar.html por lotes; 646 tenían explicación-eco. Curadas en juego: 1.095 — cabo1 (~40) y perm (~71) necesitan lotes propios URGENTE.
+
+- LOTE 1 CABO 1º HECHO (v83): 54 curadas propias (Disciplinario 12, Documentación 10, Mando/Liderazgo 10, Tiro 10, Topografía 6, Organización 6) → Cabo 1º: 110 curadas. LOTE 2 propuesto: Geografía + Historia + Inglés + primeros auxilios/NBQ (pools aún 0 en el trivial de cabo1).
