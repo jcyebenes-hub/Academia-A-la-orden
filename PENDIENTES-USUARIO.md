@@ -35,3 +35,5 @@
 - 🎡 TRIVIAL DE LA TROPA: ruleta 6 quesitos, solitario y por código (URL 10ª: demand-readings-participate-elimination).
 
 - LOTES DE PREGUNTAS por bloque oficial (v73 trajo temario + dossiers): prioridad Bloque II Seguridad FAS/régimen interior (solo 2 preguntas) y Bloque VII Liderazgo (3). El usuario propuso ir tema a tema.
+
+- VALIDACIÓN DE BORRADORES: 1.299 preguntas del generador (bank5/QUESTIONS6) fuera de juego desde v82 hasta validarlas en revisar.html por lotes; 646 tenían explicación-eco. Curadas en juego: 1.095 — cabo1 (~40) y perm (~71) necesitan lotes propios URGENTE.
