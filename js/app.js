@@ -85,7 +85,7 @@ function startTest(cfg) {
     }
   }
   if (!list.length) { toast("No hay preguntas disponibles para ese filtro"); return; }
-  S = { cfg, list, idx: 0, ans: {}, flagged: {}, locked: {}, study: cfg.mode === "study", remaining: cfg.minutes ? cfg.minutes * 60 : null, timerId: null, capped };
+  S = { cfg, list, idx: 0, ans: {}, flagged: {}, locked: {}, study: cfg.mode === "study", check: cfg.mode !== "study" && !cfg.simulacro && !cfg.perQ && state.opts.inmediata !== false, remaining: cfg.minutes ? cfg.minutes * 60 : null, timerId: null, capped };
   list.forEach(q => S.ans[q.id] = null);
   if (refuerzos) { S.reinforced = refuerzos; toast("🔁 Este test incluye " + refuerzos + " refuerzos de tus fallos"); }
   location.hash = "#/test";
@@ -333,7 +333,7 @@ function vTest() {
   let timerHtml = "";
   if (S.remaining !== null) timerHtml = '<span class="timer" id="timer">' + fmtTime(S.remaining) + "</span>";
   if (S.cfg.perQ && !S.study) { S.qLeft = S.cfg.perQ; timerHtml += '<span class="timer" id="qTimer">' + S.qLeft + "s</span>"; }
-  const navHtml = '<div class="qnav-head"><b id="qnavCount"></b><span class="qnav-leg">' + (S.study ? "🟩 acierto · 🟥 fallo · toca un nº para saltar" : "🟨 respondida · toca un nº para saltar") + '</span></div><div class="qnav" id="qnav">' +
+  const navHtml = '<div class="qnav-head"><b id="qnavCount"></b><span class="qnav-leg">' + ((S.study || S.check) ? "🟩 acierto · 🟥 fallo · toca un nº para saltar" : "🟨 respondida · toca un nº para saltar") + '</span></div><div class="qnav" id="qnav">' +
     S.list.map((qq, i) => '<button data-i="' + i + '" class="qn" id="qn' + i + '">' + (i + 1) + "</button>").join("") + "</div>";
   view().innerHTML =
     '<div class="view-head"><a class="back" href="#/entrenar" id="quitTest">✕</a><h1 style="font-size:1.1rem">' + esc(S.cfg.label) + "</h1>" +
@@ -384,17 +384,17 @@ function vTest() {
 }
 function paintOpts() {
   const q = S.list[S.idx];
-  const locked = S.study && S.locked[q.id];
+  const locked = (S.study || S.check) && S.locked[q.id];
   $$("#opts .opt").forEach(b => {
     const i = parseInt(b.getAttribute("data-o"), 10);
     b.classList.remove("sel", "ok", "ko");
-    if (S.study) {
+    if (S.study || S.check) {
       if (locked) { b.disabled = true; if (i === q.a) b.classList.add("ok"); else if (i === S.ans[q.id]) b.classList.add("ko"); }
     } else if (S.ans[q.id] === i) b.classList.add("sel");
   });
   if (locked) {
     const good = S.ans[q.id] === q.a;
-    let expl = '<div class="explain"><b>' + (good ? "¡Correcta! ✅" : "Fallada ❌ — correcta: " + "ABCD"[q.a] + ") " + esc(q.o[q.a])) + "</b><br>" + esc(q.x) + '<span class="ref">📖 ' + esc(q.r) + " · " + diffLabel(q.d) + "</span></div>";
+    let expl = '<div class="explain" style="border-left:4px solid ' + (good ? "#22c55e" : "#ef4444") + '"><b>' + (good ? "¡Correcta! ✅" : "Fallada ❌") + "</b><br>La respuesta correcta es: <b>" + "ABCD"[q.a] + ") " + esc(q.o[q.a]) + "</b>" + (q.x ? "<br>" + esc(q.x) : "") + '<span class="ref">📖 ' + esc(q.r) + " · " + diffLabel(q.d) + "</span></div>";
     if (!good && window.GalonTutor) expl += window.GalonTutor.html(q, S.ans[q.id]);
     $("#explain").innerHTML = expl;
   } else $("#explain").innerHTML = "";
@@ -405,7 +405,7 @@ function paintNav() {
     const el = $("#qn" + i); if (!el) return;
     let cl = "qn";
     if (S.ans[qq.id] !== null && S.ans[qq.id] !== undefined) {
-      if (S.study) cl += S.ans[qq.id] === qq.a ? " ok" : " ko";
+      if (S.study || S.check) cl += S.ans[qq.id] === qq.a ? " ok" : " ko";
       else cl += " done";
     }
     if (S.flagged[qq.id]) cl += " flag";
@@ -413,19 +413,20 @@ function paintNav() {
     el.className = cl;
   });
   const n = S.list.length;
-  const ok = S.study ? S.list.filter(qq => S.ans[qq.id] !== null && S.ans[qq.id] === qq.a).length : 0;
-  const ko = S.study ? S.list.filter(qq => S.ans[qq.id] !== null && S.ans[qq.id] !== qq.a).length : 0;
+  const ok = (S.study || S.check) ? S.list.filter(qq => S.ans[qq.id] !== null && S.ans[qq.id] === qq.a).length : 0;
+  const ko = (S.study || S.check) ? S.list.filter(qq => S.ans[qq.id] !== null && S.ans[qq.id] !== qq.a).length : 0;
   const cnt = $("#qnavCount");
-  if (cnt) cnt.textContent = S.study ? "✅ " + ok + " · ❌ " + ko + " · ⬜ " + (n - ok - ko) : Object.keys(S.ans).filter(id => S.ans[id] !== null).length + "/" + n + " respondidas";
+  if (cnt) cnt.textContent = (S.study || S.check) ? "✅ " + ok + " · ❌ " + ko + " · ⬜ " + (n - ok - ko) : Object.keys(S.ans).filter(id => S.ans[id] !== null).length + "/" + n + " respondidas";
   const c = $(".qn.cur"); if (c && c.scrollIntoView) try { c.scrollIntoView({ inline: "center", block: "nearest" }); } catch (e) {}
 }
 function answer(q, i) {
-  if (S.study && S.locked[q.id]) return;
+  if ((S.study || S.check) && S.locked[q.id]) return;
   state.seen[q.id] = 1;
   S.ans[q.id] = i;
-  if (S.study) S.locked[q.id] = true;
+  if (S.study || S.check) S.locked[q.id] = true;
   paintOpts();
   paintNav();
+  if (S.check) { if (i === q.a) sfxGood(); else sfxBad(); }
   const total = S.list.length, answered = Object.keys(S.ans).filter(id => S.ans[id] !== null).length;
   const bar = $(".t-progress i"); if (bar) bar.style.width = Math.round(100 * answered / total) + "%";
   if (S.study) {
@@ -1372,12 +1373,14 @@ function vAjustes() {
     '<label class="f">Tu nombre o alias</label><input type="text" id="setName" value="' + esc(state.name) + '" maxlength="24">' +
     '<div class="switch-row"><span><b>🌙 Modo oscuro</b></span><button class="btn btn-ghost btn-sm" id="setDark">' + (document.documentElement.classList.contains("dark") ? "Desactivar" : "Activar") + "</button></div>" +
     '<div class="switch-row"><span><b>🔊 Efectos de sonido</b></span><button class="btn btn-ghost btn-sm" id="setSound">' + (state.sound === false ? "Activar" : "Desactivar") + "</button></div>" +
+    '<div class="switch-row"><span><b>✅ Corrección instantánea (estilo academia)</b><br><span class="small muted">En los tests: al contestar se corrige al momento (verde/rojo, explicación y tarjetas pintadas), como en la academia de tu amigo. Los SIMULACROS mantienen el modo examen real.</span></span><button class="btn btn-ghost btn-sm" id="setIns">' + (state.opts && state.opts.inmediata === false ? "Activar" : "Desactivar") + "</button></div>" +
     '<div class="switch-row"><span><b>⏩ Avanzar solo al acertar</b><br><span class="small muted">En estudio: acierto → siguiente en 1 s; fallo → pausa para leer. Los simulacros nunca avanzan solos.</span></span><button class="btn btn-ghost btn-sm" id="setAuto">' + (state.opts && state.opts.auto === false ? "Activar" : "Desactivar") + "</button></div>" +
     '<div class="switch-row"><span><b>🗑️ Borrar mi progreso</b><br><span class="small muted">XP, racha, fallos e historial</span></span><button class="btn btn-ghost btn-sm" id="setReset">Borrar</button></div>' +
     '<p class="small muted">A LA ORDEN v1.0 · Banco auditado con 0 incidencias (acta pública). Sin anuncios. Tu progreso queda en tu dispositivo y, si creas cuenta, se sincroniza cifrado.</p></div>';
   $("#setName").onchange = e => { state.name = e.target.value.trim() || "Recluta"; save(); toast("¡A la orden, " + state.name + "!"); };
   $("#setDark").onclick = () => { const d = document.documentElement.classList.toggle("dark"); store.set("dark", d); vAjustes(); };
   $("#setSound").onclick = () => { state.sound = (state.sound === false) ? true : false; save(); vAjustes(); };
+  $("#setIns").onclick = () => { state.opts = state.opts || {}; state.opts.inmediata = (state.opts.inmediata === false) ? true : false; save(); vAjustes(); toast(state.opts.inmediata !== false ? "✅ Corrección instantánea activada" : "Modo examen: se corrige al final"); };
   $("#setAuto").onclick = () => { state.opts = state.opts || {}; state.opts.auto = (state.opts.auto === false) ? true : false; save(); vAjustes(); toast(state.opts.auto ? "⏩ Avance activado: al acertar, sola" : "Avance manual: tú das a Siguiente"); };
   $("#setReset").onclick = () => { if (confirm("¿Borrar todo tu progreso en este dispositivo?")) { store.del("state"); location.reload(); } };
 }
