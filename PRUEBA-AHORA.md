@@ -1,9 +1,9 @@
 # 🔗 ENLACE DE PRUEBAS (se actualiza con cada novedad)
 
-**URL actual:** https://academia-a-la-orden.onrender.com  ⚠️ *ROTÓ 7 veces (túneles efímeros de Cloudflare + rebotes del sandbox: si esta no entra, avisa y saco otra al momento)*
+**URL actual:** https://micabo.es  ⚠️ *ROTÓ 7 veces (túneles efímeros de Cloudflare + rebotes del sandbox: si esta no entra, avisa y saco otra al momento)*
 *(viva mientras esta sesión esté abierta — si cambia, se avisa aquí mismo · la definitiva y fija: Render, cuando despliegues)*
 
-## Qué probar ahora mismo (última versión: v69 · 🚀 YA EN RENDER: https://academia-a-la-orden.onrender.com (URL definitiva, ya no hay túneles) — 🗂️ Entrenar por secciones (Simulacro héroe) · usuario de pruebas admin@alaorden.es / admin1234 · + explicación al acertar (v68) · + popup al entrar (v67))
+## Qué probar ahora mismo (última versión: v69 · 🚀 YA EN RENDER: https://micabo.es (URL definitiva, ya no hay túneles) — 🗂️ Entrenar por secciones (Simulacro héroe) · usuario de pruebas admin@alaorden.es / admin1234 · + explicación al acertar (v68) · + popup al entrar (v67))
 
 1. **Entrenar SIN deslizar** → `/app.html#/entrenar` → los 14 métodos en rejilla de tarjetas, todo a la vista
 2. **⚔️ DUELOS estilo Stumble Guys** → Entrenar → **Duelo**:

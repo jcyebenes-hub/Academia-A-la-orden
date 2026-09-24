@@ -10,7 +10,7 @@ Todo gratis. Banco de 2.401 preguntas auditadas, 17 cuadernos PDF, trivial con r
    - **Start**: `npm start` (arranca web + bot de Telegram + agenda en un solo servicio)
    - **Instance type**: Free
 4. **Environment** → añade las variables del `.env.example` que uses (mínimo `TELEGRAM_BOT_TOKEN` si quieres el bot)
-5. Create Web Service → tu `PUBLIC_URL` será `https://academia-a-la-orden.onrender.com`
+5. Create Web Service → tu `PUBLIC_URL` será `https://micabo.es`
 
 ## Notas importantes
 - **Discos efímeros en el plan gratis**: para no perder cuentas/duelos, añade `GITHUB_TOKEN` + `GITHUB_REPO` (la app persiste los datos vía API de GitHub).

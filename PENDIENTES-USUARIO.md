@@ -6,7 +6,7 @@
   → Cuanto antes lo hagas, antes se acabará la confusión con el nombre viejo.
 
 ## ✅ HECHO 22-sep: DESPLIEGUE EN RENDER
-- App viva en **https://academia-a-la-orden.onrender.com** (plan Free, Frankfurt, autoDeploy).
+- App viva en **https://micabo.es** (plan Free, Frankfurt, autoDeploy).
 - Repo de código: github.com/jcyebenes-hub/Academia-A-la-orden · datos en repo privado datos-alaorden.
 - Bot de Telegram AHORA vive en Render (el local está apagado: cero conflictos 409).
 - Usuario admin CREADO Y PERSISTENTE en Render: admin@alaorden.es / admin1234.
