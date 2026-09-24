@@ -22,7 +22,7 @@
 
 ## 💻 Cuando tengas PC
 1. **Parar el bot local** (si despliegas en Render o similar, evita el error 409 de Telegram).
-2. **PUBLIC_URL propia** (dominio fijo en vez del túnel efímero). `alaorden.es` está LIBRE (~10 €/año, verificado 22-sep-2026).
+2. **DOMINIO PROPIO: micabo.es** (decisión 24-sep-2026; alaorden.es resultó aparcado por Arsys). Estado: registrado en Render (micabo.es + www, IDs cdm-daqpgfjncjis739il1ag / -l1b0), referencias ya cambiadas a https://micabo.es. PENDIENTE DEL USUARIO: comprar micabo.es en Strato (~1 €/año) y crear DNS: A @ 216.24.57.1 · CNAME www → academia-a-la-orden.onrender.com. Tras el DNS: Verify en Render → SSL automático → PUBLIC_URL ya en micabo.es. La URL onrender.com sigue funcionando como puerta trasera.
 3. **Ko-fi real**: crear la cuenta siguiendo KOFI-GUIA.md → pasarme la URL → la pongo en `js/donation.js` y se activa todo.
 4. **Imágenes de galones** (las que tienes pendientes de hacer/mejorar).
 5. Servicios dormidos: Stripe/Redsys siguen apagados a propósito.
