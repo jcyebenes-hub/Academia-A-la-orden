@@ -1,4 +1,4 @@
-/* A LA ORDEN · agenda de Telegram: pregunta diaria + vigilancia BOD (proceso de larga vida)
+/* MICABO · agenda de Telegram: pregunta diaria + vigilancia BOD (proceso de larga vida)
    - 09:00 (hora de España) → node bod-check.js --pregunta  (una por canal de curso)
    - 00/06/12/18         → node bod-check.js --post         (alertas BOD nuevas, enrutadas)
    Estado en tools/.agenda-state.json → no duplica si se reinicia. */
@@ -27,6 +27,6 @@ const tick = () => {
   if ([0, 6, 12, 18].indexOf(h) >= 0 && m < 2 && ST.post !== dia + "-" + h) { ST.post = dia + "-" + h; save(); run(["--post"]); }
 };
 
-console.log("⏰ Agenda A LA ORDEN: 🎲 pregunta diaria 09:00 (España) · 📡 vigilancia BOD a las 00/06/12/18");
+console.log("⏰ Agenda MICABO: 🎲 pregunta diaria 09:00 (España) · 📡 vigilancia BOD a las 00/06/12/18");
 tick();
 setInterval(tick, 60 * 1000);

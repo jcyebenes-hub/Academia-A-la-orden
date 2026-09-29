@@ -1,4 +1,4 @@
-/* A LA ORDEN — LOTE OFICIAL 1 · PERMANENCIA · 24 preguntas CURADAS desde la TEORÍA OFICIAL
+/* MICABO — LOTE OFICIAL 1 · PERMANENCIA · 24 preguntas CURADAS desde la TEORÍA OFICIAL
    del Rincón de Tropa aportada por el usuario (24-sep-2026):
    · Tema 5 OSCE (documento OISD 09003a9980b05468, 30-sep-2019)
    · Bloque Jurídico-Social Tema 3: Derechos y deberes de los miembros de las FAS (LO 9/2011)

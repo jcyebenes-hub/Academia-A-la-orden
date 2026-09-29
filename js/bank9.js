@@ -1,4 +1,4 @@
-/* A LA ORDEN — LOTE 1 PERMANENCIA · 58 preguntas CURADAS a mano (22-sep-2026)
+/* MICABO — LOTE 1 PERMANENCIA · 58 preguntas CURADAS a mano (22-sep-2026)
    Huecos reforzados: Situaciones · Carrera militar · Tropa y marinería ·
    Seguridad Nacional y ESN 2021 · Doctrina · UE · OTAN · ONU · OSCE ·
    Misiones · Físicas · Convocatoria · FAS.

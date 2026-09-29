@@ -1,5 +1,5 @@
-/* A LA ORDEN · LOTE EXAMINADOR — Tema 1: Reales Ordenanzas para las FAS (RD 96/2009)
-   Elaboración PROPIA (examinador A LA ORDEN), 20-sep-2026, sobre el texto consolidado del
+/* MICABO · LOTE EXAMINADOR — Tema 1: Reales Ordenanzas para las FAS (RD 96/2009)
+   Elaboración PROPIA (examinador MICABO), 20-sep-2026, sobre el texto consolidado del
    BOE-A-2009-2074 (verificado hoy) y su modificación por RD 1437/2010 (Guardia Civil).
    No procede de ningún banco de pago: preguntas redactadas de nuevo, estilo examen
    oficial (4 opciones, una correcta), con explicación y referencia normativa. */
@@ -57,7 +57,7 @@ window.QUESTIONS7 = [
 {c:"cabo",b:"C1",t:"Reales Ordenanzas",d:"D",id:"rr50",q:"Una orden correcta se da en el marco de las atribuciones del que la imparte. Atendiendo al art. 45 de las RROO, las órdenes son mandatos:",o:["Relativos al servicio que un militar da a un subordinado en el marco de sus atribuciones","De carácter general dictados por el Ministro de Defensa","Que solo puede recibir un militar en operaciones","Del servicio de guardia exclusivamente"],a:0,x:"Art. 45: las órdenes son los mandatos relativos al servicio que un militar da a un subordinado en el marco de sus atribuciones.",r:"RROO (RD 96/2009) art. 45"}
 ,
 /* ===== LOTE EXAMINADOR — Tema 2: Régimen Disciplinario de las FAS (LO 8/2014, de 4 de diciembre)
-   Elaboración PROPIA (examinador A LA ORDEN), 20-sep-2026, sobre el texto consolidado BOE-A-2014-12652 (verificado hoy).
+   Elaboración PROPIA (examinador MICABO), 20-sep-2026, sobre el texto consolidado BOE-A-2014-12652 (verificado hoy).
    Literales verificados: arts. 7 (nºs 39-41), 8, 11, 24, 25, 39, 65, extinción, bis in idem, habitualidad y preámbulo. */
 {c:"cabo",b:"C1",t:"Régimen Disciplinario",d:"F",id:"rd01",q:"¿Qué norma regula actualmente el Régimen Disciplinario de las Fuerzas Armadas?",o:["Ley Orgánica 8/1998, de 2 de diciembre","Ley Orgánica 5/2005, de 17 de noviembre","Ley Orgánica 8/2014, de 4 de diciembre","Real Decreto 339/2015, de 22 de mayo"],a:2,x:"La LO 8/2014, de 4 de diciembre, de Régimen Disciplinario de las Fuerzas Armadas (BOE nº 294, de 5-dic-2014), que sustituyó a la LO 8/1998. Texto consolidado sin modificaciones.",r:"LO 8/2014 · entrada en vigor"},
 {c:"cabo",b:"C1",t:"Régimen Disciplinario",d:"F",id:"rd02",q:"Según la LO 8/2014, las faltas disciplinarias son:",o:["Las acciones u omisiones dolosas o imprudentes previstas en la ley","Únicamente las acciones dolosas contra la disciplina","Las infracciones previstas solo en el Código Penal Militar","Cualquier incumplimiento de una orden, aunque no esté tipificado"],a:0,x:"Las faltas disciplinarias son acciones u omisiones dolosas o imprudentes previstas en la ley: tipicidad más dolo o imprudencia.",r:"LO 8/2014 · definición de falta disciplinaria"},
@@ -111,7 +111,7 @@ window.QUESTIONS7 = [
 {c:"cabo",b:"C1",t:"Régimen Disciplinario",d:"M",id:"rd50",q:"La sanción económica por falta leve consiste en:",o:["De uno a siete días","De ocho a treinta días","Un importe fijo de 300 euros","De uno a catorce días"],a:0,x:"La sanción económica por falta leve es de uno a siete días (novedad incorporada por la LO 8/2014). Se mide en días, como el resto del catálogo.",r:"LO 8/2014 art. 11.1"}
 ,
 /* ===== LOTE EXAMINADOR — Tema 3: Código Penal Militar (LO 14/2015, de 14 de octubre)
-   Elaboración PROPIA (examinador A LA ORDEN), 20-sep-2026, sobre el texto consolidado BOE-A-2015-11070 (verificado hoy).
+   Elaboración PROPIA (examinador MICABO), 20-sep-2026, sobre el texto consolidado BOE-A-2015-11070 (verificado hoy).
    Literales verificados: art. 4 (centinela y equiparados), arts. 67-68 (abandono de servicio y deberes del centinela),
    cobardía, abandono de destino/deserción, art. 58, art. 61 (dejación de mando), riesgos innecesarios,
    denegación de socorro, Capítulo VII (delitos contra centinela) y embriaguez en acto de servicio. */
@@ -167,7 +167,7 @@ window.QUESTIONS7 = [
 {c:"cabo",b:"C1",t:"Código Penal Militar",d:"M",id:"cp50",q:"¿Cuál de estas NO es una función del Código Penal Militar según su estructura?",o:["Castigar la cobardía","Regular la uniformidad y la etiqueta militar","Sancionar el quebrantamiento del servicio","Proteger al centinela y a la autoridad militar"],a:1,x:"La uniformidad y la etiqueta son materia reglamentaria (RROO y normas de uniformidad), nunca del Código Penal Militar. El CPM castiga: cobardía, quebrantamientos del servicio, delitos contra centinela y autoridad, extralimitaciones del mando…",r:"CPM · estructura y funciones"}
 ,
 /* ===== LOTE EXAMINADOR — Tema 4: Derechos y deberes de los miembros de las FAS (LO 9/2011, de 27 de julio)
-   Elaboración PROPIA (examinador A LA ORDEN), 20-sep-2026, sobre el texto oficial verificado (BOE 28-jul-2011).
+   Elaboración PROPIA (examinador MICABO), 20-sep-2026, sobre el texto oficial verificado (BOE 28-jul-2011).
    Literales verificados: Título I arts. 8-15 (mapa de derechos), art. 12 (expresión y límites), art. 13 (reunión en unidades),
    art. 14 (asociación), art. 22 (disponibilidad, citado en el examen I/24), dignidad/acoso, secreto y discreción (también de lo no clasificado),
    asociaciones profesionales (finalidad, neutralidad, ámbito, registro, responsabilidades, art. 40, exclusiones, art. 51, STC 219/2001),
@@ -224,7 +224,7 @@ window.QUESTIONS7 = [
 {c:"cabo",b:"C1",t:"Derechos y deberes",d:"M",id:"dd50",q:"La fórmula del juramento o promesa que presta el militar compromete, según la Constitución:",o:["Lealtad a su unidad y a su jefe directo","Fidelidad al Rey, obediencia y respeto a la Constitución","Defensa del ministerio y de sus organismos","Obediencia al JEMAD como jefe supremo"],a:1,x:"CE art. 30.2, literal: «fidelidad al Rey y de obediencia y respeto a la Constitución». Sencilla y cae.",r:"Constitución art. 30.2 · caso"}
 ,
 /* ===== LOTE EXAMINADOR — Tema 5: Organización de la Defensa (LODEF LO 5/2005, de 17 de noviembre + CE + Ley 39/2007)
-   Elaboración PROPIA (examinador A LA ORDEN), 20-sep-2026, sobre texto oficial verificado: BOE consolidado LO 5/2005
+   Elaboración PROPIA (examinador MICABO), 20-sep-2026, sobre texto oficial verificado: BOE consolidado LO 5/2005
    con ÚLTIMA ACTUALIZACIÓN 18/11/2005 = SIN MODIFICACIONES desde su entrada en vigor (la anunciada reforma con
    "situación operativa especial" NO está en vigor: EN TRÁMITE, no preguntar como vigente). Literales verificados:
    arts. 1-2 (objeto y finalidad), 3 (La Corona), 4 (Cortes y autorización previa del Congreso), 5-7 (Gobierno
@@ -286,7 +286,7 @@ window.QUESTIONS7 = [
 {c:"cabo",b:"C1",t:"Organización de la Defensa",d:"M",id:"od50",q:"Según la estructura orgánica básica del Ministerio de Defensa, el Ministerio se estructura en:",o:["Únicamente los tres Ejércitos","La Secretaría de Estado de Defensa, la Subsecretaría de Defensa, la Secretaría General de Política de Defensa y las Fuerzas Armadas","El Congreso, el Senado y el Ministerio","La Guardia Civil y el CNI como únicos órganos"],a:1,x:"Estructura orgánica básica: SEDEF, Subsecretaría, SEGENPOL y FAS. El CNI está adscrito al Ministerio, con dependencia directa del Ministro.",r:"RD 1287/2010 · organigrama defensa.gob.es"}
 ,
 /* ===== LOTE EXAMINADOR — Tema 6: Carrera militar (Ley 39/2007, de 19 de noviembre)
-   Elaboración PROPIA (examinador A LA ORDEN), 20-sep-2026, sobre el texto VIGENTE del BOE consolidado
+   Elaboración PROPIA (examinador MICABO), 20-sep-2026, sobre el texto VIGENTE del BOE consolidado
    (BOE-A-2007-19880 · ÚLTIMA ACTUALIZACIÓN 09/11/2024). Ley REFORMADA en varias ocasiones: Ley 46/2015
    (art. 24 empleos honoríficos + art. 24 bis vinculación honorífica + sistemas de ascenso) y Ley 5/2024,
    de 8 de noviembre (transitorias, suboficiales ascendidos a teniente, pase a reserva); art. 71.4 por la
@@ -348,7 +348,7 @@ window.QUESTIONS7 = [
 {c:"cabo",b:"C1",t:"Carrera militar",d:"D",id:"cm50",q:"Sobre el retiro y los militares retirados:",o:["El retiro obliga a perder el uniforme para siempre y a no acercarse a unidades","El retiro se declara al cumplir los 65 años, por insuficiencia de condiciones psicofísicas o de facultades profesionales, o voluntariamente; el retirado deja de estar sujeto al régimen general y se identifica con su empleo seguido de la palabra «retirado»","El retiro solo procede por edad","El retirado sigue sujeto a la ley disciplinaria"],a:1,x:"Arts. 114 (65 años; insuficiencias —forzoso en esos supuestos—; voluntario) y 115 (cesa definitivamente; adscripción a unidad si la solicita; uniforme en actos solemnes; empleo + «retirado»). Y la pérdida de la condición de militar de carrera incluye la sanción disciplinaria de SEPARACIÓN firme (art. 116, enlace con el Tema 2).",r:"Ley 39/2007 arts. 114-116"}
 ,
 /* ===== LOTE EXAMINADOR — Tema 7: Organización del Ejército de Tierra (Orden DEF/708/2020 + RD 521/2020)
-   Elaboración PROPIA (examinador A LA ORDEN), 20-sep-2026, sobre el BOE consolidado VIGENTE: Orden DEF/708/2020,
+   Elaboración PROPIA (examinador MICABO), 20-sep-2026, sobre el BOE consolidado VIGENTE: Orden DEF/708/2020,
    de 27 de julio (BOE 28-jul-2020), ÚLTIMA ACTUALIZACIÓN 11/06/2024 (mod. por Orden DEF/559/2024, art. 34 bis:
    Dirección de Ingeniería del MALOG). ANTI-OBSOLETO verificado: la Orden DEF/1265/2015 está DEROGADA;
    la Fuerza del ET NO tiene ya Fuerza Logística Operativa (art. 8: CGTAD + Fuerza Terrestre + Mando de Canarias);
@@ -411,7 +411,7 @@ window.QUESTIONS7 = [
 {c:"cabo",b:"C1",t:"Organización del ET",d:"D",id:"et50",q:"¿Cuál de estas funciones NO corresponde a la Dirección de Acuartelamiento?",o:["La seguridad de las bases, acuartelamientos y establecimientos","El planeamiento y control de la preparación de las unidades para las operaciones","El régimen interior en bases y acuartelamientos","La prevención de riesgos laborales en sus aspectos normativos"],a:1,x:"El art. 37 excluye lo de carácter de preparación o logístico: la preparación de las unidades es de la Fuerza (División de Operaciones del EME y mandos de la Fuerza Terrestre).",r:"Orden DEF/708/2020 arts. 37 y 2.6 · caso"}
 ,
 /* ===== LOTE EXAMINADOR — Tema 8: Enseñanza militar (Ley 39/2007, título IV arts. 48-73 + RD 1051/2020 + RD 93/2022 + Ordenes DEF/196/2024 y DEF/15/2026)
-   Elaboración PROPIA (examinador A LA ORDEN), 20-sep-2026, 100% contra BOE consolidado. NOTA DE HONESTIDAD: el
+   Elaboración PROPIA (examinador MICABO), 20-sep-2026, 100% contra BOE consolidado. NOTA DE HONESTIDAD: el
    proyectado inicialmente "RD 1108/2020 (instrucción, adiestramiento y evaluación operativa)" NO se pudo
    certificar en el BOE (404 en ELI y 4 búsquedas sin resultado) → se descarta y el lote pivota al bloque de
    ENSEÑANZA, sí certificado. Literales verificados: RD 1051/2020 art. 3 (definiciones: instrucción y
@@ -477,7 +477,7 @@ window.QUESTIONS7 = [
 {c:"cabo",b:"C1",t:"Enseñanza militar",d:"M",id:"ia50",q:"La enseñanza de formación de los EXTRANJEROS tiene, además de la general, la finalidad de:",o:["Enseñarles exclusivamente español coloquial","Transmitir los conocimientos esenciales sobre la Constitución, historia y cultura de España","Eximirlos de la formación militar general","Enviarlos a estudios fuera del Ministerio"],a:1,x:"Art. 64.3 de la Ley 39/2007, literal. Detalle de ley que cae en los exámenes de cultura general del nicho.",r:"Ley 39/2007 art. 64.3"}
 ,
 /* ===== LOTE EXAMINADOR — Tema 9: Transmisiones (sistema PR4G + Mando de Transmisiones/JCISAT DEF/708/2020)
-   Elaboración PROPIA (examinador A LA ORDEN), 20-sep-2026, 100% contra fuentes verificadas: fichas OFICIALES del
+   Elaboración PROPIA (examinador MICABO), 20-sep-2026, 100% contra fuentes verificadas: fichas OFICIALES del
    Ejército de Tierra (ejercito.defensa.gob.es: 30-88 MHz, 2.320 canales, 0,4-4 W, 8-10 km, 200-300 saltos/seg,
    antenas 2,6 m / 1,5 m, 4.500 m, 38.400 bits/s, DELTA EUROCOM D/1 16 kbits/s, borrado de emergencia, TEMPEST
    AMSG-784, EMP, modos analógica/digital-COMSEC) y TFG de la DAC de Transmisiones + programa (V1 1992 sustituye
@@ -540,7 +540,7 @@ window.QUESTIONS7 = [
 {c:"cabo",b:"C1",t:"Transmisiones",d:"M",id:"tx50",q:"El sector transmisiones se ha convertido para la Fuerza en:",o:["Un elemento prescindible en combate","Su «sistema nervioso»: sin comunicaciones no hay mando ni coordinación","Una unidad exclusivamente administrativa","Un cuerpo ajeno a las operaciones"],a:1,x:"Síntesis de doctrina: las transmisiones son las primeras en llegar y las últimas en marcharse; sin ellas no hay mando y control.",r:"Doctrina de transmisiones · síntesis"}
 ,
 /* ===== LOTE EXAMINADOR — Tema 10: Topografía
-   Elaboración PROPIA (examinador A LA ORDEN), 20-sep-2026, 100% contra fuentes verificadas hoy: RD 1071/2007, de 27 de
+   Elaboración PROPIA (examinador MICABO), 20-sep-2026, 100% contra fuentes verificadas hoy: RD 1071/2007, de 27 de
    julio (BOE-A-2007-15822: ETRS89 sistema geodésico oficial, sustituye a ED50, REGCAN95 en Canarias, consistente con
    GPS/GLONASS/GALILEO, altitudes desde el nivel medio del mar en Alicante, obligatorio desde 1-1-2015) · IGN (MTN25:
    equidistancia 10 m y maestras cada 50 m; MTN50: 20 m y 100 m; curvas auxiliares a mitad; MTN25 = cada hoja del
@@ -603,7 +603,7 @@ window.QUESTIONS7 = [
 {c:"cabo",b:"C1",t:"Topografía",d:"M",id:"to50",q:"Una ortofotografía (ortofoto) es:",o:["Una foto oblicua de avión sin corregir","Una imagen aérea corregida, a escala constante, útil para actualizar lo que el mapa no recoge","El dibujo de las curvas de nivel","Un mapa de carreteras"],a:1,x:"La orto se ha corregido para ser medible (como un mapa) y muestra la realidad del momento: el complemento visual para reconocer el terreno antes de la maniobra.",r:"IGN · ortofotografía"}
 ,
 /* ===== LOTE EXAMINADOR — Tema 11: Primeros auxilios
-   Elaboración PROPIA (examinador A LA ORDEN), 20-sep-2026, 100% contra fuentes verificadas hoy: GUÍAS ERC 2025 (Consejo
+   Elaboración PROPIA (examinador MICABO), 20-sep-2026, 100% contra fuentes verificadas hoy: GUÍAS ERC 2025 (Consejo
    Europeo de Reanimación, publicadas 23-oct-2025, traducción CERCP: secuencia simplificada «Comprobar-Llamar-RCP»;
    100-120/min; 5-6 cm; reexpansión completa; interrupciones <10 s; 30:2 entrenado; RCP solo manos válida; DEA en
    cuanto disponible y compresiones tras cada análisis; cambio de reanimador por fatiga; 5 ventilaciones iniciales
@@ -667,7 +667,7 @@ window.QUESTIONS7 = [
 {c:"cabo",b:"C2",t:"Primeros auxilios",d:"D",id:"pa50",q:"En la cantina un compañero se atraganta, deja de toser y pierde la consciencia. Lo correcto:",o:["Sostenerlo de pie y seguir dándole palmadas una hora","Tumbarlo en el suelo y comenzar la RCP con compresiones","Colgarlo del tobillo desde la barra","Meterle los dedos a ciegas hasta el fondo de la garganta"],a:1,x:"Consciente: golpes y Heimlich. Inconsciente: al suelo y a comprimir (cada compresión empuja el cuerpo extraño).",r:"ERC · obstrucción · caso"}
 ,
 /* ===== LOTE EXAMINADOR — Tema 12: La Constitución Española de 1978
-   Elaboración PROPIA (examinador A LA ORDEN), 21-sep-2026, 100% contra el texto consolidado (BOE-A-1978-31229; BOE núm.
+   Elaboración PROPIA (examinador MICABO), 21-sep-2026, 100% contra el texto consolidado (BOE-A-1978-31229; BOE núm.
    311, de 29-12-1978): Preámbulo + Título Preliminar (1-9) + 10 Títulos + 169 artículos + 4 DA + 9 DT + 1 DD + 1 DF.
    Estructura Título I: arts. 10-55 (el más extenso). Art. 8.1 misión y composición FAS (nota: el texto constitucional
    dice literalmente "Ejército del Aire"; la denominación "y del Espacio" es reglamentaria de 2022 y NO reformó la CE).
@@ -730,7 +730,7 @@ window.QUESTIONS7 = [
 {c:"cabo",b:"C1",t:"Constitución",d:"D",id:"ce50",q:"La cuarta reforma de la Constitución (2026) consistió en:",o:["Sustituir el nombre del Ejército del Aire en el art. 8","Dar al art. 69.3 un senador propio a la isla de Formentera (el Senado de elección directa pasa de 208 a 209)","Reformar el art. 155 para limitarlo","Eliminar el requisito de refrendo de los actos del Rey"],a:1,x:"BOE 20-5-2026: la más reciente (y la cuarta) reforma toca la composición del Senado de elección directa: Formentera deja de estar integrada con la de las Pitiusas y gana senador propio (208 → 209).",r:"Reforma art. 69.3 CE · BOE 20-5-2026"}
 ,
 /* ===== LOTE EXAMINADOR — Tema 13: Instrucción del combatiente
-   Elaboración PROPIA (examinador A LA ORDEN), 21-sep-2026, contra fuentes verificadas hoy: doctrina clásica de
+   Elaboración PROPIA (examinador MICABO), 21-sep-2026, contra fuentes verificadas hoy: doctrina clásica de
    instrucción (marchas 25-30 km jornada normal / ~50 extraordinaria, ritmo 4-5 km/h —confirmado por el propio ET
    en marchas de endurecimiento—, alto técnico 10 min/hora; cubierta=oculta, abrigo=protege del fuego; orden
    cerrada sin/con armas, voces preventiva y ejecutiva, saludo cubierto) + método de combate ES/AS (espacio y
@@ -792,7 +792,7 @@ window.QUESTIONS7 = [
 {c:"cabo",b:"C1",t:"Instrucción del combatiente",d:"M",id:"ic50",q:"La condición física del combatiente:",o:["Es opcional en el ET","Es la base de toda su preparación: sin ella no hay marchas, combate ni resistencia al estrés","Sirve solo para el examen de ingreso","Se consigue con la cocina del cuartel"],a:1,x:"Marchas con carga, progresión, cavado y cargar heridos exigen fondo y fuerza: la física es el cimiento sobre el que se montan todas las destrezas.",r:"Instrucción · instrucción física"}
 ,
 /* ===== LOTE EXAMINADOR — Tema 14: OTAN y UE
-   Elaboración PROPIA (examinador A LA ORDEN), 21-sep-2026, contra fuentes verificadas hoy: exteriores.gob.es
+   Elaboración PROPIA (examinador MICABO), 21-sep-2026, contra fuentes verificadas hoy: exteriores.gob.es
    (Rep. Perm. OTAN: 32 miembros y oleadas 1952/1955/1982/1999/2004/2009/2017/2020/2023/2024; España-OTAN: 30-5-1982
    16.º miembro, referéndum permanencia 12-3-1986 con condiciones, integración estructura militar 1-1-1999 tras la
    Cumbre de Madrid de 1997, Cumbre de Madrid 2022 con 40.º aniversario, Rota con 6 destructores AEGIS del SDAM,
@@ -853,7 +853,7 @@ window.QUESTIONS7 = [
 {c:"cabo",b:"C1",t:"OTAN y UE",d:"D",id:"ot50",q:"Un compañero confunde UE y OTAN. La aclaración más certera:",o:["Son dos departamentos del mismo organismo","La UE legisla (28 miembros → hoy 27) y la OTAN defiende (32): un país puede estar en ambas, en una o en ninguna","La OTAN es la rama militar de la UE","La UE nació de la OTAN en 1949"],a:1,x:"Dos organizaciones, dos tratados y dos sedes: Bruselas las acoge a ambas, pero no son lo mismo (ni el mismo número de miembros).",r:"Comparación · caso"}
 ,
 /* ===== LOTE EXAMINADOR — Tema 15: Armamento y tiro
-   Elaboración PROPIA (examinador A LA ORDEN), 21-sep-2026, contra fuentes verificadas hoy: FICHA OFICIAL del ET
+   Elaboración PROPIA (examinador MICABO), 21-sep-2026, contra fuentes verificadas hoy: FICHA OFICIAL del ET
    (ejercito.defensa.gob.es/materiales/armamento_ligero/FUSIL-G36E.html: 5,56 mm, 750 dpm, 3,3 kg, cargador 30,
    toma de gases, fabricación Alemania/España, accesorio lanzagranadas) + INFODEFENSA 11-9-2026 (G36 sigue
    reglamentario: +3.580 fusiles, 1.200 G36E + 2.380 G36KVE) + páginas de materiales de unidades del ET (USP
@@ -917,7 +917,7 @@ window.QUESTIONS7 = [
 {c:"cabo",b:"C1",t:"Armamento y tiro",d:"M",id:"ar50",q:"La familia de munición del equipo básico de un tirador tipo es:",o:["7,62 y 12,7","5,56 × 45 (fusil) y 9 × 19 (pistola)","40 × 46 y 90","12 de calibre y .22"],a:1,x:"El soldado tipo: G36 (5,56) + USP (9 × 19). Dos familias, una logística simple.",r:"Materiales · munición"}
 ,
 /* ===== LOTE EXAMINADOR — Tema 16: Logística
-   Elaboración PROPIA (examinador A LA ORDEN), 21-sep-2026, contra fuentes verificadas hoy: página OFICIAL del ET
+   Elaboración PROPIA (examinador MICABO), 21-sep-2026, contra fuentes verificadas hoy: página OFICIAL del ET
    AALOG 41 (clases I subsistencia, II vestuario, III carburantes, IV fortificación, V municiones, VII equipo,
    IX repuestos; Grupo de Mantenimiento = Tercer Escalón preventivo/correctivo; Centro de Carburantes y Polvorín;
    desembarazo de materiales inútiles; apoyos móviles; U. de Servicios y Talleres mayoritariamente civil) +
@@ -980,7 +980,7 @@ window.QUESTIONS7 = [
 {c:"cabo",b:"C1",t:"Logística",d:"M",id:"lg50",q:"El apoyo logístico busca disponer del material:",o:["Más caro posible","Adecuado, en cantidad suficiente, en el lugar y momento oportunos","Solo los lunes","Al final, si acaso"],a:1,x:"La síntesis de toda la logística: QUÉ, CUÁNTO, DÓNDE y CUÁNDO. Falla uno de los cuatro y falla la operación.",r:"Doctrina logística"}
 ,
 /* ===== LOTE EXAMINADOR — Tema 17: Instrucción cívica (símbolos, patronas, condecoraciones)
-   Elaboración PROPIA (examinador A LA ORDEN), 21-sep-2026, contra fuentes verificadas hoy: RD 1560/1997 de 10-oct
+   Elaboración PROPIA (examinador MICABO), 21-sep-2026, contra fuentes verificadas hoy: RD 1560/1997 de 10-oct
    (BOE-A-1997-21605 consolidado LEÍDO: «Marcha Granadera»/«Marcha Real Española», partitura oficial, frase de
    16 compases, negra=76, Si b mayor, versión COMPLETA = homenajes a la Bandera y actos con SS.MM. los Reyes,
    versión BREVE = demás actos) + historia del himno (Libro de Ordenanza de toques de Infantería 1761, Espinosa;

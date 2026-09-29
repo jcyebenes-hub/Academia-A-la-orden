@@ -125,12 +125,16 @@ footer a{color:#e8e2cf}
   .app-top .badge{font-size:.7rem;padding:3px 8px}
   .streak{margin-left:0;padding:4px 9px;font-size:.76rem}
   .xp-chip{padding:4px 9px;font-size:.76rem}
+  .auth-cta{padding:4px 10px;font-size:.75rem}
   .bb-tag{display:none}
   .brand-bar{font-size:.7rem;padding:5px 8px}
 }
 .app-top .brand{font-size:1.05rem}
 .streak{background:rgba(255,255,255,.14);border-radius:99px;padding:5px 12px;font-weight:800;font-size:.85rem;margin-left:auto;white-space:nowrap}
 .xp-chip{background:var(--gold);color:#231a05;border-radius:99px;padding:5px 12px;font-weight:800;font-size:.85rem;white-space:nowrap}
+.auth-cta{background:linear-gradient(145deg,#ffe08a,#d9b64e);color:#231a05;border-radius:99px;padding:6px 14px;font-weight:900;font-size:.84rem;white-space:nowrap;text-decoration:none;border:1.5px solid rgba(255,255,255,.4);box-shadow:0 3px 14px rgba(217,182,78,.5);animation:authIn .35s}
+@keyframes authIn{from{transform:scale(.85);opacity:0}to{transform:none;opacity:1}}
+.auth-cta:active{transform:scale(.94)}
 .brand-bar{background:#7a5b00;color:#ffe9a8;font-size:.78rem;text-align:center;padding:6px 10px}
 .brand-bar a{color:#fff;font-weight:800}
 .app-body{padding:18px 0 110px;max-width:860px;margin:0 auto}
@@ -348,5 +352,123 @@ label.f{display:block;font-weight:800;margin:12px 0 6px;font-size:.9rem}
 .sheet{overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y}
 .sheet-bg{touch-action:none}
 /* 3) Lo mismo para la ventana del trivial (pregunta centrada). */
+.bib-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px dashed var(--line)}
+.bib-row:last-child{border-bottom:none}
+.bib-t{flex:1;font-size:.88rem;font-weight:600;line-height:1.35}
+.bib-act{display:flex;gap:6px;flex:0 0 auto}
+.bib-act .btn{min-width:44px;text-align:center}
 .tmodal-bg{touch-action:none}
 .tmodal{overscroll-behavior:contain;touch-action:pan-y}
+
+/* ════════════ MICABO · DESIGN SYSTEM v2 — capa moderna (29-sep-2026) ════════════ */
+:root{
+  --radius:18px;
+  --shadow:0 1px 2px rgba(20,32,24,.05), 0 12px 32px -14px rgba(20,40,26,.20);
+  --shadow-lg:0 24px 60px -20px rgba(16,32,20,.30);
+  --glass:rgba(255,255,255,.60);
+  --ring:0 0 0 3px rgba(201,151,31,.30);
+}
+html.dark{
+  --shadow:0 1px 2px rgba(0,0,0,.45), 0 14px 34px -14px rgba(0,0,0,.55);
+  --shadow-lg:0 26px 60px -18px rgba(0,0,0,.65);
+  --glass:rgba(255,255,255,.055);
+}
+body{
+  background:
+    radial-gradient(1100px 480px at 88% -8%, rgba(31,92,56,.10), transparent 62%),
+    radial-gradient(820px 380px at -8% 6%, rgba(201,151,31,.11), transparent 56%),
+    var(--bg);
+  background-attachment:fixed;
+}
+html.dark body{
+  background:
+    radial-gradient(1000px 460px at 88% -8%, rgba(52,156,94,.17), transparent 62%),
+    radial-gradient(760px 360px at -8% 5%, rgba(217,182,78,.09), transparent 55%),
+    var(--bg);
+}
+h1,h2,h3{letter-spacing:-.022em}
+h1{font-weight:900}
+
+/* --- entradas de vista suaves --- */
+#view>*{animation:vRise .3s cubic-bezier(.2,.8,.3,1) both}
+@keyframes vRise{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){#view>*{animation:none}}
+
+/* --- tarjetas y acordeones con profundidad --- */
+.card,.acc{border-radius:var(--radius)}
+.card{border:1px solid var(--line);box-shadow:var(--shadow)}
+.acc{border:1px solid var(--line);box-shadow:var(--shadow);border-radius:16px;overflow:hidden;background:var(--card)}
+.card>h3:first-child{letter-spacing:-.015em}
+
+/* --- botones: degradado, sombra de color, presión táctil --- */
+.btn{border-radius:14px;font-weight:800;letter-spacing:.005em;transition:transform .08s,box-shadow .18s,filter .18s;box-shadow:0 1px 2px rgba(0,0,0,.10)}
+.btn:active{transform:scale(.965)}
+.btn:focus-visible{outline:none;box-shadow:var(--ring)}
+.btn-green{background:linear-gradient(155deg,#2e8a56,#1f5c38 78%);box-shadow:0 8px 18px -8px rgba(31,92,56,.60)}
+.btn-gold{background:linear-gradient(155deg,#eec95e,#c9971f 80%);box-shadow:0 8px 18px -8px rgba(201,151,31,.60);color:#231a05}
+.btn-ghost{background:var(--glass)}
+html.dark .btn-green{background:linear-gradient(155deg,#2f9660,#17452b 80%)}
+html.dark .btn-gold{background:linear-gradient(155deg,#d9b64e,#a67f16 80%)}
+.btn-sm{border-radius:12px}
+
+/* --- opciones de respuesta --- */
+.opt{border-radius:14px;transition:border-color .15s,box-shadow .15s,transform .08s}
+.opt:hover{border-color:var(--gold)}
+.opt:active{transform:scale(.992)}
+
+/* --- insignia/píldoras --- */
+.badge{border-radius:999px}
+
+/* --- cabecera: degradado rico, marca con escudo, chips de cristal --- */
+.app-top{
+  background:linear-gradient(168deg,#1e7043 0%,#16492c 55%,#123a23 100%);
+  box-shadow:0 10px 30px -14px rgba(8,26,15,.55);
+}
+.app-top .wrap{padding-top:12px;padding-bottom:12px}
+.app-top .brand{display:inline-flex;align-items:center;gap:8px;font-weight:900;letter-spacing:.04em}
+.app-top .brand svg{width:27px;height:27px;flex:0 0 27px;filter:drop-shadow(0 3px 8px rgba(0,0,0,.4))}
+.app-top .brand b{background:linear-gradient(115deg,#fff3cf 5%,#ecc860 55%,#ffe9a8 95%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.app-top .streak,.app-top .xp-chip,.app-top .badge{backdrop-filter:blur(6px)}
+.app-top .streak{background:rgba(255,255,255,.13)}
+
+/* --- barra inferior: dock flotante de cristal con píldora activa --- */
+main.app-body{padding-bottom:112px}
+.tabbar{
+  left:50%;right:auto;transform:translateX(-50%);
+  bottom:calc(10px + env(safe-area-inset-bottom));
+  width:min(478px,calc(100% - 18px));
+  border-radius:24px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(16px) saturate(1.5);
+  -webkit-backdrop-filter:blur(16px) saturate(1.5);
+  box-shadow:0 20px 44px -16px rgba(10,26,16,.42);
+  padding:8px 10px;
+}
+html.dark .tabbar{background:rgba(18,26,20,.88)}
+.tabbar a{border-radius:15px;padding:6px 8px;transition:background .18s,color .18s,transform .12s;font-size:.7rem;gap:3px}
+.tabbar a:active{transform:scale(.94)}
+.tabbar a span.i{font-size:0;line-height:0}
+.tabbar a span.i svg{width:23px;height:23px;display:block;margin:0 auto}
+.tabbar a.on{color:#231a05;background:linear-gradient(150deg,#ffe9a8,#e2bd55 85%);box-shadow:0 7px 16px -7px rgba(201,151,31,.65)}
+html.dark .tabbar a.on{color:#ffe9a8;background:linear-gradient(150deg,rgba(217,182,78,.30),rgba(217,182,78,.12));box-shadow:0 7px 16px -7px rgba(0,0,0,.5)}
+.tabbar a.on span.i svg{stroke-width:2.25}
+
+/* --- foco visible coherente --- */
+.tabbar a:focus-visible,.back:focus-visible{outline:none;box-shadow:var(--ring)}
+
+/* --- inputs redondeados --- */
+input,select,textarea{border-radius:12px}
+
+/* --- filas "Más" y topic-row con vida --- */
+.mode,.topic-row{transition:transform .12s,background .15s}
+.mode:active{transform:scale(.985)}
+
+/* --- scrollbars finos --- */
+*{scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+::-webkit-scrollbar-track{background:transparent}
+
+/* --- toast de cristal oscuro --- */
+.toast{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}

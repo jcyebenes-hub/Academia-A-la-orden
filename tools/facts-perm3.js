@@ -1,4 +1,4 @@
-/* A LA ORDEN — Lote 11 · PERMANENCIA III · alineado con el temario oficial 2026 (21 temas/3 bloques). Redacción propia. */
+/* MICABO — Lote 11 · PERMANENCIA III · alineado con el temario oficial 2026 (21 temas/3 bloques). Redacción propia. */
 window.FACTS_PERM3 = [
  [
   "perm",

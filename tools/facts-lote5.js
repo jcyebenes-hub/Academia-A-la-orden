@@ -1,4 +1,4 @@
-/* A LA ORDEN — Lote 5 · CABO TIERRA (hechos detectados en cuadernillos oficiales públicos I/24,
+/* MICABO — Lote 5 · CABO TIERRA (hechos detectados en cuadernillos oficiales públicos I/24,
    reescritos a nuestro estilo para el flujo de estudio) */
 window.FACTS_LOTE5 = [
 ["cabo","C2","Tiro","M","Balística exterior","¿Cómo se llama la línea que es la prolongación del eje del tubo del arma dispuesta para el disparo?","La línea de tiro",["La línea de mira","La línea de situación","La línea de proyección"],"La prolongación del eje del tubo dispuesta para el disparo se llama línea de ___.","tiro",["mira","situación","vista"]],

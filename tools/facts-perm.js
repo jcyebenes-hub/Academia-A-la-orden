@@ -1,4 +1,4 @@
-/* A LA ORDEN — Base de hechos verificables · CURSO PERMANENTE (B1/B2/B3) */
+/* MICABO — Base de hechos verificables · CURSO PERMANENTE (B1/B2/B3) */
 window.FACTS_PERM = [
 ["perm","B1","Constitución","F","Constitución Española","¿Cuándo se ratificó en referéndum la Constitución de 1978?","El 6 de diciembre de 1978",["El 23 de febrero de 1981","El 31 de octubre de 1978","El 29 de diciembre de 1979"],"La Constitución se ratificó en referéndum el 6 de diciembre de ___.","1978",["1977","1979","1980"]],
 ["perm","B1","Constitución","F","CE art. 1.1","¿Cómo se constituye España según el art. 1.1 de la CE?","En un Estado social y democrático de derecho",["En un Estado federal y laico","En una monarquía absoluta","En un Estado confederal"],"España se constituye en un Estado ___ y democrático de derecho.","social",["federal","unitario","liberal"]],

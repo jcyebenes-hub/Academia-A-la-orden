@@ -1,4 +1,4 @@
-/* A LA ORDEN — LOTE 2 PERMANENCIA · 40 preguntas CURADAS a mano (22-sep-2026)
+/* MICABO — LOTE 2 PERMANENCIA · 40 preguntas CURADAS a mano (22-sep-2026)
    Refuerzo de los bloques GORDOS del examen de 100 preguntas:
    Constitución · Defensa Nacional (LO 5/2005) · estructura del MINISDEF ·
    mecánica del examen · doctrina · misiones · físicas · convocatoria.

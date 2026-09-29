@@ -1,4 +1,4 @@
-/* A LA ORDEN — Cliente de nube: cuentas, plan, sincronización de progreso (localStorage ⇄ servidor) */
+/* MICABO — Cliente de nube: cuentas, plan, sincronización de progreso (localStorage ⇄ servidor) */
 (function () {
 "use strict";
 const $ = (s, el) => (el || document).querySelector(s);
@@ -106,12 +106,19 @@ function paintChip() {
   let chip = $("#cloudChip");
   if (!chip) {
     chip = document.createElement("a");
-    chip.id = "cloudChip"; chip.href = "javascript:void(0)"; chip.className = "xp-chip";
+    chip.id = "cloudChip"; chip.href = "javascript:void(0)";
     const bar = document.querySelector(".app-top .wrap");
     if (bar) bar.appendChild(chip);
   }
-  chip.textContent = C.user ? ("👤 " + C.user.name.split(" ")[0] + (C.user.plan !== "free" ? " · " + C.user.plan.toUpperCase() : "")) : "👤 Entrar";
-  chip.onclick = abrirPerfil;
+  if (C.user) {
+    chip.className = "xp-chip";
+    chip.textContent = "👤 " + C.user.name.split(" ")[0] + (C.user.plan !== "free" ? " · " + C.user.plan.toUpperCase() : "");
+    chip.onclick = abrirPerfil;   /* v75: tocar TU chip = perfil + ajustes */
+  } else {
+    chip.className = "auth-cta";
+    chip.innerHTML = "🔑 <b>Entrar / Registrarse</b>";
+    chip.onclick = () => { if (location.hash === "#/cuenta") render(); else location.hash = "#/cuenta"; };
+  }
 }
 /* ventana de perfil: tocar tu usuario arriba = perfil + ajustes */
 window.abrirPerfil = function () {
@@ -144,7 +151,7 @@ window.abrirPerfil = function () {
   if (el("pfSalir")) el("pfSalir").onclick = () => {
     if (!confirm("¿Cerrar sesión? Tu progreso local se queda guardado.")) return;
     bg.remove();
-    api("POST", "/api/logout").then(() => { C.user = null; paintChip(); toast("A la orden. Sesión cerrada"); if (location.hash === "#/cuenta") render(); });
+    api("POST", "/api/logout").then(() => { C.user = null; paintChip(); toast("Sesión cerrada. ¡A su mando!"); if (location.hash === "#/cuenta") render(); });
   };
 };
 
@@ -200,7 +207,7 @@ window.vCuenta = async function () {
   $("#btnDelete").onclick = () => {
     if (!confirm("Esto elimina tu cuenta, tu progreso en la nube y tus datos, sin posibilidad de recuperación. ¿Continuar?")) return;
     if (!confirm("Última confirmación: ¿eliminar definitivamente tu cuenta?")) return;
-    api("POST", "/api/privacy/delete").then(() => { C.user = null; paintChip(); toast("Cuenta eliminada. Un saludo, y hasta la orden."); setTimeout(() => location.href = "/app.html", 1200); }).catch(e => toast("No se pudo eliminar: " + e.message));
+    api("POST", "/api/privacy/delete").then(() => { C.user = null; paintChip(); toast("Cuenta eliminada. Un saludo, y hasta pronto."); setTimeout(() => location.href = "/app.html", 1200); }).catch(e => toast("No se pudo eliminar: " + e.message));
   };
   api("GET", "/api/invoices").then(d => {
     const box = $("#invBox");

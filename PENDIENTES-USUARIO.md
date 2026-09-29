@@ -1,7 +1,7 @@
-# 📌 PENDIENTES DEL USUARIO — A LA ORDEN
+# 📌 PENDIENTES DEL USUARIO — MICABO
 
 ## ⏰ Recordatorio pendiente (lo pediste expresamente)
-- **TELEGRAM**: entrar en **BotFather** → `/setname` → elegir el bot → escribir **A LA ORDEN**.
+- **TELEGRAM**: entrar en **BotFather** → `/setname` → elegir el bot → escribir **MICABO**.
   (El código ya saluda con el nombre nuevo; falta solo el nombre visible en Telegram.)
   → Cuanto antes lo hagas, antes se acabará la confusión con el nombre viejo.
 
@@ -28,7 +28,7 @@
 5. Servicios dormidos: Stripe/Redsys siguen apagados a propósito.
 
 ## ✅ Hecho estos días (para que no se te olvide lo que ya está)
-- Renombrado GALÓN → A LA ORDEN (206 reemplazos; existe galones.es, producto gemelo policía).
+- Renombrado GALÓN → MICABO (206 reemplazos; existe galones.es, producto gemelo policía).
 - Selector de curso «¿Qué preparas hoy?» ANTES de entrar (tiles, fin de la ruleta).
 - Navegador de preguntas con líneas verde/roja en todos los tests.
 - Lote examinador COMPLETO: 17 temas · 850 preguntas · 17 cuadernos PDF.
@@ -47,3 +47,7 @@
 - LOTE 2 CABO 1º HECHO (v86): 45 curadas (Geografía 12, Historia 12, Inglés +8 →16, Primeros auxilios 8, NBQ 5) → Cabo 1º: 155 curadas · syllabus B1 con Primeros auxilios/NBQ añadidos · trivial cabo1 pools [13,13,7,9,0,14] (solo Transmisiones a 0). Siguiente remesa posible: Transmisiones cabo1 + Derechos y deberes/OSCE perm + validación de borradores.
 
 - LOTE OFICIAL 1 DESDE LA TEORÍA DEL USUARIO (v88): 24 curadas citando los documentos oficiales (Tema 5 OSCE OISD + LO 9/2011 Tema 3) → Permanencia: 223 · TODOS los temas ≥7. La teoría oficial (49 PDFs, 4,6 MB texto) vive en /home/user/teoria-txt/ · 3 PDFs escaneados sin OCR pendientes (Tema 1 Reg Personal, Tema 6 LO 3/2007, resolución UCOS).
+
+- BIBLIOTECA OFICIAL en Temario (v91): los 49 PDFs del Rincón de Tropa servidos desde /pdf/temarios/ (97 MB) con 📖 consultar y ⬇️ descargar, agrupados por curso y materia (2.171 págs). SW v91: los PDF no se cachean (pesan).
+
+- DISEÑO v2 (sw v92): capa moderna sobre la identidad verde/oro — dock inferior flotante de cristal con pestaña activa en píldora dorada, iconos SVG de trazo (fin de emojis en la barra), escudo de la landing en la cabecera con MICABO en oro degradado, fondos con brillo ambiental, tarjetas/botones con profundidad y presión táctil, animación de entrada de vistas, scrollbars finos. Limpieza de workspace: fuera cloudflared (38MB), social duplicado y zip viejo (124→41 MB); los 49 PDFs de temarios viven SOLO en GitHub/Render (no copiarlos al workspace).

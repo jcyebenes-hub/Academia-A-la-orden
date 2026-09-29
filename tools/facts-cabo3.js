@@ -1,4 +1,4 @@
-/* A LA ORDEN — Lote 3 · CABO TIERRA (densificación de temario público: mismo fondo que
+/* MICABO — Lote 3 · CABO TIERRA (densificación de temario público: mismo fondo que
    trabajan FFIM/ANARO/ascensoacabo, redacción propia. Añade Orden Cerrado y Escuadra y equipo) */
 window.FACTS_CABO3 = [
 /* ===== Derechos, carrera y organización (segundos ángulos) ===== */

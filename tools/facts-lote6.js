@@ -1,4 +1,4 @@
-/* A LA ORDEN — Lote 6 · CABO TIERRA (hechos derivados del test comunitario público de daypo.com
+/* MICABO — Lote 6 · CABO TIERRA (hechos derivados del test comunitario público de daypo.com
    "test de apoyo ascenso a cabo ET" (2016, 50 preg.) y de ascensoacabo.com. Reescritos y
    actualizados a la normativa vigente: algunos datos del test de 2016 están desfasados
    (verificado: la LODN 5/2005 y las RROO RD 96/2009 que citaba SIGUEN vigentes; lo desfasado se actualizó, p. ej. el régimen de guardias a RD 502/2020) */

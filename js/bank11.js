@@ -1,4 +1,4 @@
-/* A LA ORDEN — LOTE 2 CABO 1º · 45 preguntas CURADAS a mano (22-sep-2026)
+/* MICABO — LOTE 2 CABO 1º · 45 preguntas CURADAS a mano (22-sep-2026)
    Huecos reforzados: Geografía · Historia · Inglés · Primeros auxilios · NBQ.
    Explicaciones que enseñan el PORQUÉ (nada de ecos). */
 window.QUESTIONS11 = [
