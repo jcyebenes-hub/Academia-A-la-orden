@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* ============================================================
-   A LA ORDEN · Motor de ALERTAS BOD + vigía de Telegram (zero deps)
+   MICABO · Motor de ALERTAS BOD + vigía de Telegram (zero deps)
    ------------------------------------------------------------
    ¿Qué hace?
    1. Lee los EXTRACTOS PÚBLICOS del BOD que publica ATME
@@ -137,7 +137,7 @@ async function vigiarTelegram(state) {
 function escribir(alertas) {
   alertas.sort((a, b) => b.ts - a.ts);
   const data = { updated: bonito(new Date().toISOString().slice(0, 10)), alerts: alertas.slice(0, MAX_ALERTAS) };
-  fs.writeFileSync(OUT_APP, "/* A LA ORDEN · Alertas BOD — generado por tools/bod-check.js · NO editar a mano */\nwindow.GALON_BOD = " + JSON.stringify(data, null, 1) + ";\n");
+  fs.writeFileSync(OUT_APP, "/* MICABO · Alertas BOD — generado por tools/bod-check.js · NO editar a mano */\nwindow.GALON_BOD = " + JSON.stringify(data, null, 1) + ";\n");
   return data;
 }
 function rutasTelegram() {
@@ -167,7 +167,7 @@ async function publicarTelegram(nuevas) {
   }
   let enviadas = 0;
   for (const a of nuevas.slice(0, 8)) {
-    const txt = `📡 <b>${a.tag}: ${a.t}</b>\n${a.x}\n🗓 ${a.d} · <a href="${a.url || "https://www.atme.es/category/bod/"}">fuente</a>\n— A LA ORDEN · tu ascenso, gratis${BASE_URL ? ": " + BASE_URL : ""}`;
+    const txt = `📡 <b>${a.tag}: ${a.t}</b>\n${a.x}\n🗓 ${a.d} · <a href="${a.url || "https://www.atme.es/category/bod/"}">fuente</a>\n— MICABO · tu ascenso, gratis${BASE_URL ? ": " + BASE_URL : ""}`;
     for (const r of rutas) {
       if (r.tag && r.tag.toLowerCase() !== a.tag.toLowerCase()) continue;
       try {
@@ -225,7 +225,7 @@ async function preguntaDelDia() {
   /* outbox: textos listos para pegar (solo las nuevas de esta pasada) */
   const previas = new Set(state.posted);
   const nuevasOut = data.alerts.filter(a => !previas.has(K(a)));
-  const outbox = nuevasOut.map(a => `📡 ${a.tag}: ${a.t}\n${a.x}\n🗓 ${a.d} · fuente: ${a.url || "extracto BOD (ATME)"}\n— A LA ORDEN · tu ascenso, gratis${BASE_URL ? ": " + BASE_URL : ""}\n`).join("\n");
+  const outbox = nuevasOut.map(a => `📡 ${a.tag}: ${a.t}\n${a.x}\n🗓 ${a.d} · fuente: ${a.url || "extracto BOD (ATME)"}\n— MICABO · tu ascenso, gratis${BASE_URL ? ": " + BASE_URL : ""}\n`).join("\n");
   if (nuevasOut.length) fs.writeFileSync(OUT_BOX, outbox);
   console.log("› outbox: " + nuevasOut.length + " textos listos en tools/bod-outbox.txt");
 

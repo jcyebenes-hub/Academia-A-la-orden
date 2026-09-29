@@ -1,4 +1,4 @@
-/* A LA ORDEN — Banco ampliado · CABO 1º (+28) y PERMANENTE (+58) + exámenes oficiales
+/* MICABO — Banco ampliado · CABO 1º (+28) y PERMANENTE (+58) + exámenes oficiales
    Contenido original elaborado a partir del temario oficial y fuentes públicas. */
 window.QUESTIONS3 = [
 /* ===== CABO 1º · B1 Fase de oposición ===== */

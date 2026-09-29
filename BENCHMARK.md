@@ -1,4 +1,4 @@
-# Benchmark → A LA ORDEN: qué copiamos de las mejores
+# Benchmark → MICABO: qué copiamos de las mejores
 
 Referencias: OpositaTest (líder test, 303K preguntas, 7,99–15,99 €/mes), InnoTest (Policía/GC, 4,6–4,7★, 10,83–16,99 €/mes), OpoRuta (IA verificada vs BOE), Formación Ninja/Gato Funcionario (método + gamificación).
 
@@ -26,4 +26,4 @@ Referencias: OpositaTest (líder test, 303K preguntas, 7,99–15,99 €/mes), In
 ## Precios de referencia (2026)
 - Solo test: OpositaTest 7,99–15,99 €/mes · InnoTest 10,83–16,99 €/mes · OpoMelilla 12,99 €/mes · Soldado Español 19 €/mes.
 - Cursos integrales: OpositaTest 295–945 €/año · Surplus permanencia ~616 €.
-- **Propuesta A LA ORDEN**: Gratis (embudo) · Pro 14,99 €/mes por curso · Carrera Total 19,99 €/mes (3 cursos) · Pago único 79–149 €/convocatoria · Sin matrícula ni permanencia.
+- **Propuesta MICABO**: Gratis (embudo) · Pro 14,99 €/mes por curso · Carrera Total 19,99 €/mes (3 cursos) · Pago único 79–149 €/convocatoria · Sin matrícula ni permanencia.

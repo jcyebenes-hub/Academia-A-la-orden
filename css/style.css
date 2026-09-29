@@ -125,12 +125,16 @@ footer a{color:#e8e2cf}
   .app-top .badge{font-size:.7rem;padding:3px 8px}
   .streak{margin-left:0;padding:4px 9px;font-size:.76rem}
   .xp-chip{padding:4px 9px;font-size:.76rem}
+  .auth-cta{padding:4px 10px;font-size:.75rem}
   .bb-tag{display:none}
   .brand-bar{font-size:.7rem;padding:5px 8px}
 }
 .app-top .brand{font-size:1.05rem}
 .streak{background:rgba(255,255,255,.14);border-radius:99px;padding:5px 12px;font-weight:800;font-size:.85rem;margin-left:auto;white-space:nowrap}
 .xp-chip{background:var(--gold);color:#231a05;border-radius:99px;padding:5px 12px;font-weight:800;font-size:.85rem;white-space:nowrap}
+.auth-cta{background:linear-gradient(145deg,#ffe08a,#d9b64e);color:#231a05;border-radius:99px;padding:6px 14px;font-weight:900;font-size:.84rem;white-space:nowrap;text-decoration:none;border:1.5px solid rgba(255,255,255,.4);box-shadow:0 3px 14px rgba(217,182,78,.5);animation:authIn .35s}
+@keyframes authIn{from{transform:scale(.85);opacity:0}to{transform:none;opacity:1}}
+.auth-cta:active{transform:scale(.94)}
 .brand-bar{background:#7a5b00;color:#ffe9a8;font-size:.78rem;text-align:center;padding:6px 10px}
 .brand-bar a{color:#fff;font-weight:800}
 .app-body{padding:18px 0 110px;max-width:860px;margin:0 auto}
@@ -348,5 +352,10 @@ label.f{display:block;font-weight:800;margin:12px 0 6px;font-size:.9rem}
 .sheet{overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y}
 .sheet-bg{touch-action:none}
 /* 3) Lo mismo para la ventana del trivial (pregunta centrada). */
+.bib-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px dashed var(--line)}
+.bib-row:last-child{border-bottom:none}
+.bib-t{flex:1;font-size:.88rem;font-weight:600;line-height:1.35}
+.bib-act{display:flex;gap:6px;flex:0 0 auto}
+.bib-act .btn{min-width:44px;text-align:center}
 .tmodal-bg{touch-action:none}
 .tmodal{overscroll-behavior:contain;touch-action:pan-y}

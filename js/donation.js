@@ -1,4 +1,4 @@
-/* A LA ORDEN — Configuración de donaciones (edita con tus valores reales)
+/* MICABO — Configuración de donaciones (edita con tus valores reales)
    Modelo: 100% gratis, donaciones voluntarias SIN contraprestación (nada queda
    bloqueado tras donar). Transparencia radical: costes y recaudación públicos.
    REGLA: solo URLs que existan de verdad — un enlace vacío no se muestra. */

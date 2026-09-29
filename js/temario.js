@@ -1,4 +1,4 @@
-/* A LA ORDEN — TEMARIO OFICIAL de la oposición de ascenso a Cabo del Ejército de Tierra.
+/* MICABO — TEMARIO OFICIAL de la oposición de ascenso a Cabo del Ejército de Tierra.
    Estructura según el temario MADOC distribuido en el Rincón de Tropa ("Temario para la
    Oposición de Ascenso a Cabo del ET"), confirmado con el análisis del examen real I/25
    (febrero 2026): 50 preguntas + 5 de reserva · 70 minutos · 0,20/acierto − 0,05/error.
@@ -168,9 +168,9 @@ window.temarioDoc = function (bloques, titulo) {
   ).join("");
   return "<!doctype html><html lang='es'><head><meta charset='utf-8'><title>" + titulo + "</title>" +
     "<style>body{font-family:system-ui,Arial;max-width:760px;margin:24px auto;padding:0 16px;color:#1d2a21;line-height:1.45}h1{color:#143d26}h2{border-bottom:2px solid #c9971f;padding-bottom:4px;margin-top:30px}h3{color:#5f6f63;font-size:.95em;margin:14px 0 4px}li{margin:7px 0}.muted{color:#5f6f63;font-size:.85em}header{border:2px solid #143d26;border-radius:10px;padding:10px 14px;margin-bottom:8px}@media print{body{margin:8mm auto}}</style></head><body>" +
-    "<header><h1>▲ A LA ORDEN · " + titulo + "</h1><p class='muted'>Temario oficial de ascenso a Cabo (ET) según el temario MADOC del Rincón de Tropa · examen: 50 preguntas + 5 reserva · 70 min · 0,20/acierto − 0,05/error · generado el " + hoy + "</p></header>" +
+    "<header><h1>▲ MICABO · " + titulo + "</h1><p class='muted'>Temario oficial de ascenso a Cabo (ET) según el temario MADOC del Rincón de Tropa · examen: 50 preguntas + 5 reserva · 70 min · 0,20/acierto − 0,05/error · generado el " + hoy + "</p></header>" +
     sec +
-    "<p class='muted'>Documento de estudio gratuito generado por A LA ORDEN · https://micabo.es · A LA ORDEN no es un organismo oficial; las normas citadas se enlazan al BOE.</p>" +
+    "<p class='muted'>Documento de estudio gratuito generado por MICABO · https://micabo.es · MICABO no es un organismo oficial; las normas citadas se enlazan al BOE.</p>" +
     "</body></html>";
 };
 window.descargarTemarioCompleto = function () {

@@ -1,12 +1,12 @@
-# Réplica de la competencia → A LA ORDEN
+# Réplica de la competencia → MICABO
 
 **Objetivo:** tomar todas las webs que preparan Cabo, Cabo 1º y Permanencia y replicar lo que ofrecen, mejorado. Estado tras esta iteración.
 
-> **Nota legal (importante):** A LA ORDEN no copia los bancos de preguntas privados de ninguna academia (protegidos por copyright). Se replica su **cobertura, formato y funcionalidad** con contenido propio elaborado a partir del temario oficial, más **documentos públicos de la Administración** (exámenes oficiales publicados en BOD), que son reutilizables. Es exactamente el modelo que usa toda la industria.
+> **Nota legal (importante):** MICABO no copia los bancos de preguntas privados de ninguna academia (protegidos por copyright). Se replica su **cobertura, formato y funcionalidad** con contenido propio elaborado a partir del temario oficial, más **documentos públicos de la Administración** (exámenes oficiales publicados en BOD), que son reutilizables. Es exactamente el modelo que usa toda la industria.
 
 ## 1. Replicación competidor por competidor
 
-| Competidor | Qué ofrece | Réplica en A LA ORDEN | Estado |
+| Competidor | Qué ofrece | Réplica en MICABO | Estado |
 |---|---|---|---|
 | **ANARO Formación** | +7.900 preguntas (ET +4.914), simulacros con penalización 4-fallos=1-acierto, banco de exámenes de años anteriores, temario BOD, 34,95 € pago único | Banco ampliado a **220 preguntas** con penalización oficial idéntica (+0,2/−0,05), sección "Exámenes oficiales" con el I/24 real, changelog BOD | ✅ Núcleo replicado · ampliar banco a miles (roadmap) |
 | **FASPRO** | Sistema: temario estructurado, esquemas, **programación de estudio**, simulacros por temas/bloques | **Plan de estudio de 6 semanas** generado con tus estadísticas (debilidades primero), test por tema/bloque | ✅ Replicado · esquemas PDF en roadmap |
@@ -33,7 +33,7 @@
 - **Formato examen Cabo confirmado**: 50+5 preguntas, 70 min, +0,2/−0,05 (4 fallos anulan 1 acierto), blancos no penalizan.
 - **Formato permanente confirmado**: 100 preguntas, 4 alternativas, 120 min, P = A − E/(n−1); fase de selección 50% concurso + 50% oposición (Orden DEF/1341/2017); temario en 3 bloques.
 
-## 3. Qué replica A LA ORDEN hoy (demo)
+## 3. Qué replica MICABO hoy (demo)
 
 - **633 preguntas** (Cabo 215 · Cabo 1º 134 · Permanente 284) cubriendo el 100% de temas del temario de los 3 cursos.
 - **Fábrica de contenido** (`tools/`): base de 194 hechos verificables → generador automático → 381 preguntas (1 hecho ≈ 2 preguntas). Para pasar de 600 a 3.000: añadir hechos, no escribir preguntas.

@@ -1,8 +1,8 @@
-/* A LA ORDEN · Semillas de Alertas BOD — datos verificados a 20-sep-2026.
+/* MICABO · Semillas de Alertas BOD — datos verificados a 20-sep-2026.
    Curados a mano a partir de resoluciones/BO; el motor (bod-check.js) los mezcla
    con lo que encuentra en los extractos públicos de ATME (www.atme.es/category/bod).
    NOTA LEGAL: el BOD íntegro es de difusión restringida (solo personal militar).
-   A LA ORDEN publica ALERTAS de hechos (resolución, fecha, qué afecta) + enlace a fuente
+   MICABO publica ALERTAS de hechos (resolución, fecha, qué afecta) + enlace a fuente
    pública — nunca reproduce el boletín. */
 module.exports = [
   { dateISO: "2026-08-03", tag: "Cabo 1º", t: "Nombrados alumnos del curso de actualización I/26 a Cabo 1º (ET)",
@@ -21,6 +21,6 @@ module.exports = [
     x: "Res. 551/01505/26: relacionada con el proceso I/26 de ascenso a Cabo 1º del ET.",
     url: "" },
   { dateISO: "2026-01-15", tag: "EN TRÁMITE", t: "Reforma de la Ley 39/2007 de la carrera militar",
-    x: "En trámite parlamentario. A LA ORDEN la marca EN TRÁMITE hasta su aprobación definitiva: nada cambia en el banco hasta entonces.",
+    x: "En trámite parlamentario. MICABO la marca EN TRÁMITE hasta su aprobación definitiva: nada cambia en el banco hasta entonces.",
     url: "" }
 ];

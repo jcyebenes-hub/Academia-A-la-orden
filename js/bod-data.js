@@ -1,4 +1,4 @@
-/* A LA ORDEN · Alertas BOD — generado por tools/bod-check.js · NO editar a mano */
+/* MICABO · Alertas BOD — generado por tools/bod-check.js · NO editar a mano */
 window.GALON_BOD = {
  "updated": "20-sep-2026",
  "alerts": [
@@ -71,7 +71,7 @@ window.GALON_BOD = {
    "d": "15-ene-2026",
    "tag": "EN TRÁMITE",
    "t": "Reforma de la Ley 39/2007 de la carrera militar",
-   "x": "En trámite parlamentario. A LA ORDEN la marca EN TRÁMITE hasta su aprobación definitiva: nada cambia en el banco hasta entonces.",
+   "x": "En trámite parlamentario. MICABO la marca EN TRÁMITE hasta su aprobación definitiva: nada cambia en el banco hasta entonces.",
    "url": ""
   }
  ]

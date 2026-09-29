@@ -1,4 +1,4 @@
-/* A LA ORDEN — Lote 10 · CABO 1º III · bases I/26 (Res. 551/04582/26) + CEFOT-1 + normativa vigente. Redacción propia. */
+/* MICABO — Lote 10 · CABO 1º III · bases I/26 (Res. 551/04582/26) + CEFOT-1 + normativa vigente. Redacción propia. */
 window.FACTS_CABO1C = [
  [
   "cabo1",

@@ -1,4 +1,4 @@
-/* A LA ORDEN — Lote 2 de hechos · CABO TIERRA (mapa de temario según convocatoria oficial:
+/* MICABO — Lote 2 de hechos · CABO TIERRA (mapa de temario según convocatoria oficial:
    Régimen Interior OM 50/2011, Seguridad en las FAS, Tiro, L 8/2006, requisitos I/25) */
 window.FACTS_CABO2 = [
 /* ===== Régimen Interior (OM 50/2011) ===== */

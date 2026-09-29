@@ -1,4 +1,4 @@
-# A LA ORDEN · Guía de salida a producción (de cero a real)
+# MICABO · Guía de salida a producción (de cero a real)
 
 Esta es la ruta exacta para convertir el proyecto actual en un servicio real, legal y cobrando. Todo lo que es **código** ya está listo; lo que es **claves y trámites** se marca como PASO PROPIETARIO.
 
@@ -71,7 +71,7 @@ systemctl enable --now galon caddy
 
 ## 5. Email real
 1. Crea cuenta en resend.com → verifica tu dominio (registros DKIM/SPF que te indican).
-2. `.env`: `RESEND_API_KEY`, `MAIL_FROM=A LA ORDEN <hola@tudominio.es>`.
+2. `.env`: `RESEND_API_KEY`, `MAIL_FROM=MICABO <hola@tudominio.es>`.
 
 ## 6. Copias de seguridad y monitorización
 ```bash

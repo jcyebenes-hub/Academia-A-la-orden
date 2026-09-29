@@ -1,20 +1,20 @@
-# A LA ORDEN · Pack de captions listas para copiar y pegar
+# MICABO · Pack de captions listas para copiar y pegar
 
 Estrategia: la solución de la Pregunta del día se da en STORIES/comentario (duplica interacción). Link en bio con UTM. Publicar a las 13:00-14:00 o 20:00-22:00 (hora España, cuando el militar sale de servicio o está de cuartel).
 
 ## Lanzamiento (día 0)
 **TikTok / Reels:**
 > Llevo años en tropa y NINGUNA app prepara los tres ascensos: Cabo, Cabo 1º y Permanente. Las academias cobran 300-800€. Las apps de test solo te dan suelto.
-> Así que hemos construido A LA ORDEN: los 3 cursos en una app, simulacros idénticos al examen oficial, offline para maniobras y precios de cuartel.
+> Así que hemos construido MICABO: los 3 cursos en una app, simulacros idénticos al examen oficial, offline para maniobras y precios de cuartel.
 > 🎖️ Demo gratis sin registro, link en la bio.
 > Los 100 primeros entran con código CABO10.
 > #ejercito #militar #cabo #oposiciones #tropaymarineria #permanencia #ejercitodetierra
 
 **X/Twitter:**
-> Las academias cobran 300-800€ por preparar el ascenso a Cabo. Acabamos de lanzar A LA ORDEN: 3 cursos en una app, offline, simulacros oficiales y gratis para empezar. A la orden 🎖️ [link]
+> Las academias cobran 300-800€ por preparar el ascenso a Cabo. Acabamos de lanzar MICABO: 3 cursos en una app, offline, simulacros oficiales y gratis para empezar. ¡A su mando! 🎖️ [link]
 
 **Telegram (canal):**
-> 🎖️ YA ESTÁ AQUÍ. A LA ORDEN — la academia de tropa.
+> 🎖️ YA ESTÁ AQUÍ. MICABO — la academia de tropa.
 > ✅ Cabo + Cabo 1º + Permanente en una sola app
 > ✅ Simulacro oficial: 50+5 preg · 70 min · penalización real
 > ✅ Duelos 1vs1, logros y ranking

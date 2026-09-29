@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* ============================================================
-   A LA ORDEN · EL ALUMNO AGENTE — auditor automático del banco
+   MICABO · EL ALUMNO AGENTE — auditor automático del banco
    ------------------------------------------------------------
    Se "examina" de TODAS las preguntas del banco y comprueba que
    cada respuesta es correcta/coherente contra una tabla de verdad

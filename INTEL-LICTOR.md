@@ -9,7 +9,7 @@ Su banco y aula están en un **campus virtual privado** (academialictor.aulavirt
 
 **Marketing de resultados:** se jactan de varios nº 1 con nota 10 en 2022–2026 (números de escalafón publicados).
 
-**Estado de A LA ORDEN frente a esto:** tests por tema/fallos ✅ · simulacros 50+5 ✅ · exámenes oficiales ✅ · planificación semanal ✅ · estadísticas ✅ · **audio → añadido HOY el "curso en audio" en Esquemas 🔊** (paridad con su feature estrella, sin coste de producción) · Telegram/comunidad y clases en directo → roadmap Carrera Total.
+**Estado de MICABO frente a esto:** tests por tema/fallos ✅ · simulacros 50+5 ✅ · exámenes oficiales ✅ · planificación semanal ✅ · estadísticas ✅ · **audio → añadido HOY el "curso en audio" en Esquemas 🔊** (paridad con su feature estrella, sin coste de producción) · Telegram/comunidad y clases en directo → roadmap Carrera Total.
 
 ## 2. GitHub — resultado honesto del rascado
 Buscado: repos públicos con test de ascenso a Cabo / permanente / militares españoles.
@@ -37,4 +37,4 @@ Además: 5 facts propios derivados (incluida la consideración de **agentes de l
 
 ## 5. Pendientes verificados vs pendientes de verificar
 - ✅ Añadido con confianza: lo anterior.
-- ⏸️ Descartado por no poder verificar la clave de respuesta oficial: el modo por defecto de los canales PR4G 1-6 y 0 (aparece en el cuadernillo pero sin solucionario fiable). Regla A LA ORDEN: ninguna pregunta sin respuesta verificada.
+- ⏸️ Descartado por no poder verificar la clave de respuesta oficial: el modo por defecto de los canales PR4G 1-6 y 0 (aparece en el cuadernillo pero sin solucionario fiable). Regla MICABO: ninguna pregunta sin respuesta verificada.

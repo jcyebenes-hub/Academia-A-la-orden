@@ -1,4 +1,4 @@
-/* A LA ORDEN — Servidor de PRODUCCIÓN (Node >= 18, sin dependencias obligatorias)
+/* MICABO — Servidor de PRODUCCIÓN (Node >= 18, sin dependencias obligatorias)
    ═══════════════════════════════════════════════════════════════════════════
    · Pagos: Stripe Checkout REAL (con STRIPE_SECRET_KEY) o Redsys REAL (TPV
      español, firma HMAC-SHA256 + 3DES del estándar v1.0). Sin claves → modo
@@ -46,7 +46,7 @@ const ENV = {
   REDSYS_SECRET_KEY: process.env.REDSYS_SECRET_KEY || "",   // KC del TPV (base64)
   REDSYS_ENV: process.env.REDSYS_ENV || "test",             // test | prod
   RESEND_API_KEY: process.env.RESEND_API_KEY || "",
-  MAIL_FROM: process.env.MAIL_FROM || "A LA ORDEN <hola@alaorden.es>",
+  MAIL_FROM: process.env.MAIL_FROM || "MICABO <hola@alaorden.es>",
   PUBLIC_URL: (process.env.PUBLIC_URL || "").replace(/\/$/, ""),
   FORCE_SECURE_COOKIES: process.env.FORCE_SECURE_COOKIES === "1",
   CONTENT_STRICT: process.env.CONTENT_STRICT === "1"        // servir solo contenido aprobado por experto
@@ -221,7 +221,7 @@ async function ghPush() {
     const sha = cur.ok ? (await cur.json()).sha : undefined;
     const r = await fetch("https://api.github.com/repos/" + GH.repo + "/contents/" + GH_PATH, {
       method: "PUT", headers: Object.assign(ghHeaders(), { "Content-Type": "application/json" }),
-      body: JSON.stringify({ message: "volcado automático de datos A LA ORDEN", content: Buffer.from(ghBundle()).toString("base64"), branch: GH.br, sha: sha })
+      body: JSON.stringify({ message: "volcado automático de datos MICABO", content: Buffer.from(ghBundle()).toString("base64"), branch: GH.br, sha: sha })
     });
     if (r.ok) log("☁️ volcado de datos subido al repo"); else log("volcado de datos KO:", r.status);
   } catch (e) { log("volcado de datos:", e.message); }
@@ -385,7 +385,7 @@ const api = {
     saveUsers();
     const tok = makeToken(); tokens[tok] = { uid: id, created: now() }; saveTokens();
     setCookie(req, res, tok);
-    sendMail(email, "Confirma tu cuenta de A LA ORDEN", "¡A la orden, " + name + "! Confirma tu email: " + (ENV.PUBLIC_URL || "") + "/api/verify?t=" + vtok).catch(() => {});
+    sendMail(email, "Confirma tu cuenta de MICABO", "¡A su mando, " + name + "! Confirma tu email: " + (ENV.PUBLIC_URL || "") + "/api/verify?t=" + vtok).catch(() => {});
     audit("register", ip, id);
     send(res, 200, { ok: true, user: publicUser(users[id]) });
   },
@@ -419,7 +419,7 @@ const api = {
     if (id) {
       const t = makeToken();
       users[id].resetToken = t; users[id].resetUntil = now() + 3600e3; saveUsers();
-      sendMail(email, "Recupera tu contraseña de A LA ORDEN", "Enlace (1h): " + (ENV.PUBLIC_URL || "") + "/reset.html?t=" + t).catch(() => {});
+      sendMail(email, "Recupera tu contraseña de MICABO", "Enlace (1h): " + (ENV.PUBLIC_URL || "") + "/reset.html?t=" + t).catch(() => {});
     }
     send(res, 200, { ok: true }); // no revela si existe
   },
@@ -806,5 +806,5 @@ const server = http.createServer((req, res) => {
 });
 server.listen(ENV.PORT, "0.0.0.0", () => {
   const pm = ENV.STRIPE_SECRET_KEY ? "STRIPE REAL" : ENV.REDSYS_SECRET_KEY ? "REDSYS REAL" : "MODO PRUEBAS (sin claves de pago)";
-  log("A LA ORDEN producción en :" + ENV.PORT, "· pagos:", pm, "· email:", ENV.RESEND_API_KEY ? "RESEND REAL" : "log", "· admin:", ENV.ADMIN_TOKEN ? "token definido" : "SIN token (defínelo en .env)");
+  log("MICABO producción en :" + ENV.PORT, "· pagos:", pm, "· email:", ENV.RESEND_API_KEY ? "RESEND REAL" : "log", "· admin:", ENV.ADMIN_TOKEN ? "token definido" : "SIN token (defínelo en .env)");
 });

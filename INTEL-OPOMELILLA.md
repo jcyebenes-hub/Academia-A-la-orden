@@ -4,7 +4,7 @@
 Plataforma de pago especializada SOLO en Permanencia FAS (todas las ramas). Creador: un militar permanente del ET que se preparó con Yagüe y acabó montando su propia plataforma (11 meses de desarrollo con IA). Tiene app Android oficial y bot de Telegram (@OpoMelillaBot).
 
 ## Números y producto
-| Concepto | OpoMelilla | A LA ORDEN |
+| Concepto | OpoMelilla | MICABO |
 |---|---|---|
 | Plataforma de test | **80 €** pago único (hasta fin de curso) | **Gratis** |
 | Pack temario + plataforma | **130 €** (antes 140) | Gratis |
@@ -25,13 +25,13 @@ Plataforma de pago especializada SOLO en Permanencia FAS (todas las ramas). Crea
 - Su **guía gratuita** del test de permanencia: confirma los 3 bloques del temario oficial y añade el detalle "**Observatorio Militar para la Igualdad**" (ya está en nuestro banco, lote 12).
 - Lista completa de **requisitos** (no privado de derechos civiles, no separado de otra Administración por expediente, no procesado por delito doloso, no positivo en sustancias, mantener aptitud psicofísica toda la carrera, excedencia por violencia de género habilita…) → hechos verificados y convertidos en preguntas.
 - Conceptos clave: **RED (Reserva de Especial Disponibilidad)** al acabar el compromiso temporal, compromiso de larga duración, diferencia temporal/permanente.
-- Su **embudo de marketing**: guía de blog gratuita → simulacros PDF (captación) → plataforma de pago. Ideas anotadas para A LA ORDEN con coste cero.
+- Su **embudo de marketing**: guía de blog gratuita → simulacros PDF (captación) → plataforma de pago. Ideas anotadas para MICABO con coste cero.
 
 ## NO extraído (regla de la casa)
 Sus bancos de preguntas y simulacros (80/130 €) están tras muro de pago: **no se tocan** — igual que ANARO/FFIM/Lictor. Su guía pública solo aporta hechos y estructura, que pasan por nuestra fábrica: reescritura propia + verificación normativa + auditor del alumno agente.
 
 ## Lectura estratégica
-1. **Su precio es nuestro mejor anuncio**: 80–130 € por lo que A LA ORDEN da gratis (y con auditoría pública de calidad, que ellos no ofrecen).
+1. **Su precio es nuestro mejor anuncio**: 80–130 € por lo que MICABO da gratis (y con auditoría pública de calidad, que ellos no ofrecen).
 2. **Sus dos ventajas reales**: app Android nativa y chat IA. Roadmap: la PWA ya es instalable (contar eso en el canal); el "modo IA" en fase 2.
-3. **Diferencial A LA ORDEN que ellos no pueden copiar fácil**: Alertas BOD + transparencia de calidad (acta de auditoría) + gratis sin "modo premium".
-4. Su fundador empezó igual que nosotros: contenidos públicos + pruebas. La diferencia es que A LA ORDEN no necesita cobrar para pagar estructura (coste 6 €/mes).
+3. **Diferencial MICABO que ellos no pueden copiar fácil**: Alertas BOD + transparencia de calidad (acta de auditoría) + gratis sin "modo premium".
+4. Su fundador empezó igual que nosotros: contenidos públicos + pruebas. La diferencia es que MICABO no necesita cobrar para pagar estructura (coste 6 €/mes).

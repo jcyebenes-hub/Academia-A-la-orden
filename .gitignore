@@ -1,6 +1,9 @@
 .env
 data/
-*.zip
-nohup.out
-tools/cloudflared
-.DS_Store
+img/image-search/
+node_modules/
+tools/.bot-state.json
+tools/.agenda-state.json
+tools/bod-state.json
+tools/tg-harvest.json
+image-search/

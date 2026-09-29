@@ -1,4 +1,4 @@
-/* A LA ORDEN — Base de hechos verificables · CURSO CABO (C1/C2)
+/* MICABO — Base de hechos verificables · CURSO CABO (C1/C2)
    Formato por hecho: [curso, bloque, tema, dificultad, referencia, GRUPOS...]
    GRUPO = "pregunta?", "respuesta", ["distractor1","distractor2","distractor3"]
    1er grupo obligatorio; grupos siguientes = variantes (hueco ___ o numérica). */

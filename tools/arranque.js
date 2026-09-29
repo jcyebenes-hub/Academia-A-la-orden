@@ -1,4 +1,4 @@
-/* A LA ORDEN · arranque único para Render: un servicio gratis = los 3 motores
+/* MICABO · arranque único para Render: un servicio gratis = los 3 motores
    (web+cuentas, bot interactivo, agenda). Reanteca un motor si muere,
    con límite anti-bucle. Local: mejor cada uno por separado (npm run …). */
 const { spawn } = require("child_process");

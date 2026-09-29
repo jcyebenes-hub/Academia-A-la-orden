@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* ============================================================
-   A LA ORDEN · BOT DE TELEGRAM (interactivo, cero dependencias)
+   MICABO · BOT DE TELEGRAM (interactivo, cero dependencias)
    ------------------------------------------------------------
    Un solo bot sirve toda la comunidad (y puede administrar los
    3 canales). Comandos reales, datos reales del banco auditado:
@@ -70,13 +70,13 @@ function pregunta(curso) {
 /* texto + respuesta oculta con entidad spoiler (offsets UTF-16; sin emojis en el texto) */
 function textoPregunta(q) {
   const L = "ABCD";
-  let txt = "PREGUNTA A LA ORDEN (" + CURSOS[q.c] + ")\n\n" + q.q + "\n\n";
+  let txt = "PREGUNTA MICABO (" + CURSOS[q.c] + ")\n\n" + q.q + "\n\n";
   q.o.forEach((o, i) => { txt += L[i] + ") " + o + "\n"; });
   txt += "\nRespuesta: ";
   const off = txt.length;
   const spo = L[q.a] + ") " + q.o[q.a];
   txt += spo;
-  txt += "\n\nExplicación: " + (q.x || "") + "\nRef: " + (q.r || "banco A LA ORDEN") + (APPLINK ? "\nPractícalo gratis: " + APPLINK : "");
+  txt += "\n\nExplicación: " + (q.x || "") + "\nRef: " + (q.r || "banco MICABO") + (APPLINK ? "\nPractícalo gratis: " + APPLINK : "");
   return { text: txt, entities: [{ type: "spoiler", offset: off, length: spo.length }] };
 }
 
@@ -131,7 +131,7 @@ const kbOtra = {
   ]]
 };
 const AYUDA = [
-  "🎖 A LA ORDEN · cómo funciona (todo gratis)",
+  "🎖 MICABO · cómo funciona (todo gratis)",
   "",
   "1) «🎲 Pregunta» → pregunta real de examen. La respuesta viene oculta: toca el velo negro y se revela.",
   "2) «📚 Elegir curso» → Cabo, Cabo 1º o Permanencia.",
@@ -164,7 +164,7 @@ async function despacha(chatId, text) {
   const cursoDe = (x) => /cabo ?1|cabo1|primero/.test(x) ? "cabo1" : /(^|\s)perm/.test(x) ? "perm" : /(^|\s)cabo/.test(x) ? "cabo" : null;
 
   if (t.startsWith("/start")) {
-    return api("sendMessage", { chat_id: chatId, reply_markup: KB, text: "🎖 ¡Hola! Soy el bot de A LA ORDEN, tu academia de tropa.\n\nPreguntas reales de los exámenes de ascenso — gratis y sin registro. Toca un botón de abajo 👇 (en cada pregunta, la respuesta viene oculta: tócala y se revela)." });
+    return api("sendMessage", { chat_id: chatId, reply_markup: KB, text: "🎖 ¡Hola! Soy el bot de MICABO, tu academia de tropa.\n\nPreguntas reales de los exámenes de ascenso — gratis y sin registro. Toca un botón de abajo 👇 (en cada pregunta, la respuesta viene oculta: tócala y se revela)." });
   }
   if (t.startsWith("/ayuda") || t === "/help" || /^(ayuda|help)\b/.test(t)) {
     return api("sendMessage", { chat_id: chatId, reply_markup: KB, text: AYUDA });
@@ -201,10 +201,10 @@ async function despacha(chatId, text) {
     return api("sendMessage", { chat_id: chatId, text: "🫡 ¡Hasta pronto! Aquí me quedo: toca «🎲 Pregunta» cuando vuelvas." });
   }
   if (/gratis|precio|pagar|pago|donaci|donar|cuesta|coste|caf(e|é)/.test(t)) {
-    return api("sendMessage", { chat_id: chatId, text: "Todo A LA ORDEN es gratis y sin registro: ni muros de pago ni funciones bloqueadas. Se mantiene con donaciones voluntarias (un café ☕) — quien no colabora tiene exactamente lo mismo." + (APPLINK ? "\n\nApp completa: " + APPLINK : "") });
+    return api("sendMessage", { chat_id: chatId, text: "Todo MICABO es gratis y sin registro: ni muros de pago ni funciones bloqueadas. Se mantiene con donaciones voluntarias (un café ☕) — quien no colabora tiene exactamente lo mismo." + (APPLINK ? "\n\nApp completa: " + APPLINK : "") });
   }
   if (/qui(e|é)n (eres|es galon|es alaorden)|que (es galon|es alaorden|eres)|qui(e|é)nes sois/.test(t)) {
-    return api("sendMessage", { chat_id: chatId, text: "Soy el bot de A LA ORDEN 🎖 — la academia gratuita para ascender a Cabo, Cabo 1º o Permanencia en el Ejército de Tierra. Pregunto, tú contestas, subes de nivel.\n\nToca «🎲 Pregunta» y lo vemos." });
+    return api("sendMessage", { chat_id: chatId, text: "Soy el bot de MICABO 🎖 — la academia gratuita para ascender a Cabo, Cabo 1º o Permanencia en el Ejército de Tierra. Pregunto, tú contestas, subes de nivel.\n\nToca «🎲 Pregunta» y lo vemos." });
   }
   if (t.startsWith("/")) {
     return api("sendMessage", { chat_id: chatId, reply_markup: KB, text: "No conozco ese comando. Toca «❓ Ayuda» para ver todo lo que sé hacer." });
@@ -223,7 +223,7 @@ if (require.main === module) {
     console.log([
       "Falta el token del bot. Se consigue en 2 minutos:",
       "  1) Telegram → busca @BotFather → /newbot",
-      "  2) Nombre: A LA ORDEN · Tu academia de tropa",
+      "  2) Nombre: MICABO · Tu academia de tropa",
       "  3) Username: debe acabar en 'bot' (p. ej. alaorden_bot)",
       "  4) Copia el token (123456789:AA...) y:",
       "       export TELEGRAM_BOT_TOKEN=el-token",
@@ -235,7 +235,7 @@ if (require.main === module) {
   let offset = 0;
   const sleep = ms => new Promise(r => setTimeout(r, ms));
   (async function loop() {
-    console.log("🤖 Bot A LA ORDEN en marcha. Comandos: /pregunta /online /ranking /stats /ayuda");
+    console.log("🤖 Bot MICABO en marcha. Comandos: /pregunta /online /ranking /stats /ayuda");
     for (;;) {
       try {
         const ups = await api("getUpdates", { offset: offset, timeout: 25 });
@@ -249,7 +249,7 @@ if (require.main === module) {
               BST.channels = BST.channels || {};
               BST.channels[String(mc.chat.id)] = { u: mc.chat.username || "", t: mc.chat.title || "", f: Date.now() };
               saveBST();
-              try { await api("sendMessage", { chat_id: mc.chat.id, text: "✅ A LA ORDEN conectado a este canal: alertas BOD y pregunta del día, gratis. /pregunta tambien aqui en privado." }); }
+              try { await api("sendMessage", { chat_id: mc.chat.id, text: "✅ MICABO conectado a este canal: alertas BOD y pregunta del día, gratis. /pregunta tambien aqui en privado." }); }
               catch (e) { console.log("· saludo al canal falló:", e.message); }
               console.log("📣 añadido a canal @" + (mc.chat.username || mc.chat.id) + " (" + (mc.chat.title || "") + ")");
             }

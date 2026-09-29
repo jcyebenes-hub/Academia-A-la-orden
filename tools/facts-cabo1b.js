@@ -1,4 +1,4 @@
-/* A LA ORDEN — Lote 8 · CABO 1º II (~68 hechos) · rascado 20-sep-2026
+/* MICABO — Lote 8 · CABO 1º II (~68 hechos) · rascado 20-sep-2026
    Fuentes: bases oficiales del concurso-oposición I/24 (BOD), página del CEFOT-1
    (ejercito.defensa.gob.es), Guía Docente del Curso de Actualización (CEFOT-1),
    foros (clasespasivas) y normativa vigente (RROO RD 96/2009, LO 8/2014, L 39/2007).

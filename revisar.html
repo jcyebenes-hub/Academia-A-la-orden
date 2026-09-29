@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A LA ORDEN · Panel de revisión experta (interno)</title>
+<title>MICABO · Panel de revisión experta (interno)</title>
 <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="%23143d26"/><path d="M14 40l18-14 18 14" stroke="%23c9971f" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>'>
 <style>
 *{box-sizing:border-box;margin:0}
@@ -40,7 +40,7 @@ kbd{background:#1f5c38;border-radius:5px;padding:1px 6px;font-size:11px}
 </head>
 <body>
 <header>
-  <h1>🛡️ A LA ORDEN · Revisión experta de banco</h1>
+  <h1>🛡️ MICABO · Revisión experta de banco</h1>
   <span class="badge" id="totBadge">—</span>
   <span class="badge" id="penBadge">—</span>
   <a class="badge" style="text-decoration:none" href="app.html">← Volver a la app</a>
@@ -135,7 +135,7 @@ $("#btnDupes").onclick=()=>fetch("data/generacion-informe.json").then(r=>r.json(
   alert("Informe de generación:\n\n· Hechos: "+d.hechos+"\n· Generadas: "+d.generadas+"\n· Banco total: "+d.total+"\n· Duplicados omitidos: "+d.duplicadosInternosOmitidos+"\n· Solapamientos con el artesanal: "+d.crucesConBancoExistente+"\n· Incidencias: "+(d.errores||[]).length);
 }).catch(()=>alert("No se pudo cargar data/generacion-informe.json"));
 $("#export").onclick=()=>{
-  const js="/* A LA ORDEN — Veredictos del panel de revisión experta (revisar.html)\n   Formato: { \"id_de_pregunta\": { v: \"ok\" | \"ko\" | \"fix\", c: \"comentario\", t: 1690000000000 } }\n   Las preguntas con v:\"ko\" NO se sirven en la app. Exportado: "+new Date().toISOString()+" */\nwindow.VERDICTS = "+JSON.stringify(V,null,1)+";\n";
+  const js="/* MICABO — Veredictos del panel de revisión experta (revisar.html)\n   Formato: { \"id_de_pregunta\": { v: \"ok\" | \"ko\" | \"fix\", c: \"comentario\", t: 1690000000000 } }\n   Las preguntas con v:\"ko\" NO se sirven en la app. Exportado: "+new Date().toISOString()+" */\nwindow.VERDICTS = "+JSON.stringify(V,null,1)+";\n";
   const a=document.createElement("a");
   a.href=URL.createObjectURL(new Blob([js],{type:"text/javascript"}));
   a.download="verdicts.js"; a.click();

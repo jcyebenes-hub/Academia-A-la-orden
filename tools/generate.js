@@ -1,4 +1,4 @@
-/* A LA ORDEN — Generador de banco de preguntas (Node >= 18)
+/* MICABO — Generador de banco de preguntas (Node >= 18)
    Lee la base de hechos (tools/facts-*.js) y produce js/bank5.js con control de calidad:
    · deduplicación (normalizando acentos/mayúsculas) contra el banco nuevo y el existente
    · validación estructural (4 opciones, respuesta correcta, referencias)
@@ -111,7 +111,7 @@ for (const cid of Object.keys(COURSES)) {
 /* --- escritura --- */
 const total = EXQ.length + out.length;
 const header =
-"/* A LA ORDEN — bank5 · GENERADO AUTOMÁTICAMENTE por tools/generate.js — NO EDITAR A MANO\n" +
+"/* MICABO — bank5 · GENERADO AUTOMÁTICAMENTE por tools/generate.js — NO EDITAR A MANO\n" +
 "   Hechos base: " + nFacts + " · Preguntas generadas: " + out.length + " · Banco total tras fusión: " + total + "\n" +
 "   Estado de cada pregunta: 'borrador' hasta validación de experto en revisar.html\n" +
 "   (los veredictos viven en js/verdicts.js; las rechazadas no se sirven) */\n";
@@ -130,7 +130,7 @@ fs.mkdirSync(path.join(ROOT, "data"), { recursive: true });
 fs.writeFileSync(path.join(ROOT, "data/generacion-informe.json"), JSON.stringify(informe, null, 2));
 
 /* --- consola --- */
-console.log("== A LA ORDEN · generador de banco ==");
+console.log("== MICABO · generador de banco ==");
 console.log("Hechos procesados:", nFacts, "· Preguntas generadas:", out.length);
 console.log("Banco existente:", EXQ.length, "· TOTAL tras fusión:", total);
 if (cross) console.log("⚠ Solapamientos con el banco existente:", cross);

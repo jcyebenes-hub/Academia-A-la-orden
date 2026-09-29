@@ -1,4 +1,4 @@
-/* A LA ORDEN · TRIVIAL DE LA TROPA v2 — tablero clásico retocado
+/* MICABO · TRIVIAL DE LA TROPA v2 — tablero clásico retocado
    · SIEMPRE eliges casilla tú: el dado saca un COLOR y tú tocas la casilla que brilla (aunque haya solo una).
    · La pregunta SIEMPRE se abre en ventana central (estilos propios inyectados: no depende del CSS de la app).
    · Tablero completo dentro del lienzo (nada cortado por abajo), ficha con movimiento suave.
@@ -232,7 +232,7 @@
       if (i === q.a) b.classList.add("ok"); else if (i === elegida) b.classList.add("ko");
     });
     const ex = $("#tvExpl");
-    if (ex) ex.innerHTML = '<div class="tv-expl"><b>' + (ok ? "¡Correcta! ✅" : "❌ Fallada — la buena es la " + "ABCD"[q.a] + ": " + esc(q.o[q.a])) + "</b>" + (extra || "") + "<br>" + esc(q.x) + '<span class="fuente">📖 ' + esc(q.r || "Banco A LA ORDEN") + "</span></div>";
+    if (ex) ex.innerHTML = '<div class="tv-expl"><b>' + (ok ? "¡Correcta! ✅" : "❌ Fallada — la buena es la " + "ABCD"[q.a] + ": " + esc(q.o[q.a])) + "</b>" + (extra || "") + "<br>" + esc(q.x) + '<span class="fuente">📖 ' + esc(q.r || "Banco MICABO") + "</span></div>";
     const ft = $("#tvFoot");
     if (ft) { ft.innerHTML = '<button class="tv-btn ' + (ok ? "green" : "") + '" id="tvGo">' + boton + "</button>"; $("#tvGo").onclick = alCont; }
   }

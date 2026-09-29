@@ -1,4 +1,4 @@
-# 🚀 Despliegue de A LA ORDEN — 100% gratis (Render + GitHub + cron-job.org)
+# 🚀 Despliegue de MICABO — 100% gratis (Render + GitHub + cron-job.org)
 
 > Objetivo: web con cuentas 24/7 + bot de Telegram + agenda, sin pagar nada.
 > Piezas: **Render** (hosting del servidor), **repo privado de GitHub** (los datos sobreviven),
@@ -11,7 +11,7 @@
    ```
    git init
    git add .
-   git commit -m "A LA ORDEN v1.0"
+   git commit -m "MICABO v1.0"
    git branch -M main
    git remote add origin https://github.com/TUUSUARIO/galon.git
    git push -u origin main
@@ -29,7 +29,7 @@
    - `TELEGRAM_BOT_TOKEN` (el del bot, para que el bot viva en Render)
    - `TELEGRAM_CHANNEL` y `TELEGRAM_ROUTES` (mira tu `.env` local)
    - `KOFI_VERIFICATION_TOKEN` (si ya tienes Ko-fi)
-5. **Create Web Service** → ~2 min de build → abre tu URL: A LA ORDEN en internet, con bot y agenda dentro.
+5. **Create Web Service** → ~2 min de build → abre tu URL: MICABO en internet, con bot y agenda dentro.
 
 > ¿Por qué todo en un servicio? Render gratis da 750 h/mes **por cuenta**: un servicio 24/7 las consume
 > justas. Tres servicios se quedarían sin horas a mediados de mes. `tools/arranque.js` lanza los tres

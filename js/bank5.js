@@ -1,4 +1,4 @@
-/* A LA ORDEN — bank5 · GENERADO AUTOMÁTICAMENTE por tools/generate.js — NO EDITAR A MANO
+/* MICABO — bank5 · GENERADO AUTOMÁTICAMENTE por tools/generate.js — NO EDITAR A MANO
    Hechos base: 662 · Preguntas generadas: 1299 · Banco total tras fusión: 1551
    Estado de cada pregunta: 'borrador' hasta validación de experto en revisar.html
    (los veredictos viven en js/verdicts.js; las rechazadas no se sirven) */

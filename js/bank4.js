@@ -1,4 +1,4 @@
-/* A LA ORDEN — Ronda 3: +12 Cabo 1º y +13 Permanente (desbloquea simulacro completo de 100) */
+/* MICABO — Ronda 3: +12 Cabo 1º y +13 Permanente (desbloquea simulacro completo de 100) */
 window.QUESTIONS4 = [
 /* ===== CABO 1º ===== */
 {c:"cabo1",b:"B1",t:"Régimen disciplinario",d:"M",id:"n229",q:"En general, cuanto más leve es la falta anotada…",o:["Antes se cancela la anotación en la hoja de servicios","Más años tarda en cancelarse","Nunca llega a cancelarse","Depende del destino del militar"],a:0,x:"La LORDFAS fija plazos de cancelación más cortos cuanto más leve es la falta.",r:"LO 8/2014 · cancelación"},

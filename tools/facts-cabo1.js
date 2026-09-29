@@ -1,4 +1,4 @@
-/* A LA ORDEN — Base de hechos verificables · CURSO CABO 1º (B1/B2) */
+/* MICABO — Base de hechos verificables · CURSO CABO 1º (B1/B2) */
 window.FACTS_CABO1 = [
 ["cabo1","B1","Mando y liderazgo","F","Doctrina de liderazgo","¿Qué es el liderazgo?","La capacidad de influir en las personas para alcanzar un objetivo común",["La capacidad de imponer castigos","El arte de elegir a los mejores tiradores","La técnica de circular documentación"],"El liderazgo es la capacidad de influir en las personas para alcanzar un objetivo ___.","común",["propio","económico","táctico"]],
 ["cabo1","B1","Mando y liderazgo","M","Doctrina de liderazgo","¿Cuáles son los tres estilos clásicos de liderazgo?","Autocrático, participativo y delegador",["Militar, civil y mixto","Autoritario, pasivo y nulo","Directo, indirecto y lateral"],"Los tres estilos clásicos de liderazgo son autocrático, ___ y delegador.","participativo",["pasivo","militar","coercitivo"]],
