@@ -1,5 +1,5 @@
 /* ============================================================
-   A LA ORDEN · TUTOR — análisis inteligente de errores (motor local)
+   MICABO · TUTOR — análisis inteligente de errores (motor local)
    ------------------------------------------------------------
    Nada de humo: es un motor de reglas con la tabla de verdad
    normativa del banco. No envía nada a ninguna nube (todo en tu

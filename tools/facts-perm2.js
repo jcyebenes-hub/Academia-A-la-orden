@@ -1,4 +1,4 @@
-/* A LA ORDEN — Lote 9 · PERMANENCIA II (~70 hechos) · rascado 20-sep-2026
+/* MICABO — Lote 9 · PERMANENCIA II (~70 hechos) · rascado 20-sep-2026
    Fuentes: convocatoria Permanencia 2026 despiezada por webs expertas
    (permanenciayague.com, davante.es, formacioneureka.com), página oficial del
    CEFOT-1 y normativa vigente (CE, LO 5/2005, L 36/2015, L 39/2007, L 8/2006,

@@ -1,4 +1,4 @@
-/* A LA ORDEN · Academia de Tropa — motor de la app */
+/* MICABO · Academia de Tropa — motor de la app */
 (function () {
 "use strict";
 const $ = (s, el) => (el || document).querySelector(s);
@@ -182,7 +182,7 @@ function vHome() {
   const fails = Object.keys(state.fails).filter(id => (state.fails[id] || 0) > 0 && byId[id] && byId[id].c === state.course).length;
   const weak = weakTopics(state.course).slice(0, 3);
   view().innerHTML =
-    '<div class="view-head"><h1>¡A la orden, ' + esc(state.name) + '!</h1></div>' +
+    '<div class="view-head"><h1>¡A su mando, ' + esc(state.name) + '!</h1></div>' +
     '<div id="newsTick" class="news-tick" role="marquee"></div>' +
     '<div id="onlineChip" class="small" style="margin:-4px 0 10px">🟢 conectando…</div>' +
     courseCards() +
@@ -600,7 +600,7 @@ function vRanking() {
   const cu = window.cloudUser && window.cloudUser();
   const tu = cu ? cu.name : state.name + " (sin cuenta)";
   view().innerHTML = '<div class="view-head"><a class="back" href="#/mas">←</a><h1>Ranking global 🏆</h1></div>' +
-    '<p class="small muted" id="rankNote">Datos 100% reales: XP sincronizado de las cuentas de A LA ORDEN. Cargando…</p><div id="rankGlobal"></div>' +
+    '<p class="small muted" id="rankNote">Datos 100% reales: XP sincronizado de las cuentas de MICABO. Cargando…</p><div id="rankGlobal"></div>' +
     '<div class="card" style="margin-top:14px"><h3>📊 Tu XP local</h3>' +
     '<div class="rank-row me"><span class="rank-pos">·</span><span><b>' + esc(tu) + "</b>" + (cu ? "" : ' <span class="small muted">solo en este dispositivo</span>') + '</span><span class="rank-xp">' + state.xp + " XP</span></div>" +
     (cu ? '<p class="small muted">Con cuenta: tu XP aparece en el ranking global al sincronizar.</p>' : '<p class="small muted"><a href="#/cuenta">Crea tu cuenta gratis</a> para entrar en el ranking global real y lucir el punto 🟢 en línea.</p>') + "</div>";
@@ -609,7 +609,7 @@ function vRanking() {
     if (!box) return;
     if (!api || !api.users || !api.users.length) {
       box.innerHTML = '<p class="small muted">Aún no hay nadie con cuenta en el ranking. <a href="#/cuenta">Sé el primero de la historia</a>.</p>';
-      const n = $("#rankNote"); if (n) n.textContent = "Datos 100% reales: XP sincronizado de las cuentas de A LA ORDEN.";
+      const n = $("#rankNote"); if (n) n.textContent = "Datos 100% reales: XP sincronizado de las cuentas de MICABO.";
       return;
     }
     const on = ((window.GALON_ONLINE || {}).users || []);
@@ -763,8 +763,8 @@ function confetti() {
 window.shareResult = function () {
   if (!lastResult) return;
   const c = COURSES[lastResult.course];
-  const txt = "🎖️ " + lastResult.score + "/" + lastResult.max + " en " + lastResult.label + " (" + c.badge + ") · Precisión " + lastResult.acc + "% · Entreno con A LA ORDEN, la academia de tropa";
-  if (navigator.share) navigator.share({ title: "A LA ORDEN", text: txt }).catch(() => {});
+  const txt = "🎖️ " + lastResult.score + "/" + lastResult.max + " en " + lastResult.label + " (" + c.badge + ") · Precisión " + lastResult.acc + "% · Entreno con MICABO, la academia de tropa";
+  if (navigator.share) navigator.share({ title: "MICABO", text: txt }).catch(() => {});
   else if (navigator.clipboard) navigator.clipboard.writeText(txt).then(() => toast("Resultado copiado: pégalo donde quieras 📋")).catch(() => toast(txt));
   else toast(txt);
 };
@@ -861,7 +861,7 @@ function pintarCodigo(d) {
   const cont = $("#zonaCodigo"); if (!cont) return;
   const url = location.origin + location.pathname + "#/duelo";
   const cName = (COURSES[state.course] || {}).name || state.course;
-  const msg = "⚔️ ¡Me retas a un duelo de A LA ORDEN? 10 preguntas de " + cName + " para cada uno, mismo examen. Entra aquí: " + url + " — y usa mi código: " + d.codigo;
+  const msg = "⚔️ ¡Me retas a un duelo de MICABO? 10 preguntas de " + cName + " para cada uno, mismo examen. Entra aquí: " + url + " — y usa mi código: " + d.codigo;
   cont.innerHTML = '<div class="card" style="margin-bottom:12px;border:1px solid #d4af37"><b>🎯 Reto creado · mismo examen para los dos</b>' +
     '<div style="font-size:2rem;font-weight:800;letter-spacing:.35em;text-align:center;font-family:ui-monospace,monospace;margin:10px 0">' + esc(d.codigo) + '</div>' +
     '<div class="t-nav" style="justify-content:center"><a class="btn btn-green" href="https://wa.me/?text=' + encodeURIComponent(msg) + '" target="_blank" rel="noopener">📲 Enviar por WhatsApp</a></div>' +
@@ -1018,9 +1018,9 @@ function vDuelo() {
 window.shareDuel = function () {
   if (!D) return;
   const txt = D.me > D.foe
-    ? "⚔️ Acabo de ganar mi duelo " + D.me + "-" + D.foe + " en A LA ORDEN, la academia de tropa. ¿Alguien me reta?"
-    : "⚔️ Duelo " + D.me + "-" + D.foe + " en A LA ORDEN. La revancha es cuestión de honor. ¿Te apuntas?";
-  if (navigator.share) navigator.share({ title: "A LA ORDEN", text: txt }).catch(() => {});
+    ? "⚔️ Acabo de ganar mi duelo " + D.me + "-" + D.foe + " en MICABO, la academia de tropa. ¿Alguien me reta?"
+    : "⚔️ Duelo " + D.me + "-" + D.foe + " en MICABO. La revancha es cuestión de honor. ¿Te apuntas?";
+  if (navigator.share) navigator.share({ title: "MICABO", text: txt }).catch(() => {});
   else if (navigator.clipboard) navigator.clipboard.writeText(txt).then(() => toast("Texto copiado 📋")).catch(() => toast(txt));
   else toast(txt);
 };
@@ -1153,7 +1153,7 @@ function vEsquemas() {
     '<p class="small muted">Lo esencial de cada bloque, con la normativa vigente. Estudia aquí y remata con los tests. Curso en audio incluido: escucha cada esquema en guardias o marchas.</p>' +
     '<button class="btn btn-green btn-sm" id="schDown" style="margin-bottom:12px">⬇️ Descargar todos los esquemas (.txt)</button>' + blocks;
   $("#schDown").onclick = () => {
-    const txt = "ESQUEMAS A LA ORDEN · " + COURSES[state.course].name + " · vigente sept-2026\n\n" +
+    const txt = "ESQUEMAS MICABO · " + COURSES[state.course].name + " · vigente sept-2026\n\n" +
       list.map(b => "== " + b.t + " ==\n" + b.lines.map(l => "- " + l).join("\n")).join("\n\n");
     descargaArchivo("galon-esquemas-" + state.course + ".txt", txt, "text/plain");
     toast("⬇️ Esquemas descargados");
@@ -1162,7 +1162,7 @@ function vEsquemas() {
     const b = list[parseInt(btn.getAttribute("data-prn"), 10)];
     const w = window.open("", "_blank");
     if (!w) { toast("Permite las ventanas emergentes para imprimir"); return; }
-    w.document.write("<!doctype html><html lang='es'><head><meta charset='utf-8'><title>A LA ORDEN · " + b.t + "</title><style>body{font-family:system-ui,Arial;max-width:720px;margin:24px auto;color:#1d2a21}h1{color:#143d26;font-size:1.3rem}li{margin:6px 0}</style></head><body><h1>▲ " + b.t + "</h1><ul>" + b.lines.map(l => "<li>" + l + "</li>").join("") + "</ul><p style='color:#5f6f63'>A LA ORDEN · esquema vigente sept-2026 · imprime o guarda como PDF</p><script>window.print()<\/script></body></html>");
+    w.document.write("<!doctype html><html lang='es'><head><meta charset='utf-8'><title>MICABO · " + b.t + "</title><style>body{font-family:system-ui,Arial;max-width:720px;margin:24px auto;color:#1d2a21}h1{color:#143d26;font-size:1.3rem}li{margin:6px 0}</style></head><body><h1>▲ " + b.t + "</h1><ul>" + b.lines.map(l => "<li>" + l + "</li>").join("") + "</ul><p style='color:#5f6f63'>MICABO · esquema vigente sept-2026 · imprime o guarda como PDF</p><script>window.print()<\/script></body></html>");
     w.document.close();
   });
   $$("[data-spk]").forEach(btn => btn.onclick = () => {
@@ -1182,7 +1182,7 @@ function vNormas() {
   const TAGS = { "NUEVO": "badge-gold", "VIGENTE": "badge-green", "EN TRÁMITE": "badge" };
   const rows = (window.NORMS || []).map(n => '<div class="card" style="margin-bottom:10px"><div class="topic-row"><span><b>' + esc(n.t) + '</b><br><span class="small muted">📅 ' + esc(n.d) + " · " + esc(n.ref) + " · " + (n.c === "general" ? "General" : COURSES[n.c] ? esc(COURSES[n.c].badge) : esc(n.c)) + '</span></span><span class="badge ' + (TAGS[n.tag] || "badge") + '">' + esc(n.tag) + "</span></div><p>" + esc(n.x) + "</p></div>").join("");
   view().innerHTML = '<div class="view-head"><a class="back" href="#/mas">←</a><h1>Normativa vigente ⚖️</h1></div>' +
-    '<div class="card" style="margin-bottom:12px"><span class="badge badge-green">Contenido A LA ORDEN verificado: 19-sep-2026</span><p class="small muted">Revisamos el BOD/BOE y actualizamos banco, esquemas y changelog. Si algo cambia, aparece aquí primero.</p></div>' + rows;
+    '<div class="card" style="margin-bottom:12px"><span class="badge badge-green">Contenido MICABO verificado: 19-sep-2026</span><p class="small muted">Revisamos el BOD/BOE y actualizamos banco, esquemas y changelog. Si algo cambia, aparece aquí primero.</p></div>' + rows;
 }
 
 /* ---- CONSULTA: resuelve dudas buscando SOLO en el banco verificado (sin inventar nada) ---- */
@@ -1257,7 +1257,7 @@ async function vApoya() {
   const ya = (state.donation || {}).off;
   $("#apoyaCuerpo").innerHTML =
     '<div class="card" style="margin-bottom:12px"><b>🎯 Meta de la tropa (este año)</b>' +
-    '<p class="small muted" style="margin:6px 0">A LA ORDEN es gratis y lo seguirá siendo. El servidor y el dominio los pone la propia tropa con cafés voluntarios.</p>' +
+    '<p class="small muted" style="margin:6px 0">MICABO es gratis y lo seguirá siendo. El servidor y el dominio los pone la propia tropa con cafés voluntarios.</p>' +
     '<div class="t-progress" style="margin:8px 0"><i style="width:' + pct + '%"></i></div>' +
     '<p class="small" style="margin:0"><b>' + (A.recaudado || 0) + " €</b> de " + metaAnual + " € · " + pct + '%</p>' +
     '<p class="small muted" style="margin:6px 0 0">Cifras reales, sin humo: solo cuentan cafés verificados.</p></div>' +
@@ -1274,7 +1274,7 @@ async function vApoya() {
   const yb = $("#apoyaYa"); if (yb) yb.onclick = () => { state.donation = state.donation || {}; state.donation.off = Date.now(); save(); toast("🫡 ¡Gracias de corazón!"); vApoya(); };
 }
 
-/* ---- BIBLIOTECA: cuadernos A LA ORDEN propios (PDF) + fuentes oficiales gratuitas ---- */
+/* ---- BIBLIOTECA: cuadernos MICABO propios (PDF) + fuentes oficiales gratuitas ---- */
 function vBiblio() {
   const CUADERNOS = [
     ["galon-cabo-01-reales-ordenanzas.pdf", "Reales Ordenanzas", "RD 96/2009"],
@@ -1306,8 +1306,8 @@ function vBiblio() {
   ];
   view().innerHTML = '<div class="view-head"><a class="back" href="#/mas">←</a><h1>Biblioteca 📚</h1></div>' +
     '<div class="card" style="margin-bottom:12px"><b>Material 100% legal y gratis</b>' +
-    '<p class="small muted" style="margin:6px 0 0">Cuadernos elaborados por A LA ORDEN (nuestras 700 preguntas del lote examinador, con respuesta y referencia) y textos OFICIALES del BOE y del Ejército, que son públicos. Los temarios de webs de terceros (InfoTroPa, academias…) son de sus autores: no se redistribuyen aquí.</p></div>' +
-    '<h3 style="margin:4px 0 8px">🛠️ Cuadernos A LA ORDEN (PDF · 50 preguntas c/u)</h3>' +
+    '<p class="small muted" style="margin:6px 0 0">Cuadernos elaborados por MICABO (nuestras 700 preguntas del lote examinador, con respuesta y referencia) y textos OFICIALES del BOE y del Ejército, que son públicos. Los temarios de webs de terceros (InfoTroPa, academias…) son de sus autores: no se redistribuyen aquí.</p></div>' +
+    '<h3 style="margin:4px 0 8px">🛠️ Cuadernos MICABO (PDF · 50 preguntas c/u)</h3>' +
     CUADERNOS.map(c => '<div class="card" style="margin-bottom:8px"><div class="topic-row"><span><b>' + esc(c[1]) + '</b><br><span class="small muted">' + esc(c[2]) + '</span></span><a class="btn btn-gold btn-sm" href="pdf/' + c[0] + '" download>Descargar PDF</a></div></div>').join("") +
     '<h3 style="margin:12px 0 8px">🏛️ Fuentes oficiales (gratis, siempre vigentes)</h3>' +
     OFICIALES.map(o => '<div class="card" style="margin-bottom:8px"><div class="topic-row"><span><b>' + esc(o[1]) + '</b><br><span class="small muted">' + esc(o[2]) + ' · enlazado, no copiado</span></span><a class="btn btn-sm" href="' + o[0] + '" target="_blank" rel="noopener">Abrir ↗</a></div></div>').join("");
@@ -1335,7 +1335,7 @@ function vMas() {
     '<a class="mode" href="#/cuenta"><span class="mi">👤</span><b>Mi cuenta</b><span>Plan, facturas y sincronización</span></a>' +
     '<a class="mode" href="#/ajustes"><span class="mi">⚙️</span><b>Ajustes</b><span>Perfil, modo oscuro, reset</span></a></div>' +
     '<div class="card" style="margin-top:12px"><h3>📡 Alertas BOD</h3><div id="bodList" class="small"></div></div>' +
-    '<div class="card center" style="margin-top:12px"><h3>☕ A LA ORDEN es gratis… y lo será</h3><p>Si la app te ayuda a conseguir el galón, invita a un café: paga el servidor y las mejoras. Sin ventajas por donar: solo fundadores de por vida.</p><a class="btn btn-gold" id="donateApp" href="index.html#precios">Apoyar el proyecto ☕</a><p class="small muted" style="margin-top:8px" id="donateInfo"></p></div>';
+    '<div class="card center" style="margin-top:12px"><h3>☕ MICABO es gratis… y lo será</h3><p>Si la app te ayuda a conseguir el galón, invita a un café: paga el servidor y las mejoras. Sin ventajas por donar: solo fundadores de por vida.</p><a class="btn btn-gold" id="donateApp" href="index.html#precios">Apoyar el proyecto ☕</a><p class="small muted" style="margin-top:8px" id="donateInfo"></p></div>';
   const D0 = window.GALON_DONATE;
   if (D0) {
     const info = $("#donateInfo");
@@ -1377,8 +1377,8 @@ function vAjustes() {
     '<div class="switch-row"><span><b>✅ Corrección instantánea (estilo academia)</b><br><span class="small muted">En los tests: al contestar se corrige al momento (verde/rojo, explicación y tarjetas pintadas), como en la academia de tu amigo. Los SIMULACROS mantienen el modo examen real.</span></span><button class="btn btn-ghost btn-sm" id="setIns">' + (state.opts && state.opts.inmediata === false ? "Activar" : "Desactivar") + "</button></div>" +
     '<div class="switch-row"><span><b>⏩ Avanzar solo al acertar</b><br><span class="small muted">En estudio: acierto → siguiente en 1 s; fallo → pausa para leer. Los simulacros nunca avanzan solos.</span></span><button class="btn btn-ghost btn-sm" id="setAuto">' + (state.opts && state.opts.auto === false ? "Activar" : "Desactivar") + "</button></div>" +
     '<div class="switch-row"><span><b>🗑️ Borrar mi progreso</b><br><span class="small muted">XP, racha, fallos e historial</span></span><button class="btn btn-ghost btn-sm" id="setReset">Borrar</button></div>' +
-    '<p class="small muted">A LA ORDEN v1.0 · Banco auditado con 0 incidencias (acta pública). Sin anuncios. Tu progreso queda en tu dispositivo y, si creas cuenta, se sincroniza cifrado.</p></div>';
-  $("#setName").onchange = e => { state.name = e.target.value.trim() || "Recluta"; save(); toast("¡A la orden, " + state.name + "!"); };
+    '<p class="small muted">MICABO v1.0 · Banco auditado con 0 incidencias (acta pública). Sin anuncios. Tu progreso queda en tu dispositivo y, si creas cuenta, se sincroniza cifrado.</p></div>';
+  $("#setName").onchange = e => { state.name = e.target.value.trim() || "Recluta"; save(); toast("¡A su mando, " + state.name + "!"); };
   $("#setDark").onclick = () => { const d = document.documentElement.classList.toggle("dark"); store.set("dark", d); vAjustes(); };
   $("#setSound").onclick = () => { state.sound = (state.sound === false) ? true : false; save(); vAjustes(); };
   $("#setIns").onclick = () => { state.opts = state.opts || {}; state.opts.inmediata = (state.opts.inmediata === false) ? true : false; save(); vAjustes(); toast(state.opts.inmediata !== false ? "✅ Corrección instantánea activada" : "Modo examen: se corrige al final"); };
@@ -1411,7 +1411,7 @@ function donaTarjeta() {
   c.className = "card"; c.id = "donaCard";
   c.style.cssText = "margin-top:14px;border-left:4px solid var(--gold)";
   c.innerHTML = '<h3>☕ Que el que venga detrás lo tenga igual</h3>' +
-    '<p class="small">A LA ORDEN es gratis y lo seguirá siendo: sin muros ni planes. Lo sostiene la propia tropa — los que ya llevan galón o van a por él — con un café voluntario. Tu café paga el dominio y el servidor; el estudio, gratis de por vida.</p>' +
+    '<p class="small">MICABO es gratis y lo seguirá siendo: sin muros ni planes. Lo sostiene la propia tropa — los que ya llevan galón o van a por él — con un café voluntario. Tu café paga el dominio y el servidor; el estudio, gratis de por vida.</p>' +
     '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">' +
     '<button class="btn btn-gold btn-sm" id="donaSi">☕ Invitar a un café</button>' +
     '<button class="btn btn-ghost btn-sm" id="donaYa">🫡 Ya colaboro</button>' +
@@ -1428,7 +1428,7 @@ function descargaArchivo(nombre, contenido, tipo) {
   a.download = nombre; a.click();
 }
 /* ===== Mi presentación (tramitador de convocatoria) =====
-   Honestidad: A LA ORDEN NO tramita oficialmente (la instancia se presenta en la sede
+   Honestidad: MICABO NO tramita oficialmente (la instancia se presenta en la sede
    electrónica de Defensa). Aquí preparamos: fechas reales, checklist personal,
    tus datos y un dossier imprimible. Oficial vs previsto (~) siempre distinguido. */
 const TRAMITA = {
@@ -1492,7 +1492,7 @@ function vTramita() {
   }).join("");
   view().innerHTML =
     '<div class="view-head"><a class="back" href="#/mas">←</a><h1>Mi presentación 🧾</h1></div>' +
-    '<p class="small muted">Lo de presentarte a la convocatoria sin agobios: fechas reales, checklist documental, tus datos y un dossier imprimible. A LA ORDEN te prepara y te avisa; la instancia oficial se presenta siempre en la sede electrónica de Defensa.</p>' +
+    '<p class="small muted">Lo de presentarte a la convocatoria sin agobios: fechas reales, checklist documental, tus datos y un dossier imprimible. MICABO te prepara y te avisa; la instancia oficial se presenta siempre en la sede electrónica de Defensa.</p>' +
     '<div class="grid2">' + cards + '</div>';
 }
 
@@ -1519,7 +1519,7 @@ function vTramitaCurso(id) {
     '<p class="small muted" style="margin-top:6px">Se guarda solo' + (window.cloudUser && window.cloudUser() ? " · y viaja contigo con la cuenta ☁️" : " · en este dispositivo") + '.</p></div>' +
     '<div class="card" style="margin-top:12px"><button class="btn btn-gold btn-sm" id="btnDossier">📄 Descargar mi dossier de presentación (.html)</button>' +
     '<p class="small muted" style="margin-top:6px">Un documento con tus fechas, tu checklist y tus datos: para imprimir, guardar como PDF o enseñar en la unidad. Se actualiza cuando tú actualizas esto.</p></div>' +
-    '<p class="small muted" style="margin:14px 4px">⚠️ A LA ORDEN te prepara y te avisa, pero <b>no tramita nada oficialmente</b>: la instancia se presenta en la sede electrónica de Defensa con el modelo de las bases. Cuando salga tu convocatoria, te avisamos aquí y por Telegram.</p>';
+    '<p class="small muted" style="margin:14px 4px">⚠️ MICABO te prepara y te avisa, pero <b>no tramita nada oficialmente</b>: la instancia se presenta en la sede electrónica de Defensa con el modelo de las bases. Cuando salga tu convocatoria, te avisamos aquí y por Telegram.</p>';
 
   $$("#view [data-ck]").forEach(cb => cb.onchange = () => {
     const tr2 = tramitaDe(id);
@@ -1545,7 +1545,7 @@ function dossierHTML(id) {
     "<body style='margin:0;background:#f4f1e8;color:#2b2b26;font-family:Georgia,serif'>" +
     "<div style='max-width:760px;margin:0 auto;padding:26px 18px'>" +
     "<div style='background:#2f3e2e;color:#fff;border-radius:14px;padding:22px 20px'>" +
-    "<div style='font-size:.85rem;letter-spacing:.14em;color:#d9b64e'>A LA ORDEN · TU ACADEMIA DE TROPA</div>" +
+    "<div style='font-size:.85rem;letter-spacing:.14em;color:#d9b64e'>MICABO · TU ACADEMIA DE TROPA</div>" +
     "<h1 style='margin:6px 0 4px;font-size:1.5rem'>" + T.ico + " Mi dossier de presentación</h1>" +
     "<div style='opacity:.9'>" + esc(T.nombre) + "</div></div>" +
     "<div style='background:#fff;border:1px solid #e8e2d2;border-radius:14px;padding:18px;margin-top:14px'><b>" + esc(T.estado) + "</b></div>" +
@@ -1554,7 +1554,7 @@ function dossierHTML(id) {
     "<table style='width:100%;border-collapse:collapse;background:#fff;border:1px solid #e8e2d2;border-radius:12px'>" + checks + "</table>" +
     "<h2 style='font-size:1.05rem;margin:20px 0 8px;color:#4c5b43'>👤 Mis datos</h2>" +
     "<table style='width:100%;border-collapse:collapse;background:#fff;border:1px solid #e8e2d2;border-radius:12px'>" + datos + "</table>" +
-    "<p style='color:#6f675a;font-size:.88em;margin-top:18px'>Documento de trabajo generado por A LA ORDEN el " + hoy + ". <b>No es una instancia oficial</b> ni sustituye a la presentación en la sede electrónica de Defensa: usa siempre el modelo de las bases publicadas en el Boletín Oficial de Defensa. Las fechas marcadas con ~ son previstas según el calendario de años anteriores.</p>" +
+    "<p style='color:#6f675a;font-size:.88em;margin-top:18px'>Documento de trabajo generado por MICABO el " + hoy + ". <b>No es una instancia oficial</b> ni sustituye a la presentación en la sede electrónica de Defensa: usa siempre el modelo de las bases publicadas en el Boletín Oficial de Defensa. Las fechas marcadas con ~ son previstas según el calendario de años anteriores.</p>" +
     "</div></body></html>";
 }
 
@@ -1586,13 +1586,13 @@ function vRincon() {
   $("#btnResumen").onclick = () => {
     const d = new Date().toLocaleDateString("es-ES");
     const estrella = ids.map(id => { const q = byId[id]; return "<li><b>" + esc(q.q) + "</b><br>✔ " + esc(q.o[q.a]) + "<br><i>" + esc(q.x || "") + "</i></li>"; }).join("");
-    const html = "<!doctype html><html lang='es'><head><meta charset='utf-8'><title>A LA ORDEN · Mi resumen de estudio</title>" +
+    const html = "<!doctype html><html lang='es'><head><meta charset='utf-8'><title>MICABO · Mi resumen de estudio</title>" +
       "<style>body{font-family:system-ui,Arial;max-width:720px;margin:24px auto;padding:0 16px;color:#1d2a21}h1{color:#143d26}h2{border-bottom:2px solid #c9971f;padding-bottom:4px;margin-top:28px}li{margin:10px 0}i{color:#5f6f63}.muted{color:#5f6f63}</style></head><body>" +
-      "<h1>▲ A LA ORDEN · Mi resumen de estudio</h1><p class='muted'>" + esc(c.name) + " · " + d + " · Nivel " + lvl + " · " + state.xp + " XP · racha " + state.streak + " días</p>" +
+      "<h1>▲ MICABO · Mi resumen de estudio</h1><p class='muted'>" + esc(c.name) + " · " + d + " · Nivel " + lvl + " · " + state.xp + " XP · racha " + state.streak + " días</p>" +
       "<h2>Por donde voy flojo</h2>" + (weak.length ? "<ul>" + weak.map(w => "<li>" + esc(w.t) + " — " + w.acc + "% de acierto</li>").join("") + "</ul>" : "<p>Sin datos aún.</p>") +
       "<h2>Mi cuaderno</h2><pre style='white-space:pre-wrap;font-family:inherit'>" + esc(nota || "(vacío)") + "</pre>" +
       "<h2>Mis preguntas guardadas (" + ids.length + ")</h2>" + (estrella ? "<ul>" + estrella + "</ul>" : "<p>Ninguna todavía.</p>") +
-      "<p class='muted'>Generado por A LA ORDEN · gratis siempre, con auditoría pública de calidad.</p></body></html>";
+      "<p class='muted'>Generado por MICABO · gratis siempre, con auditoría pública de calidad.</p></body></html>";
     descargaArchivo("galon-resumen-" + state.course + ".html", html, "text/html");
     toast("📄 Resumen descargado: ábrelo y, si quieres, imprímelo en PDF");
   };

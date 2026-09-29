@@ -21,7 +21,7 @@ que cobra **5% hasta en los cafés sueltos**. Hay que DESACTIVARLO en Ajustes �
 **ingresos** que se declaran en el **IRPF (modelo 100)** como rendimiento esporádico. Siendo
 poco dinero y sin ser tu medio de vida, no se exige alta de autónomo; si algún día crece mucho,
 habla con un asesor. **NADA de regalos físicos ni sorteos** (eso es venta / juego: alta y
-autorización de la Ley 13/2011). Los "regalos" A LA ORDEN son **reconocimiento**: muro, insignia y
+autorización de la Ley 13/2011). Los "regalos" MICABO son **reconocimiento**: muro, insignia y
 fundadores de por vida. El estudio sigue 100% gratis para todos.
 
 ---
@@ -49,7 +49,7 @@ fundadores de por vida. El estudio sigue 100% gratis para todos.
 ### 4) Crear la META de la tropa (crowdfunding)
 1. Menú → **Goals / Metas** (dentro de tu página).
 2. **Create a goal / Crear meta**:
-   - Título: `Meta de la tropa A LA ORDEN — servidor + dominio`
+   - Título: `Meta de la tropa MICABO — servidor + dominio`
    - Monto objetivo: **12 €** (dominio ~10 €/año + redondeo; actualízalo si cambia)
    - Tipo: **Yearly / Anual** (o la que prefieras)
 3. Guarda. La barra de progreso aparecerá en tu página de Ko-fi.
@@ -57,19 +57,19 @@ fundadores de por vida. El estudio sigue 100% gratis para todos.
 ### 5) Poner la página bonita (mínimo)
 1. **Page / Página** → edita:
    - Foto: tu galón/logo (cuando tengas las imágenes de galones hechas)
-   - Descripción: `A LA ORDEN: estudiar para Cabo, gratis para siempre. Tu café paga servidor y dominio. Nada queda bloqueado por no aportar.`
+   - Descripción: `MICABO: estudiar para Cabo, gratis para siempre. Tu café paga servidor y dominio. Nada queda bloqueado por no aportar.`
    - **Welcome message / mensaje de agradecimiento** personalizado.
 2. **NO actives** Shop ni Memberships (5% y ya sabemos por qué no).
 
 ### 6) Webhooks (OPCIONAL — requiere Ko-fi Gold)
-El servidor A LA ORDEN ya entiende el webhook (`/api/webhooks/kofi` con `KOFI_VERIFICATION_TOKEN` en
+El servidor MICABO ya entiende el webhook (`/api/webhooks/kofi` con `KOFI_VERIFICATION_TOKEN` en
 `.env`): apunta al donante con su cuenta en la app automáticamente.
 - Si algún día contratas Gold: Settings → API / Webhooks → pega
   `https://TU-DOMINIO/api/webhooks/kofi` y copia el **verification token** al `.env`.
 - **Sin Gold**: nada pasa. Dime cada mes cuántos cafés han entrado y actualizo la barra a mano
   (js/donation.js → `raised`, y `data/supporters.json` si me pasas apodos).
 
-### 7) Conectar Ko-fi con A LA ORDEN (dímelo y lo hago yo)
+### 7) Conectar Ko-fi con MICABO (dímelo y lo hago yo)
 1. Copia el enlace de tu página (`https://ko-fi.com/TUUSUARIO`).
 2. Pásamelo por el chat.
 3. Yo lo pongo en `js/donation.js` (campo `kofi`) → la app empieza a mostrar el botón
@@ -96,7 +96,7 @@ El servidor A LA ORDEN ya entiende el webhook (`/api/webhooks/kofi` con `KOFI_VE
 
 - La AEAT excluye de la obligación de declarar a quien **no supera 1.000 €/año en conjunto**
   (rendimientos no laborales, ganancias, etc.), si su sueldo viene de **un solo pagador y es
-  < 22.000 €/año**. La meta A LA ORDEN (dominio ~12 €/año) queda infinitamente por debajo.
+  < 22.000 €/año**. La meta MICABO (dominio ~12 €/año) queda infinitamente por debajo.
 - El proyecto es **gratuito y esporádico** → no es "actividad económica" ni te mete en IVA
   (la ley excluye del concepto de empresario a quien presta servicios **a título gratuito**).
 - **Nada de autónomo**: no hay habitualidad ni organización lucrativa.

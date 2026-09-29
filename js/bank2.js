@@ -1,4 +1,4 @@
-/* A LA ORDEN — Banco ampliado · CURSO CABO (+56 preguntas, cobertura tipo ANARO/FASPRO/ascensoacabo)
+/* MICABO — Banco ampliado · CURSO CABO (+56 preguntas, cobertura tipo ANARO/FASPRO/ascensoacabo)
    Contenido original elaborado a partir del temario oficial. Bloques C1/C2 según COURSES en data.js */
 window.QUESTIONS2 = [
 /* ===== C1 · Formación General Militar ===== */

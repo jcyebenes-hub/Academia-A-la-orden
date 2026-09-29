@@ -1,4 +1,4 @@
-/* A LA ORDEN · Academia de Tropa — Datos demo (contenido de muestra pendiente de revisión experta) */
+/* MICABO · Academia de Tropa — Datos demo (contenido de muestra pendiente de revisión experta) */
 const COURSES = {
   cabo: {
     id: "cabo", name: "Ascenso a Cabo", army: "Ejército de Tierra", badge: "CABO ET",

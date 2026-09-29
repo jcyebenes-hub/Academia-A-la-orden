@@ -1,4 +1,4 @@
-/* A LA ORDEN — LOTE 1 CABO 1º · 56 preguntas CURADAS a mano (21-sep-2026)
+/* MICABO — LOTE 1 CABO 1º · 56 preguntas CURADAS a mano (21-sep-2026)
    Temas reforzados: Régimen disciplinario (LO 8/2014) · Documentación militar ·
    Mando y liderazgo (K2/MoM) · Tiro · Topografía · Organización del ET.
    Cada explicación (x) enseña el PORQUÉ — nada de ecos de la respuesta. */

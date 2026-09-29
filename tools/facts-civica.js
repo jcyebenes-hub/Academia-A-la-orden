@@ -1,4 +1,4 @@
-/* A LA ORDEN — Lote 4 · CABO TIERRA · Capítulo 2 del temario oficial: FORMACIÓN CÍVICA Y HUMANA
+/* MICABO — Lote 4 · CABO TIERRA · Capítulo 2 del temario oficial: FORMACIÓN CÍVICA Y HUMANA
    (Constitución e instituciones, símbolos de España, UE, historia, igualdad y convivencia,
    valores democráticos. Hechos públicos, redacción propia) */
 window.FACTS_CIVICA = [

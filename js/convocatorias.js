@@ -1,4 +1,4 @@
-/* A LA ORDEN · Próximas convocatorias oficiales — datos curados (última revisión: 20-sep-2026)
+/* MICABO · Próximas convocatorias oficiales — datos curados (última revisión: 20-sep-2026)
    Regla de honestidad: est:true = FECHA PREVISTA según el calendario de años anteriores
    (se muestra con "~"); est:false = dato oficial publicado. Cuando salga una convocatoria
    oficial, actualizar aquí y en tools/bod-seed.js. El panel la pinta en #convos si existe. */

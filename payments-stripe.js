@@ -1,4 +1,4 @@
-/* A LA ORDEN — Integración Stripe para producción (DOCUMENTACIÓN, no activa en el demo)
+/* MICABO — Integración Stripe para producción (DOCUMENTACIÓN, no activa en el demo)
    Uso real: npm i stripe (o llamar a la API REST con fetch como aquí), exportar STRIPE_SECRET_KEY,
    crear productos/precios y sustituir el bloque "demo" de /api/checkout/confirm por webhooks. */
 "use strict";

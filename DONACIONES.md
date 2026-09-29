@@ -1,4 +1,4 @@
-# A LA ORDEN · Plan de donaciones (modelo actual) y salida a monetizar
+# MICABO · Plan de donaciones (modelo actual) y salida a monetizar
 
 ## Principio
 **Todo gratis, para siempre.** Las donaciones son voluntarias y sin contraprestación: no se bloquea nada tras donar. Eso mantiene el modelo limpio legalmente mientras no haya empresa, y es la mejor carta de captación en un nicho quemado a precios de 300-800 €.

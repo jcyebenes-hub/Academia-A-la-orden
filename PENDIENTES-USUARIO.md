@@ -1,7 +1,7 @@
-# 📌 PENDIENTES DEL USUARIO — A LA ORDEN
+# 📌 PENDIENTES DEL USUARIO — MICABO
 
 ## ⏰ Recordatorio pendiente (lo pediste expresamente)
-- **TELEGRAM**: entrar en **BotFather** → `/setname` → elegir el bot → escribir **A LA ORDEN**.
+- **TELEGRAM**: entrar en **BotFather** → `/setname` → elegir el bot → escribir **MICABO**.
   (El código ya saluda con el nombre nuevo; falta solo el nombre visible en Telegram.)
   → Cuanto antes lo hagas, antes se acabará la confusión con el nombre viejo.
 
@@ -28,7 +28,7 @@
 5. Servicios dormidos: Stripe/Redsys siguen apagados a propósito.
 
 ## ✅ Hecho estos días (para que no se te olvide lo que ya está)
-- Renombrado GALÓN → A LA ORDEN (206 reemplazos; existe galones.es, producto gemelo policía).
+- Renombrado GALÓN → MICABO (206 reemplazos; existe galones.es, producto gemelo policía).
 - Selector de curso «¿Qué preparas hoy?» ANTES de entrar (tiles, fin de la ruleta).
 - Navegador de preguntas con líneas verde/roja en todos los tests.
 - Lote examinador COMPLETO: 17 temas · 850 preguntas · 17 cuadernos PDF.

@@ -1,6 +1,6 @@
-# A LA ORDEN · Plan de ataque en redes sociales
+# MICABO · Plan de ataque en redes sociales
 
-> Objetivo: convertir A LA ORDEN en LA referencia de Cabo, Cabo 1º y Permanencia en 90 días, con contenido orgánico + comunidad, antes de gastar un euro en publicidad.
+> Objetivo: convertir MICABO en LA referencia de Cabo, Cabo 1º y Permanencia en 90 días, con contenido orgánico + comunidad, antes de gastar un euro en publicidad.
 > Regla de oro: el 80% del contenido da VALOR (preguntas, tips, motivación) y solo el 20% vende.
 
 ## 1. Público objetivo (ICP)
@@ -9,7 +9,7 @@
 - Dónde vive: TikTok (descubre), Instagram Reels (confirma), YouTube Shorts (profundiza), Telegram/WhatsApp (comunidad), foros sermilitar/foromilitar/Reddit r/EjercitoEspañol (decide).
 
 ## 2. Tono de marca
-- Militar entre iguales: directo, con humor de cuartel, sin sermones. "A la orden" como cierre.
+- Militar entre iguales: directo, con humor de cuartel, sin sermones. "¡A su mando!" como cierre.
 - Emojis: 🎖️⚔️🔥🎯. Nada de marketing corporativo.
 - Fórmula viral: HOOK (0-2 s, patrón roto) → VALOR (3-20 s) → CTA (últimos 3 s).
 
@@ -24,7 +24,7 @@
 
 ## 4. Secuencia de lanzamiento
 **Fase PRE (T-21 → T-0): crear expectativa**
-- Perfiles creados (TikTok, IG, YouTube, X) con identidad A LA ORDEN (logo chevrones dorados).
+- Perfiles creados (TikTok, IG, YouTube, X) con identidad MICABO (logo chevrones dorados).
 - 1 vídeo/día de P1 y P4 puro (sin vender). Objetivo: 1.000 seguidores reales.
 - Storytelling fundador: "Llevo X años en tropa y ninguna app prepara los TRES ascensos. Así que la estoy construyendo" (build in public).
 - Espera de fundadores: lista en link-in-bio ("Los primeros 100 de la lista: Pro gratis 1 mes al lanzar").
@@ -53,7 +53,7 @@ Ritmo: TikTok y Reels diario (mismo vídeo), X 2/día, Telegram 3/semana, foros 
 ## 6. Guiones listos (los 10 primeros TikToks/Reels)
 1. **Hook:** "El examen de Cabo se decide en 70 minutos y 4 fallos te comen un acierto." → explica penalización con pizarra → CTA: "Simulacro gratis en la bio".
 2. **Hook:** "Nadie te cuenta esto del examen de Permanente:" → 100 preguntas / 120 min / P = A − E/3 → CTA.
-3. **Hook:** "POV: estás de guardia 12 horas y el examen es en 3 semanas." → pantalla de A LA ORDEN en modo oscuro, offline → "por eso la app funciona sin cobertura".
+3. **Hook:** "POV: estás de guardia 12 horas y el examen es en 3 semanas." → pantalla de MICABO en modo oscuro, offline → "por eso la app funciona sin cobertura".
 4. **Hook:** "5 preguntas del examen oficial I/24. Si fallas la 3ª, comentario." → rapidez de preguntas reales → CTA duelo.
 5. **Hook:** "¿Cuánto vale tu galón? Haz la cuenta conmigo." → calculadora de baremo en vivo (0,2×aciertos−0,05×errores) → CTA.
 6. **Hook:** "Mi sargento suspendió 2 veces. Estas fueron sus 3 claves." → storytelling → plan de 6 semanas.
@@ -68,7 +68,7 @@ Hashtags base: #ejercito #militar #cabo #ascenso #oposiciones #tropaymarineria #
 UTM siempre: `?utm_source=tiktok&utm_campaign=lanzamiento` en el link de bio.
 
 ## 8. Activos ya integrados en la app (viraje social)
-- Botón **Compartir** en resultados y duelos (Web Share + copiar texto con marca A LA ORDEN).
+- Botón **Compartir** en resultados y duelos (Web Share + copiar texto con marca MICABO).
 - **Logros** compartibles (vitrina de 12 medallas).
 - **Duelos 1vs1** → mecánica natural de "reta a tu compañero".
 - **Modo oscuro** → capturas estéticas para redes.

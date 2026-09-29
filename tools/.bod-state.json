@@ -1,0 +1,30 @@
+{
+ "alerts": [
+  {
+   "ts": 1789722000000,
+   "d": "18-sep-2026",
+   "tag": "BOD",
+   "t": "BOD 18.09.2026",
+   "x": "Revisado: sin novedades que afecten a ascensos. ESCALA DE MARINERÍA Destinos Resolución 631/13491/26 Cód. Informático: 2026019324. Se resuelve la publicación de vacantes, de carácter extraordinario, anunciadas por Resolución 631",
+   "url": "https://www.atme.es/bod-18-09-2026/"
+  },
+  {
+   "ts": 1789635600000,
+   "d": "17-sep-2026",
+   "tag": "BOD",
+   "t": "BOD 17.09.2026",
+   "x": "Revisado: sin novedades que afecten a ascensos. ESCALA DE MARINERÍA Destinos Resolución 631/13431/26 Cód. Informático: 2026019231. Se resuelve la publicación de vacantes, de carácter extraordinario, anunciadas por Resolución 631",
+   "url": "https://www.atme.es/bod-17-09-2026/"
+  },
+  {
+   "ts": 1789549200000,
+   "d": "16-sep-2026",
+   "tag": "BOD",
+   "t": "BOD 16.09.2026",
+   "x": "Revisado: sin novedades que afecten a ascensos. Extracto del BOD sobre temas que afectan a Tropa y Marinería.",
+   "url": "https://www.atme.es/bod-16-09-2026/"
+  }
+ ],
+ "posted": [],
+ "tgSeen": []
+}

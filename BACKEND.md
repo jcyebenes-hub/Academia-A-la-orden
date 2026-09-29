@@ -1,4 +1,4 @@
-# A LA ORDEN · Backend y pagos
+# MICABO · Backend y pagos
 
 Arquitectura del demo: **Node puro sin dependencias** (`server.js`) que sirve la web + API REST. Datos en `data/*.json` (users, tokens, payments, checkouts, progress). Sesiones con cookie HttpOnly de 30 días y contraseñas con scrypt.
 
