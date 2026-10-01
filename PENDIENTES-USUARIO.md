@@ -59,3 +59,5 @@
 - v98: LOTE OFICIAL 2 — 16 preguntas de INGLÉS de Cabo 1º desde el ME7-029 (escuadra/sección/grupo táctico, full corporal, drill parade, fall in…): Inglés 14→30. Tarjeta destacada 🇬🇧 en Entrenar (solo Cabo 1º) + tema Inglés en Por tema/B2. BIBLIOTECA reordenada como la carpeta original: grupos con nombre real (Convocatoria y trámites, Temario a distancia (oficial), OISD, Jurídico-Social…), 43 títulos legibles, tamaño en MB/KB por documento.
 
 - v99: UNIFICACIÓN — la vista Biblioteca (#/biblio, desde Más o Entrenar) es ahora EL hub de descargas: temarios oficiales del Rincón de Tropa ordenados (49 docs) + cuadernos MICABO + fuentes BOE. VERSIÓN VISIBLE: badge «v99» en la biblioteca y «MICABO v99» en Ajustes (window.APPV) — para verificar de un vistazo qué build tiene cada uno.
+
+- CAMPAÑA TEMA A TEMA (v100): Lote 3 = Cabo · Bloque I · Tema 1 «Disposiciones Generales» (RD 96/2009 arts. 1-13): 16 curadas estilo examen real desde el temario oficial nov-2025 → RROO cabo +16. Mapa oficial: Cap1 Bloques I-VII + Cap2 táctica/topo/armamento. Siguiente: Tema 2 «Del Militar».
