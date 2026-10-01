@@ -51,3 +51,5 @@
 - BIBLIOTECA OFICIAL en Temario (v91): los 49 PDFs del Rincón de Tropa servidos desde /pdf/temarios/ (97 MB) con 📖 consultar y ⬇️ descargar, agrupados por curso y materia (2.171 págs). SW v91: los PDF no se cachean (pesan).
 
 - DISEÑO v2 (sw v92): capa moderna sobre la identidad verde/oro — dock inferior flotante de cristal con pestaña activa en píldora dorada, iconos SVG de trazo (fin de emojis en la barra), escudo de la landing en la cabecera con MICABO en oro degradado, fondos con brillo ambiental, tarjetas/botones con profundidad y presión táctil, animación de entrada de vistas, scrollbars finos. Limpieza de workspace: fuera cloudflared (38MB), social duplicado y zip viejo (124→41 MB); los 49 PDFs de temarios viven SOLO en GitHub/Render (no copiarlos al workspace).
+
+- FIX TRIVIAL v94: captura perezosa del puente AO (el módulo cargaba antes que app.js → pools vacíos → «Sin preguntas disponibles») + red de seguridad. Bump trivial.js?v=94 y CACHE v94 para que la caché no tape el arreglo.
