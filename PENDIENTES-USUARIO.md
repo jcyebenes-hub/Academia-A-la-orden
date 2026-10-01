@@ -65,3 +65,5 @@
 - CAMPAÑA (v101): Lote 4 = Cabo · Bloque I · Tema 2 «Del Militar» (arts. 14-23 + 32/38): 16 curadas (espíritu militar, virtudes del 17, justicia del 18, ambición honrada, tradición, prestigio, conducto reglamentario) → Cabo 922→938. Fix erratas bank13 (corveo/intendencia). Siguiente: Tema 3 «De la Disciplina».
 
 - CAMPAÑA (v102): Lote 5 = Cabo · Bloque I · Tema 3 «De la Disciplina» (arts. 44-52) con MÉTODO NUEVO de doble pasada (redacción + auditoría automática contra el texto fuente: detectó sesgo de longitud 9/10 y distribución 2/6/2 → corregidos). JSON de entrega en lotes/lote5-tema3-disciplina.json. 10 preg (3F/5M/2D) → Cabo 938→948. Nota: el temario salta el art. 48. Siguiente: Tema 4 «De la Acción del Mando» (arts. 53-77).
+
+- CAMPAÑA (v103): Lote 6 = Cabo · Bloque I · Tema 4 «De la Acción del Mando» (arts. 53-77): 16 curadas (5F/8M/3D) con doble pasada — auditoría 1ª detectó sesgo de longitud 11/16 → rebalanceado a 3/16. JSON en lotes/lote6-tema4-mando.json. Cabo 948→964. Siguiente: Tema 5 «De las Operaciones».
