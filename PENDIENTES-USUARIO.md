@@ -61,3 +61,5 @@
 - v99: UNIFICACIÓN — la vista Biblioteca (#/biblio, desde Más o Entrenar) es ahora EL hub de descargas: temarios oficiales del Rincón de Tropa ordenados (49 docs) + cuadernos MICABO + fuentes BOE. VERSIÓN VISIBLE: badge «v99» en la biblioteca y «MICABO v99» en Ajustes (window.APPV) — para verificar de un vistazo qué build tiene cada uno.
 
 - CAMPAÑA TEMA A TEMA (v100): Lote 3 = Cabo · Bloque I · Tema 1 «Disposiciones Generales» (RD 96/2009 arts. 1-13): 16 curadas estilo examen real desde el temario oficial nov-2025 → RROO cabo +16. Mapa oficial: Cap1 Bloques I-VII + Cap2 táctica/topo/armamento. Siguiente: Tema 2 «Del Militar».
+
+- CAMPAÑA (v101): Lote 4 = Cabo · Bloque I · Tema 2 «Del Militar» (arts. 14-23 + 32/38): 16 curadas (espíritu militar, virtudes del 17, justicia del 18, ambición honrada, tradición, prestigio, conducto reglamentario) → Cabo 922→938. Fix erratas bank13 (corveo/intendencia). Siguiente: Tema 3 «De la Disciplina».
