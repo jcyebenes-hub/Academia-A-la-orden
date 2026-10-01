@@ -4,9 +4,11 @@
    · Tablero completo dentro del lienzo (nada cortado por abajo), ficha con movimiento suave.
    Solitario o por código (misma semilla: mismo dado y mismas preguntas; gana quien acabe en menos tiradas). */
 (function () {
-  const AO = window.AO || {};
-  const st = () => (AO.stateRef ? AO.stateRef() : null);
-  const view = AO.view || (() => document.querySelector("#view"));
+  /* CAPTURA PEREZOSA del puente: este módulo carga ANTES que app.js (que crea window.AO),
+     así que el puente se resuelve en cada uso, no al cargar el fichero. */
+  const AOg = () => window.AO || {};
+  const st = () => { const A = AOg(); return A.stateRef ? A.stateRef() : null; };
+  const view = () => { const A = AOg(); return A.view ? A.view() : document.querySelector("#view"); };
   const $ = s => document.querySelector(s);
   const $$ = s => Array.from(document.querySelectorAll(s));
   const esc = t => String(t == null ? "" : t).replace(/[&<>\"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -114,7 +116,8 @@
   let G = null, SV = null;
 
   function poolsFor(curso) {
-    const all = ((AO.bank && st()) ? AO.bank(curso || (st() && st().course) || "cabo") : []).filter(q => q.o && q.o.length === 4);
+    const A = AOg();
+    const all = ((A.bank && st()) ? A.bank(curso || (st() && st().course) || "cabo") : []).filter(q => q.o && q.o.length === 4);
     const pools = CATS.map(c => all.filter(q => c.t.indexOf(q.t) >= 0));
     const total = pools.reduce((s, p) => s + p.length, 0);
     if (total < 60) { /* curso con pocos temas: reparto equitativo de todo el banco */
@@ -191,6 +194,8 @@
 
   /* ---- preguntas ---- */
   function preguntar(cat) {
+    /* red de seguridad: si TODOS los pools están vacíos (puente no disponible al empezar), reconstruir ahora */
+    if (!G.pools.some(pp => pp && pp.length)) G.pools = poolsFor(G.curso);
     let pool = G.pools[cat] && G.pools[cat].length ? G.pools[cat] : G.pools[(cat + 3) % 6];
     if (!pool || !pool.length) pool = CATS.map((c, i) => G.pools[i]).find(p2 => p2.length) || [];
     if (!pool.length) { G.abierto = false; G.dado = null; toastT("Sin preguntas disponibles para ese curso"); return; }
@@ -280,7 +285,7 @@
     const msg = gano ? "🏆 ¡VICTORIA! Tablero completo en " + G.tirada + " tiradas" : (cap ? "⏱️ Fin: 60 tiradas · " + Object.keys(G.wedges).length + "/6 quesitos" : "😞 La final te ha caído… ¡otra ronda!");
     const lg = $("#tvLog"); if (lg) lg.innerHTML = "<b>" + msg + "</b>";
     const btn = $("#tvDado"); if (btn) btn.disabled = true;
-    if (st()) { st().xp += gano ? 50 : 5; if (AO.save) AO.save(); }
+    if (st()) { st().xp += gano ? 50 : 5; const A = AOg(); if (A.save) A.save(); }
     if (G.modo === "sala") { G.enviadoFin = true; informa(true); }
     else {
       try {
@@ -347,7 +352,7 @@
     const tok = NODES[G.pos];
     view().innerHTML =
       '<div class="view-head"><button class="back" id="tvSalir">✕</button><h1 style="font-size:1.05rem">🎡 Trivial · ' + (G.modo === "sala" ? "vs código" : "Solitario") + "</h1>" +
-      '<span class="badge" style="margin-left:auto">🎓 ' + esc(AO.COURSES && AO.COURSES[G.curso] ? (AO.COURSES[G.curso].name || AO.COURSES[G.curso].nombre) : G.curso) + "</span>" +
+      '<span class="badge" style="margin-left:auto">🎓 ' + esc((AOg().COURSES || {})[G.curso] ? ((AOg().COURSES[G.curso].name || AOg().COURSES[G.curso].nombre)) : G.curso) + "</span>" +
       (G.modo === "sala" ? '<span class="badge">código ' + esc(G.sala.codigo) + "</span>" : "") + "</div>" +
       '<div class="tv-wrap">' +
       '<svg viewBox="0 0 440 440" class="tv-board" id="tvBoard">' + defs +
@@ -403,7 +408,7 @@
     const s = $("#tvStats");
     if (s) s.textContent = "🎯 " + G.aciertos + "/" + G.preguntas + " (" + (G.preguntas ? Math.round(100 * G.aciertos / G.preguntas) : 0) + "%) · tiradas " + G.tirada + "/60 · 🧩 " + Object.keys(G.wedges).length + "/6";
   }
-  function toastT(m) { try { toast(m); } catch (e) { const lg = $("#tvLog"); if (lg) lg.textContent = m; } }
+  function toastT(m) { const A = AOg(); try { A.toast(m); } catch (e) { const lg = $("#tvLog"); if (lg) lg.textContent = m; } }
 
   /* ---- vistas ---- */
   function vTrivial() {
