@@ -67,3 +67,5 @@
 - CAMPAÑA (v102): Lote 5 = Cabo · Bloque I · Tema 3 «De la Disciplina» (arts. 44-52) con MÉTODO NUEVO de doble pasada (redacción + auditoría automática contra el texto fuente: detectó sesgo de longitud 9/10 y distribución 2/6/2 → corregidos). JSON de entrega en lotes/lote5-tema3-disciplina.json. 10 preg (3F/5M/2D) → Cabo 938→948. Nota: el temario salta el art. 48. Siguiente: Tema 4 «De la Acción del Mando» (arts. 53-77).
 
 - CAMPAÑA (v103): Lote 6 = Cabo · Bloque I · Tema 4 «De la Acción del Mando» (arts. 53-77): 16 curadas (5F/8M/3D) con doble pasada — auditoría 1ª detectó sesgo de longitud 11/16 → rebalanceado a 3/16. JSON en lotes/lote6-tema4-mando.json. Cabo 948→964. Siguiente: Tema 5 «De las Operaciones».
+
+- CAMPAÑA (v104): Lote 7 = Cabo · Bloque I · Tema 5 «De las Operaciones» (arts. 83-103): 11 curadas (3F/5M/3D) — CIERRA LAS RROO (Bloque I completo: T1-T5). Auditoría: sesgo longitud 10/11 → 1/11, posiciones A:8 → A3/B3/C3/D2 (pads + barajado automático). JSON lotes/lote7-tema5-operaciones.json. Cabo 964→975. Siguiente: Bloque II (Seguridad FAS, RD 194/2010).
