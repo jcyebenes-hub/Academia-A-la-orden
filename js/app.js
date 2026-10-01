@@ -106,6 +106,13 @@ function courseCards() {
 function bindCourses(alEntrar) {
   $$("[data-cursos]").forEach(b => b.onclick = () => abrirCursos(false));
   $$("[data-course]").forEach(b => b.onclick = () => {
+    /* PORTERO: abrir un curso exige cuenta (login o registro gratis) */
+    if (typeof window.estaDentro === "function" && !window.estaDentro()) {
+      const sh = $("#sheetBg"); if (sh) sh.remove();
+      toast("🔐 Para entrar a un curso, primero crea tu cuenta o inicia sesión — es gratis");
+      if (location.hash === "#/cuenta") render(); else location.hash = "#/cuenta";
+      return;
+    }
     state.course = b.getAttribute("data-course"); save();
     const sh = $("#sheetBg"); if (sh) sh.remove();
     if (alEntrar) { location.hash = "#/entrenar"; toast("Curso: " + COURSES[state.course].name); }

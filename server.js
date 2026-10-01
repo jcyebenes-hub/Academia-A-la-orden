@@ -763,7 +763,9 @@ function serveStatic(req, res, pathname, search) {
     if (err) { res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" }); return res.end("404 — no encontrado"); }
     const etag = '"' + crypto.createHash("sha1").update(buf).digest("hex").slice(0, 20) + '"';
     if (req.headers["if-none-match"] === etag) { res.writeHead(304); return res.end(); }
-    const headers = { "Content-Type": MIME[path.extname(file).toLowerCase()] || "application/octet-stream", "Cache-Control": path.extname(file) === ".html" ? "no-cache" : "public, max-age=3600", ETag: etag, "X-Content-Type-Options": "nosniff" };
+    const base = path.basename(file);
+    const sinCache = path.extname(file) === ".html" || base === "sw.js" || base === "manifest.json"; /* sw.js SIEMPRE revalidado: sin él, los navegadores tardan 1h en ver versiones nuevas */
+    const headers = { "Content-Type": MIME[path.extname(file).toLowerCase()] || "application/octet-stream", "Cache-Control": sinCache ? "no-cache" : "public, max-age=3600", ETag: etag, "X-Content-Type-Options": "nosniff" };
     if ((req.headers["accept-encoding"] || "").includes("gzip") && buf.length > 1200 && /text|json|javascript/.test(headers["Content-Type"])) {
       buf = zlib.gzipSync(buf);
       headers["Content-Encoding"] = "gzip";

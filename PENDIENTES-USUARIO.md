@@ -53,3 +53,5 @@
 - DISEÑO v2 (sw v92): capa moderna sobre la identidad verde/oro — dock inferior flotante de cristal con pestaña activa en píldora dorada, iconos SVG de trazo (fin de emojis en la barra), escudo de la landing en la cabecera con MICABO en oro degradado, fondos con brillo ambiental, tarjetas/botones con profundidad y presión táctil, animación de entrada de vistas, scrollbars finos. Limpieza de workspace: fuera cloudflared (38MB), social duplicado y zip viejo (124→41 MB); los 49 PDFs de temarios viven SOLO en GitHub/Render (no copiarlos al workspace).
 
 - FIX TRIVIAL v94: captura perezosa del puente AO (el módulo cargaba antes que app.js → pools vacíos → «Sin preguntas disponibles») + red de seguridad. Bump trivial.js?v=94 y CACHE v94 para que la caché no tape el arreglo.
+
+- v97: CAUSA RAÍZ de las actualizaciones lentas arreglada — el servidor cacheaba sw.js 1 hora; ahora no-cache (revalida siempre). PORTERO DE LOGIN: abrir cualquier curso sin sesión lleva a Entrar/Crear cuenta (tras login, vuelve la ventana de cursos automáticamente).

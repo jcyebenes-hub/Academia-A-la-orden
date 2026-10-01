@@ -121,6 +121,7 @@ function paintChip() {
   }
 }
 /* ventana de perfil: tocar tu usuario arriba = perfil + ajustes */
+window.estaDentro = function () { return !!C.user; }; /* portero: ¿hay sesión iniciada? */
 window.abrirPerfil = function () {
   const old = $("#sheetBg"); if (old) old.remove();
   const u = C.user;
