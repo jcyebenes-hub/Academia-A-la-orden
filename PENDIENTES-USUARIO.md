@@ -55,3 +55,5 @@
 - FIX TRIVIAL v94: captura perezosa del puente AO (el módulo cargaba antes que app.js → pools vacíos → «Sin preguntas disponibles») + red de seguridad. Bump trivial.js?v=94 y CACHE v94 para que la caché no tape el arreglo.
 
 - v97: CAUSA RAÍZ de las actualizaciones lentas arreglada — el servidor cacheaba sw.js 1 hora; ahora no-cache (revalida siempre). PORTERO DE LOGIN: abrir cualquier curso sin sesión lleva a Entrar/Crear cuenta (tras login, vuelve la ventana de cursos automáticamente).
+
+- v98: LOTE OFICIAL 2 — 16 preguntas de INGLÉS de Cabo 1º desde el ME7-029 (escuadra/sección/grupo táctico, full corporal, drill parade, fall in…): Inglés 14→30. Tarjeta destacada 🇬🇧 en Entrenar (solo Cabo 1º) + tema Inglés en Por tema/B2. BIBLIOTECA reordenada como la carpeta original: grupos con nombre real (Convocatoria y trámites, Temario a distancia (oficial), OISD, Jurídico-Social…), 43 títulos legibles, tamaño en MB/KB por documento.

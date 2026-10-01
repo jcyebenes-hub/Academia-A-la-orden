@@ -31,7 +31,7 @@ if (store.get("dark", false)) document.documentElement.classList.add("dark");
 (function () { const o = state.opts || (state.opts = {}); if (!o.v78) { delete o.recordarCurso; o.v78 = 1; save(); } })();
 
 /* ---- preguntas ---- */
-const BANK_ALL = QUESTIONS.concat(window.QUESTIONS2 || [], window.QUESTIONS3 || [], window.QUESTIONS4 || [], window.QUESTIONS5 || [], window.QUESTIONS6 || [], window.QUESTIONS7 || [], window.QUESTIONS8 || [], window.QUESTIONS9 || [], window.QUESTIONS10 || [], window.QUESTIONS11 || [], window.QUESTIONS12 || []);
+const BANK_ALL = QUESTIONS.concat(window.QUESTIONS2 || [], window.QUESTIONS3 || [], window.QUESTIONS4 || [], window.QUESTIONS5 || [], window.QUESTIONS6 || [], window.QUESTIONS7 || [], window.QUESTIONS8 || [], window.QUESTIONS9 || [], window.QUESTIONS10 || [], window.QUESTIONS11 || [], window.QUESTIONS12 || [], window.QUESTIONS13 || []);
 const _VERD = window.VERDICTS || {};
 const BANK = BANK_ALL.filter(q => { const v = _VERD[q.id]; return !(v && v.v === "ko") && q.status !== "borrador" && q.gen !== true; }); /* solo preguntas curadas: los borradores del generador esperan validación */
 BANK.forEach(q => { if (q.x) q.x = String(q.x).replace(/^Respuesta:\s*[a-dA-D][.)]\s*/, "").replace(/^Literal:\s*/, ""); }); /* prefijos redundantes fuera */
@@ -253,6 +253,9 @@ function vTrain() {
         '<button class="tile" id="mExam"><span class="t-ico">⏱️</span><b>Modo examen</b><span class="t-sub">25 preg a ciegas</span></button>' +
         '<button class="tile" id="mExams"><span class="t-ico">📜</span><b>Oficiales</b><span class="t-sub">exámenes reales</span></button>' +
       '</div>' +
+    (state.course === "cabo1" ? '<div class="t-sec"><span>🇬🇧 Fase a distancia</span></div>' +
+      '<div class="grid2 tiles"><button class="tile hero" id="mIng"><span class="t-ico">🇬🇧</span><span class="t-main"><b>Inglés (ME7-029)</b><span class="t-sub">' + bank("cabo1").filter(q => q.t === "Inglés").length + ' preguntas · solo esta escala</span></span><span class="t-go">EMPEZAR ▶</span></button>' +
+      '<button class="tile" id="mTecMan"><span class="t-ico">🗣️</span><b>Técnicas de mando</b><span class="t-sub">bloque B2</span></button></div>' : "") +
     '<div class="t-sec"><span>⚡ Ronda rápida</span></div>' +
       '<div class="grid2 tiles">' +
         '<button class="tile" id="mQuick"><span class="t-ico">⚡</span><b>Test rápido</b><span class="t-sub">10 preg al instante</span></button>' +
@@ -280,6 +283,10 @@ function vTrain() {
       '</div>' +
     '<p class="small muted center" style="margin-top:12px">Banco auditado: ' + n + ' preguntas verificadas contra normativa vigente en este curso (acta pública 20-sep-2026).</p>';
   bindCourses();
+  if (state.course === "cabo1") {
+    const mi = $("#mIng"); if (mi) mi.onclick = () => startTest({ course: "cabo1", filter: "tema", topic: "Inglés", n: 999, mode: "study", label: "Inglés · ME7-029" });
+    const mt = $("#mTecMan"); if (mt) mt.onclick = () => startTest({ course: "cabo1", filter: "tema", topic: "Técnicas de mando", n: 999, mode: "study", label: "Técnicas de mando" });
+  }
   $("#mQuick").onclick = () => startTest({ course: state.course, filter: "all", n: 10, mode: "study", label: "Test rápido" });
   $("#mSim").onclick = () => startTest({ course: state.course, filter: "all", n: c.exam.questions, mode: "exam", minutes: c.exam.minutes, label: "Simulacro oficial", simulacro: true });
   $("#mExam").onclick = () => startTest({ course: state.course, filter: "all", n: 25, mode: "exam", minutes: 30, label: "Modo examen" });
@@ -575,12 +582,12 @@ function vTemario() {
     const totalD = BIB.reduce((s, c) => s + c.grupos.reduce((s2, g) => s2 + g.docs.length, 0), 0);
     const totalP = BIB.reduce((s, c) => s + c.grupos.reduce((s2, g) => s2 + g.docs.reduce((s3, d) => s3 + (d.p || 0), 0), 0), 0);
     return '<details class="acc" id="biblio" open style="margin-bottom:12px"><summary>📖 <b>Biblioteca oficial · consultar y descargar</b> <span class="badge">' + totalD + " documentos · " + totalP.toLocaleString("es-ES") + ' págs</span></summary><div class="acc-body">' +
-      '<p class="small muted" style="margin:6px 0">Los temarios oficiales del Rincón de Tropa, tal cual los reparte la academia: tócalos para leerlos aquí mismo o descárgatelos. Se abren los de tu curso.</p>' +
+      '<p class="small muted" style="margin:6px 0">Los temarios oficiales del Rincón de Tropa, ordenados tal cual la carpeta original: entra a tu curso y <b>descarga solo lo que necesites</b> (📖 leer aquí · ⬇️ descargar PDF).</p>' +
       BIB.map(c => {
         const np = c.grupos.reduce((s2, g) => s2 + g.docs.length, 0);
         return '<details class="acc"' + (state.course === c.id ? " open" : "") + ' style="margin-top:8px"><summary>🎓 <b>' + esc(c.n) + '</b> <span class="badge">' + np + ' docs</span></summary><div class="acc-body">' +
           c.grupos.map(g => '<p class="small muted" style="margin:8px 0 2px;font-weight:800;color:var(--gold)">' + esc(g.n) + "</p>" +
-            g.docs.map(d => '<div class="bib-row"><span class="bib-t">' + esc(d.t) + ' <span class="muted">· ' + d.p + ' págs</span></span>' +
+            g.docs.map(d => '<div class="bib-row"><span class="bib-t">' + esc(d.t) + ' <span class="muted">· ' + d.p + ' págs · ' + (d.s || "") + '</span></span>' +
               '<span class="bib-act"><a class="btn btn-sm btn-ghost" href="/pdf/temarios/' + encodeURIComponent(d.f) + '" target="_blank" rel="noopener" aria-label="Consultar">📖</a>' +
               '<a class="btn btn-sm btn-green" href="/pdf/temarios/' + encodeURIComponent(d.f) + '" download aria-label="Descargar">⬇️</a></span></div>').join("")).join("") +
           "</div></details>";
