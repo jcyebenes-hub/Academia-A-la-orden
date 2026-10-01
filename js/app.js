@@ -340,15 +340,18 @@ function vTest() {
     '<div class="view-head"><a class="back" href="#/entrenar" id="quitTest">✕</a><h1 style="font-size:1.1rem">' + esc(S.cfg.label) + "</h1>" +
     '<span class="badge" style="margin-left:auto">' + (S.idx + 1) + "/" + total + "</span></div>" +
     (S.capped && S.cfg.simulacro ? '<p class="small muted">Simulacro completo: ' + total + ' preguntas (todas las disponibles en el banco actual).</p>' : "") +
+    '<div class="t-grid"><div class="t-side">' +
     '<div class="t-meta"><div style="flex:1"><div class="t-progress"><i style="width:' + pct + '%"></i></div></div>' + timerHtml + "</div>" +
     navHtml +
+    "</div><div class=\"t-main\">" +
     '<div class="q-card"><div><span class="badge">' + esc(q.t) + '</span> <span class="pill-diff d' + q.d + '">' + diffLabel(q.d) + "</span></div>" +
     '<p class="q-text">' + esc(q.q) + "</p><div id=\"opts\">" +
     q.o.map((op, i) => '<button class="opt" data-o="' + i + '"><b>' + "ABCD"[i] + ".</b> " + esc(op) + "</button>").join("") +
     "</div><div id=\"explain\"></div></div>" +
     '<div class="t-nav"><button class="btn btn-ghost" id="bPrev">← Anterior</button>' +
     '<button class="btn btn-ghost" id="bFlag">🚩 Marcar</button><button class="btn btn-ghost" id="bStar">' + (state.stars[q.id] ? "★ Guardada" : "☆ Guardar") + '</button>' + (S.study ? '<button class="btn btn-ghost" id="bSpeak" title="Escuchar la pregunta">🔊</button>' : "") +
-    (S.idx < total - 1 ? '<button class="btn btn-green" id="bNext">Siguiente →</button>' : '<button class="btn btn-gold" id="bFinish">Finalizar 🏁</button>') + "</div>";
+    (S.idx < total - 1 ? '<button class="btn btn-green" id="bNext">Siguiente →</button>' : '<button class="btn btn-gold" id="bFinish">Finalizar 🏁</button>') + "</div>" +
+    "</div></div>";
   $("#quitTest").onclick = e => { if (!confirm("¿Abandonar el test? No se guardará el resultado.")) { e.preventDefault(); return; } stopTimer(); };
   if (S.cfg.perQ && !S.study) {
     S.perQId = setInterval(() => {

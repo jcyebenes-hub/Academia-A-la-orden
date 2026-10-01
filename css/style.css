@@ -472,3 +472,23 @@ input,select,textarea{border-radius:12px}
 
 /* --- toast de cristal oscuro --- */
 .toast{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+
+/* ════════════ MODO ESCRITORIO: test a dos columnas, tarjetón a la derecha ════════════ */
+@media (min-width:1024px){
+  .app-body{max-width:1240px;padding-top:26px}
+  .t-grid{display:grid;grid-template-columns:330px minmax(0,1fr);gap:24px;align-items:start}
+  .t-side{
+    position:sticky;top:86px;background:var(--card);border:1px solid var(--line);
+    border-radius:18px;padding:18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px;
+  }
+  .t-side .qnav-head{margin:0}
+  .t-side .qnav{max-height:52vh;overflow-y:auto}
+  .t-main .q-card{padding:34px 38px;border-radius:24px;min-height:380px}
+  .t-main .q-text{font-size:1.42rem;line-height:1.45;font-weight:800;letter-spacing:-.01em;margin:18px 0 8px}
+  .t-main .opt{padding:19px 22px;font-size:1.1rem;border-radius:16px}
+  .t-main .opt b{margin-right:10px}
+  .t-main .explain{font-size:1rem}
+  .t-main .t-nav{margin-top:16px;gap:12px}
+  .t-main .t-nav .btn{padding:15px 24px;font-size:1.03rem}
+  .view-head h1{font-size:1.35rem!important}
+}
