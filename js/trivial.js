@@ -115,9 +115,19 @@
 
   let G = null, SV = null;
 
+  /* FALLBACK AUTOSUFICIENTE: si el puente no da preguntas (app vieja, puente ausente…),
+     el trivial lee los bancos crudos directamente (mismos filtros que el motor). */
+  function bancoCrudo(curso) {
+    const V = window.VERDICTS || {};
+    return [].concat(window.QUESTIONS || [], window.QUESTIONS2 || [], window.QUESTIONS3 || [], window.QUESTIONS4 || [], window.QUESTIONS5 || [], window.QUESTIONS6 || [], window.QUESTIONS7 || [], window.QUESTIONS8 || [], window.QUESTIONS9 || [], window.QUESTIONS10 || [], window.QUESTIONS11 || [], window.QUESTIONS12 || [])
+      .filter(q => q && q.c === curso && q.o && q.o.length === 4 && typeof q.a === "number" && q.status !== "borrador" && q.gen !== true && !(V[q.id] && V[q.id].v === "ko"));
+  }
   function poolsFor(curso) {
     const A = AOg();
-    const all = ((A.bank && st()) ? A.bank(curso || (st() && st().course) || "cabo") : []).filter(q => q.o && q.o.length === 4);
+    const cur = curso || (st() && st().course) || "cabo";
+    let all = ((A.bank && st()) ? A.bank(cur) : []);
+    if (!all || !all.length) all = bancoCrudo(cur);   /* red de seguridad definitiva */
+    all = all.filter(q => q.o && q.o.length === 4);
     const pools = CATS.map(c => all.filter(q => c.t.indexOf(q.t) >= 0));
     const total = pools.reduce((s, p) => s + p.length, 0);
     if (total < 60) { /* curso con pocos temas: reparto equitativo de todo el banco */
