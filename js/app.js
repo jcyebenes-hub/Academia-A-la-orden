@@ -1,6 +1,7 @@
 /* MICABO · Academia de Tropa — motor de la app */
 (function () {
 "use strict";
+window.APPV = "99"; /* versión visible en Ajustes y en la biblioteca */
 const $ = (s, el) => (el || document).querySelector(s);
 const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -279,7 +280,7 @@ function vTrain() {
       '<div class="grid2 tiles">' +
         '<button class="tile" id="mTopic"><span class="t-ico">📝</span><b>Por tema</b><span class="t-sub">elige y machaca</span></button>' +
         '<button class="tile" id="mBlock"><span class="t-ico">📦</span><b>Por bloque</b><span class="t-sub">por capítulos</span></button>' +
-        '<button class="tile" id="mBiblio"><span class="t-ico">📚</span><b>Biblioteca</b><span class="t-sub">cuadernos PDF y BOE</span></button>' +
+        '<button class="tile" id="mBiblio"><span class="t-ico">📚</span><b>Biblioteca</b><span class="t-sub">temarios y cuadernos PDF</span></button>' +
       '</div>' +
     '<p class="small muted center" style="margin-top:12px">Banco auditado: ' + n + ' preguntas verificadas contra normativa vigente en este curso (acta pública 20-sep-2026).</p>';
   bindCourses();
@@ -575,13 +576,13 @@ function vStats() {
 }
 
 /* ---- TEMARIO ---- */
-function vTemario() {
-  const T = window.TEMARIO;
+function biblioOficial() {
   const BIB = window.BIBLIO || [];
-  const biblioHtml = BIB.length ? (function () {
+  if (!BIB.length) return "";
+  return (function () {
     const totalD = BIB.reduce((s, c) => s + c.grupos.reduce((s2, g) => s2 + g.docs.length, 0), 0);
     const totalP = BIB.reduce((s, c) => s + c.grupos.reduce((s2, g) => s2 + g.docs.reduce((s3, d) => s3 + (d.p || 0), 0), 0), 0);
-    return '<details class="acc" id="biblio" open style="margin-bottom:12px"><summary>📖 <b>Biblioteca oficial · consultar y descargar</b> <span class="badge">' + totalD + " documentos · " + totalP.toLocaleString("es-ES") + ' págs</span></summary><div class="acc-body">' +
+    return '<details class="acc" id="biblio" open style="margin-bottom:12px"><summary>📖 <b>Biblioteca oficial · consultar y descargar</b> <span class="badge">' + totalD + " documentos · " + totalP.toLocaleString("es-ES") + " págs · v" + (window.APPV || "?") + '</span></summary><div class="acc-body">' +
       '<p class="small muted" style="margin:6px 0">Los temarios oficiales del Rincón de Tropa, ordenados tal cual la carpeta original: entra a tu curso y <b>descarga solo lo que necesites</b> (📖 leer aquí · ⬇️ descargar PDF).</p>' +
       BIB.map(c => {
         const np = c.grupos.reduce((s2, g) => s2 + g.docs.length, 0);
@@ -592,7 +593,10 @@ function vTemario() {
               '<a class="btn btn-sm btn-green" href="/pdf/temarios/' + encodeURIComponent(d.f) + '" download aria-label="Descargar">⬇️</a></span></div>').join("")).join("") +
           "</div></details>";
       }).join("") + "</div></details>";
-  })() : "";
+  })();
+}
+function vTemario() {
+  const T = window.TEMARIO;
   if (!T) { view().innerHTML = '<div class="view-head"><h1>Temario</h1></div><p class="small muted">Actualizando el temario… recarga en unos segundos.</p>'; return; }
   const esET = state.course === "cabo";
   const bloquesHtml = T.bloques.map((b, i) => {
@@ -610,7 +614,7 @@ function vTemario() {
   const reparto = T.examen.reparto.map(r => '<div class="topic-row"><span>· ' + esc(r[0]) + '</span><b>' + r[1] + ' preg.</b></div>').join("");
   const comp = (esET ? '<details class="acc"><summary>🧰 <b>Cultura militar complementaria</b> <span class="badge">refuerzo</span></summary><div class="acc-body"><p class="small muted">No son bloques propios del temario de Cabo, pero consolidan base (y ayudan en Permanencia y Cabo 1º):</p>' +
     T.complementarias.map(t => { const n = bank(state.course).filter(q => q.t === t).length; return n ? '<div class="topic-row"><span>· ' + esc(t) + ' <span class="muted">(' + n + ')</span></span><button class="btn btn-green btn-sm" data-ctema="' + esc(t) + '">🎯 Test</button></div>' : '<div class="topic-row"><span>· ' + esc(t) + '</span><span class="badge">pronto</span></div>'; }).join("") + "</div></details>" : "");
-  view().innerHTML = '<div class="view-head"><h1>Temario oficial · ' + esc(COURSES[state.course].name || COURSES[state.course].nombre) + "</h1></div>" + courseCards() + biblioHtml +
+  view().innerHTML = '<div class="view-head"><h1>Temario oficial · ' + esc(COURSES[state.course].name || COURSES[state.course].nombre) + "</h1></div>" + courseCards() + biblioOficial() +
     '<div class="card" style="border-color:var(--gold)"><h3>📋 El examen, tal cual es</h3>' +
     '<p class="small">' + esc(T.examen.preguntas) + " · " + esc(T.examen.duracion) + '<br>' + esc(T.examen.formula) + '<br><b>Notas de corte:</b> ' + esc(T.examen.cortes) + "</p>" +
     '<h3>Reparto real (examen feb-2026)</h3>' + reparto +
@@ -1338,6 +1342,7 @@ function vBiblio() {
     ["https://ejercito.defensa.gob.es/materiales/transmisiones/Radiotelefono.html", "Ficha oficial PR4G", "Ejército de Tierra"]
   ];
   view().innerHTML = '<div class="view-head"><a class="back" href="#/mas">←</a><h1>Biblioteca 📚</h1></div>' +
+    biblioOficial() +
     '<div class="card" style="margin-bottom:12px"><b>Material 100% legal y gratis</b>' +
     '<p class="small muted" style="margin:6px 0 0">Cuadernos elaborados por MICABO (nuestras 700 preguntas del lote examinador, con respuesta y referencia) y textos OFICIALES del BOE y del Ejército, que son públicos. Los temarios de webs de terceros (InfoTroPa, academias…) son de sus autores: no se redistribuyen aquí.</p></div>' +
     '<h3 style="margin:4px 0 8px">🛠️ Cuadernos MICABO (PDF · 50 preguntas c/u)</h3>' +
@@ -1353,7 +1358,7 @@ function vMas() {
     '<a class="mode" href="#/ranking"><span class="mi">🏆</span><b>Ranking</b><span>Tu posición en la liga</span></a>' +
     '<a class="mode" href="#/apoya"><span class="mi">☕</span><b>Apoya</b><span>Meta de la tropa</span></a>' +
     '<a class="mode" href="#/consulta"><span class="mi">💬</span><b>Consulta</b><span>Pregunta tus dudas</span></a>' +
-    '<a class="mode" href="#/biblio"><span class="mi">📚</span><b>Biblioteca</b><span>Cuadernos PDF y BOE</span></a>' +
+    '<a class="mode" href="#/biblio"><span class="mi">📚</span><b>Biblioteca</b><span>Temarios oficiales, cuadernos y BOE</span></a>' +
     '<a class="mode" href="#/rincon"><span class="mi">📌</span><b>Mi rincón</b><span>Cuaderno, preguntas ⭐, progreso y descargas</span></a>' +
     '<a class="mode" href="#/tramita"><span class="mi">🧾</span><b>Mi presentación</b><span>Checklist y dossier para la convocatoria</span></a>' +
     '<a class="mode" href="#/baremo"><span class="mi">🧮</span><b>Baremo</b><span>Calcula tu NCO de Cabo</span></a>' +
@@ -1410,7 +1415,7 @@ function vAjustes() {
     '<div class="switch-row"><span><b>✅ Corrección instantánea (estilo academia)</b><br><span class="small muted">En los tests: al contestar se corrige al momento (verde/rojo, explicación y tarjetas pintadas), como en la academia de tu amigo. Los SIMULACROS mantienen el modo examen real.</span></span><button class="btn btn-ghost btn-sm" id="setIns">' + (state.opts && state.opts.inmediata === false ? "Activar" : "Desactivar") + "</button></div>" +
     '<div class="switch-row"><span><b>⏩ Avanzar solo al acertar</b><br><span class="small muted">En estudio: acierto → siguiente en 1 s; fallo → pausa para leer. Los simulacros nunca avanzan solos.</span></span><button class="btn btn-ghost btn-sm" id="setAuto">' + (state.opts && state.opts.auto === false ? "Activar" : "Desactivar") + "</button></div>" +
     '<div class="switch-row"><span><b>🗑️ Borrar mi progreso</b><br><span class="small muted">XP, racha, fallos e historial</span></span><button class="btn btn-ghost btn-sm" id="setReset">Borrar</button></div>' +
-    '<p class="small muted">MICABO v1.0 · Banco auditado con 0 incidencias (acta pública). Sin anuncios. Tu progreso queda en tu dispositivo y, si creas cuenta, se sincroniza cifrado.</p></div>';
+    '<p class="small muted">MICABO v' + (window.APPV || "99") + ' · Banco auditado con 0 incidencias (acta pública). Sin anuncios. Tu progreso queda en tu dispositivo y, si creas cuenta, se sincroniza cifrado.</p></div>';
   $("#setName").onchange = e => { state.name = e.target.value.trim() || "Recluta"; save(); toast("¡A su mando, " + state.name + "!"); };
   $("#setDark").onclick = () => { const d = document.documentElement.classList.toggle("dark"); store.set("dark", d); vAjustes(); };
   $("#setSound").onclick = () => { state.sound = (state.sound === false) ? true : false; save(); vAjustes(); };
