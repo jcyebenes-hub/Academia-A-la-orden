@@ -357,6 +357,9 @@ function redsysCheckNotify(bodyParams) {
   } catch (e) { return { ok: false, data: {} }; }
 }
 
+/* ---------- Google Sign-In (JWKS de Google en caché 6 h) ---------- */
+let GOOGLE_JWKS = null;
+
 /* ---------- API ---------- */
 const api = {
   "GET /api/health": (req, res) => send(res, 200, { ok: true, uptime: process.uptime(), users: Object.keys(users).length }),
@@ -366,7 +369,8 @@ const api = {
     send(res, 200, {
       plans: Object.values(PLANS).map(p => ({ id: p.id, label: p.label, monthly: p.monthly, single: p.single })),
       coupons: Object.keys(COUPONS), founderSlotsLeft: Math.max(0, FOUNDER_LIMIT - founders),
-      payMode, contentStrict: ENV.CONTENT_STRICT, demoMode: payMode === "sandbox"
+      payMode, contentStrict: ENV.CONTENT_STRICT, demoMode: payMode === "sandbox",
+      gcid: process.env.GOOGLE_CLIENT_ID || "" /* Sign in with Google: aparece al definir GOOGLE_CLIENT_ID */
     });
   },
   "POST /api/register": async (req, res, b, u, q, ip) => {
@@ -407,6 +411,47 @@ const api = {
     const tok = makeToken(); tokens[tok] = { uid: id, created: now() }; saveTokens();
     setCookie(req, res, tok); audit("login", ip, id);
     send(res, 200, { ok: true, user: publicUser(users[id]) });
+  },
+  "POST /api/google": async (req, res, b, u, q, ip) => {
+    /* "Registrarse con Google": el cliente manda el credential (ID token JWT) de Google Identity Services.
+       Aquí se verifica la firma RS256 contra las claves públicas de Google + aud/iss/exp/email_verified. */
+    const GID = process.env.GOOGLE_CLIENT_ID || "";
+    if (!GID) return send(res, 501, { error: "El acceso con Google aún no está activado" });
+    const parts = String(b.credential || "").split(".");
+    if (parts.length !== 3) return bad(res, "Credencial de Google no válida");
+    try {
+      const b64u = s => { s = String(s).replace(/-/g, "+").replace(/_/g, "/"); while (s.length % 4) s += "="; return Buffer.from(s, "base64"); };
+      const header = JSON.parse(b64u(parts[0]).toString("utf8"));
+      const claims = JSON.parse(b64u(parts[1]).toString("utf8"));
+      if (!GOOGLE_JWKS || GOOGLE_JWKS.at < now() - 6 * 3600e3) {
+        const r = await fetch("https://www.googleapis.com/oauth2/v3/certs");
+        if (!r.ok) throw new Error("JWKS no disponible");
+        GOOGLE_JWKS = { at: now(), keys: (await r.json()).keys };
+      }
+      const jwk = GOOGLE_JWKS.keys.find(k => k.kid === header.kid);
+      if (!jwk) throw new Error("kid desconocido");
+      const key = crypto.createPublicKey({ key: jwk, format: "jwk" });
+      if (!crypto.verify("RSA-SHA256", Buffer.from(parts[0] + "." + parts[1]), key, b64u(parts[2]))) return bad(res, "Firma de Google no válida");
+      if (claims.aud !== GID) return bad(res, "Credencial emitida para otra aplicación");
+      if (claims.exp * 1000 < now()) return bad(res, "Credencial caducada");
+      if (!["accounts.google.com", "https://accounts.google.com"].includes(claims.iss)) return bad(res, "Emisor no válido");
+      const email = String(claims.email || "").toLowerCase();
+      if (!claims.email_verified || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return bad(res, "Google no devolvió un email verificado");
+      let id = Object.keys(users).find(k => users[k].email === email);
+      if (!id) {
+        /* cuenta nueva: nace con curso Cabo y contraseña imposible (el acceso es vía Google) */
+        const founders = Object.keys(users).filter(k => users[k].founder).length;
+        const salt = crypto.randomBytes(16).toString("hex");
+        id = uid();
+        const nombre = String(claims.name || "").trim().slice(0, 24) || email.split("@")[0];
+        users[id] = { id, name: nombre, email, curso: "cabo", salt, passHash: hashPass(makeToken(), salt), google: true, founder: founders < FOUNDER_LIMIT, createdAt: now(), subscriptions: [], emailVerified: true };
+        saveUsers();
+        audit("register_google", ip, id);
+      } else { audit("login_google", ip, id); }
+      const tok = makeToken(); tokens[tok] = { uid: id, created: now() }; saveTokens();
+      setCookie(req, res, tok);
+      send(res, 200, { ok: true, user: publicUser(users[id]) });
+    } catch (e) { log("google_err", e.message); return bad(res, "No se pudo validar el acceso con Google"); }
   },
   "POST /api/curso": (req, res, b, u) => {
     if (!u) return send(res, 401, { error: "Sin sesión" });
@@ -807,7 +852,7 @@ const server = http.createServer((req, res) => {
     if (!handler) return send(res, 404, { error: "Endpoint no encontrado: " + req.method + " " + pathname });
     if (req.method === "POST" && !/webhooks|verify/.test(pathname) && !sameOrigin(req)) return send(res, 403, { error: "Origen no permitido" });
     const WEBHOOKS = ["POST /api/webhooks/stripe", "POST /api/webhooks/redsys", "POST /api/webhooks/kofi"];
-    const PUBLIC = ["GET /api/health", "GET /api/config", "POST /api/register", "POST /api/login", "POST /api/logout", "POST /api/reset-request", "POST /api/reset-confirm", "GET /api/verify", "GET /api/ranking", "POST /api/beat", "GET /api/online", "GET /api/apoyos", "GET /api/checkout/sid", "GET /api/admin/stats", "POST /api/duelo/crear", "GET /api/duelo/mis", "POST /api/duelo/resultado", "GET /api/duelo/recientes", "POST /api/duelo/unir", "POST /api/duelo/azar", "POST /api/trivial/crear", "POST /api/trivial/unir", "POST /api/trivial/estado", "GET /api/trivial/ver"].concat(WEBHOOKS);
+    const PUBLIC = ["GET /api/health", "GET /api/config", "POST /api/register", "POST /api/login", "POST /api/logout", "POST /api/reset-request", "POST /api/reset-confirm", "GET /api/verify", "GET /api/ranking", "POST /api/beat", "POST /api/google", "GET /api/online", "GET /api/apoyos", "GET /api/checkout/sid", "GET /api/admin/stats", "POST /api/duelo/crear", "GET /api/duelo/mis", "POST /api/duelo/resultado", "GET /api/duelo/recientes", "POST /api/duelo/unir", "POST /api/duelo/azar", "POST /api/trivial/crear", "POST /api/trivial/unir", "POST /api/trivial/estado", "GET /api/trivial/ver"].concat(WEBHOOKS);
     const u = userFromReq(req);
     if (!PUBLIC.includes(req.method + " " + pathname) && !u) return send(res, 401, { error: "Sesión no iniciada" });
     try { await handler(req, res, body, u, url.searchParams, ip, raw); }

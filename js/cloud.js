@@ -171,31 +171,72 @@ window.abrirPerfil = function () {
 window.vCuenta = async function () {
   const view = $("#view");
   if (!C.user) {
-    view.innerHTML = '<div class="view-head"><a class="back" href="#/mas">←</a><h1>Mi cuenta</h1></div>' +
-      '<div class="card"><div class="t-nav" style="margin:0 0 14px"><button class="btn btn-green" id="tabIn">Entrar</button><button class="btn btn-ghost" id="tabUp">Crear cuenta</button></div>' +
-      '<form id="formIn">' +
-      '<label class="f">Email</label><input type="email" id="inEmail" autocomplete="email" required>' +
-      '<label class="f">Contraseña</label><input type="password" id="inPass" autocomplete="current-password" required>' +
-      '<button class="btn btn-gold btn-block" style="margin-top:12px">Entrar</button></form>' +
-      '<form id="formUp" style="display:none">' +
-      '<label class="f">Tu nombre o alias</label><input type="text" id="upName" maxlength="24" required>' +
-      '<label class="f">Email</label><input type="email" id="upEmail" autocomplete="email" required>' +
-      '<label class="f">Contraseña (mín. 8)</label><input type="password" id="upPass" autocomplete="new-password" minlength="8" required>' +
-      '<p class="small muted" style="margin-top:10px"><b>¿Qué vas a estudiar?</b> <span class="muted">(podrás cambiarlo en tu perfil)</span></p>' +
-      '<div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">' +
-        '<label class="opt" style="display:flex;align-items:center;gap:10px"><input type="radio" name="upCurso" value="cabo" checked><b>🎖️ Ascenso a Cabo</b><span class="small muted">ET · oposición</span></label>' +
-        '<label class="opt" style="display:flex;align-items:center;gap:10px"><input type="radio" name="upCurso" value="cabo1"><b>⭐ Cabo 1º</b><span class="small muted">ET · oposición + fase a distancia</span></label>' +
-        '<label class="opt" style="display:flex;align-items:center;gap:10px"><input type="radio" name="upCurso" value="perm"><b>🛡️ Permanente</b><span class="small muted">FAS · 100 preguntas</span></label>' +
+    const logo = '<div class="auth-logo"><svg viewBox="0 0 48 48" width="52" height="52" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 3 41 9v13c0 10-7 17.5-17 23C14 39.5 7 32 7 22V9Z"/><path d="M24 13l2.7 5.6 6.3.9-4.5 4.3 1 6.2-5.5-3-5.5 3 1-6.2-4.5-4.3 6.3-.9Z"/></svg><b>MICABO</b></div>' +
+      '<p class="auth-sub">Tu academia a la orden · gratis y sin trampas</p>';
+    const pin = (id, ico, ph, ac) => '<div class="inrow"><span class="in-ico">' + ico + '</span><input type="' + (ac.indexOf("password") >= 0 ? "password" : ac === "email" ? "email" : "text") + '" id="' + id + '" autocomplete="' + ac + '" placeholder="' + ph + '" required' + (ac === "new-password" ? ' minlength="8"' : "") + '>' + (ac.indexOf("password") >= 0 ? '<button type="button" class="eye" data-for="' + id + '" tabindex="-1">👁</button>' : "") + '</div>';
+    view.innerHTML = '<div class="auth-hero"><div class="auth-card">' + logo +
+      '<div class="t-nav auth-tabs" style="margin:16px 0 14px"><button class="btn btn-green" id="tabIn">🔑 Entrar</button><button class="btn btn-ghost" id="tabUp">✚ Crear cuenta</button></div>' +
+      '<form id="formIn" class="auth-form">' +
+      '<label class="f">Email</label>' + pin("inEmail", "✉️", "tucorreo@ejemplo.es", "email") +
+      '<label class="f" style="margin-top:10px">Contraseña</label>' + pin("inPass", "🔐", "Tu contraseña", "current-password") +
+      '<button class="btn btn-gold btn-block auth-cta">⚔️ Entrar</button></form>' +
+      '<form id="formUp" class="auth-form" style="display:none">' +
+      '<label class="f">Tu nombre o alias</label>' + pin("upName", "🪖", "Cómo te verán en el ranking", "name") +
+      '<label class="f" style="margin-top:10px">Email</label>' + pin("upEmail", "✉️", "tucorreo@ejemplo.es", "email") +
+      '<label class="f" style="margin-top:10px">Contraseña (mín. 8)</label>' + pin("upPass", "🔐", "Mínimo 8 caracteres", "new-password") +
+      '<p class="small muted" style="margin:14px 0 6px"><b>¿Qué vas a estudiar?</b> <span class="muted">(podrás cambiarlo en tu perfil y te acompañará en cualquier dispositivo)</span></p>' +
+      '<div class="curso-cards">' +
+        '<label class="up-curso sel"><input type="radio" name="upCurso" value="cabo" checked><span class="uc-ico">🎖️</span><span class="uc-txt"><b>Ascenso a Cabo</b><span class="small muted">Ejército de Tierra · oposición</span></span><span class="uc-check">✔</span></label>' +
+        '<label class="up-curso"><input type="radio" name="upCurso" value="cabo1"><span class="uc-ico">⭐</span><span class="uc-txt"><b>Cabo 1º</b><span class="small muted">oposición + fase a distancia</span></span><span class="uc-check">✔</span></label>' +
+        '<label class="up-curso"><input type="radio" name="upCurso" value="perm"><span class="uc-ico">🛡️</span><span class="uc-txt"><b>Permanente</b><span class="small muted">FAS · 100 preguntas</span></span><span class="uc-check">✔</span></label>' +
       '</div>' +
-      '<p class="small muted">Cuenta gratis y sin trampas: ranking global <b>real</b>, punto 🟢 en línea y tu progreso en todos tus dispositivos. Datos mínimos, cifrados.</p>' +
-      '<button class="btn btn-gold btn-block" style="margin-top:12px">Crear cuenta gratis</button></form>' +
+      '<button class="btn btn-gold btn-block auth-cta">🚀 Crear cuenta gratis</button></form>' +
+      '<div id="gsiBox" style="display:none"><div class="auth-div"><span>o</span></div><div id="gsiBtn" class="gsi-btn"></div></div>' +
       '<p class="small muted center" id="cErr" style="color:#b3261e;display:none;margin-top:10px"></p>' +
-      '<p class="small muted center" style="margin-top:8px">Crear cuenta es gratis y sincroniza tu progreso entre dispositivos.</p></div>';
+      '<p class="small muted center" style="margin-top:12px">Cuenta gratis: ranking global <b>real</b>, punto 🟢 en línea y tu progreso en todos tus dispositivos. Datos mínimos y cifrados.</p></div></div>';
     const err = m => { const e = $("#cErr"); e.textContent = m; e.style.display = "block"; };
-    $("#tabIn").onclick = () => { $("#formIn").style.display = "block"; $("#formUp").style.display = "none"; };
-    $("#tabUp").onclick = () => { $("#formIn").style.display = "none"; $("#formUp").style.display = "block"; };
-    $("#formIn").onsubmit = ev => { ev.preventDefault(); api("POST", "/api/login", { email: $("#inEmail").value, password: $("#inPass").value }).then(d => { C.user = d.user; paintChip(); aplicaCursoCuenta(d.user); if (typeof window.abrirCursos === "function") setTimeout(() => window.abrirCursos(true), 450); try { window.cloudSync(true); } catch (e) {} try { window.vCuenta(); } catch (e) {} }).catch(e => err(e.message)); };
-    $("#formUp").onsubmit = ev => { ev.preventDefault(); const curso = (document.querySelector("input[name=upCurso]:checked") || {}).value || "cabo"; api("POST", "/api/register", { name: $("#upName").value, email: $("#upEmail").value, password: $("#upPass").value, curso: curso }).then(d => { C.user = d.user; paintChip(); aplicaCursoCuenta(d.user); toast("🎓 Curso: " + nombreCurso(d.user.curso) + " · ¡a estudiar!"); if (location.hash !== "#/entrenar") location.hash = "#/entrenar"; try { window.cloudSync(true); } catch (e) {} }).catch(e => err(e.message)); };
+    const tabs = [$("#tabIn"), $("#tabUp")], forms = [$("#formIn"), $("#formUp")];
+    const marca = i => { tabs.forEach((t, j) => { t.className = "btn " + (j === i ? "btn-green" : "btn-ghost"); forms[j].style.display = j === i ? "block" : "none"; }); };
+    $("#tabIn").onclick = () => marca(0);
+    $("#tabUp").onclick = () => marca(1);
+    /* ojito mostrar/ocultar contraseña */
+    document.querySelectorAll(".eye").forEach(b => b.onclick = () => { const i = document.getElementById(b.dataset.for); if (!i) return; const ver = i.type === "password"; i.type = ver ? "text" : "password"; b.textContent = ver ? "🙈" : "👁"; });
+    /* tarjetas de curso: la marcada se ilumina */
+    document.querySelectorAll(".up-curso input").forEach(r => r.addEventListener("change", () => document.querySelectorAll(".up-curso").forEach(l => l.classList.toggle("sel", l.querySelector("input").checked))));
+    const entra = (user, esRegistro) => {
+      C.user = user; paintChip(); aplicaCursoCuenta(user);
+      if (esRegistro) { toast("🎓 Curso: " + nombreCurso(user.curso) + " · ¡a estudiar!"); if (location.hash !== "#/entrenar") location.hash = "#/entrenar"; }
+      else if (typeof window.abrirCursos === "function") setTimeout(() => window.abrirCursos(true), 450);
+      try { window.cloudSync(true); } catch (e) {}
+      if (!esRegistro) { try { window.vCuenta(); } catch (e) {} }
+    };
+    $("#formIn").onsubmit = ev => { ev.preventDefault(); api("POST", "/api/login", { email: $("#inEmail").value, password: $("#inPass").value }).then(d => entra(d.user, false)).catch(e => err(e.message)); };
+    $("#formUp").onsubmit = ev => { ev.preventDefault(); const curso = (document.querySelector("input[name=upCurso]:checked") || {}).value || "cabo"; api("POST", "/api/register", { name: $("#upName").value, email: $("#upEmail").value, password: $("#upPass").value, curso: curso }).then(d => entra(d.user, true)).catch(e => err(e.message)); };
+    /* botón «Continuar con Google» (solo si el servidor tiene GOOGLE_CLIENT_ID) */
+    (async () => {
+      try {
+        if (!C.cfg) C.cfg = await api("GET", "/api/config").catch(() => null);
+        const gcid = C.cfg && C.cfg.gcid;
+        const box = $("#gsiBox");
+        if (!gcid || !box) return; /* sin Google activado: el bloque ni aparece */
+        box.style.display = "block";
+        if (!window.google || !window.google.accounts) {
+          if (!document.getElementById("gsiScript")) {
+            const s = document.createElement("script"); s.id = "gsiScript"; s.src = "https://accounts.google.com/gsi/client"; s.async = true; s.defer = true;
+            document.head.appendChild(s);
+          }
+          await new Promise(r => { const t0 = Date.now(); const t = setInterval(() => { if ((window.google && window.google.accounts) || Date.now() - t0 > 4000) { clearInterval(t); r(); } }, 150); });
+        }
+        if (window.google && window.google.accounts && !box.dataset.montado) {
+          box.dataset.montado = "1";
+          google.accounts.id.initialize({ client_id: gcid, callback: async resp => {
+            try { const d = await api("POST", "/api/google", { credential: resp.credential }); entra(d.user, false); toast("🎓 Curso: " + nombreCurso(d.user.curso)); }
+            catch (e) { err(e.message); }
+          }});
+          google.accounts.id.renderButton($("#gsiBtn"), { theme: "outline", size: "large", shape: "pill", text: "continue_with", logo_alignment: "left", width: 300, locale: "es" });
+        }
+      } catch (e) {}
+    })();
     return;
   }
   // con sesión

@@ -1,7 +1,7 @@
 /* MICABO · Academia de Tropa — motor de la app */
 (function () {
 "use strict";
-window.APPV = "99"; /* versión visible en Ajustes y en la biblioteca */
+window.APPV = "106"; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
 const $ = (s, el) => (el || document).querySelector(s);
 const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -32,7 +32,7 @@ if (store.get("dark", false)) document.documentElement.classList.add("dark");
 (function () { const o = state.opts || (state.opts = {}); if (!o.v78) { delete o.recordarCurso; o.v78 = 1; save(); } })();
 
 /* ---- preguntas ---- */
-const BANK_ALL = QUESTIONS.concat(window.QUESTIONS2 || [], window.QUESTIONS3 || [], window.QUESTIONS4 || [], window.QUESTIONS5 || [], window.QUESTIONS6 || [], window.QUESTIONS7 || [], window.QUESTIONS8 || [], window.QUESTIONS9 || [], window.QUESTIONS10 || [], window.QUESTIONS11 || [], window.QUESTIONS12 || [], window.QUESTIONS13 || [], window.QUESTIONS14 || [], window.QUESTIONS15 || [], window.QUESTIONS16 || [], window.QUESTIONS17 || [], window.QUESTIONS18 || []);
+const BANK_ALL = QUESTIONS.concat(window.QUESTIONS2 || [], window.QUESTIONS3 || [], window.QUESTIONS4 || [], window.QUESTIONS5 || [], window.QUESTIONS6 || [], window.QUESTIONS7 || [], window.QUESTIONS8 || [], window.QUESTIONS9 || [], window.QUESTIONS10 || [], window.QUESTIONS11 || [], window.QUESTIONS12 || [], window.QUESTIONS13 || [], window.QUESTIONS14 || [], window.QUESTIONS15 || [], window.QUESTIONS16 || [], window.QUESTIONS17 || [], window.QUESTIONS18 || [], window.QUESTIONS19 || []);
 const _VERD = window.VERDICTS || {};
 const BANK = BANK_ALL.filter(q => { const v = _VERD[q.id]; return !(v && v.v === "ko") && q.status !== "borrador" && q.gen !== true; }); /* solo preguntas curadas: los borradores del generador esperan validación */
 BANK.forEach(q => { if (q.x) q.x = String(q.x).replace(/^Respuesta:\s*[a-dA-D][.)]\s*/, "").replace(/^Literal:\s*/, ""); }); /* prefijos redundantes fuera */

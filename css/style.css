@@ -495,3 +495,44 @@ input,select,textarea{border-radius:12px}
   .t-main .t-nav .btn{padding:15px 24px;font-size:1.03rem}
   .view-head h1{font-size:1.35rem!important}
 }
+
+/* ════════ v106 · ACCESO (login/registro) — diseño v2: cristal, verde y oro ════════ */
+@keyframes authUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.auth-hero{padding:18px 4px 30px;display:flex;justify-content:center;
+  background:radial-gradient(1200px 380px at 50% -80px,rgba(201,151,31,.14),transparent 65%)}
+.auth-card{width:100%;max-width:430px;background:var(--card);border:1px solid var(--line);
+  border-radius:20px;box-shadow:var(--shadow);padding:26px 22px 20px;
+  backdrop-filter:blur(14px) saturate(1.4);animation:authUp .35s ease-out both}
+.auth-logo{display:flex;align-items:center;justify-content:center;gap:10px;color:var(--green)}
+.auth-logo svg{filter:drop-shadow(0 2px 6px rgba(31,92,56,.25))}
+.auth-logo b{font-size:1.7rem;letter-spacing:.12em;
+  background:linear-gradient(100deg,var(--green) 30%,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.auth-sub{text-align:center;color:var(--muted);margin:6px 0 0;font-size:.92rem}
+.auth-tabs{display:flex;gap:8px}
+.auth-tabs .btn{flex:1;padding:11px 8px;border-radius:12px}
+.auth-form{padding:2px 2px 0}
+.inrow{display:flex;align-items:center;gap:8px;background:var(--bg);border:1.5px solid var(--line);
+  border-radius:12px;padding:2px 6px 2px 12px;transition:border-color .15s,box-shadow .15s}
+.inrow:focus-within{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,151,31,.18)}
+.inrow input{flex:1;min-width:0;border:0!important;background:transparent!important;padding:11px 0;font-size:1rem;color:var(--ink);box-shadow:none!important;outline:none}
+.in-ico{font-size:1.05rem;opacity:.8;flex:0 0 auto}
+.eye{border:0;background:transparent;font-size:1.05rem;cursor:pointer;padding:8px 8px;border-radius:10px;opacity:.65;flex:0 0 auto}
+.eye:active{transform:scale(.92)}
+.auth-cta{margin-top:16px;padding:14px;font-size:1.06rem;border-radius:14px;box-shadow:0 6px 18px rgba(201,151,31,.28)}
+.auth-cta:active{transform:translateY(1px)}
+.curso-cards{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.up-curso{position:relative;display:flex;align-items:center;gap:12px;padding:11px 12px;cursor:pointer;
+  background:var(--card2);border:1.5px solid var(--line);border-radius:14px;transition:border-color .15s,background .15s,transform .1s}
+.up-curso:active{transform:scale(.985)}
+.up-curso input{position:absolute;opacity:0;pointer-events:none}
+.up-curso .uc-ico{font-size:1.5rem;flex:0 0 auto}
+.up-curso .uc-txt{display:flex;flex-direction:column;line-height:1.25}
+.up-curso .uc-check{margin-left:auto;flex:0 0 auto;width:24px;height:24px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:.8rem;
+  border:1.5px solid var(--line);color:transparent;background:var(--card);transition:all .15s}
+.up-curso.sel{border-color:var(--green);background:linear-gradient(0deg,rgba(201,151,31,.10),rgba(201,151,31,.10)),var(--card)}
+.up-curso.sel .uc-check{background:var(--green);border-color:var(--green);color:#fff}
+.auth-div{display:flex;align-items:center;gap:12px;margin:16px 0 10px;color:var(--muted);font-size:.85rem}
+.auth-div::before,.auth-div::after{content:"";flex:1;height:1px;background:var(--line)}
+.gsi-btn{display:flex;justify-content:center;min-height:44px}
+@media (prefers-reduced-motion:reduce){.auth-card{animation:none}}

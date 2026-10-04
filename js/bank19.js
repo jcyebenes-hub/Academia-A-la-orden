@@ -1,0 +1,312 @@
+/* MICABO · LOTE OFICIAL 8 — CAMPAÑA TEMA A TEMA · CABO, Bloque II, TEMA 1 «Normas de seguridad en las FAS»
+   (RD 194/2010, selección arts. 2-32 del temario). 18 preguntas con DOBLE PASADA.
+   Auditoría: sesgo de longitud 16/18 → 10/18 → 9/18 → 5/18 (≤1/3); posiciones A4/B6/C5/D3. 6F/8M/4D. */
+"use strict";
+window.QUESTIONS19 = [
+ {
+   "c": "cabo",
+   "b": "C1",
+   "t": "Seguridad en las FAS",
+   "d": "F",
+   "id": "rt070",
+   "q": "La seguridad en las Fuerzas Armadas se define como el conjunto de medidas encaminadas a… (art. 2)",
+   "o": [
+     "Reprimir, dentro del recinto militar, las agresiones contra el personal, las instalaciones y el material de las unidades, una vez consumadas",
+     "Restablecer la normalidad y recuperar el control de la unidad tras materializarse una amenaza, reponiendo los daños sufridos",
+     "Prevenir y neutralizar las amenazas a la integridad y disponibilidad del personal, así como a la actividad y recursos de las unidades",
+     "Sancionar los incumplimientos que comprometan la protección del personal y de los recursos, corrigiendo las faltas cometidas"
+   ],
+   "a": 2,
+   "x": "Art. 2.1 literal: es «el conjunto de medidas encaminadas a PREVENIR y NEUTRALIZAR las amenazas a la integridad y disponibilidad del personal, así como a la actividad y recursos de las unidades». Reprimir, restablecer o sancionar quedan fuera del concepto: la seguridad actúa antes y sobre la amenaza. [Fuente: RD 194/2010 art. 2.1 · Temario oficial Cabo nov-2025, Bloque II T1]",
+   "r": "RD 194/2010 art. 2 · Temario oficial Cabo nov-2025, Bloque II T1"
+ },
+ {
+   "c": "cabo",
+   "b": "C1",
+   "t": "Seguridad en las FAS",
+   "d": "F",
+   "id": "rt071",
+   "q": "La seguridad en las Fuerzas Armadas (art. 4)…",
+   "o": [
+     "Es competencia exclusiva del jefe de seguridad designado al efecto en cada unidad, que responde de ella ante el jefe",
+     "Afecta a todos sus miembros, cada uno responsable a su nivel del cumplimiento de las normas y medidas establecidas",
+     "Corresponde únicamente al personal que presta servicio de armas en guardias, retenes y puestos de centinela o vigilancia",
+     "Se delega en los mandos de cada unidad, quedando la tropa y marinería exenta de responsabilidad sobre ella"
+   ],
+   "a": 1,
+   "x": "Art. 4.1 literal: «La seguridad en las Fuerzas Armadas AFECTA A TODOS SUS MIEMBROS; en consecuencia, cada uno de ellos le prestará atención permanente y será responsable, A SU NIVEL, del cumplimiento de las normas y medidas». La exclusividad del jefe de seguridad, la limitación a quien porta armas y la exención de la tropa son falsedades típicas. [Fuente: RD 194/2010 art. 4.1 · Temario oficial Cabo nov-2025, Bloque II T1]",
+   "r": "RD 194/2010 art. 4 · Temario oficial Cabo nov-2025, Bloque II T1"
+ },
+ {
+   "c": "cabo",
+   "b": "C1",
+   "t": "Seguridad en las FAS",
+   "d": "M",
+   "id": "rt072",
+   "q": "En materia de seguridad de su unidad, el jefe de la unidad (art. 7)…",
+   "o": [
+     "Es el responsable de su seguridad, elabora y actualiza el plan de seguridad y designa un jefe de seguridad",
+     "Aprueba el plan de seguridad elaborado por el jefe de seguridad que a tal efecto designe su autoridad superior",
+     "Delega íntegramente la seguridad en el jefe de seguridad, que elabora y aprueba el plan con su firma",
+     "Elabora el plan de seguridad, que en todos los casos procede aprobar al Jefe de Estado Mayor de la Defensa"
+   ],
+   "a": 0,
+   "x": "Art. 7.1 literal: «El JEFE DE LA UNIDAD SERÁ EL RESPONSABLE de su seguridad y ELABORARÁ, y actualizará en su caso, el plan de seguridad, que será APROBADO POR LA AUTORIDAD SUPERIOR (…). El jefe de la unidad DESIGNARÁ UN JEFE DE SEGURIDAD». El jefe aprueba únicamente la autoridad superior, nunca el jefe de seguridad ni en todos los casos el JEMAD. [Fuente: RD 194/2010 art. 7.1 · Temario oficial Cabo nov-2025, Bloque II T1]",
+   "r": "RD 194/2010 art. 7 · Temario oficial Cabo nov-2025, Bloque II T1"
+ },
+ {
+   "c": "cabo",
+   "b": "C1",
+   "t": "Seguridad en las FAS",
+   "d": "F",
+   "id": "rt073",
+   "q": "Cuando en una base, acuartelamiento u otro establecimiento se alojen varias unidades (art. 7)…",
+   "o": [
+     "Cada unidad redacta su plan de seguridad sin coordinación con el resto de unidades alojadas en el establecimiento",
+     "Se nombra un jefe de seguridad común a todas ellas, sin que sea necesario un plan para el conjunto",
+     "Los planes individuales se mantienen y se crea la figura de un coordinador que arbitra las diferencias",
+     "Se redacta un plan de seguridad para todo el conjunto, al que deberán adaptarse los de las respectivas unidades"
+   ],
+   "a": 3,
+   "x": "Art. 7.2 literal: «se REDACTARÁ UN PLAN DE SEGURIDAD PARA TODO EL CONJUNTO bajo la responsabilidad de su jefe, al que DEBERÁN ADAPTARSE los de las respectivas unidades». La norma no prevé planes inconexos, ni jefe de seguridad común sin plan, ni coordinador: lo que exige es un plan global del que cuelguen los particulares. [Fuente: RD 194/2010 art. 7.2 · Temario oficial Cabo nov-2025, Bloque II T1]",
+   "r": "RD 194/2010 art. 7 · Temario oficial Cabo nov-2025, Bloque II T1"
+ },
+ {
+   "c": "cabo",
+   "b": "C1",
+   "t": "Seguridad en las FAS",
+   "d": "M",
+   "id": "rt074",
+   "q": "Respecto del plan de seguridad de una unidad (art. 9)…",
+   "o": [
+     "Es un documento de trabajo interno sin clasificación alguna, para facilitar su difusión entre todo el personal de la unidad y su cadena de mando",
+     "Incluye la descripción de los sistemas de seguridad, las medidas a tomar en cada situación y la forma de implantarlas; tiene carácter de reservado",
+     "Se clasifica siempre en la categoría de secreto, por afectar directamente a la defensa nacional y a las operaciones",
+     "Recoge únicamente los medios materiales que se vayan a emplear y la organización de las guardias y retenes de seguridad"
+   ],
+   "a": 1,
+   "x": "Art. 9.1 literal: es «el documento que incluye la DESCRIPCIÓN DE LOS DIFERENTES SISTEMAS DE SEGURIDAD, las MEDIDAS a tomar en cada situación y la FORMA DE IMPLANTARLAS. Tendrá carácter de materia clasificada en la categoría de RESERVADO», si bien algunos apartados pueden bajar a confidencial, difusión limitada o incluso no clasificarse. Ni secreto siempre, ni sin clasificar, ni solo medios materiales. [Fuente: RD 194/2010 art. 9.1 · Temario oficial Cabo nov-2025, Bloque II T1]",
+   "r": "RD 194/2010 art. 9 · Temario oficial Cabo nov-2025, Bloque II T1"
+ },
+ {
+   "c": "cabo",
+   "b": "C1",
+   "t": "Seguridad en las FAS",
+   "d": "M",
+   "id": "rt075",
+   "q": "El plan de seguridad regulará los medios personales y materiales de forma que pueda darse… (art. 9)",
+   "o": [
+     "Una respuesta inmediata y disuasoria, conforme al principio de presencia permanente de las guardias de seguridad montadas",
+     "Una respuesta automática y escalonada, conforme al principio de obediencia debida y al de jerarquía militar en el empleo de los medios",
+     "Una respuesta progresiva a la amenaza, conforme a los principios de necesidad y proporcionalidad en el empleo de la fuerza",
+     "Una respuesta total y aplastante, conforme al principio de superioridad incondicional frente a cualquier amenaza o agresión que se presente"
+   ],
+   "a": 2,
+   "x": "Art. 9.2 literal: «de forma que pueda darse una RESPUESTA PROGRESIVA a la amenaza, conforme a los principios de NECESIDAD y PROPORCIONALIDAD en el empleo de la fuerza». La respuesta no es inmediata, automática ni total: es progresiva, dosificando medios según la amenaza. [Fuente: RD 194/2010 art. 9.2 · Temario oficial Cabo nov-2025, Bloque II T1]",
+   "r": "RD 194/2010 art. 9 · Temario oficial Cabo nov-2025, Bloque II T1"
+ },
+ {
+   "c": "cabo",
+   "b": "C1",
+   "t": "Seguridad en las FAS",
+   "d": "M",
+   "id": "rt076",
+   "q": "Las guardias de seguridad (art. 14)…",
+   "o": [
+     "Son cometidos con presencia y duración limitada que se establecen como servicio de armas, y constituyen medida disuasoria y fuerza de reacción",
+     "Son servicios que se prestan sin armas, apoyándose para su eficacia exclusivamente en los medios de carácter técnico disponibles",
+     "Se prestan únicamente en el interior de la propia unidad, sin que quepa su prestación en instalaciones o recintos ajenos de ningún tipo",
+     "Constituyen una medida de represión destinada a actuar solo cuando la intrusión o el daño ya se han consumado en la unidad"
+   ],
+   "a": 0,
+   "x": "Art. 14.1: «cometidos de miembros de las Fuerzas Armadas, con PRESENCIA Y DURACIÓN LIMITADA, que se establecen como SERVICIO DE ARMAS (…)». También cuando la unidad la presta en instalaciones ajenas. Art. 14.2: «constituyen una MEDIDA DISUASORIA para potenciales intrusos y una FUERZA DE REACCIÓN ante cualquier alarma»; se complementan con medios técnicos, y el retén de seguridad las apoya y refuerza formando parte de la misma (art. 14.3). [Fuente: RD 194/2010 art. 14 · Temario oficial Cabo nov-2025, Bloque II T1]",
+   "r": "RD 194/2010 art. 14 · Temario oficial Cabo nov-2025, Bloque II T1"
+ },
+ {
+   "c": "cabo",
+   "b": "C1",
+   "t": "Seguridad en las FAS",
+   "d": "D",
+   "id": "rt077",
+   "q": "Durante la ejecución de la guardia de seguridad, sus componentes (art. 15)…",
+   "o": [
+     "Actúan como miembros de la unidad que los designa, sin que su servicio confiera carácter especial alguno",
+     "Prestan su servicio como policía militar, naval o aérea, llevando la identificación visual sobre el uniforme",
+     "Quedan exceptuados de la aplicación de estas normas, rigiéndose únicamente por sus normas específicas de guardia",
+     "Solo precisan de identificación visual sobre el uniforme en el caso de las guardias de honor"
+   ],
+   "a": 1,
+   "x": "Art. 15.1 literal: «prestarán su servicio como POLICÍA MILITAR, NAVAL O AÉREA durante la ejecución de la misma, por lo que llevarán durante éste la IDENTIFICACIÓN VISUAL sobre el uniforme». Las guardias de honor SÍ se consideran de seguridad y se rigen por estas normas (art. 15.2), aunque a ellas no se les exige esa identificación: el apartado D invierte la excepción. [Fuente: RD 194/2010 art. 15 · Temario oficial Cabo nov-2025, Bloque II T1]",
+   "r": "RD 194/2010 art. 15 · Temario oficial Cabo nov-2025, Bloque II T1"
+ },
+ {
+   "c": "cabo",
+   "b": "C1",
+   "t": "Seguridad en las FAS",
+   "d": "M",
+   "id": "rt078",
+   "q": "Entre los cometidos particulares del cabo de guardia está (art. 21)…",
+   "o": [
+     "Redactar las órdenes y las consignas particulares del personal a su cargo antes de cada turno de servicio de guardia",
+     "Permanecer en el puesto principal de la guardia, sin necesidad de inspeccionar el resto de los puestos montados",
+     "Sustituir de forma inmediata a cualquier componente de la guardia que, por cualquier causa, deba abandonar su puesto",
+     "Comprobar que el personal conoce las órdenes y consignas y pasa revista de armas antes y después de cada relevo"
+   ],
+   "a": 3,
+   "x": "Art. 21.2: «comprobar que el personal a su cargo CONOZCA LAS ÓRDENES Y CONSIGNAS y se encuentre EQUIPADO Y DISPUESTO para poder intervenir». Art. 21.3: «Inspeccionará los puestos de acuerdo con los procedimientos establecidos y PASARÁ REVISTA DE ARMAS, ANTES Y DESPUÉS de la realización de cualquier relevo». Las consignas no las redacta él y los puestos sí los inspecciona todos. [Fuente: RD 194/2010 art. 21 · Temario oficial Cabo nov-2025, Bloque II T1]",
+   "r": "RD 194/2010 art. 21 · Temario oficial Cabo nov-2025, Bloque II T1"
+ },
+ {
+   "c": "cabo",
+   "b": "C1",
+   "t": "Seguridad en las FAS",
+   "d": "F",
+   "id": "rt079",
+   "q": "La tropa y marinería componente de la guardia de seguridad (art. 22)…",
+   "o": [
+     "Presta servicio de forma continua, sin situaciones de descanso, para lograr así la mayor eficacia posible",
+     "Se alterna entre las situaciones de guardia, retén y revista de armas que determina el régimen interior de cada unidad",
+     "Se encuentra de forma rotativa en actividad, alerta o descanso; en actividad actúa como centinelas, patrullas o vigilantes",
+     "Actúa exclusivamente como centinela durante la totalidad del tiempo que dure el servicio completo de la guardia que tiene montado"
+   ],
+   "a": 2,
+   "x": "Art. 22.1 literal: se podrá encontrar de forma rotativa «en las SITUACIONES DE ACTIVIDAD, ALERTA O DESCANSO; la duración de cada una de éstas será la que proporcione mayor eficacia a la seguridad y menor fatiga al personal». Art. 22.2: durante la actividad «actuarán como CENTINELAS, COMPONENTES DE PATRULLAS O VIGILANTES». [Fuente: RD 194/2010 art. 22 · Temario oficial Cabo nov-2025, Bloque II T1]",
+   "r": "RD 194/2010 art. 22 · Temario oficial Cabo nov-2025, Bloque II T1"
+ },
+ {
+   "c": "cabo",
+   "b": "C1",
+   "t": "Seguridad en las FAS",
+   "d": "F",
+   "id": "rt080",
+   "q": "Las órdenes a la tropa y marinería de la guardia se le darán (art. 23)…",
+   "o": [
+     "Exclusivamente por el jefe de la guardia, sin que otro componente de la misma pueda transmitírselas nunca",
+     "Por conducto del cabo de guardia, si bien podrán recibirlas también del jefe de la guardia o de quien le auxilie",
+     "Directamente por el jefe de la unidad en todos los casos de servicio de armas que en cada caso se establezcan",
+     "Solo por el cabo de guardia, sin que ningún otro superior pueda transmitirles orden alguna en el puesto que ocupan"
+   ],
+   "a": 1,
+   "x": "Art. 23 literal: «A la tropa y marinería se le darán las órdenes POR CONDUCTO DE QUIEN DESEMPEÑE EL CARGO DE CABO DE GUARDIA, si bien las podrán recibir también del JEFE DE LA GUARDIA o de aquél que LE AUXILIE». La regla general es el cabo de guardia, con dos excepciones; el exclusivismo del jefe de guardia o del propio cabo contradicen el artículo. [Fuente: RD 194/2010 art. 23 · Temario oficial Cabo nov-2025, Bloque II T1]",
+   "r": "RD 194/2010 art. 23 · Temario oficial Cabo nov-2025, Bloque II T1"
+ },
+ {
+   "c": "cabo",
+   "b": "C1",
+   "t": "Seguridad en las FAS",
+   "d": "M",
+   "id": "rt081",
+   "q": "Son centinelas los componentes de la guardia que (art. 24)…",
+   "o": [
+     "En acto de servicio de armas y cumpliendo una consigna, guardan un puesto portando a la vista el arma de fuego",
+     "Efectúan recorridos de amplitud y duración variable por zonas del interior y del exterior de la unidad militar",
+     "Participan en la seguridad general mediante el control de personas y el aseguramiento de espacios físicos y el control de medios",
+     "Forman el retén que apoya y refuerza a la guardia de seguridad, integrándose plenamente en la misma"
+   ],
+   "a": 0,
+   "x": "Art. 24.1 literal: «Son centinelas los componentes de la guardia de seguridad que, EN ACTO DE SERVICIO DE ARMAS y CUMPLIENDO UNA CONSIGNA, guardan un puesto confiado a su responsabilidad PORTANDO A LA VISTA el arma de fuego». Los recorridos variables son de las patrullas (art. 27), el control de personas de los vigilantes (art. 28) y el apoyo integrado del retén (art. 14.3). Su empleo es restrictivo (art. 24.2). [Fuente: RD 194/2010 art. 24 · Temario oficial Cabo nov-2025, Bloque II T1]",
+   "r": "RD 194/2010 art. 27 · Temario oficial Cabo nov-2025, Bloque II T1"
+ },
+ {
+   "c": "cabo",
+   "b": "C1",
+   "t": "Seguridad en las FAS",
+   "d": "D",
+   "id": "rt082",
+   "q": "Respecto del arma, el centinela (art. 25)…",
+   "o": [
+     "Deberá depositarla, al finalizar cada situación de actividad, en custodia del cabo de guardia",
+     "Podrá entregarla a quien acredite pertenecer a la guardia que lo releva del puesto",
+     "Solo se separará de ella para efectuar el relevo del puesto o las revisiones programadas",
+     "Nunca dejará el arma de la mano ni la entregará a persona alguna bajo ningún pretexto"
+   ],
+   "a": 3,
+   "x": "Art. 25.1 literal: «NUNCA DEJARÁ EL ARMA DE LA MANO NI LA ENTREGARÁ a persona alguna BAJO NINGÚN PRETEXTO y permanecerá en su puesto mientras no sea relevado». No admite excepción alguna: ni guardias salientes, ni custodias, ni revisiones. [Fuente: RD 194/2010 art. 25.1 · Temario oficial Cabo nov-2025, Bloque II T1]",
+   "r": "RD 194/2010 art. 25 · Temario oficial Cabo nov-2025, Bloque II T1"
+ },
+ {
+   "c": "cabo",
+   "b": "C1",
+   "t": "Seguridad en las FAS",
+   "d": "D",
+   "id": "rt083",
+   "q": "Si se amenaza la seguridad de su puesto, su persona o la consigna, el centinela (art. 25)…",
+   "o": [
+     "Hace uso inmediato y total de su arma, causando el máximo daño posible para disuadir con eficacia al agresor",
+     "Previas las conminaciones al agresor y la advertencia de que se halla ante un centinela, hará uso gradual y proporcionado del arma, procurando causar el menor daño posible",
+     "Abandona el puesto y da la alarma, sin que en ningún caso pueda llegar a llegar a hacer uso del arma reglamentaria que porta encima",
+     "Solicita instrucciones al jefe de la guardia antes de emplear el arma, salvo en caso de riesgo vital inminente y apreciado por él mismo"
+   ],
+   "a": 1,
+   "x": "Art. 25.3 literal: «previa las CONMINACIONES dirigidas al potencial agresor para que abandone su actitud y de la ADVERTENCIA de que se halla ante un centinela, podrá hacer uso GRADUAL Y PROPORCIONADO de su arma, procurando causar el MENOR DAÑO POSIBLE». Ni uso inmediato ni máximo daño, ni prohibición de usarla: conminación, advertencia y gradualidad. [Fuente: RD 194/2010 art. 25.3 · Temario oficial Cabo nov-2025, Bloque II T1]",
+   "r": "RD 194/2010 art. 25 · Temario oficial Cabo nov-2025, Bloque II T1"
+ },
+ {
+   "c": "cabo",
+   "b": "C1",
+   "t": "Seguridad en las FAS",
+   "d": "F",
+   "id": "rt084",
+   "q": "Los puestos de centinela (art. 26)…",
+   "o": [
+     "Serán siempre fijos e individuales, para asegurar la responsabilidad sobre cada puesto",
+     "Serán móviles, salvo los establecidos en instalaciones especialmente sensibles",
+     "Podrán ser fijos o móviles y, en ambos casos, individuales o de grupo",
+     "Podrán ser fijos o móviles, aunque siempre de carácter individual"
+   ],
+   "a": 2,
+   "x": "Art. 26.1 literal: «Podrán ser FIJOS O MÓVILES y EN AMBOS CASOS, INDIVIDUALES O DE GRUPO». Los fijos se establecen en lugares que permitan protección y observación reduciendo la vulnerabilidad; los móviles completan a los fijos vigilando zonas concretas y limitadas (art. 26.2). [Fuente: RD 194/2010 art. 26 · Temario oficial Cabo nov-2025, Bloque II T1]",
+   "r": "RD 194/2010 art. 26 · Temario oficial Cabo nov-2025, Bloque II T1"
+ },
+ {
+   "c": "cabo",
+   "b": "C1",
+   "t": "Seguridad en las FAS",
+   "d": "M",
+   "id": "rt085",
+   "q": "Los vigilantes son los componentes de la guardia que (art. 28)…",
+   "o": [
+     "Participan en la seguridad general, en el interior y exterior de la unidad, con control de personas y aseguramiento de espacios, con armas o sin ellas",
+     "Guardan puestos confiados a su responsabilidad portando a la vista el arma de fuego que por su cometido les corresponda",
+     "Efectúan recorridos de amplitud y duración variable por zonas del interior y exterior de la unidad que tengan encomendados",
+     "Cumplen siempre sus cometidos sin armas, complementando los puestos que montan los centinelas durante el servicio de la guardia"
+   ],
+   "a": 0,
+   "x": "Art. 28.1 literal: «participan en la SEGURIDAD GENERAL tanto en el interior como en el exterior de la unidad mediante el CONTROL DE PERSONAS, ASEGURAMIENTO DE ESPACIOS FÍSICOS o CONTROL de los medios o materiales que se asignen a su custodia». Pueden ser fijos o móviles y cumplir sus cometidos CON ARMAS O SIN ELLAS (art. 28.2), complementando los puestos de centinela. Portar el arma a la vista es del centinela; los recorridos variables, de las patrullas. [Fuente: RD 194/2010 art. 28 · Temario oficial Cabo nov-2025, Bloque II T1]",
+   "r": "RD 194/2010 art. 28 · Temario oficial Cabo nov-2025, Bloque II T1"
+ },
+ {
+   "c": "cabo",
+   "b": "C1",
+   "t": "Seguridad en las FAS",
+   "d": "M",
+   "id": "rt086",
+   "q": "Los miembros de las FAS que prestan servicio como policía militar, naval o aérea (art. 29)…",
+   "o": [
+     "Dependen funcionalmente de las fuerzas y cuerpos de seguridad en el ejercicio de sus funciones de policía",
+     "Actúan como testigos de la autoridad, dando fe de cuanto ocurra durante la prestación de su servicio",
+     "Tienen, sin perjuicio de su carácter de fuerza armada cuando proceda, carácter de agente de la autoridad",
+     "Conservan exclusivamente el carácter de fuerza armada del Ejército al que pertenezcan en todo momento"
+   ],
+   "a": 2,
+   "x": "Art. 29.2 literal: «sin perjuicio de su CARÁCTER DE FUERZA ARMADA cuando proceda, tendrán el CARÁCTER DE AGENTE DE LA AUTORIDAD en el ejercicio de sus funciones». Ni dependencia de las FCSE, ni simple testigo: agente de la autoridad, sin perder por ello la condición de fuerza armada. [Fuente: RD 194/2010 art. 29.2 · Temario oficial Cabo nov-2025, Bloque II T1]",
+   "r": "RD 194/2010 art. 29 · Temario oficial Cabo nov-2025, Bloque II T1"
+ },
+ {
+   "c": "cabo",
+   "b": "C1",
+   "t": "Seguridad en las FAS",
+   "d": "D",
+   "id": "rt087",
+   "q": "Estando de servicio y en ausencia de las fuerzas y cuerpos de seguridad, ante delitos flagrantes la policía militar (art. 32)…",
+   "o": [
+     "Redactará atestado y pondrá al detenido a disposición judicial en el plazo máximo de veinticuatro horas",
+     "Intervendrá conforme a la Ley de Enjuiciamiento Criminal, recabando cuanto antes la presencia de aquellas y dando cuenta a sus superiores",
+     "Remitirá parte de novedades al organismo responsable, absteniéndose de intervenir de forma directa en los hechos ocurridos",
+     "Requerirá la presencia del fiscal de la jurisdicción militar antes de proceder a intervenir en el supuesto que se trate"
+   ],
+   "a": 1,
+   "x": "Art. 32 literal: «intervendrán ante delitos flagrantes DE ACUERDO CON LO PREVISTO EN LA LEY DE ENJUICIAMIENTO CRIMINAL. Tan pronto como les sea posible RECARABÁN LA PRESENCIA de aquellas y DARÁN CUENTA de su actuación a sus superiores». No hay atestado propio con plazo de 24 horas, ni abstención, ni fiscal militar previo: se interviene y se pide presencia de las FCSE. [Fuente: RD 194/2010 art. 32 · Temario oficial Cabo nov-2025, Bloque II T1]",
+   "r": "RD 194/2010 art. 32 · Temario oficial Cabo nov-2025, Bloque II T1"
+ },
+];
