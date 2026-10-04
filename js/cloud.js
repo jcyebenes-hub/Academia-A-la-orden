@@ -122,6 +122,17 @@ function paintChip() {
 }
 /* ventana de perfil: tocar tu usuario arriba = perfil + ajustes */
 window.estaDentro = function () { return !!C.user; }; /* portero: ¿hay sesión iniciada? */
+function nombreCurso(id) { return { cabo: "Ascenso a Cabo", cabo1: "Cabo 1º", perm: "Tropa Permanente" }[id] || id; }
+function aplicaCursoCuenta(user) {
+  /* el curso de la CUENTA manda al entrar: así viaja entre dispositivos */
+  if (user && user.curso && window.AO && window.AO.stateRef) {
+    const sr = window.AO.stateRef();
+    if (sr.course !== user.curso) { sr.course = user.curso; if (window.AO.save) window.AO.save(); }
+  }
+}
+window.setCursoCuenta = function (curso) { /* al cambiar de curso con sesión, el servidor lo apunta en la cuenta */
+  api("POST", "/api/curso", { curso: curso }).then(d => { if (d.user) { C.user = d.user; paintChip(); } }).catch(() => {});
+};
 window.abrirPerfil = function () {
   const old = $("#sheetBg"); if (old) old.remove();
   const u = C.user;
@@ -170,6 +181,12 @@ window.vCuenta = async function () {
       '<label class="f">Tu nombre o alias</label><input type="text" id="upName" maxlength="24" required>' +
       '<label class="f">Email</label><input type="email" id="upEmail" autocomplete="email" required>' +
       '<label class="f">Contraseña (mín. 8)</label><input type="password" id="upPass" autocomplete="new-password" minlength="8" required>' +
+      '<p class="small muted" style="margin-top:10px"><b>¿Qué vas a estudiar?</b> <span class="muted">(podrás cambiarlo en tu perfil)</span></p>' +
+      '<div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">' +
+        '<label class="opt" style="display:flex;align-items:center;gap:10px"><input type="radio" name="upCurso" value="cabo" checked><b>🎖️ Ascenso a Cabo</b><span class="small muted">ET · oposición</span></label>' +
+        '<label class="opt" style="display:flex;align-items:center;gap:10px"><input type="radio" name="upCurso" value="cabo1"><b>⭐ Cabo 1º</b><span class="small muted">ET · oposición + fase a distancia</span></label>' +
+        '<label class="opt" style="display:flex;align-items:center;gap:10px"><input type="radio" name="upCurso" value="perm"><b>🛡️ Permanente</b><span class="small muted">FAS · 100 preguntas</span></label>' +
+      '</div>' +
       '<p class="small muted">Cuenta gratis y sin trampas: ranking global <b>real</b>, punto 🟢 en línea y tu progreso en todos tus dispositivos. Datos mínimos, cifrados.</p>' +
       '<button class="btn btn-gold btn-block" style="margin-top:12px">Crear cuenta gratis</button></form>' +
       '<p class="small muted center" id="cErr" style="color:#b3261e;display:none;margin-top:10px"></p>' +
@@ -177,8 +194,8 @@ window.vCuenta = async function () {
     const err = m => { const e = $("#cErr"); e.textContent = m; e.style.display = "block"; };
     $("#tabIn").onclick = () => { $("#formIn").style.display = "block"; $("#formUp").style.display = "none"; };
     $("#tabUp").onclick = () => { $("#formIn").style.display = "none"; $("#formUp").style.display = "block"; };
-    $("#formIn").onsubmit = ev => { ev.preventDefault(); api("POST", "/api/login", { email: $("#inEmail").value, password: $("#inPass").value }).then(d => { C.user = d.user; paintChip(); if (typeof window.abrirCursos === "function") setTimeout(() => window.abrirCursos(true), 450); try { window.cloudSync(true); } catch (e) {} try { window.vCuenta(); } catch (e) {} }).catch(e => err(e.message)); };
-    $("#formUp").onsubmit = ev => { ev.preventDefault(); api("POST", "/api/register", { name: $("#upName").value, email: $("#upEmail").value, password: $("#upPass").value }).then(d => { C.user = d.user; paintChip(); if (typeof window.abrirCursos === "function") setTimeout(() => window.abrirCursos(true), 450); try { window.cloudSync(true); } catch (e) {} try { window.vCuenta(); } catch (e) {} }).catch(e => err(e.message)); };
+    $("#formIn").onsubmit = ev => { ev.preventDefault(); api("POST", "/api/login", { email: $("#inEmail").value, password: $("#inPass").value }).then(d => { C.user = d.user; paintChip(); aplicaCursoCuenta(d.user); if (typeof window.abrirCursos === "function") setTimeout(() => window.abrirCursos(true), 450); try { window.cloudSync(true); } catch (e) {} try { window.vCuenta(); } catch (e) {} }).catch(e => err(e.message)); };
+    $("#formUp").onsubmit = ev => { ev.preventDefault(); const curso = (document.querySelector("input[name=upCurso]:checked") || {}).value || "cabo"; api("POST", "/api/register", { name: $("#upName").value, email: $("#upEmail").value, password: $("#upPass").value, curso: curso }).then(d => { C.user = d.user; paintChip(); aplicaCursoCuenta(d.user); toast("🎓 Curso: " + nombreCurso(d.user.curso) + " · ¡a estudiar!"); if (location.hash !== "#/entrenar") location.hash = "#/entrenar"; try { window.cloudSync(true); } catch (e) {} }).catch(e => err(e.message)); };
     return;
   }
   // con sesión
@@ -220,6 +237,6 @@ window.vCuenta = async function () {
 
 /* --- arranque --- */
 window.GalonCloudInit = function () {
-  api("GET", "/api/me").then(d => { C.user = d.user; paintChip(); window.cloudSync(false); beat(); }).catch(() => { paintChip(); beat(); });
+  api("GET", "/api/me").then(d => { C.user = d.user; paintChip(); aplicaCursoCuenta(d.user); window.cloudSync(false); beat(); }).catch(() => { paintChip(); beat(); });
 };
 })();

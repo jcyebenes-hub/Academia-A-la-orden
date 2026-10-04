@@ -154,7 +154,7 @@ function userFromReq(req) {
 }
 function publicUser(u) {
   const s = activeSub(u);
-  return { id: u.id, name: u.name, email: u.email, plan: s ? s.plan : "free", planLabel: s ? PLANS[s.plan].label : "RECLUTA · gratis", planEnds: s ? s.ends : null, founder: !!u.founder, supporter: isSupporter(u.email), emailVerified: !!u.emailVerified, createdAt: u.createdAt };
+  return { id: u.id, name: u.name, email: u.email, curso: ["cabo", "cabo1", "perm"].includes(u.curso) ? u.curso : "cabo", plan: s ? s.plan : "free", planLabel: s ? PLANS[s.plan].label : "RECLUTA · gratis", planEnds: s ? s.ends : null, founder: !!u.founder, supporter: isSupporter(u.email), emailVerified: !!u.emailVerified, createdAt: u.createdAt };
 }
 function activeSub(u) {
   if (!u.subscriptions || !u.subscriptions.length) return null;
@@ -381,7 +381,8 @@ const api = {
     const id = uid();
     const vtok = makeToken();
     /* sin API de email (modo pruebas) la cuenta nace verificada; con Resend, verificación real por enlace */
-    users[id] = { id, name, email, salt, passHash: hashPass(pass, salt), founder: founders < FOUNDER_LIMIT, createdAt: now(), subscriptions: [], emailVerified: !ENV.RESEND_API_KEY, verifyToken: vtok };
+    const curso = ["cabo", "cabo1", "perm"].includes(b.curso) ? b.curso : "cabo"; /* el curso elegido en el registro VIAJA con la cuenta */
+    users[id] = { id, name, email, curso, salt, passHash: hashPass(pass, salt), founder: founders < FOUNDER_LIMIT, createdAt: now(), subscriptions: [], emailVerified: !ENV.RESEND_API_KEY, verifyToken: vtok };
     saveUsers();
     const tok = makeToken(); tokens[tok] = { uid: id, created: now() }; saveTokens();
     setCookie(req, res, tok);
@@ -406,6 +407,13 @@ const api = {
     const tok = makeToken(); tokens[tok] = { uid: id, created: now() }; saveTokens();
     setCookie(req, res, tok); audit("login", ip, id);
     send(res, 200, { ok: true, user: publicUser(users[id]) });
+  },
+  "POST /api/curso": (req, res, b, u) => {
+    if (!u) return send(res, 401, { error: "Sin sesión" });
+    const curso = String(b.curso || "");
+    if (!["cabo", "cabo1", "perm"].includes(curso)) return bad(res, "Curso no válido");
+    users[u.uid].curso = curso; saveUsers();
+    send(res, 200, { ok: true, user: publicUser(users[u.uid]) });
   },
   "POST /api/logout": (req, res) => {
     const m = /(?:^|;\s*)galon_token=([a-f0-9]+)/.exec(req.headers.cookie || "");

@@ -115,6 +115,7 @@ function bindCourses(alEntrar) {
       return;
     }
     state.course = b.getAttribute("data-course"); save();
+    if (typeof window.estaDentro === "function" && window.estaDentro() && typeof window.setCursoCuenta === "function") window.setCursoCuenta(state.course); /* el cambio viaja a la cuenta */
     const sh = $("#sheetBg"); if (sh) sh.remove();
     if (alEntrar) { location.hash = "#/entrenar"; toast("Curso: " + COURSES[state.course].name); }
     else { render(); toast("Curso: " + COURSES[state.course].name); }

@@ -69,3 +69,5 @@
 - CAMPAÑA (v103): Lote 6 = Cabo · Bloque I · Tema 4 «De la Acción del Mando» (arts. 53-77): 16 curadas (5F/8M/3D) con doble pasada — auditoría 1ª detectó sesgo de longitud 11/16 → rebalanceado a 3/16. JSON en lotes/lote6-tema4-mando.json. Cabo 948→964. Siguiente: Tema 5 «De las Operaciones».
 
 - CAMPAÑA (v104): Lote 7 = Cabo · Bloque I · Tema 5 «De las Operaciones» (arts. 83-103): 11 curadas (3F/5M/3D) — CIERRA LAS RROO (Bloque I completo: T1-T5). Auditoría: sesgo longitud 10/11 → 1/11, posiciones A:8 → A3/B3/C3/D2 (pads + barajado automático). JSON lotes/lote7-tema5-operaciones.json. Cabo 964→975. Siguiente: Bloque II (Seguridad FAS, RD 194/2010).
+
+- v105: REGISTRO REAL CON CURSO — el form de registro elige qué estudiar (Cabo/Cabo 1º/Permanente), se guarda en la CUENTA (server: users.curso + publicUser) y al hacer login desde cualquier dispositivo la app se fija en ese curso. /api/curso (auth) para cambiarlo; cambiar curso con sesión en la app lo actualiza en el servidor. Probado en arnés + E2E real tras deploy.
