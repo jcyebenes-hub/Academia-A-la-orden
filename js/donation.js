@@ -1,14 +1,17 @@
 /* MICABO — Configuración de donaciones (edita con tus valores reales)
    Modelo: 100% gratis, donaciones voluntarias SIN contraprestación (nada queda
    bloqueado tras donar). Transparencia radical: costes y recaudación públicos.
-   REGLA: solo URLs que existan de verdad — un enlace vacío no se muestra. */
+   REGLA: solo URLs que existan de verdad — un enlace vacío no se muestra.
+   NOTA v115: por petición del titular, el número de Bizum NO se muestra en
+   pantalla ni en el chat; el botón «Copiar Bizum» lo lleva al portapapeles.
+   (Sigue en este fichero porque el botón lo necesita en el cliente.) */
 window.GALON_DONATE = {
   enabled: true,
   kofi: "",                                   /* ← ko-fi.com/TUUSUARIO cuando lo crees (el botón se activa solo) */
   paypal: "",
   liberapay: "",
-  bizumNum: "674 38 16 16",                   /* Bizum público del proyecto (aparece en Apoya) */
-  bizumRaw: "674381616",
+  bizumRaw: "674381616",                      /* SOLO para el botón copiar — prohibido pintarlo en UI */
+  bizumNum: "",                               /* oculto a petición del titular (v115) — no rellenar sin avisar */
   telegram: "https://t.me/galon_alertas",     /* canal comunidad + Alertas BOD (justificantes → muro) */
   /* COSTES REALES del proyecto (año normal, cifras 2026): */
   /*  Servidor Render plan gratis: 0 € (si crecemos: ~85 €/año, plan Starter 7 $/mes) */

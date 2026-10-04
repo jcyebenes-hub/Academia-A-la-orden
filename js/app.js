@@ -1,7 +1,7 @@
 /* MICABO · Academia de Tropa — motor de la app */
 (function () {
 "use strict";
-window.APPV = "114"; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
+window.APPV = "115"; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
 const $ = (s, el) => (el || document).querySelector(s);
 const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -1315,7 +1315,7 @@ async function vApoya() {
     '<p class="small" style="margin:0"><b>' + (A.recaudado || 0) + " €</b> de " + metaAnual + " € · " + pct + '%</p>' +
     '<p class="small muted" style="margin:6px 0 0">Cifras reales, sin humo: solo cuentan cafés verificados.</p></div>' +
     '<div class="card" style="margin-bottom:12px"><b>📱 Cómo apoyar (directo, sin comisiones)</b>' +
-    '<p class="small muted" style="margin:6px 0">Bizum al <b style="font-size:1.15rem;letter-spacing:.04em">' + esc(D0.bizumNum || "") + '</b> con el concepto <b>MICABO</b>. Después, manda el justificante al canal de Telegram y entras en el muro de apoyos ☕</p>' +
+    '<p class="small muted" style="margin:6px 0">Pulsa el botón y se te copia el número de Bizum; solo te falta poner el concepto <b>MICABO</b>. Después, manda el justificante al canal de Telegram y entras en el muro de apoyos ☕</p>' +
     '<div class="t-nav" style="justify-content:center"><button class="btn btn-gold" id="btnBizum">📋 Copiar Bizum</button>' +
     (url ? ' <a class="btn btn-ghost" href="' + esc(url) + '" target="_blank" rel="noopener">☕ Ko-fi</a>' : "") + '</div></div>' +
     '<div class="card" style="margin-bottom:12px"><b>❤️ Acción social de la tropa</b>' +
@@ -1329,7 +1329,7 @@ async function vApoya() {
     '<p class="small muted" style="margin:6px 0 0">No vendemos ventajas (el estudio no se puede comprar) ni hacemos sorteos (eso es juego y tiene ley). Quien apoya recibe <b>reconocimiento</b>: muro, insignia y fundadores de por vida. Nada más, y eso es lo bonito.</p></div>' +
     (!ya ? '<div class="t-nav" style="justify-content:center"><button class="btn btn-ghost btn-sm" id="apoyaYa">🫡 Ya colaboro (callar avisos)</button></div>' : '<p class="small muted center">🫡 Marcado como colaborador: los avisos quedan callados.</p>');
   const yb = $("#apoyaYa"); if (yb) yb.onclick = () => { state.donation = state.donation || {}; state.donation.off = Date.now(); save(); toast("🫡 ¡Gracias de corazón!"); vApoya(); };
-  const bb = $("#btnBizum"); if (bb) bb.onclick = async () => { try { await navigator.clipboard.writeText(D0.bizumRaw || (D0.bizumNum || "").replace(/ /g, "")); toast("📋 Bizum copiado: " + (D0.bizumNum || "")); } catch (e) { toast("Bizum: " + (D0.bizumNum || "")); } };
+  const bb = $("#btnBizum"); if (bb) bb.onclick = async () => { try { await navigator.clipboard.writeText(D0.bizumRaw || ""); toast("📋 Número de Bizum copiado · concepto MICABO"); } catch (e) { toast("No se pudo copiar 🙈 · pídemelo por Telegram"); } };
 }
 
 /* ---- BIBLIOTECA: cuadernos MICABO propios (PDF) + fuentes oficiales gratuitas ---- */
