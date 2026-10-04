@@ -51,7 +51,7 @@ function pregunta(txt) {
   ocupado = true;
   const esp = burbuja("bot", "…");
   esp.classList.add("chat-espera");
-  fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ msg: txt }) })
+  fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ msg: txt, curso: (window.AO && AO.stateRef && AO.stateRef().course) || "" }) })
     .then(r => r.json().then(d => { if (!r.ok) throw new Error(d.error || "HTTP " + r.status); return d; }))
     .then(d => {
       esp.remove();

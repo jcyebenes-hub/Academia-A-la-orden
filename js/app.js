@@ -1,7 +1,7 @@
 /* MICABO · Academia de Tropa — motor de la app */
 (function () {
 "use strict";
-window.APPV = "112"; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
+window.APPV = "113"; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
 const $ = (s, el) => (el || document).querySelector(s);
 const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -217,6 +217,7 @@ function vHome() {
   if (cvN) TICKS.push({ i: "📢", h: "#/tramita", t: "<b>Convocatoria</b> · " + esc(cvN.nombre) + " · " + esc(cvN.badge) });
   TICKS.push({ i: "🎡", h: "#/trivial", t: "<b>NUEVO · Trivial de la Tropa</b>: ruleta de 6 quesitos, solo o por código" });
   TICKS.push({ i: "📚", h: "#/biblio", t: "<b>Biblioteca</b>: 17 cuadernos PDF gratis, uno por tema" });
+  TICKS.push({ i: "📖", h: "#/temario", t: "<b>Temario por bloques</b>: leer, dossier imprimible y test de cada bloque" });
   TICKS.push({ i: "⚔️", h: "#/duelo", t: "<b>Duelos 1vs1</b>: reta a un compañero con código de WhatsApp" });
   TICKS.push({ i: "📜", h: "#/exams", t: "<b>Exámenes oficiales</b> históricos para practicar" });
   TICKS.push({ i: "☕", h: "#/apoya", t: "<b>Meta de la tropa</b>: el dominio del año, entre todos" });
@@ -282,6 +283,7 @@ function vTrain() {
         '<button class="tile" id="mTopic"><span class="t-ico">📝</span><b>Por tema</b><span class="t-sub">elige y machaca</span></button>' +
         '<button class="tile" id="mBlock"><span class="t-ico">📦</span><b>Por bloque</b><span class="t-sub">por capítulos</span></button>' +
         '<button class="tile" id="mBiblio"><span class="t-ico">📚</span><b>Biblioteca</b><span class="t-sub">temarios y cuadernos PDF</span></button>' +
+        '<button class="tile" id="mTem"><span class="t-ico">📖</span><b>Temario</b><span class="t-sub">por bloques + dossier</span></button>' +
       '</div>' +
     '<p class="small muted center" style="margin-top:12px">Banco auditado: ' + n + ' preguntas verificadas contra normativa vigente en este curso (acta pública 20-sep-2026).</p>';
   bindCourses();
@@ -310,6 +312,7 @@ function vTrain() {
   $("#mSRS").onclick = () => { SR = null; location.hash = "#/srs"; };
   $("#mMaraton").onclick = () => { M = null; location.hash = "#/maraton"; };
   $("#mBiblio").onclick = () => location.hash = "#/biblio";
+  $("#mTem").onclick = () => location.hash = "#/temario";
 }
 function vPick(kind) {
   const c = COURSES[state.course];

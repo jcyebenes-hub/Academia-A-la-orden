@@ -409,6 +409,13 @@ const chatFAQ = {
     return { text: "El WhatsApp del proyecto se está rematando (muy pronto 📶). De momento pregúntame lo que quieras del temario o del examen, que para eso tengo las 1.300+ preguntas delante.", fuentes: [] };
   },
   dinero: () => ({ text: "MICABO es 100% gratis: todos los tests, temarios, simulacros y este chat. El proyecto se sostiene con el apoyo de quienes quieren echar una mano: si te apetece, en tu perfil (chip de usuario arriba) está la sección de apoyar el proyecto ☕, con la insignia 🏅 FUNDADOR de plazas limitadas. Con eso pagamos el servidor y seguimos sumando preguntas. Pero que quede claro: para estudiar y aprobar no hace falta pagar NADA.", fuentes: [] }),
+  temario: (curso) => {
+    const como = "\n\n📥 CÓMO ENTRAR: en la app, menú → 📖 Temario (por bloques: leer, dossier imprimible y test de cada bloque) o → 📚 Biblioteca (los temarios oficiales en PDF para leer y descargar).";
+    if (curso === "cabo") return { text: "El temario oficial del curso de ascenso a Cabo (nov-2025) son 2 capítulos:\n• Cap. 1 · Formación General Militar (~40% del examen): Reales Ordenanzas, Régimen Disciplinario (LO 8/2014), Código Penal Militar (LO 14/2015), Derechos y deberes (LO 9/2011), Carrera militar (Ley 39/2007), Organización del ET, Liderazgo y técnicas de mando, Régimen Interior, Seguridad en las FAS (RD 194/2010) y Formación Cívica y Humana.\n• Cap. 2 · Instrucción Táctica y Técnica (~60%): instrucción del combatiente (pelotón y escuadra), topografía, transmisiones, armamento y tiro, NBQ, primeros auxilios, orden cerrado, logística." + como, fuentes: [] };
+    if (curso === "cabo1") return { text: "El curso de Cabo 1º combina:\n• Oposición: Reales Ordenanzas, régimen disciplinario, Código Penal Militar y bases de la convocatoria.\n• Fase a distancia: inglés (ME7-029), geografía e historia (ME7-030), informática y formación común.\n• Fase presencial en Academia.\nEn la Biblioteca tienes los documentos oficiales del curso (temario de abril de 2026, guía docente, anexos, manual COT)." + como, fuentes: [] };
+    if (curso === "perm") return { text: "El temario de acceso a permanente (Anexo III de la O. DEF/1341/2017) son 3 bloques:\n• Organización\n• Jurídico-Social\n• Seguridad Nacional · Acción Conjunta · OISD (ONU, OTAN, UE, misiones, ESN 2022, Ley 36/2015…)" + como, fuentes: [] };
+    return { text: "Tenemos el temario de los 3 cursos. Dime cuál estudias (Cabo, Cabo 1º o Permanente) y te lo desgloso. Mientras tanto: en la app, menú → 📖 Temario (por bloques, con dossier y test) o → 📚 Biblioteca (temarios oficiales en PDF).", fuentes: [] };
+  },
   convocatoria: () => ({ text: "Lo esencial de la convocatoria de ascenso a Cabo (Ejército de Tierra):\n• El examen: 50 preguntas tipo test + 5 de reserva, 70 minutos.\n• Corrección: NO = (0,2 × aciertos) − (0,05 × errores). Las blancas no penalizan.\n• Requisito general: al menos 4 años de servicio y el TGCF superado (más los IPEC del año en curso para el concurso).\n• Últimos cortes: 4.335 (I/2025) y 4.390 (I/2024).\nTienes un simulacro oficial 50/70 dentro de la app y el tema «El examen» en el bloque C1.", fuentes: [] })
 };
 
@@ -520,7 +527,9 @@ const api = {
     if (c.d === dia) { c.n++; chatLimit.set(ip, c); } else chatLimit.set(ip, { d: dia, n: 1 });
     const m = norm(msg);
     let out = null;
+    const temarioOK = /(temario|asignatura|que estudiar|que tengo que estudiar|que entra|como entro|como veo el temario)/.test(m) && !/(art\.?\s?\d|articulo \d)/.test(m);
     if (/(whats?app|hablar con (vosotros|una persona|alguien|un humano)|persona real|atencion al cliente|contacto)/.test(m)) out = chatFAQ.contacto();
+    else if (temarioOK) out = chatFAQ.temario(["cabo", "cabo1", "perm"].includes(b.curso) ? b.curso : (u && users[u.id] ? users[u.id].curso : null));
     else if (/(dinero|aportar|apoyar|donar|donacion|kofi|ko-fi|cafe|premium|pagar|pago|cuesta|cuanto cuesta|fundador|suscripcion|gratis)/.test(m)) out = chatFAQ.dinero();
     else if (/(convocatoria|requisitos?|nota de corte|corte|cuantas preguntas|el examen|simulacro|70 minutos|plazas|cuando es)/.test(m)) out = chatFAQ.convocatoria();
     const fuentes = out && out.fuentes !== undefined ? out.fuentes : chatBusca(msg, 4);
@@ -528,7 +537,11 @@ const api = {
       const txt = fuentes.map(f => "📌 " + f.q + "\n✅ " + (f.a || "") + (f.x ? "\n📖 " + f.x : "")).join("\n\n");
       out = { text: "Esto es lo que tengo al respecto (material oficial de la app):\n\n" + txt, fuentes };
     }
-    if (!out) out = { text: "Eso no lo tengo claro, y prefiero callar antes que inventarme una norma 😅. Prueba a preguntarme por el temario (p. ej. «¿qué es un centinela?»), por el examen o por el proyecto. Si prefieres una persona, escribe «hablar con vosotros».", fuentes: [] };
+    if (!out) {
+      const wa = (process.env.WHATSAPP_NUMBER || "").replace(/[^0-9]/g, "");
+      if (wa) out = { text: "Eso no lo tengo claro, y prefiero callar antes que inventarme una norma 😅. Que no se pierda: mándanos la duda por WhatsApp y te la contestamos personalmente:\n👉 https://wa.me/" + wa + "?text=" + encodeURIComponent("Hola MICABO, mi duda es: " + msg), fuentes: [] };
+      else out = { text: "Eso no lo tengo claro, y prefiero callar antes que inventarme una norma 😅. Mientras el WhatsApp del equipo queda rematado, prueba con el temario (p. ej. «¿qué es un centinela?»), el examen o el proyecto. También puedes escribir «hablar con vosotros».", fuentes: [] };
+    }
     /* Con GEMINI_API_KEY: la IA redacta SOLO con el material recuperado (RAG). Si falla, vale la respuesta local. */
     const GKEY = process.env.GEMINI_API_KEY || "";
     if (GKEY) {
