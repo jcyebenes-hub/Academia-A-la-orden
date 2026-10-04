@@ -193,7 +193,8 @@ window.vCuenta = async function () {
       '<button class="btn btn-gold btn-block auth-cta">🚀 Crear cuenta gratis</button></form>' +
       '<div id="gsiBox" style="display:none"><div class="auth-div"><span>o</span></div><div id="gsiBtn" class="gsi-btn"></div></div>' +
       '<p class="small muted center" id="cErr" style="color:#b3261e;display:none;margin-top:10px"></p>' +
-      '<p class="small muted center" style="margin-top:12px">Cuenta gratis: ranking global <b>real</b>, punto 🟢 en línea y tu progreso en todos tus dispositivos. Datos mínimos y cifrados.</p></div></div>';
+      '<p class="small muted center" style="margin-top:12px">Cuenta gratis: ranking global <b>real</b>, punto 🟢 en línea y tu progreso en todos tus dispositivos. Datos mínimos y cifrados.</p>' +
+      '<p class="small muted center" style="margin:8px 0 0">🎓 ' + ((window.__bancoCurado || 0) > 0 ? '<b>' + window.__bancoCurado.toLocaleString("es-ES") + '</b> preguntas auditadas · ' : "") + '3 cursos · exámenes oficiales · duelos 1vs1.<br>Academias de pago: 25-50 € por convocatoria (o 39 €/mes). MICABO: <b>0 €</b>, sin premium.</p></div></div>';
     const err = m => { const e = $("#cErr"); e.textContent = m; e.style.display = "block"; };
     const tabs = [$("#tabIn"), $("#tabUp")], forms = [$("#formIn"), $("#formUp")];
     const marca = i => { tabs.forEach((t, j) => { t.className = "btn " + (j === i ? "btn-green" : "btn-ghost"); forms[j].style.display = j === i ? "block" : "none"; }); };

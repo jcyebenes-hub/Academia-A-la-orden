@@ -13,7 +13,7 @@
 
 > 🪖 ¿Preparando el ascenso a Cabo, el Cabo 1º o la Permanencia?
 > Me he pasado a una academia GRATIS que me está gustando más que la de pago:
-> ✅ 2.800+ preguntas con su artículo y su explicación
+> ✅ 1.400+ preguntas con su artículo y su explicación
 > ✅ Simulacro oficial 50 preguntas / 70 minutos (mismo formato del examen)
 > ✅ El examen real I/24 completo para practicar
 > ✅ Duelos 1vs1 por código (tócate contra tu promo 😏)
@@ -24,7 +24,7 @@
 
 **Versión unidad (grupos, más sobria):**
 
-> Compañeros, os paso esto por si os interesa: una app para preparar ascenso a Cabo / Cabo 1º / Permanencia. Es gratis de verdad (sin anuncios ni premium ocultos), tiene más de 2.800 preguntas con su justificación normativa, simulacros con el formato real (50+5 en 70 min) y duelos 1vs1 para competir entre nosotros. La estoy usando y el detalle de que cada pregunta cite su artículo es oro. 👉 https://academia-a-la-orden.onrender.com/app.html — el que entre estos días puede pillar insignia de FUNDADOR (solo hay 100 y no se repiten).
+> Compañeros, os paso esto por si os interesa: una app para preparar ascenso a Cabo / Cabo 1º / Permanencia. Es gratis de verdad (sin anuncios ni premium ocultos), tiene más de 1.400 preguntas con su justificación normativa, simulacros con el formato real (50+5 en 70 min) y duelos 1vs1 para competir entre nosotros. La estoy usando y el detalle de que cada pregunta cite su artículo es oro. 👉 https://academia-a-la-orden.onrender.com/app.html — el que entre estos días puede pillar insignia de FUNDADOR (solo hay 100 y no se repiten).
 
 ---
 
@@ -32,7 +32,7 @@
 
 > Hola a todos 👋 Os presento MICABO, una academia militar gratuita que he empezado a usar para el ascenso a Cabo:
 >
-> 🎯 **2.800+ preguntas** verificadas una a una contra el temario oficial (cada una con su norma y su artículo exacto)
+> 🎯 **1.400+ preguntas** verificadas una a una contra el temario oficial (cada una con su norma y su artículo exacto)
 > 📜 **Exámenes oficiales históricos** para practicar (el I/24 completo, con preguntas auténticas del cuadernillo)
 > ⏱️ **Simulacro** con el formato real: 50 + 5 preguntas, 70 minutos, corrección +0,2/−0,05
 > ⚔️ **Duelos 1vs1** por código para competir con los compañeros
@@ -49,14 +49,14 @@
 
 ## §3 · Foro Rincón de Tropa — hilo de presentación
 
-**Título:** MICABO — academia gratis para ascenso a Cabo, Cabo 1º y Permanencia (2.800+ preguntas auditadas, duelos, simulacro real)
+**Título:** MICABO — academia gratis para ascenso a Cabo, Cabo 1º y Permanencia (1.400+ preguntas auditadas, duelos, simulacro real)
 
 > Compañeros, os presento un proyecto al que le llevo tiempo y que podeis usar y destrozar sin piedad:
 >
 > **MICABO** (de "Mi Cabo") — una academia militar 100% gratuita, web y sin instalar nada: https://academia-a-la-orden.onrender.com/app.html
 >
 > Qué tiene:
-> - **Banco de 2.800+ preguntas** para los tres procesos: ascenso a Cabo (ET), Cabo 1º y acceso a Permanencia. Cada pregunta está redactada y auditada contra la fuente oficial (RD 96/2009, LO 8/2014, LO 14/2015, RD 194/2010, Ley 36/2015, OM 54/2014, convocatorias del BOD…) y la explicación cita norma y artículo exactos.
+> - **Banco de 1.400+ preguntas** para los tres procesos: ascenso a Cabo (ET), Cabo 1º y acceso a Permanencia. Cada pregunta está redactada y auditada contra la fuente oficial (RD 96/2009, LO 8/2014, LO 14/2015, RD 194/2010, Ley 36/2015, OM 54/2014, convocatorias del BOD…) y la explicación cita norma y artículo exactos.
 > - **Simulacro con el formato real** del examen de Cabo: 50 + 5 preguntas, 70 minutos, corrección oficial.
 > - **Exámenes oficiales históricos**: el I/24 completo con 20 preguntas auténticas del cuadernillo, verificadas contra normativa vigente.
 > - **Duelos 1vs1** con código para retar por WhatsApp, **trivial** de la tropa, **tutor** que insiste en tus fallos, **temporadas y ligas**.
@@ -76,7 +76,7 @@
 ## §4 · TikTok / Reels / Shorts — 3 guiones (móvil vertical, 20-30 s)
 
 **V1 — El contraste (el que más engancha)**
-- GANCHO (0-3 s, a cámara): "Las academias de Cabo cobran 39 €/MES. Esto otro es gratis y tiene 2.800 preguntas."
+- GANCHO (0-3 s, a cámara): "Las academias de Cabo cobran 39 €/MES. Esto otro es gratis y tiene 1.400 preguntas."
 - DEMO (3-20 s): grabar pantalla de la app: abre una pregunta → responde mal a propósito → se ve la explicación CON EL ARTÍCULO → zoom al artículo. Luego swap al simulacro 50/70.
 - CIERRE (20-30 s): "Y el que entra ahora, se queda la insignia de fundador. Son 100 y ya no se repiten. Enlace en bio. A por ello 🫡"
 - Texto en pantalla: "GRATIS. SIN ANUNCIOS. SIN TRUCOS."
@@ -113,5 +113,5 @@
 
 ## Extras rápidos
 - **Firma de foro/email**: `🪖 MICABO · ascenso a Cabo, Cabo 1º y Permanencia · gratis: academia-a-la-orden.onrender.com`
-- **Bio de TikTok/IG**: `🪖 Tu ascenso a Cabo, gratis | 2.800+ preguntas · duelos · chat IA | 👇`
+- **Bio de TikTok/IG**: `🪖 Tu ascenso a Cabo, gratis | 1.400+ preguntas · duelos · chat IA | 👇`
 - **Momentos de temporada** (publicar SIEMPRE que pase): publicación de bases I/26 en el BOD (otoño 2026) → "YA está aquí"; resolución I/25 (hecha, jul-2026) → "los que ascienden empezaron antes"; cada lote nuevo de preguntas → "entran 16 nuevas de…" (FOMO de versión); cada 25 FUNDADORES menos → captura del contador.

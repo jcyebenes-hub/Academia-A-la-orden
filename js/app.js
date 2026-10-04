@@ -1,7 +1,7 @@
 /* MICABO · Academia de Tropa — motor de la app */
 (function () {
 "use strict";
-window.APPV = "117"; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
+window.APPV = "118"; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
 const $ = (s, el) => (el || document).querySelector(s);
 const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -34,7 +34,8 @@ if (store.get("dark", false)) document.documentElement.classList.add("dark");
 /* ---- preguntas ---- */
 const BANK_ALL = QUESTIONS.concat(window.QUESTIONS2 || [], window.QUESTIONS3 || [], window.QUESTIONS4 || [], window.QUESTIONS5 || [], window.QUESTIONS6 || [], window.QUESTIONS7 || [], window.QUESTIONS8 || [], window.QUESTIONS9 || [], window.QUESTIONS10 || [], window.QUESTIONS11 || [], window.QUESTIONS12 || [], window.QUESTIONS13 || [], window.QUESTIONS14 || [], window.QUESTIONS15 || [], window.QUESTIONS16 || [], window.QUESTIONS17 || [], window.QUESTIONS18 || [], window.QUESTIONS19 || [], window.QUESTIONS20 || [], window.QUESTIONS21 || [], window.QUESTIONS22 || [], window.QUESTIONS23 || [], window.QUESTIONS24 || []);
 const _VERD = window.VERDICTS || {};
-const BANK = BANK_ALL.filter(q => { const v = _VERD[q.id]; return !(v && v.v === "ko") && q.status !== "borrador" && q.gen !== true; }); /* solo preguntas curadas: los borradores del generador esperan validación */
+const BANK = (function(){ const _s = new Set(), _o = []; BANK_ALL.forEach(q => { const v = _VERD[q.id]; if ((v && v.v === "ko") || q.status === "borrador" || q.gen === true || _s.has(q.id)) return; _s.add(q.id); _o.push(q); }); return _o; })(); /* dedupe por id (un lote podía estar en dos bancos: pe001-016) · solo preguntas curadas: los borradores del generador esperan validación */
+window.__bancoCurado = BANK.length; /* cifra REAL, la usan las pantallas de acceso y el marketing */
 BANK.forEach(q => { if (q.x) q.x = String(q.x).replace(/^Respuesta:\s*[a-dA-D][.)]\s*/, "").replace(/^Literal:\s*/, ""); }); /* prefijos redundantes fuera */
 const byId = {}; BANK.forEach(q => byId[q.id] = q);
 
@@ -204,6 +205,7 @@ function vHome() {
     '<div class="card" style="margin-bottom:12px"><span class="badge badge-gold">Examen ' + esc(c.badge) + '</span>' +
       '<h3>' + esc(c.tagline) + '</h3><p>' + esc(c.exam.formula) + ' · Nota máxima ' + c.exam.max + ' · Corte: ' + esc(c.cutoff) + '</p>' +
       '<button class="btn btn-green btn-block" id="goStudy">Empezar a entrenar →</button></div>' +
+    '<div class="card" style="margin-bottom:12px"><div class="topic-row"><span>📚 <b>' + BANK.length.toLocaleString("es-ES") + ' preguntas auditadas</b> · 3 cursos · exámenes oficiales · duelos 1vs1<span class="small muted"><br>el banco crece cada semana — y sigue sin costar un euro</span></span></div></div>' +
     '<div class="card" style="margin-bottom:12px"><div class="topic-row"><span>🎯 <b>Reto diario</b> · 10 preguntas · +50 XP<br><span class="small muted">' + (state.daily.date === new Date().toDateString() && state.daily.done ? "Completado hoy ✔ · vuelve mañana para mantener la racha" : "Disponible ahora: se recalcula cada día") + '</span></span><a class="btn btn-gold btn-sm" href="#/diario">' + (state.daily.date === new Date().toDateString() && state.daily.done ? "Hecho ✔" : "Jugar") + '</a></div></div>' +
     '<div class="grid2">' +
       '<div class="card"><h3>🎯 Repaso inteligente</h3><p>' + (fails ? "Tienes <b>" + fails + "</b> preguntas falladas en este curso. Límpialas y sube nota." : "Sin fallos pendientes en este curso. ¡A por el simulacro!") + '</p><a class="btn btn-ghost btn-sm" href="#/fallos">Repasar fallos</a></div>' +
