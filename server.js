@@ -357,6 +357,61 @@ function redsysCheckNotify(bodyParams) {
   } catch (e) { return { ok: false, data: {} }; }
 }
 
+/* ---------- Sargento MICABO (chat de ayuda con IA) ----------
+   Corpus: TODAS las preguntas del banco con su justificación (búsqueda local).
+   Si hay GEMINI_API_KEY, las respuestas las redacta la IA SOLO con ese material (RAG).
+   Sin clave, el chat sigue funcionando en modo local (FAQ + búsqueda en el banco). */
+const CHAT_CORPUS = (function () {
+  try {
+    const dir = path.join(ROOT, "js");
+    const W = {}; const g = new Function("window", "return window;");
+    for (const f of fs.readdirSync(dir).filter(f => /^(data|bank\d+)\.js$/.test(f)).sort()) {
+      try { new Function("window", fs.readFileSync(path.join(dir, f), "utf8") + "\n;if (typeof QUESTIONS !== 'undefined') window.QUESTIONS = QUESTIONS;")(W); } catch (e) {}
+    }
+    const out = [];
+    for (const k of Object.keys(W)) {
+      if (!/^QUESTIONS/.test(k) || !Array.isArray(W[k])) continue;
+      for (const q of W[k]) if (q && q.id && q.q) out.push({ id: q.id, t: q.t || "", q: String(q.q), a: Array.isArray(q.o) && typeof q.a === "number" ? q.o[q.a] : "", x: String(q.x || "") });
+    }
+    log("chat_corpus", out.length, "preguntas");
+    return out;
+  } catch (e) { log("chat_corpus_err", e.message); return []; }
+})();
+const norm = s => String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9ñ ]/g, " ");
+const STOPW = new Set("como cual cuales cuando donde cuanto cuantos que quien para pero desde sobre entre segun mas menos tambien entonces porque con por del las los una unos unas este esta eso eso sontiene tiene pueden puede deben decirme explicar explicame dime saber sabes hola buenos dias tardes noche gracias graciaspor todo todos todas".split(" "));
+function chatBusca(msg, n) {
+  /* 1) por id: «explícame la rt070», «pregunta rt 82»… */
+  const mid = /\brt\s?0?(\d{1,3})\b/.exec(norm(msg));
+  if (mid) {
+    const id = "rt" + String(parseInt(mid[1], 10)).padStart(3, "0");
+    const hit = CHAT_CORPUS.find(q => q.id === id);
+    if (hit) return [hit];
+  }
+  /* 2) por palabras completas (evita «gano» ⊂ «órgano») */
+  const toks = [...new Set(norm(msg).split(/\s+/).filter(t => t.length > 3 && !STOPW.has(t)))];
+  if (!toks.length) return [];
+  const scored = CHAT_CORPUS.map(q => {
+    const hq = norm(q.q), hx = norm(q.x + " " + q.t + " " + q.a);
+    let sc = 0, hits = 0;
+    for (const t of toks) {
+      const re = new RegExp("\\b" + t + "\\b");
+      if (re.test(hq)) { sc += 3; hits++; } else if (re.test(hx)) { sc += 1; hits++; }
+    }
+    return { q, sc, hits };
+  }).filter(r => r.sc >= 5).sort((a, b) => b.sc - a.sc || b.hits - a.hits).slice(0, n || 3);
+  return scored.map(r => r.q);
+}
+const chatLimit = new Map(); /* ip → {día, nº} · 25/día */
+const chatFAQ = {
+  contacto: () => {
+    const wa = (process.env.WHATSAPP_NUMBER || "").replace(/[^0-9]/g, "");
+    if (wa) return { text: "Claro, aquí el equipo de verdad 🎖️ Escríbenos por WhatsApp y te contestamos personalmente: https://wa.me/" + wa + " (dinos qué curso estudias y tu duda concreta, así llegamos antes al grano).", fuentes: [] };
+    return { text: "El WhatsApp del proyecto se está rematando (muy pronto 📶). De momento pregúntame lo que quieras del temario o del examen, que para eso tengo las 1.300+ preguntas delante.", fuentes: [] };
+  },
+  dinero: () => ({ text: "MICABO es 100% gratis: todos los tests, temarios, simulacros y este chat. El proyecto se sostiene con el apoyo de quienes quieren echar una mano: si te apetece, en tu perfil (chip de usuario arriba) está la sección de apoyar el proyecto ☕, con la insignia 🏅 FUNDADOR de plazas limitadas. Con eso pagamos el servidor y seguimos sumando preguntas. Pero que quede claro: para estudiar y aprobar no hace falta pagar NADA.", fuentes: [] }),
+  convocatoria: () => ({ text: "Lo esencial de la convocatoria de ascenso a Cabo (Ejército de Tierra):\n• El examen: 50 preguntas tipo test + 5 de reserva, 70 minutos.\n• Corrección: NO = (0,2 × aciertos) − (0,05 × errores). Las blancas no penalizan.\n• Requisito general: al menos 4 años de servicio y el TGCF superado (más los IPEC del año en curso para el concurso).\n• Últimos cortes: 4.335 (I/2025) y 4.390 (I/2024).\nTienes un simulacro oficial 50/70 dentro de la app y el tema «El examen» en el bloque C1.", fuentes: [] })
+};
+
 /* ---------- Google Sign-In (JWKS de Google en caché 6 h) ---------- */
 let GOOGLE_JWKS = null;
 
@@ -370,7 +425,8 @@ const api = {
       plans: Object.values(PLANS).map(p => ({ id: p.id, label: p.label, monthly: p.monthly, single: p.single })),
       coupons: Object.keys(COUPONS), founderSlotsLeft: Math.max(0, FOUNDER_LIMIT - founders),
       payMode, contentStrict: ENV.CONTENT_STRICT, demoMode: payMode === "sandbox",
-      gcid: process.env.GOOGLE_CLIENT_ID || "" /* Sign in with Google: aparece al definir GOOGLE_CLIENT_ID */
+      gcid: process.env.GOOGLE_CLIENT_ID || "", /* Sign in with Google: aparece al definir GOOGLE_CLIENT_ID */
+      wa: (process.env.WHATSAPP_NUMBER || "").replace(/[^0-9]/g, "") /* WhatsApp del proyecto para el chat */
     });
   },
   "POST /api/register": async (req, res, b, u, q, ip) => {
@@ -452,6 +508,45 @@ const api = {
       setCookie(req, res, tok);
       send(res, 200, { ok: true, user: publicUser(users[id]) });
     } catch (e) { log("google_err", e.message); return bad(res, "No se pudo validar el acceso con Google"); }
+  },
+  "POST /api/chat": async (req, res, b, u, q, ip) => {
+    /* Sargento MICABO: búsqueda local en el banco + FAQ; con GEMINI_API_KEY redacta la IA con ese material. */
+    const msg = String(b.msg || "").trim().slice(0, 400);
+    if (!msg) return bad(res, "Escribe una pregunta");
+    /* límite sencillo anti-abuso: 25 conversaciones/día por IP */
+    const dia = Math.floor(now() / 86400e3);
+    const c = chatLimit.get(ip) || { d: dia, n: 0 };
+    if (c.d === dia && c.n >= 25) return send(res, 429, { error: "Has agotado las consultas de hoy (25/día). Mañana sigo a tu entera disposición 🎖️" });
+    if (c.d === dia) { c.n++; chatLimit.set(ip, c); } else chatLimit.set(ip, { d: dia, n: 1 });
+    const m = norm(msg);
+    let out = null;
+    if (/(whats?app|hablar con (vosotros|una persona|alguien|un humano)|persona real|atencion al cliente|contacto)/.test(m)) out = chatFAQ.contacto();
+    else if (/(dinero|aportar|apoyar|donar|donacion|kofi|ko-fi|cafe|premium|pagar|pago|cuesta|cuanto cuesta|fundador|suscripcion|gratis)/.test(m)) out = chatFAQ.dinero();
+    else if (/(convocatoria|requisitos?|nota de corte|corte|cuantas preguntas|el examen|simulacro|70 minutos|plazas|cuando es)/.test(m)) out = chatFAQ.convocatoria();
+    const fuentes = out && out.fuentes !== undefined ? out.fuentes : chatBusca(msg, 4);
+    if (!out && fuentes.length) {
+      const txt = fuentes.map(f => "📌 " + f.q + "\n✅ " + (f.a || "") + (f.x ? "\n📖 " + f.x : "")).join("\n\n");
+      out = { text: "Esto es lo que tengo al respecto (material oficial de la app):\n\n" + txt, fuentes };
+    }
+    if (!out) out = { text: "Eso no lo tengo claro, y prefiero callar antes que inventarme una norma 😅. Prueba a preguntarme por el temario (p. ej. «¿qué es un centinela?»), por el examen o por el proyecto. Si prefieres una persona, escribe «hablar con vosotros».", fuentes: [] };
+    /* Con GEMINI_API_KEY: la IA redacta SOLO con el material recuperado (RAG). Si falla, vale la respuesta local. */
+    const GKEY = process.env.GEMINI_API_KEY || "";
+    if (GKEY) {
+      try {
+        const ctx = fuentes.map(f => "- [" + f.id + "] " + f.t + ". Pregunta: " + f.q + " Respuesta correcta: " + f.a + ". Justificación: " + f.x).join("\n") || "(sin coincidencias del banco)";
+        const sys = "Eres el Sargento MICABO, instructor de una academia gratis para el ascenso a Cabo del Ejército de Tierra español. Responde SOLO con el MATERIAL aportado; nunca inventes normas, artículos ni datos. Español de España, trato de tú, claro y cercano, máximo 130 palabras. Si la respuesta no está en el material, dilo con honestidad y sugiere escribir «hablar con vosotros» para contactar al equipo. Cuando el material cite norma y artículo, menciónalos.";
+        const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + (process.env.GEMINI_MODEL || "gemini-2.5-flash") + ":generateContent?key=" + GKEY, {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ systemInstruction: { parts: [{ text: sys }] }, contents: [{ role: "user", parts: [{ text: "MATERIAL:\n" + ctx + "\n\nPREGUNTA DEL ALUMNO: " + msg }] }], generationConfig: { temperature: 0.3, maxOutputTokens: 400 } })
+        });
+        if (r.ok) {
+          const d = await r.json();
+          const t = d && d.candidates && d.candidates[0] && d.candidates[0].content && d.candidates[0].content.parts && d.candidates[0].content.parts[0] && d.candidates[0].content.parts[0].text;
+          if (t) out = { text: String(t).trim(), fuentes, modo: "ia" };
+        } else log("gemini_err", r.status);
+      } catch (e) { log("gemini_exc", e.message); }
+    }
+    send(res, 200, { ok: true, text: out.text, fuentes: fuentes.slice(0, 3), modo: out.modo || "local" });
   },
   "POST /api/curso": (req, res, b, u) => {
     if (!u) return send(res, 401, { error: "Sin sesión" });
@@ -852,7 +947,7 @@ const server = http.createServer((req, res) => {
     if (!handler) return send(res, 404, { error: "Endpoint no encontrado: " + req.method + " " + pathname });
     if (req.method === "POST" && !/webhooks|verify/.test(pathname) && !sameOrigin(req)) return send(res, 403, { error: "Origen no permitido" });
     const WEBHOOKS = ["POST /api/webhooks/stripe", "POST /api/webhooks/redsys", "POST /api/webhooks/kofi"];
-    const PUBLIC = ["GET /api/health", "GET /api/config", "POST /api/register", "POST /api/login", "POST /api/logout", "POST /api/reset-request", "POST /api/reset-confirm", "GET /api/verify", "GET /api/ranking", "POST /api/beat", "POST /api/google", "GET /api/online", "GET /api/apoyos", "GET /api/checkout/sid", "GET /api/admin/stats", "POST /api/duelo/crear", "GET /api/duelo/mis", "POST /api/duelo/resultado", "GET /api/duelo/recientes", "POST /api/duelo/unir", "POST /api/duelo/azar", "POST /api/trivial/crear", "POST /api/trivial/unir", "POST /api/trivial/estado", "GET /api/trivial/ver"].concat(WEBHOOKS);
+    const PUBLIC = ["GET /api/health", "GET /api/config", "POST /api/register", "POST /api/login", "POST /api/logout", "POST /api/reset-request", "POST /api/reset-confirm", "GET /api/verify", "GET /api/ranking", "POST /api/beat", "POST /api/google", "POST /api/chat", "GET /api/online", "GET /api/apoyos", "GET /api/checkout/sid", "GET /api/admin/stats", "POST /api/duelo/crear", "GET /api/duelo/mis", "POST /api/duelo/resultado", "GET /api/duelo/recientes", "POST /api/duelo/unir", "POST /api/duelo/azar", "POST /api/trivial/crear", "POST /api/trivial/unir", "POST /api/trivial/estado", "GET /api/trivial/ver"].concat(WEBHOOKS);
     const u = userFromReq(req);
     if (!PUBLIC.includes(req.method + " " + pathname) && !u) return send(res, 401, { error: "Sesión no iniciada" });
     try { await handler(req, res, body, u, url.searchParams, ip, raw); }

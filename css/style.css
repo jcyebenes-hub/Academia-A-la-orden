@@ -536,3 +536,39 @@ input,select,textarea{border-radius:12px}
 .auth-div::before,.auth-div::after{content:"";flex:1;height:1px;background:var(--line)}
 .gsi-btn{display:flex;justify-content:center;min-height:44px}
 @media (prefers-reduced-motion:reduce){.auth-card{animation:none}}
+
+/* ════════ v107 · SARgento MICABO (chat de ayuda IA) ════════ */
+#chatFab{position:fixed;right:14px;bottom:82px;z-index:1200;display:flex;align-items:center;gap:8px;
+  border:0;cursor:pointer;font-size:1.3rem;color:#fff;font-family:var(--font);
+  background:linear-gradient(135deg,var(--green) 30%,var(--gold-d));border-radius:28px;padding:13px 18px;
+  box-shadow:0 10px 26px rgba(20,61,38,.4);transition:transform .12s}
+#chatFab:active{transform:scale(.94)}
+.chat-fab-txt{font-size:.92rem;font-weight:700;letter-spacing:.03em}
+#chatWin{position:fixed;right:10px;bottom:148px;z-index:1201;width:min(370px,calc(100vw - 20px));
+  max-height:min(560px,calc(100vh - 170px));display:none;flex-direction:column;overflow:hidden;
+  background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 50px rgba(20,61,38,.35)}
+#chatWin.on{display:flex;animation:authUp .25s ease-out both}
+.chat-head{display:flex;align-items:center;gap:10px;padding:12px 14px;color:#fff;
+  background:linear-gradient(120deg,var(--green) 25%,var(--green-d))}
+.chat-avatar{font-size:1.5rem}
+.chat-hd{display:flex;flex-direction:column;line-height:1.25;flex:1}
+.chat-hd span{font-size:.74rem;opacity:.85}
+.chat-head button{border:0;background:rgba(255,255,255,.15);color:#fff;font-size:.95rem;width:30px;height:30px;border-radius:10px;cursor:pointer}
+.chat-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:var(--bg)}
+.chat-msg{max-width:86%;padding:9px 12px;border-radius:14px;font-size:.93rem;line-height:1.45;word-break:break-word}
+.chat-bot{align-self:flex-start;background:var(--card);border:1px solid var(--line);border-bottom-left-radius:4px}
+.chat-yo{align-self:flex-end;background:var(--green);color:#fff;border-bottom-right-radius:4px}
+.chat-espera{opacity:.5;letter-spacing:.3em}
+.chat-fuente{align-self:flex-start;font-size:.72rem;color:var(--muted);background:var(--card2);
+  border-radius:8px;padding:3px 8px;margin-top:-4px}
+.chat-chips{display:flex;gap:6px;padding:8px 10px;overflow-x:auto;background:var(--bg);border-top:1px solid var(--line)}
+.chat-chip{flex:0 0 auto;border:1.5px solid var(--line);background:var(--card);color:var(--ink);
+  font-size:.78rem;font-weight:600;padding:7px 11px;border-radius:14px;cursor:pointer;font-family:var(--font)}
+.chat-chip:active{background:var(--card2)}
+.chat-in{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line);background:var(--card)}
+.chat-in input{flex:1;min-width:0;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);
+  border-radius:12px;padding:10px 12px;font-size:.95rem;outline:none;font-family:var(--font)}
+.chat-in input:focus{border-color:var(--gold)}
+.chat-send{border:0;cursor:pointer;background:var(--gold);color:#fff;font-size:1.05rem;
+  width:44px;border-radius:12px}
+@media (max-width:560px){#chatFab{bottom:78px;padding:12px 15px}#chatWin{bottom:140px}}
