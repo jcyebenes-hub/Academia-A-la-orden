@@ -183,3 +183,57 @@ window.descargarBloque = function (i) {
   const html = window.temarioDoc([b], b.title + " — dossier de examen");
   if (typeof descargaArchivo === "function") descargaArchivo("a-la-orden-bloque-" + (i + 1) + ".html", html, "text/html");
 };
+
+/* ---- ESTRUCTURA POR CURSO (v120): ramas reales del banco, agrupadas por bloque oficial ---- */
+window.TEMARIO_GRUPOS = {
+  cabo: [
+    { k: "C1", t: "🟨 CAPÍTULO 1 · Formación general militar", sub: "~40% del examen — empieza por aquí" },
+    { k: "C2", t: "🟩 CAPÍTULO 2 · Instrucción y combate", sub: "táctica, armamento y técnicas" }
+  ],
+  perm: [
+    { k: "B1", t: "📗 BLOQUE I · Jurídico-social y Defensa Nacional", sub: "Constitución, personal, ordenamiento" },
+    { k: "B2", t: "📘 BLOQUE II · Condición y carrera del militar de tropa", sub: "adquisición, compromiso, situaciones" },
+    { k: "B3", t: "📙 BLOQUE III · Entorno internacional, seguridad y forma física", sub: "OTAN, UE, ONU, misiones, físicas" }
+  ],
+  cabo1: [
+    { k: "B1", t: "📘 BLOQUE I · Fase de oposición", sub: "temario presencial del curso" },
+    { k: "B2", t: "📙 BLOQUE II · Fase a distancia y sostenimiento", sub: "inglés (ME7-029), mando, administración" }
+  ]
+};
+window.TEMARIO_ORDEN = {
+  cabo: {
+    C1: ["Reales Ordenanzas","Seguridad en las FAS","Régimen Disciplinario","Código Penal Militar","Organización de la Defensa","Organización del ET","Carrera militar","Derechos y deberes","Liderazgo","Constitución","Instrucción cívica","Enseñanza militar","OTAN y UE","Logística","Régimen Interior","El examen"],
+    C2: ["Instrucción del combatiente","Transmisiones","Topografía","NBQ","Primeros auxilios","Armamento","Armamento y tiro"]
+  },
+  perm: {
+    B1: ["El examen","Constitución","Defensa Nacional","MINISDEF","FAS"],
+    B2: ["Derechos y deberes","Carrera militar","Tropa y marinería","Situaciones","Concurso"],
+    B3: ["Seguridad Nacional","Doctrina","ESN","OTAN","OSCE","UE","ONU","Misiones","Físicas","Convocatoria"]
+  },
+  cabo1: {
+    B1: ["El examen","Organización","Mando y liderazgo","Régimen disciplinario","Documentación","Geografía","Historia","Tiro","Topografía","Primeros auxilios","NBQ","Logística","Seguridad"],
+    B2: ["Inglés","NBQ","Técnicas de mando","Administración"]
+  }
+};
+window.TEMARIO_EXAMEN_CURSO = {
+  perm: {
+    titulo: "🛡️ La prueba, tal cual es (Convocatoria 2026)",
+    lineas: [
+      "100 preguntas · 4 alternativas · 120 minutos",
+      "Puntuación: P = A − [E / (n − 1)] · copiar anula (0 puntos)",
+      "Eliminatoria: quedar por debajo de media − 1 desviación típica",
+      "Corte normativo: normativa vigente a 1 de septiembre de 2026",
+      "1.000 plazas de acceso a la condición de militar de tropa permanente"
+    ],
+    fuente: "Res. 452/08724/26 (BOD nº 116, 17-jun-2026) · temario: Anexo III de la O. DEF/1341/2017"
+  },
+  cabo1: {
+    titulo: "🎖️ Tu camino, tal cual es (Convocatoria 2026)",
+    lineas: [
+      "Fase de oposición (examen y ejercicios) + fase a distancia + curso presencial",
+      "Fase a distancia: inglés (ME7-029), geografía-historia (ME7-030), informática",
+      "Curso presencial en la Academia de Infantería (Toledo)"
+    ],
+    fuente: "Convocatoria Cabo 1º 2026 y su modificación (BOD) · temario de abril-2026 del curso"
+  }
+};

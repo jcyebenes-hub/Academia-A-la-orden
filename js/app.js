@@ -1,7 +1,7 @@
 /* MICABO · Academia de Tropa — motor de la app */
 (function () {
 "use strict";
-window.APPV = "119"; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
+window.APPV = "120"; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
 const $ = (s, el) => (el || document).querySelector(s);
 const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -605,35 +605,85 @@ function vTemario() {
   const T = window.TEMARIO;
   if (!T) { view().innerHTML = '<div class="view-head"><h1>Temario</h1></div><p class="small muted">Actualizando el temario… recarga en unos segundos.</p>'; return; }
   const esET = state.course === "cabo";
-  const bloquesHtml = T.bloques.map((b, i) => {
-    if (!esET && b.cap !== 1) return "";
-    const nIds = bank(state.course).filter(q => b.temas.indexOf(q.t) >= 0).length;
-    return '<details class="acc"' + (b.destacar ? " open" : "") + '><summary>' + (b.cap === 1 ? "🟨" : "🟩") + ' <b>' + esc(b.title) + '</b> <span class="badge">' + esc(b.peso) + "</span></summary><div class=\"acc-body\">" +
-      '<p class="small muted" style="margin:6px 0">' + esc(b.intro) + "</p>" +
-      '<div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">' +
+  const B = bank(state.course);
+
+  /* ---- árbol de ramas: por grupos oficiales del curso, con contadores reales ---- */
+  const grupos = (window.TEMARIO_GRUPOS && window.TEMARIO_GRUPOS[state.course]) || [];
+  const orden = (window.TEMARIO_ORDEN && window.TEMARIO_ORDEN[state.course]) || {};
+  const arbol = grupos.map(g => {
+    const names = orden[g.k] || [];
+    const presentes = names.filter(t => B.some(q => q.b === g.k && q.t === t));
+    const extras = [...new Set(B.filter(q => q.b === g.k).map(q => q.t))].filter(t => presentes.indexOf(t) < 0).sort();
+    const todos = presentes.concat(extras);
+    if (!todos.length) return "";
+    const total = todos.reduce((acc, t) => acc + B.filter(q => q.b === g.k && q.t === t).length, 0);
+    const filas = todos.map(t => {
+      const n = B.filter(q => q.b === g.k && q.t === t).length;
+      return '<div class="topic-row"><span>· ' + esc(t) + ' <span class="muted">(' + n + ')</span></span><button class="btn btn-green btn-sm" data-tema="' + esc(t) + '" data-bk="' + g.k + '">🎯 Test</button></div>';
+    }).join("");
+    return '<details class="acc"><summary><b>' + esc(g.t) + '</b> <span class="badge">' + total + ' preg.</span></summary><div class="acc-body">' +
+      (g.sub ? '<p class="small muted" style="margin:6px 0">' + esc(g.sub) + '</p>' : "") + filas +
+      '<button class="btn btn-gold btn-sm" style="margin-top:8px" data-btest="' + g.k + '">🎯 Test del bloque (' + Math.min(total, 30) + ' preg.)</button>' +
+      '</div></details>';
+  }).join("");
+
+  /* ---- tarjeta de examen propia de cada curso ---- */
+  let examenCard = "";
+  if (esET) {
+    const reparto = T.examen.reparto.map(r => '<div class="topic-row"><span>· ' + esc(r[0]) + '</span><b>' + r[1] + ' preg.</b></div>').join("");
+    examenCard = '<div class="card" style="border-color:var(--gold)"><h3>📋 El examen, tal cual es</h3>' +
+      '<p class="small">' + esc(T.examen.preguntas) + " · " + esc(T.examen.duracion) + '<br>' + esc(T.examen.formula) + '<br><b>Notas de corte:</b> ' + esc(T.examen.cortes) + "</p>" +
+      '<h3>Reparto real (examen feb-2026)</h3>' + reparto +
+      '<p class="small muted" style="margin-top:8px">⚠️ <b>La normativa militar (Cap. 1) pesa el 40%</b>: 20 de 50 preguntas. Empieza por ahí.</p></div>';
+  } else {
+    const ex = (window.TEMARIO_EXAMEN_CURSO || {})[state.course];
+    if (ex) examenCard = '<div class="card" style="border-color:var(--gold)"><h3>' + esc(ex.titulo) + '</h3><p class="small">' + ex.lineas.map(l => "· " + esc(l)).join("<br>") + '</p><p class="small muted" style="margin-top:8px">' + esc(ex.fuente) + '</p></div>';
+  }
+
+  /* ---- bloques oficiales con dossier (solo Cabo ET, agrupados por capítulo) ---- */
+  let bloquesHtml = "";
+  if (esET) {
+    let lastCap = 0;
+    bloquesHtml = T.bloques.map((b, i) => {
+      let h = "";
+      if (b.cap !== lastCap) { lastCap = b.cap; h = '<h3 style="margin:16px 0 6px">' + (b.cap === 1 ? "🟨 CAPÍTULO 1 · Formación general militar (~40% del examen)" : "🟩 CAPÍTULO 2 · Instrucción y combate") + '</h3>'; }
+      const nIds = B.filter(q => b.temas.indexOf(q.t) >= 0).length;
+      return h + '<details class="acc"' + (b.destacar ? " open" : "") + '><summary>' + (b.cap === 1 ? "🟨" : "🟩") + ' <b>' + esc(b.title) + '</b> <span class="badge">' + esc(b.peso) + "</span></summary><div class=\"acc-body\">" +
+        '<p class="small muted" style="margin:6px 0">' + esc(b.intro) + "</p>" +
+        '<div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">' +
         '<button class="btn btn-gold btn-sm" data-tdoc="' + i + '">⬇️ Dossier del bloque</button>' +
         (nIds ? '<button class="btn btn-green btn-sm" data-ttest="' + i + '">🎯 Test del bloque (' + nIds + ' preg.)</button>' : '<span class="badge badge-green">test en preparación</span>') +
-      "</div>" +
-      '<p class="small muted">Fuentes: ' + b.fuentes.map(f => '<a href="' + f.u + '" target="_blank" rel="noopener">' + esc(f.t) + "</a>").join(" · ") + "</p>" +
-      "</div></details>";
-  }).join("");
-  const reparto = T.examen.reparto.map(r => '<div class="topic-row"><span>· ' + esc(r[0]) + '</span><b>' + r[1] + ' preg.</b></div>').join("");
+        "</div>" +
+        '<p class="small muted">Fuentes: ' + b.fuentes.map(f => '<a href="' + f.u + '" target="_blank" rel="noopener">' + esc(f.t) + "</a>").join(" · ") + "</p>" +
+        "</div></details>";
+    }).join("");
+  }
+
   const comp = (esET ? '<details class="acc"><summary>🧰 <b>Cultura militar complementaria</b> <span class="badge">refuerzo</span></summary><div class="acc-body"><p class="small muted">No son bloques propios del temario de Cabo, pero consolidan base (y ayudan en Permanencia y Cabo 1º):</p>' +
-    T.complementarias.map(t => { const n = bank(state.course).filter(q => q.t === t).length; return n ? '<div class="topic-row"><span>· ' + esc(t) + ' <span class="muted">(' + n + ')</span></span><button class="btn btn-green btn-sm" data-ctema="' + esc(t) + '">🎯 Test</button></div>' : '<div class="topic-row"><span>· ' + esc(t) + '</span><span class="badge">pronto</span></div>'; }).join("") + "</div></details>" : "");
-  view().innerHTML = '<div class="view-head"><h1>Temario oficial · ' + esc(COURSES[state.course].name || COURSES[state.course].nombre) + "</h1></div>" + courseCards() + biblioOficial() +
-    '<div class="card" style="border-color:var(--gold)"><h3>📋 El examen, tal cual es</h3>' +
-    '<p class="small">' + esc(T.examen.preguntas) + " · " + esc(T.examen.duracion) + '<br>' + esc(T.examen.formula) + '<br><b>Notas de corte:</b> ' + esc(T.examen.cortes) + "</p>" +
-    '<h3>Reparto real (examen feb-2026)</h3>' + reparto +
-    '<p class="small muted" style="margin-top:8px">⚠️ <b>La normativa militar (Cap. 1) pesa el 40%</b>: 20 de 50 preguntas. Empieza por ahí.</p></div>' +
-    '<div class="card" style="margin-top:12px"><button class="btn btn-gold btn-block" id="btnTemTodo">⬇️ Descargar TEMARIO COMPLETO (imprimible)</button><p class="small muted" style="margin-top:6px">Se descarga un .html listo para abrir e imprimir como PDF: los 10 bloques, con lo que entra y lo esencial. Fuente: temario MADOC del Rincón de Tropa, enlazado al BOE.</p></div>' +
-    bloquesHtml + comp +
-    '<div class="card" style="margin-top:12px"><h3>🔔 Anti-obsoleto</h3><p class="small muted">Estructura según el temario oficial de la oposición (MADOC, Rincón de Tropa) y el examen real de febrero de 2026 (convocatoria I/25). Si el MADOC modifica el temario o sale convocatoria nueva, actualizamos este dossier y aviso en el canal de tu curso.</p></div>';
+    T.complementarias.map(t => { const n = B.filter(q => q.t === t).length; return n ? '<div class="topic-row"><span>· ' + esc(t) + ' <span class="muted">(' + n + ')</span></span><button class="btn btn-green btn-sm" data-ctema="' + esc(t) + '">🎯 Test</button></div>' : '<div class="topic-row"><span>· ' + esc(t) + '</span><span class="badge">pronto</span></div>'; }).join("") + "</div></details>" : "");
+
+  const FUENTES = {
+    perm: "Fuentes de tu temario: Anexo III de la O. DEF/1341/2017 · Res. 452/08724/26 (BOD nº 116, 17-jun-2026) · Material Jurídico-Social T1-T8 · Nota informativa 02-04-2025.",
+    cabo1: "Fuentes de tu temario: Temario del curso (actualización abril-2026) · ME7-029 Inglés · ME7-030 Geografía e Historia · Formación común JUL-2022 · Manual COT.",
+    cabo: "Estructura según el temario oficial de la oposición (MADOC, Rincón de Tropa) y el examen real de febrero de 2026 (convocatoria I/25)."
+  }[state.course] || "";
+
+  view().innerHTML = '<div class="view-head"><h1>Temario oficial · ' + esc(COURSES[state.course].name || COURSES[state.course].nombre) + "</h1></div>" + courseCards() + biblioOficial() + examenCard +
+    '<div class="card" style="margin-top:12px"><h3>🌳 Tu temario, por ramas</h3><p class="small muted" style="margin:4px 0 8px">Cada rama lleva su test: toca y entrena. Los contadores son reales (' + B.length.toLocaleString("es-ES") + ' preguntas auditadas en tu curso).</p>' + arbol + "</div>" +
+    (esET ? '<div class="card" style="margin-top:12px"><button class="btn btn-gold btn-block" id="btnTemTodo">⬇️ Descargar TEMARIO COMPLETO (imprimible)</button><p class="small muted" style="margin-top:6px">Se descarga un .html listo para abrir e imprimir como PDF: los 10 bloques, con lo que entra y lo esencial.</p></div>' +
+      '<div class="card" style="margin-top:12px"><h3>📑 Bloques oficiales, uno a uno</h3><p class="small muted" style="margin:4px 0 8px">Cada bloque del temario oficial con su dossier descargable y su test.</p>' + bloquesHtml + "</div>" + comp : "") +
+    '<div class="card" style="margin-top:12px"><h3>🔔 Anti-obsoleto</h3><p class="small muted">' + esc(FUENTES) + ' Si cambia la norma o sale convocatoria nueva, actualizamos este dossier y avisamos en el canal de tu curso.</p></div>';
   bindCourses();
-  document.querySelector("#btnTemTodo").onclick = () => window.descargarTemarioCompleto();
+  const bt = document.querySelector("#btnTemTodo"); if (bt) bt.onclick = () => window.descargarTemarioCompleto();
   $$("[data-tdoc]").forEach(b => b.onclick = () => window.descargarBloque(parseInt(b.getAttribute("data-tdoc"), 10)));
   $$("[data-ttest]").forEach(b => b.onclick = () => {
     const bl = window.TEMARIO.bloques[parseInt(b.getAttribute("data-ttest"), 10)];
     window.galonStart({ course: state.course, filter: "temas", topics: bl.temas, n: 30, mode: "study", label: bl.title.replace(/^Bloque [IVX]+ · /, "") });
+  });
+  $$("[data-tema]").forEach(b => b.onclick = () => window.galonStart({ course: state.course, filter: "temas", topics: [b.getAttribute("data-tema")], n: 30, mode: "study" }));
+  $$("[data-btest]").forEach(b => b.onclick = () => {
+    const g = (window.TEMARIO_ORDEN[state.course] || {})[b.getAttribute("data-btest")] || [];
+    window.galonStart({ course: state.course, filter: "temas", topics: g, n: 30, mode: "study", label: "Test de bloque" });
   });
   $$("[data-ctema]").forEach(b => b.onclick = () => window.galonStart({ course: state.course, filter: "tema", topic: b.getAttribute("data-ctema"), n: 30, mode: "study" }));
 }
