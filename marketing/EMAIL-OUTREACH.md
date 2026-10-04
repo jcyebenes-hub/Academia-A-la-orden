@@ -75,7 +75,7 @@
 >
 > ¿Te abro un acceso y te enseño lo que hace en 5 minutos?
 >
-> [tu nombre] · [teléfono si quieres]
+> [tu nombre] · Academia MICABO · academiamicabo@hotmail.com
 
 ## 5 · Respuesta rápida cuando alguien pregunta por la web (WhatsApp, etc.)
 
@@ -100,6 +100,8 @@ quieres**, que sea SOLO a una lista tuya opt-in y en lotes pequeños — pero el
 1+2 hace lo mismo sin riesgo.
 
 ---
+*Cuenta del proyecto: academiamicabo@hotmail.com — desde ella se mandan los correos 1 y 2; si la conectas a Brevo/Mailrelay, crea una «contraseña de aplicación» (no la normal).
+
 *Enlaces: usa el que funcione hoy — `https://academia-a-la-orden.onrender.com`, y
 `https://micabo.es` en cuanto apuntes el DNS en Strato. «quedan [X]» = lo que diga
 /api/config (hoy: 98).*

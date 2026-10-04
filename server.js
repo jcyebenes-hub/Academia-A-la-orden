@@ -406,7 +406,7 @@ const chatFAQ = {
   contacto: () => {
     const wa = (process.env.WHATSAPP_NUMBER || "").replace(/[^0-9]/g, "");
     if (wa) return { text: "Claro, aquí el equipo de verdad 🎖️ Escríbenos por WhatsApp y te contestamos personalmente: https://wa.me/" + wa + " (dinos qué curso estudias y tu duda concreta, así llegamos antes al grano).", fuentes: [] };
-    return { text: "El WhatsApp del proyecto se está rematando (muy pronto 📶). De momento pregúntame lo que quieras del temario o del examen, que para eso tengo las 1.300+ preguntas delante.", fuentes: [] };
+    return { text: "El WhatsApp del proyecto se está rematando (muy pronto 📶). De momento: pregúntame lo que quieras del temario o del examen, que para eso tengo las 1.300+ preguntas delante, o escribe al equipo humano: ✉️ academiamicabo@hotmail.com.", fuentes: [] };
   },
   dinero: () => ({ text: "MICABO es 100% gratis: todos los tests, temarios, simulacros y este chat. El proyecto se sostiene con el apoyo de quienes quieren echar una mano: en la sección «Apoya ☕» de la app tienes un botón que copia el número de Bizum (concepto MICABO ☕), y ahí mismo se publican los costes reales (~40 €/año) y la acción social. Quien entra ahora puede pillarse la insignia 🏅 FUNDADOR de plazas limitadas. Con eso pagamos el servidor y seguimos sumando preguntas. Pero que quede claro: para estudiar y aprobar no hace falta pagar NADA.", fuentes: [] }),
   temario: (curso) => {
@@ -540,7 +540,7 @@ const api = {
     if (!out) {
       const wa = (process.env.WHATSAPP_NUMBER || "").replace(/[^0-9]/g, "");
       if (wa) out = { text: "Eso no lo tengo claro, y prefiero callar antes que inventarme una norma 😅. Que no se pierda: mándanos la duda por WhatsApp y te la contestamos personalmente:\n👉 https://wa.me/" + wa + "?text=" + encodeURIComponent("Hola MICABO, mi duda es: " + msg), fuentes: [] };
-      else out = { text: "Eso no lo tengo claro, y prefiero callar antes que inventarme una norma 😅. Mientras el WhatsApp del equipo queda rematado, prueba con el temario (p. ej. «¿qué es un centinela?»), el examen o el proyecto. También puedes escribir «hablar con vosotros».", fuentes: [] };
+      else out = { text: "Eso no lo tengo claro, y prefiero callar antes que inventarme una norma 😅. Prueba con el temario (p. ej. «¿qué es un centinela?»), el examen o el proyecto. Y si necesitas al equipo humano: ✉️ academiamicabo@hotmail.com (o escribe «hablar con vosotros»).", fuentes: [] };
     }
     /* Con GEMINI_API_KEY: la IA redacta SOLO con el material recuperado (RAG). Si falla, vale la respuesta local. */
     const GKEY = process.env.GEMINI_API_KEY || "";

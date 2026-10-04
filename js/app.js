@@ -1,7 +1,7 @@
 /* MICABO · Academia de Tropa — motor de la app */
 (function () {
 "use strict";
-window.APPV = "115"; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
+window.APPV = "116"; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
 const $ = (s, el) => (el || document).querySelector(s);
 const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -1317,7 +1317,7 @@ async function vApoya() {
     '<div class="card" style="margin-bottom:12px"><b>📱 Cómo apoyar (directo, sin comisiones)</b>' +
     '<p class="small muted" style="margin:6px 0">Pulsa el botón y se te copia el número de Bizum; solo te falta poner el concepto <b>MICABO</b>. Después, manda el justificante al canal de Telegram y entras en el muro de apoyos ☕</p>' +
     '<div class="t-nav" style="justify-content:center"><button class="btn btn-gold" id="btnBizum">📋 Copiar Bizum</button>' +
-    (url ? ' <a class="btn btn-ghost" href="' + esc(url) + '" target="_blank" rel="noopener">☕ Ko-fi</a>' : "") + '</div></div>' +
+    (url ? ' <a class="btn btn-ghost" href="' + esc(url) + '" target="_blank" rel="noopener">☕ Ko-fi</a>' : "") + '</div><p class="small muted" style="margin:8px 0 0">✉️ Dudas con tu apoyo: <a href="mailto:academiamicabo@hotmail.com">academiamicabo@hotmail.com</a></p></div>' +
     '<div class="card" style="margin-bottom:12px"><b>❤️ Acción social de la tropa</b>' +
     '<p class="small muted" style="margin:6px 0">Compromiso público: los costes del proyecto son ~40 €/año. <b>Todo lo que recaude por encima se dona</b> a una causa militar que votará la comunidad cada trimestre (p. ej. Cruz Roja Española · Consejo Militar, u otra que se proponga en el canal). El justificante de cada donación se publica. Si prefieres, puedes donar tú directamente a la causa y saltarte la intermediación.</p></div>' +
     '<div class="card" style="margin-bottom:12px"><b>🏅 Fundadores (de por vida)</b>' +
@@ -1436,7 +1436,7 @@ function vAjustes() {
     '<div class="switch-row"><span><b>✅ Corrección instantánea (estilo academia)</b><br><span class="small muted">En los tests: al contestar se corrige al momento (verde/rojo, explicación y tarjetas pintadas), como en la academia de tu amigo. Los SIMULACROS mantienen el modo examen real.</span></span><button class="btn btn-ghost btn-sm" id="setIns">' + (state.opts && state.opts.inmediata === false ? "Activar" : "Desactivar") + "</button></div>" +
     '<div class="switch-row"><span><b>⏩ Avanzar solo al acertar</b><br><span class="small muted">En estudio: acierto → siguiente en 1 s; fallo → pausa para leer. Los simulacros nunca avanzan solos.</span></span><button class="btn btn-ghost btn-sm" id="setAuto">' + (state.opts && state.opts.auto === false ? "Activar" : "Desactivar") + "</button></div>" +
     '<div class="switch-row"><span><b>🗑️ Borrar mi progreso</b><br><span class="small muted">XP, racha, fallos e historial</span></span><button class="btn btn-ghost btn-sm" id="setReset">Borrar</button></div>' +
-    '<p class="small muted">MICABO v' + (window.APPV || "99") + ' · Banco auditado con 0 incidencias (acta pública). Sin anuncios. Tu progreso queda en tu dispositivo y, si creas cuenta, se sincroniza cifrado.</p></div>';
+    '<p class="small muted">MICABO v' + (window.APPV || "99") + ' · Banco auditado con 0 incidencias (acta pública). Sin anuncios. Tu progreso queda en tu dispositivo y, si creas cuenta, se sincroniza cifrado · <a href="mailto:academiamicabo@hotmail.com">✉️ academiamicabo@hotmail.com</a></p></div>';
   $("#setName").onchange = e => { state.name = e.target.value.trim() || "Recluta"; save(); toast("¡A su mando, " + state.name + "!"); };
   $("#setDark").onclick = () => { const d = document.documentElement.classList.toggle("dark"); store.set("dark", d); vAjustes(); };
   $("#setSound").onclick = () => { state.sound = (state.sound === false) ? true : false; save(); vAjustes(); };
