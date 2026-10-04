@@ -4,11 +4,17 @@
    REGLA: solo URLs que existan de verdad — un enlace vacío no se muestra. */
 window.GALON_DONATE = {
   enabled: true,
-  kofi: "",                                   // ← pega aquí tu ko-fi.com/TUUSUARIO cuando lo crees (el aviso de la app se activa solo)
-  paypal: "",                                 // ← paypal.me/TUUSUARIO cuando lo crees
-  liberapay: "",                              // Liberapay (recurrente, ~0%)
-  bizum: "Bizum: pídelo por el canal de Telegram", // texto o número NO público en web
-  telegram: "https://t.me/galon_alertas",     // canal comunidad + Alertas BOD
-  monthlyCost: 1,                             // coste real actual: dominio ~10 €/año amortizado (Render gratis de momento)
-  raised: 0                                   // lo recaudado este mes (actualízalo a mano)
+  kofi: "",                                   /* ← ko-fi.com/TUUSUARIO cuando lo crees (el botón se activa solo) */
+  paypal: "",
+  liberapay: "",
+  bizumNum: "674 38 16 16",                   /* Bizum público del proyecto (aparece en Apoya) */
+  bizumRaw: "674381616",
+  telegram: "https://t.me/galon_alertas",     /* canal comunidad + Alertas BOD (justificantes → muro) */
+  /* COSTES REALES del proyecto (año normal, cifras 2026): */
+  /*  Servidor Render plan gratis: 0 € (si crecemos: ~85 €/año, plan Starter 7 $/mes) */
+  /*  Dominio micabo.es · Strato: ~10-15 €/año  ·  Email Resend (3.000/mes): 0 € */
+  /*  IA chat Gemini plan gratis: 0 €  ·  SIM del WhatsApp del proyecto: ~30 €/año */
+  annualGoal: 40,                             /* meta anual real ≈ dominio + SIM */
+  monthlyCost: 3.4,
+  raised: 0                                   /* lo recaudado este año (actualízalo a mano) */
 };
