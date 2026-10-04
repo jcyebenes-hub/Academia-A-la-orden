@@ -202,7 +202,7 @@ window.TEMARIO_GRUPOS = {
 };
 window.TEMARIO_ORDEN = {
   cabo: {
-    C1: ["Reales Ordenanzas","Seguridad en las FAS","Régimen Disciplinario","Código Penal Militar","Organización de la Defensa","Organización del ET","Carrera militar","Derechos y deberes","Liderazgo","Constitución","Instrucción cívica","Enseñanza militar","OTAN y UE","Logística","Régimen Interior","El examen"],
+    C1: ["Reales Ordenanzas","Seguridad en las FAS","Régimen Disciplinario","Código Penal Militar","Organización de la Defensa","Organización del ET","Carrera militar","Derechos y deberes","Liderazgo","Constitución","Instrucción cívica","Formación Cívica y Humana","Enseñanza militar","OTAN y UE","Logística","Régimen Interior","El examen"],
     C2: ["Instrucción del combatiente","Transmisiones","Topografía","NBQ","Primeros auxilios","Armamento","Armamento y tiro"]
   },
   perm: {
