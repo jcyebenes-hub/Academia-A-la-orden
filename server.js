@@ -412,8 +412,8 @@ const api = {
     if (!u) return send(res, 401, { error: "Sin sesión" });
     const curso = String(b.curso || "");
     if (!["cabo", "cabo1", "perm"].includes(curso)) return bad(res, "Curso no válido");
-    users[u.uid].curso = curso; saveUsers();
-    send(res, 200, { ok: true, user: publicUser(users[u.uid]) });
+    users[u.id].curso = curso; saveUsers(); /* u YA es el user (como en /api/me): su clave es .id */
+    send(res, 200, { ok: true, user: publicUser(users[u.id]) });
   },
   "POST /api/logout": (req, res) => {
     const m = /(?:^|;\s*)galon_token=([a-f0-9]+)/.exec(req.headers.cookie || "");
