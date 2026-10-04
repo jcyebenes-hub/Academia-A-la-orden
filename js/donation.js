@@ -7,7 +7,7 @@
    (Sigue en este fichero porque el botón lo necesita en el cliente.) */
 window.GALON_DONATE = {
   enabled: true,
-  kofi: "",                                   /* ← ko-fi.com/TUUSUARIO cuando lo crees (el botón se activa solo) */
+  kofi: "https://ko-fi.com/academiamicabo",   /* cuenta del proyecto (botón ☕ junto al Copiar Bizum) */
   paypal: "",
   liberapay: "",
   bizumRaw: "674381616",                      /* SOLO para el botón copiar — prohibido pintarlo en UI */
