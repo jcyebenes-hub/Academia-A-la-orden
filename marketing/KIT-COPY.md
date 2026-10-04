@@ -2,6 +2,7 @@
 
 > Enlace para TODOS los mensajes: **https://academia-a-la-orden.onrender.com/app.html**
 > Contacto para dudas/respuestas: **academiamicabo@hotmail.com**
+> Invitar a un café: **ko-fi.com/academiamicabo** (o Bizum desde «Apoya ☕» en la app)
 > (en cuanto el DNS de micabo.es funcione, se cambia y ya está; el resto no toca nada)
 > Tono: militar, directo, cero humo. Todo lo que se dice es verdad y verificable.
 
