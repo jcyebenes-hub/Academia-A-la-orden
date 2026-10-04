@@ -1,7 +1,7 @@
 /* MICABO · Academia de Tropa — motor de la app */
 (function () {
 "use strict";
-window.APPV = "107"; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
+window.APPV = "108"; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
 const $ = (s, el) => (el || document).querySelector(s);
 const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -720,7 +720,9 @@ function vCards() {
 
 /* ---- EXÁMENES OFICIALES (tipo ANARO/InnoTest: banco de históricos) ---- */
 function vExams() {
-  const exs = (window.OFFICIAL_EXAMS || []).filter(e => e.course === state.course);
+  /* Los históricos se muestran a TODOS los cursos (son archivos históricos): si el examen
+     es de otro curso, se avisa en la ficha. Título = mes y año en que se celebró. */
+  const exs = (window.OFFICIAL_EXAMS || []).slice();
   const isPerm = state.course === "perm";
   view().innerHTML = '<div class="view-head"><a class="back" href="#/mas">←</a><h1>Exámenes oficiales 📜</h1></div>' +
     '<div class="card" style="margin-bottom:12px"><span class="badge badge-gold">Convocatorias</span>' +
@@ -735,11 +737,11 @@ function vExams() {
         "<li><b>I/26</b> · convocatoria esperada en el BOD en otoño de 2026</li>") +
     "</ul>" +
     '<p class="small muted">' + (isPerm ? "Formato: 100 preguntas · 4 alternativas · 120 min · P = A − E/3 (los blancos no penalizan)." : "Formato: 50 preguntas + 5 de reserva · 70 minutos · +0,2 por acierto / −0,05 por error.") + "</p></div>" +
-    exs.map(e => '<div class="card" style="margin-bottom:10px"><h3>' + esc(e.label) + '</h3><p class="small muted">' + esc(e.source) + '</p><button class="btn btn-green btn-sm" data-ex="' + e.id + '">Hacer este examen (' + e.qs.length + ' preg.)</button></div>').join("") +
+    exs.map(e => '<div class="card" style="margin-bottom:10px"><h3>📜 ' + esc(e.label) + '</h3><p class="small muted">' + esc(e.source) + (e.course !== state.course ? '<br><span class="badge">examen de ascenso a ' + (COURSES[e.course] ? COURSES[e.course].name.replace("Ascenso a ", "") : e.course) + '</span>' : "") + '</p><button class="btn btn-green btn-block" data-ex="' + e.id + '">Hacer este examen (' + e.qs.length + ' preg.)</button></div>').join("") +
     '<div class="card center"><p class="small muted">Estado de la caza: <b>I/24 completo en el banco</b> (20 preguntas auténticas, verificadas contra normativa vigente — descartadas las desactualizadas). <b>I/25</b> (feb-2026): cuadernillo aún no público — en cuanto salga, entra. <b>Cabo 1º I/26</b>: examen del 14-sep-2026, a la espera de cuadernillo. <b>Permanencia</b>: sin cuadernillo verificable por vía pública; seguiremos buscando por canales oficiales. Mientras tanto, el <a href="#/entrenar">simulacro oficial</a> mantiene el formato exacto.</p></div>';
   $$("[data-ex]").forEach(b => b.onclick = () => {
     const e = exs.find(x => x.id === b.getAttribute("data-ex"));
-    startTest({ course: e.course, fixed: e.qs.map(q => Object.assign({}, q)), mode: "exam", minutes: Math.max(10, e.qs.length * 2), label: e.label + " · histórico", simulacro: true });
+    startTest({ course: e.course, fixed: e.qs.map(q => Object.assign({}, q)), mode: "exam", minutes: Math.max(10, e.qs.length * 2), label: e.label, simulacro: true });
   });
 }
 
