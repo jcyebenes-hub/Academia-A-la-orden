@@ -1,7 +1,7 @@
 /* MICABO · Academia de Tropa — motor de la app */
 (function () {
 "use strict";
-window.APPV = "126"; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
+window.APPV = "127" /* v127: ventana Bizum con importe + guía (número nunca visible) */; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
 const $ = (s, el) => (el || document).querySelector(s);
 const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -1339,6 +1339,53 @@ function vConsulta() {
   $("#cRes").innerHTML = '<p class="small muted center">Escribe tu duda arriba 👆</p>';
 }
 
+/* ---- BIZUM: ventana con importe + guía paso a paso (v127). El número JAMÁS se pinta (v115): solo se copia.
+   Nota honesta: la petición que salta sola en el móvil es Bizum-comercio (contrato de pasarela + CIF);
+   entre particulares el envío se hace desde la app del propio banco. */
+function abrirBizum(D0) {
+  if (!D0.bizumRaw) { toast("Bizum no disponible ahora mismo · pídemelo por Telegram"); return; }
+  const old = $("#sheetBg"); if (old) old.remove();
+  const bg = document.createElement("div");
+  bg.id = "sheetBg"; bg.className = "sheet-bg";
+  let n = 0;
+  const chipSt = "flex:1;min-width:72px;padding:12px 6px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font-weight:700;font-size:1.05rem;cursor:pointer;font-family:inherit";
+  bg.innerHTML = '<div class="sheet" id="bzSheet"><h3>☕ Hacer un Bizum</h3>' +
+    '<p class="small muted" style="padding:0 18px 6px;margin:0">¿Con cuánto quieres colaborar?</p>' +
+    '<div style="display:flex;gap:8px;padding:4px 16px 2px">' +
+    [3, 5, 10].map(x => '<button class="bz-chip" data-n="' + x + '" style="' + chipSt + '">' + x + ' €</button>').join("") +
+    '<button class="bz-chip" data-n="otro" style="' + chipSt + '">Otro</button></div>' +
+    '<div id="bzOtro" style="display:none;padding:8px 16px 0"><input id="bzInp" type="number" min="1" max="500" step="0.5" inputmode="decimal" placeholder="Tu importe en €" style="width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;font-size:1rem;background:var(--card);color:var(--ink);font-family:inherit"></div>' +
+    '<div style="padding:10px 16px 4px"><button id="bzGo" class="btn btn-gold" style="width:100%" disabled>Elige un importe</button></div>' +
+    '<p class="small muted" style="padding:2px 18px 8px;margin:0">Que la petición salte sola en el móvil solo lo pueden hacer los comercios con contrato Bizum; entre particulares se envía desde tu app del banco: 30 segundos y sin comisiones.</p></div>';
+  document.body.appendChild(bg);
+  bg.onclick = e => { if (e.target === bg) bg.remove(); };
+  const pinta = sel => { $$(".bz-chip").forEach(b => { const on = b === sel; b.style.borderColor = on ? "var(--gold)" : "var(--line)"; b.style.background = on ? "var(--card2)" : "var(--card)"; }); };
+  const listo = () => { const g = $("#bzGo"); g.disabled = !(n > 0); g.textContent = n > 0 ? "Continuar con " + n + " € →" : "Elige un importe"; };
+  $$(".bz-chip").forEach(b => b.onclick = () => {
+    pinta(b);
+    if (b.getAttribute("data-n") === "otro") { $("#bzOtro").style.display = "block"; $("#bzInp").focus(); n = parseFloat($("#bzInp").value) || 0; }
+    else { $("#bzOtro").style.display = "none"; n = parseFloat(b.getAttribute("data-n")); }
+    listo();
+  });
+  const inp = $("#bzInp"); if (inp) inp.oninput = () => { n = Math.min(500, Math.max(0, parseFloat(inp.value) || 0)); listo(); };
+  $("#bzGo").onclick = () => { if (!(n > 0)) return; paso2Bizum(n); };
+}
+function paso2Bizum(n) {
+  const D0 = window.GALON_DONATE || {};
+  const copiar = async (t, ok) => { try { await navigator.clipboard.writeText(t); toast(ok); } catch (e) { toast("No se pudo copiar 🙈 · pídemelo por Telegram"); } };
+  const tg = D0.telegram || "https://t.me/galon_alertas";
+  $("#bzSheet").innerHTML = '<h3>☕ Tu Bizum de ' + n + ' €</h3>' +
+    '<p class="small muted" style="padding:0 18px 6px;margin:0">3 pasos y listo (el número va siempre oculto: se copia solo):</p>' +
+    '<div style="display:flex;flex-direction:column;gap:10px;padding:4px 16px 8px">' +
+    '<button id="bzCop" class="btn btn-gold" style="width:100%">📋 1 · Copiar el número de destino</button>' +
+    '<div class="card" style="padding:10px 12px"><b>2 · En tu app del banco</b>' +
+    '<p class="small" style="margin:6px 0 0">Bizum → Enviar dinero → pega el número copiado.<br>Importe: <b>' + n + ' €</b> <button id="bzImpC" class="btn btn-ghost btn-sm" style="padding:2px 8px">copiar</button> · Concepto: <b>MICABO</b> <button id="bzConC" class="btn btn-ghost btn-sm" style="padding:2px 8px">copiar</button></p></div>' +
+    '<a class="btn btn-ghost" style="width:100%" href="' + esc(tg) + '" target="_blank" rel="noopener">📨 3 · Justificante a Telegram → muro de apoyos</a>' +
+    '<p class="small muted" style="margin:0">¿Atasco? ✉️ academiamicabo@hotmail.com</p></div>';
+  $("#bzCop").onclick = () => copiar(D0.bizumRaw || "", "📋 Número copiado (oculto por seguridad) · concepto MICABO");
+  const ic = $("#bzImpC"); if (ic) ic.onclick = () => copiar(String(n), "💰 Importe " + n + " € copiado");
+  const cc = $("#bzConC"); if (cc) cc.onclick = () => copiar("MICABO", "✅ Concepto MICABO copiado");
+}
 /* ---- APOYA: meta de la tropa + muro de apoyos (datos reales, sin contraprestación) ---- */
 async function vApoya() {
   view().innerHTML = '<div class="view-head"><a class="back" href="#/mas">←</a><h1>Apoya ☕</h1></div>' +
@@ -1367,8 +1414,8 @@ async function vApoya() {
     '<p class="small" style="margin:0"><b>' + (A.recaudado || 0) + " €</b> de " + metaAnual + " € · " + pct + '%</p>' +
     '<p class="small muted" style="margin:6px 0 0">Cifras reales, sin humo: solo cuentan cafés verificados.</p></div>' +
     '<div class="card" style="margin-bottom:12px"><b>📱 Cómo apoyar (directo, sin comisiones)</b>' +
-    '<p class="small muted" style="margin:6px 0">Pulsa el botón y se te copia el número de Bizum; solo te falta poner el concepto <b>MICABO</b>. Después, manda el justificante al canal de Telegram y entras en el muro de apoyos ☕</p>' +
-    '<div class="t-nav" style="justify-content:center"><button class="btn btn-gold" id="btnBizum">📋 Copiar Bizum</button>' +
+    '<p class="small muted" style="margin:6px 0">Pulsa, elige cuánto quieres colaborar y te guiamos paso a paso. El número va siempre oculto: se copia solo. Manda el justificante a Telegram y entras en el muro de apoyos ☕</p>' +
+    '<div class="t-nav" style="justify-content:center"><button class="btn btn-gold" id="btnBizum">☕ Hacer un Bizum</button>' +
     (url ? ' <a class="btn btn-ghost" href="' + esc(url) + '" target="_blank" rel="noopener">☕ Ko-fi</a>' : "") + '</div><p class="small muted" style="margin:8px 0 0">✉️ Dudas con tu apoyo: <a href="mailto:academiamicabo@hotmail.com">academiamicabo@hotmail.com</a></p></div>' +
     '<div class="card" style="margin-bottom:12px"><b>❤️ Acción social de la tropa</b>' +
     '<p class="small muted" style="margin:6px 0">Compromiso público: los costes del proyecto son ~40 €/año. <b>Todo lo que recaude por encima se dona</b> a una causa militar que votará la comunidad cada trimestre (p. ej. Cruz Roja Española · Consejo Militar, u otra que se proponga en el canal). El justificante de cada donación se publica. Si prefieres, puedes donar tú directamente a la causa y saltarte la intermediación.</p></div>' +
@@ -1381,7 +1428,7 @@ async function vApoya() {
     '<p class="small muted" style="margin:6px 0 0">No vendemos ventajas (el estudio no se puede comprar) ni hacemos sorteos (eso es juego y tiene ley). Quien apoya recibe <b>reconocimiento</b>: muro, insignia y fundadores de por vida. Nada más, y eso es lo bonito.</p></div>' +
     (!ya ? '<div class="t-nav" style="justify-content:center"><button class="btn btn-ghost btn-sm" id="apoyaYa">🫡 Ya colaboro (callar avisos)</button></div>' : '<p class="small muted center">🫡 Marcado como colaborador: los avisos quedan callados.</p>');
   const yb = $("#apoyaYa"); if (yb) yb.onclick = () => { state.donation = state.donation || {}; state.donation.off = Date.now(); save(); toast("🫡 ¡Gracias de corazón!"); vApoya(); };
-  const bb = $("#btnBizum"); if (bb) bb.onclick = async () => { try { await navigator.clipboard.writeText(D0.bizumRaw || ""); toast("📋 Número de Bizum copiado · concepto MICABO"); } catch (e) { toast("No se pudo copiar 🙈 · pídemelo por Telegram"); } };
+  const bb = $("#btnBizum"); if (bb) bb.onclick = () => abrirBizum(D0);
 }
 
 /* ---- BIBLIOTECA: cuadernos MICABO propios (PDF) + fuentes oficiales gratuitas ---- */
