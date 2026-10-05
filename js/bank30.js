@@ -45,8 +45,8 @@ window.QUESTIONS30 = [
   "d": "M",
   "q": "¿Qué munición está prevista para atravesar blindajes?",
   "o": [
-   "La perforante",
    "La incendiaria",
+   "La perforante",
    "La de fogueo",
    "La subcalibre de instrucción"
   ],
@@ -65,8 +65,8 @@ window.QUESTIONS30 = [
   "o": [
    "Iluminantes",
    "De metralla",
-   "Rompedoras",
-   "Fumígenas"
+   "Fumígenas",
+   "Rompedoras"
   ],
   "x": "Literal del temario: entre las granadas, las «rompedoras actúan por los fragmentos que se producen». Las de metralla llevan carga interior de balines esféricos; las especiales son iluminantes, fumígenas o incendiarias. [Fuente: Temario Cabo nov-2025 · Teoría del tiro, apdo. 1.1.b]",
   "r": "Temario Cabo nov-2025 · Teoría del tiro 1.1.b",
@@ -82,8 +82,8 @@ window.QUESTIONS30 = [
   "q": "¿Qué tipo de sistema es el Spike?",
   "o": [
    "Un dron de vigilancia",
-   "Un sistema de misiles contracarro guiado",
    "Un radar contrabatería",
+   "Un sistema de misiles contracarro guiado",
    "Un mortero integrado en vehículo"
   ],
   "x": "La guía docente lo estudia como «sistema de armas misil contra carro Spike» (junto al TOW): es el misil guiado antitanque de dotación en las unidades de Infantería. [Fuente: Guía docente CB1 (RA1 · CE1.1)]",
@@ -119,8 +119,8 @@ window.QUESTIONS30 = [
   "o": [
    "4 × fijos en todos los ejércitos",
    "Sin aumentos (1 ×)",
-   "1,5 × en el ET y 3 × en la FN",
-   "3 × en el ET y 1,5 × en la FN"
+   "3 × en el ET y 1,5 × en la FN",
+   "1,5 × en el ET y 3 × en la FN"
   ],
   "x": "Literal de los datos técnicos: «Visor óptico. Aumentos: ET = 1,5 ×. FN = 3 ×» (el visor va integrado en el asa de transporte). [Fuente: Temario Cabo nov-2025 · Fusil HK G-36, datos técnicos]",
   "r": "Temario Cabo nov-2025 · Fusil HK G-36 · datos técnicos",
@@ -135,8 +135,8 @@ window.QUESTIONS30 = [
   "d": "D",
   "q": "La MG-42 (MG 1A3) no dispone de regulador de cadencia: esta se determina…",
   "o": [
-   "Mediante el cambio de cierre (dos cierres de distinto peso)",
    "Roscando un incrementador de retroceso",
+   "Mediante el cambio de cierre (dos cierres de distinto peso)",
    "Variando el paso del rayado del cañón",
    "Cambiando el trípode de posición"
   ],
