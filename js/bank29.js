@@ -13,7 +13,7 @@ window.QUESTIONS29 = [
    "Los temas 1 al 4",
    "Todo el manual completo"
   ],
-  "x": "La convocatoria fija como materia «Lengua Inglesa (Temas 1 al 4 del ME7-029)»; el resto del manual no entra en la oposición. [Fuente: Res. 551/04582/26 (BOD nº 83, 28-abr-2026), apdo. 4.1.b.2]",
+  "x": "La convocatoria fija como materia «Lengua Inglesa (Temas 1 al 4 del ME7-029)»; el resto del manual no entra en la oposición. [Fuente: Convocatoria cb1 2026 (BOD nº 62, 31-mar-2026), apdo. 4.1.b.2]",
   "r": "Convocatoria CB1 2026 · apdo. 4.1.b.2",
   "a": 2,
   "c": "cabo1",
