@@ -1,7 +1,7 @@
 /* MICABO · Academia de Tropa — motor de la app */
 (function () {
 "use strict";
-window.APPV = "132" /* v127: ventana Bizum con importe + guía (número nunca visible) */; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
+window.APPV = "133" /* v127: ventana Bizum con importe + guía (número nunca visible) */; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
 const $ = (s, el) => (el || document).querySelector(s);
 const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -32,7 +32,7 @@ if (store.get("dark", false)) document.documentElement.classList.add("dark");
 (function () { const o = state.opts || (state.opts = {}); if (!o.v78) { delete o.recordarCurso; o.v78 = 1; save(); } })();
 
 /* ---- preguntas ---- */
-const BANK_ALL = QUESTIONS.concat(window.QUESTIONS2 || [], window.QUESTIONS3 || [], window.QUESTIONS4 || [], window.QUESTIONS5 || [], window.QUESTIONS6 || [], window.QUESTIONS7 || [], window.QUESTIONS8 || [], window.QUESTIONS9 || [], window.QUESTIONS10 || [], window.QUESTIONS11 || [], window.QUESTIONS12 || [], window.QUESTIONS13 || [], window.QUESTIONS14 || [], window.QUESTIONS15 || [], window.QUESTIONS16 || [], window.QUESTIONS17 || [], window.QUESTIONS18 || [], window.QUESTIONS19 || [], window.QUESTIONS20 || [], window.QUESTIONS21 || [], window.QUESTIONS22 || [], window.QUESTIONS23 || [], window.QUESTIONS24 || [], window.QUESTIONS25 || [], window.QUESTIONS26 || [], window.QUESTIONS27 || [], window.QUESTIONS28 || [], window.QUESTIONS29 || [], window.QUESTIONS30 || [], window.QUESTIONS31 || [], window.QUESTIONS32 || [], window.QUESTIONS33 || [], window.QUESTIONS34 || []);
+const BANK_ALL = QUESTIONS.concat(window.QUESTIONS2 || [], window.QUESTIONS3 || [], window.QUESTIONS4 || [], window.QUESTIONS5 || [], window.QUESTIONS6 || [], window.QUESTIONS7 || [], window.QUESTIONS8 || [], window.QUESTIONS9 || [], window.QUESTIONS10 || [], window.QUESTIONS11 || [], window.QUESTIONS12 || [], window.QUESTIONS13 || [], window.QUESTIONS14 || [], window.QUESTIONS15 || [], window.QUESTIONS16 || [], window.QUESTIONS17 || [], window.QUESTIONS18 || [], window.QUESTIONS19 || [], window.QUESTIONS20 || [], window.QUESTIONS21 || [], window.QUESTIONS22 || [], window.QUESTIONS23 || [], window.QUESTIONS24 || [], window.QUESTIONS25 || [], window.QUESTIONS26 || [], window.QUESTIONS27 || [], window.QUESTIONS28 || [], window.QUESTIONS29 || [], window.QUESTIONS30 || [], window.QUESTIONS31 || [], window.QUESTIONS32 || [], window.QUESTIONS33 || [], window.QUESTIONS34 || [], window.QUESTIONS35 || []);
 const _VERD = window.VERDICTS || {};
 const BANK = (function(){ const _s = new Set(), _o = []; BANK_ALL.forEach(q => { const v = _VERD[q.id]; if ((v && v.v === "ko") || q.status === "borrador" || q.gen === true || _s.has(q.id)) return; _s.add(q.id); _o.push(q); }); return _o; })(); /* dedupe por id (un lote podía estar en dos bancos: pe001-016) · solo preguntas curadas: los borradores del generador esperan validación */
 window.__bancoCurado = BANK.length; /* cifra REAL, la usan las pantallas de acceso y el marketing */
