@@ -383,14 +383,14 @@ window.QUESTIONS2 = [
   "id": "n123",
   "q": "¿Qué norma establece la organización básica del Ejército de Tierra?",
   "o": [
-   "El Real Decreto 847/2015, de 2 de octubre",
+   "La Orden DEF/708/2020, de 27 de julio",
    "El Real Decreto 521/2020",
    "El Real Decreto 1399/2018",
    "La Ley 39/2015"
   ],
   "a": 0,
-  "x": "El RD 847/2015 es la orgánica del ET.",
-  "r": "RD 847/2015"
+  "x": "La ODEF 708/2020, de 27 de julio, desarrolla hoy la organización básica del ET (sustituyó al RD 847/2015). La organización básica de las FAS es el RD 521/2020.",
+  "r": "ODEF 708/2020"
  },
  {
   "c": "cabo",
