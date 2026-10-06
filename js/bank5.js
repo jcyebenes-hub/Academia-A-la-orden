@@ -1541,63 +1541,6 @@ window.QUESTIONS6 = [
  {
   "c": "perm",
   "b": "B3",
-  "t": "OSCE",
-  "d": "M",
-  "q": "¿Cuántos Estados participantes tiene la OSCE?",
-  "o": [
-   "57",
-   "15",
-   "193",
-   "27"
-  ],
-  "a": 0,
-  "x": "Respuesta: 57.",
-  "r": "OSCE",
-  "id": "g1369",
-  "gen": true,
-  "status": "borrador"
- },
- {
-  "c": "perm",
-  "b": "B3",
-  "t": "OSCE",
-  "d": "M",
-  "q": "La OSCE, la mayor organización regional de seguridad, tiene ___ Estados participantes.",
-  "o": [
-   "32",
-   "27",
-   "47",
-   "57"
-  ],
-  "a": 3,
-  "x": "Completado: 57.",
-  "r": "OSCE",
-  "id": "g1370",
-  "gen": true,
-  "status": "borrador"
- },
- {
-  "c": "perm",
-  "b": "B3",
-  "t": "OSCE",
-  "d": "F",
-  "q": "¿Dónde está la sede de la OSCE?",
-  "o": [
-   "Viena",
-   "Nueva York",
-   "Bruselas",
-   "Ginebra"
-  ],
-  "a": 0,
-  "x": "Respuesta: Viena.",
-  "r": "OSCE",
-  "id": "g1371",
-  "gen": true,
-  "status": "borrador"
- },
- {
-  "c": "perm",
-  "b": "B3",
   "t": "Misiones",
   "d": "M",
   "q": "¿Dónde se recogen las reglas de uso de la fuerza en operaciones internacionales?",
@@ -3075,82 +3018,6 @@ window.QUESTIONS6 = [
  },
  {
   "c": "perm",
-  "b": "B3",
-  "t": "OSCE",
-  "d": "F",
-  "q": "¿Dónde tiene su sede la OSCE?",
-  "o": [
-   "En Viena",
-   "En Moscú",
-   "En Milán",
-   "En Estocolmo"
-  ],
-  "a": 0,
-  "x": "Respuesta: En Viena.",
-  "r": "OSCE",
-  "id": "g1942",
-  "gen": true,
-  "status": "borrador"
- },
- {
-  "c": "perm",
-  "b": "B3",
-  "t": "OSCE",
-  "d": "F",
-  "q": "La OSCE tiene su sede en ___",
-  "o": [
-   "Berlín",
-   "Praga",
-   "Roma",
-   "Viena"
-  ],
-  "a": 3,
-  "x": "Completado: Viena.",
-  "r": "OSCE",
-  "id": "g1943",
-  "gen": true,
-  "status": "borrador"
- },
- {
-  "c": "perm",
-  "b": "B3",
-  "t": "OSCE",
-  "d": "M",
-  "q": "¿Cuántos estados participan en la OSCE?",
-  "o": [
-   "190",
-   "57: la mayor organización regional de seguridad",
-   "12",
-   "27"
-  ],
-  "a": 1,
-  "x": "Respuesta: 57: la mayor organización regional de seguridad.",
-  "r": "OSCE",
-  "id": "g1944",
-  "gen": true,
-  "status": "borrador"
- },
- {
-  "c": "perm",
-  "b": "B3",
-  "t": "OSCE",
-  "d": "M",
-  "q": "La OSCE agrupa a ___ estados: la mayor organización regional de seguridad.",
-  "o": [
-   "32",
-   "100",
-   "57",
-   "27"
-  ],
-  "a": 2,
-  "x": "Completado: 57.",
-  "r": "OSCE",
-  "id": "g1945",
-  "gen": true,
-  "status": "borrador"
- },
- {
-  "c": "perm",
   "b": "B1",
   "t": "Constitución",
   "d": "M",
@@ -3582,44 +3449,6 @@ window.QUESTIONS6 = [
   "x": "Completado: 3/2007.",
   "r": "LO 3/2007",
   "id": "g2193",
-  "gen": true,
-  "status": "borrador"
- },
- {
-  "c": "perm",
-  "b": "B3",
-  "t": "OSCE",
-  "d": "M",
-  "q": "¿Cuál es la función principal de la OSCE?",
-  "o": [
-   "La recaudación de aranceles",
-   "La prevención de conflictos y la gestión de crisis en Europa",
-   "La defensa militar común",
-   "La organización de conciertos"
-  ],
-  "a": 1,
-  "x": "Respuesta: La prevención de conflictos y la gestión de crisis en Europa.",
-  "r": "OSCE",
-  "id": "g2234",
-  "gen": true,
-  "status": "borrador"
- },
- {
-  "c": "perm",
-  "b": "B3",
-  "t": "OSCE",
-  "d": "M",
-  "q": "La OSCE se dedica a la prevención de ___ y la gestión de crisis.",
-  "o": [
-   "cortes de luz",
-   "conflictos",
-   "concursos",
-   "cruceros"
-  ],
-  "a": 1,
-  "x": "Completado: conflictos.",
-  "r": "OSCE",
-  "id": "g2235",
   "gen": true,
   "status": "borrador"
  },
