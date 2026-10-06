@@ -10,7 +10,7 @@ window.QUESTIONS9 = [
   "t": "Situaciones",
   "d": "F",
   "id": "pe001",
-  "q": "¿Cuántas situaciones administrativas tiene el militar de carrera?",
+  "q": "¿Cuáles son las tres situaciones administrativas básicas del ciclo del militar de tropa y marinería de carrera?",
   "o": [
    "Tres: servicio activo, reserva y retiro",
    "Dos: activo y paro",
@@ -18,7 +18,7 @@ window.QUESTIONS9 = [
    "Solo una"
   ],
   "a": 0,
-  "x": "La Ley 39/2007 fija TRES situaciones: servicio activo (ejerciendo), reserva (hasta la edad legal, con pensión de reserva) y retiro (cese definitivo). Es el mapa vital de toda la carrera y por eso cae en todos los exámenes.",
+  "x": "Ciclo del T&M de carrera: activo → reserva (T&M de carrera a los 58 años, art. 113) → retiro (con pensión de retiro). OJO: el art. 107.1 de la L 39/2007 enumera SIETE situaciones de los militares profesionales (ver cm46); estas tres son el esqueleto del curso de acceso a permanente.",
   "r": "Ley 39/2007"
  },
  {
