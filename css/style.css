@@ -115,6 +115,10 @@ table.cmp tr:last-child td{border-bottom:0}
 .cta-final h2{margin-top:0}
 footer{background:#0d1a10;color:#b9c2b4;padding:36px 0;font-size:.88rem}
 footer a{color:#e8e2cf}
+.soc{display:flex;gap:18px;align-items:center;justify-content:center;margin-bottom:16px}
+.soc a{color:#e8e2cf;display:inline-flex;transition:color .15s}
+.soc a:hover{color:#e3b23a}
+.soc svg{width:22px;height:22px;display:block}
 /* ---------- app shell ---------- */
 .app-top{position:sticky;top:0;z-index:40;background:var(--green-d);color:#fff}
 .app-top .wrap{display:flex;align-items:center;gap:12px;padding-top:10px;padding-bottom:10px;flex-wrap:wrap}
