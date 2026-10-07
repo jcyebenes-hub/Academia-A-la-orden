@@ -1,7 +1,7 @@
 /* MICABO · Academia de Tropa — motor de la app */
 (function () {
 "use strict";
-window.APPV = "184" /* v127: ventana Bizum con importe + guía (número nunca visible) */; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
+window.APPV = "185" /* v127: ventana Bizum con importe + guía (número nunca visible) */; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
 const $ = (s, el) => (el || document).querySelector(s);
 const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -1417,8 +1417,10 @@ async function vApoya() {
     '<p class="small muted" style="margin:6px 0">Pulsa, elige cuánto quieres colaborar y te guiamos paso a paso. El número va siempre oculto: se copia solo. Manda el justificante a Telegram y entras en el muro de apoyos ☕</p>' +
     '<div class="t-nav" style="justify-content:center"><button class="btn" id="btnBizum" aria-label="Hacer un Bizum" style="display:inline-flex;align-items:center;justify-content:center;background:#fff;border:2px solid var(--line);border-radius:999px;padding:7px 16px;cursor:pointer"><img src="img/bizum-logo.png" alt="Bizum" style="height:26px;width:auto;display:block"></button>' +
     (url ? ' <a class="btn btn-ghost" href="' + esc(url) + '" target="_blank" rel="noopener" aria-label="Apoya en Ko-fi" style="display:inline-flex;align-items:center;padding:6px 12px"><img src="img/kofi-logo.png" alt="Ko-fi" style="height:30px;width:auto;display:block"></a>' : "") + '</div><p class="small muted" style="margin:8px 0 0">✉️ Dudas con tu apoyo: <a href="mailto:academiamicabo@hotmail.com">academiamicabo@hotmail.com</a></p></div>' +
-    '<div class="card" style="margin-bottom:12px"><b>❤️ Acción social de la tropa</b>' +
-    '<p class="small muted" style="margin:6px 0">Compromiso público: los costes del proyecto son ~40 €/año. <b>Todo lo que recaude por encima se dona</b> a una causa militar que votará la comunidad cada trimestre (p. ej. Cruz Roja Española · Consejo Militar, u otra que se proponga en el canal). El justificante de cada donación se publica. Si prefieres, puedes donar tú directamente a la causa y saltarte la intermediación.</p></div>' +
+    '<div class="card" style="margin-bottom:12px"><b>🏥 Acción social de la tropa: Mamás en Acción</b>' +
+    '<p class="small muted" style="margin:6px 0">Compromiso público: los costes del proyecto son ~40 €/año. <b>Todo lo que recaude por encima se dona a Mamás en Acción</b>, la ONG que acompaña a niños solos en el hospital (programa Curasana · presente en el Hospital de Sant Joan d\'Alacant). Su métrica publicada: <b>15 € = 1 día acompañando a un niño que no tiene nadie</b>. Cada trimestre la tropa puede proponer y votar una causa alternativa en el canal. El justificante de cada donación se publica.</p>' +
+    ((A.donado||0) > 0 ? '<p class="small" style="margin:6px 0"><b>🏥 Impacto de la tropa: ' + (A.donado||0) + ' € donados ≈ ' + Math.floor((A.donado||0)/15) + (Math.floor((A.donado||0)/15)===1 ? ' día' : ' días') + ' de acompañamiento a niños solos</b> · justificantes publicados en el canal.</p>' : '<p class="small muted" style="margin:6px 0"><b>Aún sin donación a la causa: la primera será histórica.</b></p>') +
+    '<p class="small muted" style="margin:6px 0 0">Si prefieres, dona tú directamente en <a href="https://mamasenaccion.es/donativos/" target="_blank" rel="noopener">mamasenaccion.es</a> (15 € = 1 día) y mándanos el justificante al canal: entras en el muro de apoyos ☕.</p></div>' +
     '<div class="card" style="margin-bottom:12px"><b>🏅 Fundadores (de por vida)</b>' +
     '<p class="small muted" style="margin:6px 0">Los primeros ' + (A.fundadores_limite || 100) + ' cuentas: galón para siempre, pase lo que pase.</p>' +
     '<p style="margin:4px 0 0">' + (A.fundadores || []).map(f => '<span class="badge badge-gold">🏅 ' + esc(f) + '</span>').join(" ") + '</p></div>' +
