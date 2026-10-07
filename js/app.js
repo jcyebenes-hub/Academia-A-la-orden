@@ -1,7 +1,7 @@
 /* MICABO · Academia de Tropa — motor de la app */
 (function () {
 "use strict";
-window.APPV = "181" /* v127: ventana Bizum con importe + guía (número nunca visible) */; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
+window.APPV = "182" /* v127: ventana Bizum con importe + guía (número nunca visible) */; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
 const $ = (s, el) => (el || document).querySelector(s);
 const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -1416,7 +1416,7 @@ async function vApoya() {
     '<div class="card" style="margin-bottom:12px"><b>📱 Cómo apoyar (directo, sin comisiones)</b>' +
     '<p class="small muted" style="margin:6px 0">Pulsa, elige cuánto quieres colaborar y te guiamos paso a paso. El número va siempre oculto: se copia solo. Manda el justificante a Telegram y entras en el muro de apoyos ☕</p>' +
     '<div class="t-nav" style="justify-content:center"><button class="btn btn-gold" id="btnBizum">☕ Hacer un Bizum</button>' +
-    (url ? ' <a class="btn btn-ghost" href="' + esc(url) + '" target="_blank" rel="noopener">☕ Ko-fi</a>' : "") + '</div><p class="small muted" style="margin:8px 0 0">✉️ Dudas con tu apoyo: <a href="mailto:academiamicabo@hotmail.com">academiamicabo@hotmail.com</a></p></div>' +
+    (url ? ' <a class="btn btn-ghost" href="' + esc(url) + '" target="_blank" rel="noopener" aria-label="Apoya en Ko-fi" style="display:inline-flex;align-items:center;padding:6px 12px"><img src="img/kofi-logo.png" alt="Ko-fi" style="height:30px;width:auto;display:block"></a>' : "") + '</div><p class="small muted" style="margin:8px 0 0">✉️ Dudas con tu apoyo: <a href="mailto:academiamicabo@hotmail.com">academiamicabo@hotmail.com</a></p></div>' +
     '<div class="card" style="margin-bottom:12px"><b>❤️ Acción social de la tropa</b>' +
     '<p class="small muted" style="margin:6px 0">Compromiso público: los costes del proyecto son ~40 €/año. <b>Todo lo que recaude por encima se dona</b> a una causa militar que votará la comunidad cada trimestre (p. ej. Cruz Roja Española · Consejo Militar, u otra que se proponga en el canal). El justificante de cada donación se publica. Si prefieres, puedes donar tú directamente a la causa y saltarte la intermediación.</p></div>' +
     '<div class="card" style="margin-bottom:12px"><b>🏅 Fundadores (de por vida)</b>' +
