@@ -1,6 +1,6 @@
 # MICABO · PLAN DE MEDIOS — Lanzamiento (0 € de presupuesto)
 
-> Principio: público militar TT8-TT9 (y TT5+ en Permanencia) NO vive en Instagram Ads: vive en **WhatsApp de unidad, Telegram de oposiciones y el Rincón de Tropa**. Allí se gana. Todo el FOMO es VERDAD verificable: gratis siempre, 2.800+ preguntas con artículo y explicación, examen oficial I/24 practicable, duelos 1vs1, y las 100 insignias FUNDADOR (quedan 98 — número real de /api/config que CRECE solo).
+> Principio: público militar TT8-TT9 (y TT5+ en Permanencia) NO vive en Instagram Ads: vive en **WhatsApp de unidad, Telegram de oposiciones y el Rincón de Tropa**. Allí se gana. Todo el FOMO es VERDAD verificable: gratis siempre, 1.900+ preguntas con artículo y explicación, examen oficial I/24 practicable, duelos 1vs1, y las 100 insignias FUNDADOR (quedan 98 — número real de /api/config que CRECE solo).
 
 ## Los 6 medios, ordenados por retorno
 

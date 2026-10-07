@@ -9,7 +9,7 @@
 | | **MICABO** | ascensoacabo.com | anaroformacion.com | patronatoencasa.com | Academias por suscripción |
 |---|---|---|---|---|---|
 | **Precio** | **0 € · sin premium** | 25 € pago único/convocatoria | 34,95 € pago único/convocatoria | 50 € pago único | ~39 €/mes |
-| **Preguntas test** | **1.489 auditadas** (+1.299 en validación) | no publican cifra | +4.914 (Tierra) · +7.964 (Tierra+Aire) | +3.000 | según academia |
+| **Preguntas test** | **1.921 auditadas** (+1.299 en validación) | no publican cifra | +4.914 (Tierra) · +7.964 (Tierra+Aire) | +3.000 | según academia |
 | **Exámenes oficiales reales** | ✔ corregidos al instante | ✔ simulacros | ✔ simulacro 50+5/70 min | ✔ | según academia |
 | **Duelos 1vs1** | ✔ por código | — | — | — | — |
 | **Tutor IA (no inventa)** | ✔ solo material propio | — | — | — | — |
@@ -22,7 +22,7 @@
   del banco cargado (`BANK.length`) — no hay cifra escrita a mano que caduque.
 - Solo cuentan **preguntas auditadas** (doble pasada contra la fuente). Los borradores
   del generador (1.299) están excluidos hasta pasar revisión.
-- OG/descripción de la web: «+1.400 preguntas auditadas» (verificable: 1.489 > 1.400).
+- OG/descripción de la web: «+1.900 preguntas auditadas» (verificable: 1.921 > 1.900).
 
 ## Plan «poco a poco, que sea real»
 
@@ -39,7 +39,7 @@ Objetivo: superar los +3.000 de patronatoencasa con datos verificados.
 ## Para copiar (una línea)
 
 > Las academias de Cabo cobran 25-50 € por convocatoria (o 39 €/mes). MICABO es gratis
-> del todo: +1.400 preguntas auditadas con norma y artículo, exámenes oficiales,
+> del todo: +1.900 preguntas auditadas con norma y artículo, exámenes oficiales,
 > duelos 1vs1 y tutor IA que no inventa. Los costes (~40 €/año) están publicados dentro.
 
 *Ojo legal (Ley 3/1991, art. 6): la publicidad comparativa exige datos objetivos y
