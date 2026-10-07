@@ -416,7 +416,12 @@ const chatFAQ = {
     if (curso === "perm") return { text: "El temario de acceso a permanente (Anexo III de la O. DEF/1341/2017) son 3 bloques:\n• Organización\n• Jurídico-Social\n• Seguridad Nacional · Acción Conjunta · OISD (ONU, OTAN, UE, misiones, ESN 2022, Ley 36/2015…)" + como, fuentes: [] };
     return { text: "Tenemos el temario de los 3 cursos. Dime cuál estudias (Cabo, Cabo 1º o Permanente) y te lo desgloso. Mientras tanto: en la app, menú → 📖 Temario (por bloques, con dossier y test) o → 📚 Biblioteca (temarios oficiales en PDF).", fuentes: [] };
   },
-  convocatoria: () => ({ text: "Lo esencial de la convocatoria de ascenso a Cabo (Ejército de Tierra):\n• El examen: 50 preguntas tipo test + 5 de reserva, 70 minutos.\n• Corrección: NO = (0,2 × aciertos) − (0,05 × errores). Las blancas no penalizan.\n• Requisito general: al menos 4 años de servicio y el TGCF superado (más los IPEC del año en curso para el concurso).\n• Últimos cortes: 4.335 (I/2025) y 4.390 (I/2024).\nTienes un simulacro oficial 50/70 dentro de la app y el tema «El examen» en el bloque C1.", fuentes: [] })
+convocatoria: (curso) => {
+    const c = String(curso || "");
+    if (c === "cabo1") return { text: "📅 Convocatoria I/26 de Ascenso a Cabo 1º (ET) — Res. 551/04582/26 (BOD nº 62, 31-mar-2026):\n• El plazo de solicitudes (15 días naturales) cerró el 15-abr-2026.\n• AHORA MISMO: fase presencial en las Academias (14-sep → 9-oct-2026).\n• Alegaciones o revisión de nota: instancia firmada al Presidente del Tribunal Eventual, vía MENSADEF al Director del CFT nº 1, en 3 días hábiles.\n• Próxima convocatoria (I/27): se estima 1er trimestre 2027 — no dispongo de fecha oficial todavía; en cuanto salga en el BOD, la publico.", fuentes: [] };
+    if (c === "perm") return { text: "📅 Permanencia 2026 (Tropa y Marinería):\n• 1.000 plazas convocadas (ET 540 · AR 211 · EA 249) — Res. 452/08724/26 (BOD nº 116).\n• El plazo de solicitudes cerró el 7-jul-2026.\n• Examen (100 preguntas, 120 min): pendiente de citación oficial — no dispongo de la fecha todavía; lo publico en cuanto salga en el BOD.\n• Condición de militar de carrera: 31-dic-2026.", fuentes: [] };
+    return { text: "📅 Convocatoria I/26 de Ascenso a Cabo (ET) — Res. 551/13174/26, BOD nº 178 de 11-sep-2026:\n⏰ Plazo de solicitudes: 15 días naturales desde el día siguiente a la publicación → CERRÓ el 26-sep-2026.\n📋 Cómo se pide: la solicitud NO se presenta a mano — la graba tu Unidad (Órgano de Gestión de Personal de la UCO) en el módulo COT de SIPERDEF, código 5C2026 001, y la remite por MENSADEF al Director del CFT nº 1 (PDF escaneado a color «DNI_apellido1_apellido2»).\n📝 Documentación: instancia de solicitud + méritos acreditables (cursos, condecoraciones…) DENTRO del plazo — lo llegado después no se valora. Para el examen: DNI y bolígrafo negro o azul (no gel), una hora antes.\n📝 Examen: 50 preguntas + 5 de reserva, 70 min; nota NO = (0,2 × aciertos) − (0,05 × errores); fecha y sede PENDIENTES de publicar (BOD y Rincón de Tropa).\n❗ ¿Te la perdiste? La siguiente convocatoria no tiene fecha publicada: no dispongo de esa información todavía — en cuanto salga en el BOD, la cuelgo al instante. Último corte conocido: 4.335 (I/25).", fuentes: [] };
+  }
 };
 
 /* ---------- Google Sign-In (JWKS de Google en caché 6 h) ---------- */
@@ -531,7 +536,7 @@ const api = {
     if (/(whats?app|hablar con (vosotros|una persona|alguien|un humano)|persona real|atencion al cliente|contacto)/.test(m)) out = chatFAQ.contacto();
     else if (temarioOK) out = chatFAQ.temario(["cabo", "cabo1", "perm"].includes(b.curso) ? b.curso : (u && users[u.id] ? users[u.id].curso : null));
     else if (/(dinero|aportar|apoyar|donar|donacion|kofi|ko-fi|cafe|premium|pagar|pago|cuesta|cuanto cuesta|fundador|suscripcion|gratis)/.test(m)) out = chatFAQ.dinero();
-    else if (/(convocatoria|requisitos?|nota de corte|corte|cuantas preguntas|el examen|simulacro|70 minutos|plazas|cuando es)/.test(m)) out = chatFAQ.convocatoria();
+    else if (/(convocatoria|requisitos?|nota de corte|corte|cuantas preguntas|el examen|simulacro|70 minutos|plazas|cuando es|documentacion|instancia|solicitud|plazo|apuntarme|presentarme|inscribirme)/.test(m)) out = chatFAQ.convocatoria(["cabo", "cabo1", "perm"].includes(b.curso) ? b.curso : (u && users[u.id] ? users[u.id].curso : null));
     const fuentes = out && out.fuentes !== undefined ? out.fuentes : chatBusca(msg, 4);
     if (!out && fuentes.length) {
       const txt = fuentes.map(f => "📌 " + f.q + "\n✅ " + (f.a || "") + (f.x ? "\n📖 " + f.x : "")).join("\n\n");
@@ -539,8 +544,8 @@ const api = {
     }
     if (!out) {
       const wa = (process.env.WHATSAPP_NUMBER || "").replace(/[^0-9]/g, "");
-      if (wa) out = { text: "Eso no lo tengo claro, y prefiero callar antes que inventarme una norma 😅. Que no se pierda: mándanos la duda por WhatsApp y te la contestamos personalmente:\n👉 https://wa.me/" + wa + "?text=" + encodeURIComponent("Hola MICABO, mi duda es: " + msg), fuentes: [] };
-      else out = { text: "Eso no lo tengo claro, y prefiero callar antes que inventarme una norma 😅. Prueba con el temario (p. ej. «¿qué es un centinela?»), el examen o el proyecto. Y si necesitas al equipo humano: ✉️ academiamicabo@hotmail.com (o escribe «hablar con vosotros»).", fuentes: [] };
+      if (wa) out = { text: "Eso no lo tengo claro: no dispongo de esa información todavía, y prefiero callar antes que inventarme una norma 😅. Que no se pierda: mándanos la duda por WhatsApp y te la contestamos personalmente:\n👉 https://wa.me/" + wa + "?text=" + encodeURIComponent("Hola MICABO, mi duda es: " + msg), fuentes: [] };
+      else out = { text: "Eso no lo tengo claro: no dispongo de esa información todavía, y prefiero callar antes que inventarme una norma 😅. Prueba con el temario (p. ej. «¿qué es un centinela?»), el examen o el proyecto. Y si necesitas al equipo humano: ✉️ academiamicabo@hotmail.com (o escribe «hablar con vosotros»).", fuentes: [] };
     }
     /* Con GEMINI_API_KEY: la IA redacta SOLO con el material recuperado (RAG). Si falla, vale la respuesta local. */
     const GKEY = process.env.GEMINI_API_KEY || "";

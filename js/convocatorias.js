@@ -1,20 +1,21 @@
-/* MICABO · Próximas convocatorias oficiales — datos curados (última revisión: 20-sep-2026)
+/* MICABO · Próximas convocatorias oficiales — datos curados (última revisión: 7-oct-2026)
    Regla de honestidad: est:true = FECHA PREVISTA según el calendario de años anteriores
    (se muestra con "~"); est:false = dato oficial publicado. Cuando salga una convocatoria
    oficial, actualizar aquí y en tools/bod-seed.js. El panel la pinta en #convos si existe. */
 window.GALON_CONVOS = {
-  actualizado: "20-sep-2026",
+  actualizado: "7-oct-2026",
   cursos: [
     {
       id: "cabo",
       nombre: "Ascenso a Cabo (ET)",
-      badge: "PREVISTA · I/26",
-      badgeClass: "badge badge-gold",
-      resumen: "La siguiente en abrirse. Patrón de los últimos años: bases en otoño y examen en febrero.",
+      badge: "CONVOCADA · I/26",
+      badgeClass: "badge badge-green",
+      resumen: "¡CONVOCADA! BOD nº 178 de 11-sep-2026 (Res. 551/13174/26). El plazo de solicitudes cerró el 26-sep-2026. Pendiente: fecha y sede del examen.",
       hitos: [
-        { k: "Publicación de bases (BOD)", d: "otoño 2026", est: true },
-        { k: "Examen · 50 + 5 preguntas en 70 min", d: "febrero 2027", est: true },
-        { k: "Resolución y nota de corte", d: "verano 2027", est: true, extra: "La I/25 se resolvió el 6-jul-2026 (corte 4,335)." }
+        { k: "Publicación de bases (BOD nº 178)", d: "11-sep-2026", est: false, ref: "Res. 551/13174/26 · código 5C 2026 001" },
+        { k: "Plazo de solicitudes (15 días naturales)", d: "12-sep → 26-sep-2026", est: false, extra: "Las graba tu Unidad en el módulo COT de SIPERDEF y se remiten por MENSADEF al CFT nº 1." },
+        { k: "Examen · 50 + 5 preguntas en 70 min", d: "fecha y sede pendientes de publicar", est: false, extra: "Se anunciará en el BOD y en Rincón de Tropa." },
+        { k: "Resolución y nota de corte", d: "~ verano 2027", est: true, extra: "La I/25 se resolvió el 6-jul-2026 (corte 4,335)." }
       ]
     },
     {
