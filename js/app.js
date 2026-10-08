@@ -1,7 +1,7 @@
 /* MICABO · Academia de Tropa — motor de la app */
 (function () {
 "use strict";
-window.APPV = "186" /* v127: ventana Bizum con importe + guía (número nunca visible) */; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
+window.APPV = "187" /* v127: ventana Bizum con importe + guía (número nunca visible) */; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
 const $ = (s, el) => (el || document).querySelector(s);
 const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -298,7 +298,7 @@ function vTrain() {
   $("#mExam").onclick = () => startTest({ course: state.course, filter: "all", n: 25, mode: "exam", minutes: 30, label: "Modo examen" });
   $("#mFail").onclick = () => { if (!fails) { toast("Sin fallos: haz un test primero"); return; } startTest({ course: state.course, filter: "fallos", n: 999, mode: "study", label: "Repaso de fallos" }); };
   $("#mSmart").onclick = () => {
-    if (!window.GalonTutor) return;
+    if (!window.GalonTutor) { toast("El tutor aún no está disponible · recarga la página (F5)"); return; }
     const ids = window.GalonTutor.adaptativo(state.course, 20);
     if (ids.length < 5) { toast("Haz tu primer test y el tutor conocerá tus debilidades"); return; }
     startTest({ course: state.course, fixed: ids, mode: "study", label: "Test adaptativo" });

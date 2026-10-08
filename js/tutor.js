@@ -24,7 +24,10 @@ function loadBank() {
   if (BANK.length) return;
   /* QUESTIONS vive como global de script (data.js), no en window: se lee con guard */
   const q0 = (typeof QUESTIONS !== "undefined") ? QUESTIONS : [];
-  const list = q0.concat(window.QUESTIONS2 || [], window.QUESTIONS3 || [], window.QUESTIONS4 || [], window.QUESTIONS5 || [], window.QUESTIONS6 || [], window.QUESTIONS7 || []);
+  /* cargador dinámico: TODOS los bancos window.QUESTIONS2…N (fix v187: antes solo 2-7,
+     el tutor veía una fracción del pool y el test adaptativo salía vacío/silencioso) */
+  let list = q0.slice();
+  Object.keys(window).forEach(k => { if (/^QUESTIONS\d+$/.test(k) && Array.isArray(window[k])) list = list.concat(window[k]); });
   const V = window.VERDICTS || {};
   BANK = list.filter(q => { const v = V[q.id]; return !(v && v.v === "ko"); });
   BANK.forEach(q => byId[q.id] = q);
