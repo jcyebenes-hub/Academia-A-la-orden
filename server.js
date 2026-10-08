@@ -108,7 +108,8 @@ function trivialVista(t, quien) {
 function bankIdsCurso(curso) {
   if (BANK_IDS_CACHE[curso]) return BANK_IDS_CACHE[curso];
   const out = [];
-  for (const f of ["data", "bank2", "bank3", "bank4", "study", "bank5", "bank7"]) {
+  const BFILES = ["data", "study"].concat(fs.readdirSync(path.join(ROOT, "js")).filter(f => /^bank\d+\.js$/.test(f)).sort((a, b) => parseInt(a.slice(4)) - parseInt(b.slice(4))));
+  for (const f of BFILES) {
     try {
       const txt = fs.readFileSync(path.join(ROOT, "js", f + ".js"), "utf8");
       for (const m of txt.matchAll(/\{[^{}]*\}/g)) {
