@@ -47,6 +47,22 @@ function burbuja(quien, html) {
   ms.appendChild(m); ms.scrollTop = ms.scrollHeight;
   return m;
 }
+/* v189: el Sargento EJECUTA — el server devuelve command y aquí se obra */
+function ejecuta(c) {
+  try {
+    if (c.type === "nav" && c.to) { location.hash = c.to; return; }
+    const st = (window.AO && AO.stateRef && AO.stateRef()) || { course: "cabo" };
+    const curso = ["cabo", "cabo1", "perm"].includes(st.course) ? st.course : "cabo";
+    const CC = (typeof COURSES !== "undefined" && COURSES[curso] && COURSES[curso].exam) ? COURSES[curso].exam : { questions: 50, minutes: 70 };
+    if (c.type === "test") {
+      if (c.topic) startTest({ course: curso, filter: "tema", topic: c.topic, n: 999, mode: "study", label: "Test · " + c.topic });
+      else startTest({ course: curso, filter: "all", n: 10, mode: "study", label: "Test rápido (chat)" });
+      return;
+    }
+    if (c.type === "simulacro") { startTest({ course: curso, filter: "all", n: CC.questions || 50, mode: "exam", minutes: CC.minutes || 70, label: "Simulacro oficial", simulacro: true }); return; }
+    if (c.type === "examen25") { startTest({ course: curso, filter: "all", n: 25, mode: "exam", minutes: 30, label: "Modo examen (chat)" }); return; }
+  } catch (e) {}
+}
 function pregunta(txt) {
   ocupado = true;
   const esp = burbuja("bot", "…");
@@ -56,6 +72,7 @@ function pregunta(txt) {
     .then(d => {
       esp.remove();
       burbuja("bot", d.text || "…");
+      if (d.command) { if (window.AO) setTimeout(() => ejecuta(d.command), 400); else burbuja("bot", "Para que pueda ejecutártelo, dale a «Abrir la app» y pídemelo dentro. 🫡"); }
       (d.fuentes || []).slice(0, 3).forEach(f => {
         const b = document.createElement("div"); b.className = "chat-fuente";
         b.textContent = "📎 " + (f.id || "") + (f.t ? " · " + f.t : "");

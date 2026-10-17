@@ -399,7 +399,7 @@ function chatBusca(msg, n) {
       if (re.test(hq)) { sc += 3; hits++; } else if (re.test(hx)) { sc += 1; hits++; }
     }
     return { q, sc, hits };
-  }).filter(r => r.sc >= 5).sort((a, b) => b.sc - a.sc || b.hits - a.hits).slice(0, n || 3);
+  }).filter(r => (r.hits >= 2 && r.sc >= 4) || (r.hits === 1 && r.sc >= 3)).sort((a, b) => b.sc - a.sc || b.hits - a.hits).slice(0, n || 3);
   return scored.map(r => r.q);
 }
 const chatLimit = new Map(); /* ip → {día, nº} · 25/día */
@@ -407,7 +407,7 @@ const chatFAQ = {
   contacto: () => {
     const wa = (process.env.WHATSAPP_NUMBER || "").replace(/[^0-9]/g, "");
     if (wa) return { text: "Claro, aquí el equipo de verdad 🎖️ Escríbenos por WhatsApp y te contestamos personalmente: https://wa.me/" + wa + " (dinos qué curso estudias y tu duda concreta, así llegamos antes al grano).", fuentes: [] };
-    return { text: "El WhatsApp del proyecto se está rematando (muy pronto 📶). De momento: pregúntame lo que quieras del temario o del examen, que para eso tengo las 1.400+ preguntas auditadas delante, o escribe al equipo humano: ✉️ academiamicabo@hotmail.com.", fuentes: [] };
+    return { text: "El WhatsApp del proyecto se está rematando (muy pronto 📶). De momento: pregúntame lo que quieras del temario o del examen, que para eso tengo las 1.900+ preguntas auditadas delante, o escribe al equipo humano: ✉️ academiamicabo@hotmail.com.", fuentes: [] };
   },
   dinero: () => ({ text: "MICABO es 100% gratis: todos los tests, temarios, simulacros y este chat. El proyecto se sostiene con el apoyo de quienes quieren echar una mano: en la sección «Apoya ☕» de la app tienes un botón que copia el número de Bizum (concepto MICABO ☕) y botón de Ko-fi (ko-fi.com/academiamicabo), y ahí mismo se publican los costes reales (~40 €/año) y la acción social: el excedente va a Mamás en Acción, que acompaña a niños solos en el hospital. Quien entra ahora puede pillarse la insignia 🏅 FUNDADOR de plazas limitadas. Con eso pagamos el servidor y seguimos sumando preguntas. Pero que quede claro: para estudiar y aprobar no hace falta pagar NADA.", fuentes: [] }),
   temario: (curso) => {
@@ -533,8 +533,36 @@ const api = {
     if (c.d === dia) { c.n++; chatLimit.set(ip, c); } else chatLimit.set(ip, { d: dia, n: 1 });
     const m = norm(msg);
     let out = null;
+    /* ---- ACCIONES (v189): el Sargento no solo responde, también EJECUTA.
+       Verbo de acción + objetivo (navegación o test) → devuelve command que ejecuta el cliente.
+       Sin verbos no hay acción: las preguntas informativas siguen su cadena normal. ---- */
+    let cmd = null;
+    if (/(lanza|lanzar|arranca|arrancar|empieza|empezar|hazme|ponme|abre|abreme|abrir|ll[eé]vame|ll[eé]vateme|vamos a|ve a|ir a)/.test(m)) {
+      const TOPICOS = [["orden cerrado","Orden Cerrado"],["escuadra","Escuadra y equipo"],["topograf[íi]a|topo\b","Topografía"],["armamento|armas","Armamento"],["transmisi[óo]n","Transmisiones"],["nbq","NBQ"],["primeros auxilios|socorrismo","Primeros auxilios"],["tiro","Tiro"],["combatiente","Instrucción del combatiente"],["ordenanza","Reales Ordenanzas"],["disciplina","Régimen Disciplinario"],["penal","Código Penal Militar"],["derechos","Derechos y deberes"],["liderazgo","Liderazgo"],["ingl[ée]s","Inglés"],["carrera militar","Carrera militar"],["r[ée]gimen interior","Régimen Interior"],["seguridad","Seguridad en las FAS"],["c[íi]vica","Formación Cívica y Humana"]];
+      const sim = /simulacro/.test(m), modoEx = /modo examen/.test(m);
+      const quiereTest = /(test|simulacro|modo examen|examen)/.test(m) && /(lanza|lanzar|arranca|arrancar|empieza|empezar|hazme|ponme)/.test(m);
+      if (quiereTest) {
+        let topico = null;
+        for (const [k, v] of TOPICOS) { if (new RegExp(k).test(m)) { topico = v; break; } }
+        if (sim) cmd = { type: "simulacro" };
+        else if (modoEx) cmd = { type: "examen25" };
+        else cmd = { type: "test", topic: topico };
+      } else {
+        const NAV = [["duelo","#/duelo"],["trivial","#/trivial"],["marat[óo]n","#/maraton"],["temario","#/temario"],["bibliot","#/biblio"],["flashcard","#/cards"],["fichas","#/cards"],["repaso espaciado","#/srs"],["\bsrs\b","#/srs"],["oficiales","#/exams"],["a la carta","#/custom"],["reto diario","#/diario"],["\bdiario\b","#/diario"],["\bfallos\b","#/fallos"],["logro","#/logros"],["insignia","#/logros"],["estad[íi]stica","#/results"],["progreso","#/results"],["apoy","#/apoya"],["\bcaf[eé]\b","#/apoya"],["ajuste","#/ajustes"],["perfil","#/cuenta"],["\bcuenta\b","#/cuenta"],["esquema","#/esquemas"],["entrenar","#/entrenar"]];
+        for (const [k, h] of NAV) { if (new RegExp(k).test(m)) { cmd = { type: "nav", to: h, destino: k.replace(/\\b|\[|\]|\(|\)|[íì][óò][éè]/g, "") }; break; } }
+      }
+      if (cmd) {
+        let t = "🕴️ A sus órdenes. ";
+        if (cmd.type === "nav") t += "Marchando hacia la sección pedida — si no te lleva, recarga la página (tienes caché antigua).";
+        else if (cmd.type === "simulacro") t += "Cargo el SIMULACRO oficial: 50 preguntas, 70 minutos, penalización activa. Cronómetro en marcha, sin piedad.";
+        else if (cmd.type === "examen25") t += "Modo examen: 25 preguntas en 30 minutos. Que no te tiemble el pulso.";
+        else if (cmd.topic) t += "Lanzo test de " + cmd.topic + ". A por ello, que estos puntos se pagan caros en el corte.";
+        else t += "Lanzo un test rápido de 10 preguntas al bote.";
+        out = { text: t, command: cmd, fuentes: [] };
+      }
+    }
     const temarioOK = /(temario|asignatura|que estudiar|que tengo que estudiar|que entra|como entro|como veo el temario)/.test(m) && !/(art\.?\s?\d|articulo \d)/.test(m);
-    if (/(whats?app|hablar con (vosotros|una persona|alguien|un humano)|persona real|atencion al cliente|contacto)/.test(m)) out = chatFAQ.contacto();
+    if (cmd) {} else if (/(whats?app|hablar con (vosotros|una persona|alguien|un humano)|persona real|atencion al cliente|contacto)/.test(m)) out = chatFAQ.contacto();
     else if (temarioOK) out = chatFAQ.temario(["cabo", "cabo1", "perm"].includes(b.curso) ? b.curso : (u && users[u.id] ? users[u.id].curso : null));
     else if (/(dinero|aportar|apoyar|donar|donacion|kofi|ko-fi|cafe|premium|pagar|pago|cuesta|cuanto cuesta|fundador|suscripcion|gratis)/.test(m)) out = chatFAQ.dinero();
     else if (/(convocatoria|requisitos?|nota de corte|corte|cuantas preguntas|el examen|simulacro|70 minutos|plazas|cuando es|documentacion|instancia|solicitud|plazo|apuntarme|presentarme|inscribirme)/.test(m)) out = chatFAQ.convocatoria(["cabo", "cabo1", "perm"].includes(b.curso) ? b.curso : (u && users[u.id] ? users[u.id].curso : null));
@@ -550,7 +578,7 @@ const api = {
     }
     /* Con GEMINI_API_KEY: la IA redacta SOLO con el material recuperado (RAG). Si falla, vale la respuesta local. */
     const GKEY = process.env.GEMINI_API_KEY || "";
-    if (GKEY) {
+    if (GKEY && !cmd) {
       try {
         const ctx = fuentes.map(f => "- [" + f.id + "] " + f.t + ". Pregunta: " + f.q + " Respuesta correcta: " + f.a + ". Justificación: " + f.x).join("\n") || "(sin coincidencias del banco)";
         const sys = "Eres el Sargento MICABO, instructor de una academia gratis para el ascenso a Cabo del Ejército de Tierra español. Responde SOLO con el MATERIAL aportado; nunca inventes normas, artículos ni datos. Español de España, trato de tú, claro y cercano, máximo 130 palabras. Si la respuesta no está en el material, dilo con honestidad y sugiere escribir «hablar con vosotros» para contactar al equipo. Cuando el material cite norma y artículo, menciónalos.";
@@ -565,7 +593,7 @@ const api = {
         } else log("gemini_err", r.status);
       } catch (e) { log("gemini_exc", e.message); }
     }
-    send(res, 200, { ok: true, text: out.text, fuentes: fuentes.slice(0, 3), modo: out.modo || "local" });
+    send(res, 200, { ok: true, text: out.text, fuentes: fuentes.slice(0, 3), modo: out.modo || "local", command: out.command || undefined });
   },
   "POST /api/curso": (req, res, b, u) => {
     if (!u) return send(res, 401, { error: "Sin sesión" });
