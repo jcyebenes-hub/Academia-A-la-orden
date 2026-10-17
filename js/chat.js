@@ -36,7 +36,9 @@ function monta() {
     burbuja("yo", txt);
     pregunta(txt);
   };
-  burbuja("bot", "¡A sus órdenes, soldado! 🎖️ Pregúntame lo que quieras: dudas del temario o de alguna pregunta de test, cómo va el examen, cómo apoyar al proyecto… o si prefieres hablar con una persona, te digo cómo.");
+  const nm = (window.AO && AO.stateRef && AO.stateRef().name) || "";
+  const saludo = nm && nm !== "Recluta" ? "¡A sus órdenes, " + nm + "! 🎖️" : "¡A sus órdenes, soldado! 🎖️";
+  burbuja("bot", saludo + " Pregúntame lo que quieras: dudas del temario o de alguna pregunta de test, cómo va el examen, cómo apoyar al proyecto… o si prefieres hablar con una persona, te digo cómo.");
   fetch("/api/config").then(r => r.json()).then(d => { WA = (d && d.wa) || ""; }).catch(() => {});
 }
 function burbuja(quien, html) {

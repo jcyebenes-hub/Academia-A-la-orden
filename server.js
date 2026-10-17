@@ -532,6 +532,8 @@ const api = {
     if (c.d === dia && c.n >= 25) return send(res, 429, { error: "Has agotado las consultas de hoy (25/día). Mañana sigo a tu entera disposición 🎖️" });
     if (c.d === dia) { c.n++; chatLimit.set(ip, c); } else chatLimit.set(ip, { d: dia, n: 1 });
     const m = norm(msg);
+    /* v191: nombre del alumno con sesión para un trato cercano (tope 20; el cliente escapa) */
+    const uname = (u && users[u.id] && String(users[u.id].name || "").trim().slice(0, 20)) || "";
     let out = null;
     /* ---- ACCIONES (v189): el Sargento no solo responde, también EJECUTA.
        Verbo de acción + objetivo (navegación o test) → devuelve command que ejecuta el cliente.
@@ -552,7 +554,7 @@ const api = {
         for (const [k, h] of NAV) { if (new RegExp(k).test(m)) { cmd = { type: "nav", to: h, destino: k.replace(/\\b|\[|\]|\(|\)|[íì][óò][éè]/g, "") }; break; } }
       }
       if (cmd) {
-        let t = "🕴️ A sus órdenes. ";
+        let t = uname ? "🕴️ ¡A sus órdenes, " + uname + "! " : "🕴️ A sus órdenes. ";
         if (cmd.type === "nav") t += "Marchando hacia la sección pedida — si no te lleva, recarga la página (tienes caché antigua).";
         else if (cmd.type === "simulacro") t += "Cargo el SIMULACRO oficial: 50 preguntas, 70 minutos, penalización activa. Cronómetro en marcha, sin piedad.";
         else if (cmd.type === "examen25") t += "Modo examen: 25 preguntas en 30 minutos. Que no te tiemble el pulso.";
@@ -569,19 +571,20 @@ const api = {
     const fuentes = out && out.fuentes !== undefined ? out.fuentes : chatBusca(msg, 4);
     if (!out && fuentes.length) {
       const txt = fuentes.map(f => "📌 " + f.q + "\n✅ " + (f.a || "") + (f.x ? "\n📖 " + f.x : "")).join("\n\n");
-      out = { text: "Esto es lo que tengo al respecto (material oficial de la app):\n\n" + txt, fuentes };
+      out = { text: (uname ? "Esto es lo que tengo al respecto, " + uname + " (material oficial de la app):\n\n" : "Esto es lo que tengo al respecto (material oficial de la app):\n\n") + txt, fuentes };
     }
     if (!out) {
       const wa = (process.env.WHATSAPP_NUMBER || "").replace(/[^0-9]/g, "");
-      if (wa) out = { text: "Eso no lo tengo claro: no dispongo de esa información todavía, y prefiero callar antes que inventarme una norma 😅. Que no se pierda: mándanos la duda por WhatsApp y te la contestamos personalmente:\n👉 https://wa.me/" + wa + "?text=" + encodeURIComponent("Hola MICABO, mi duda es: " + msg), fuentes: [] };
-      else out = { text: "Eso no lo tengo claro: no dispongo de esa información todavía, y prefiero callar antes que inventarme una norma 😅. Prueba con el temario (p. ej. «¿qué es un centinela?»), el examen o el proyecto. Y si necesitas al equipo humano: ✉️ academiamicabo@hotmail.com (o escribe «hablar con vosotros»).", fuentes: [] };
+      const noSe = uname ? "Eso no lo tengo claro, " + uname + ": no dispongo de esa información todavía, y prefiero callar antes que inventarme una norma 😅. " : "Eso no lo tengo claro: no dispongo de esa información todavía, y prefiero callar antes que inventarme una norma 😅. ";
+      if (wa) out = { text: noSe + "Mándanos la duda por WhatsApp y te la contestamos personalmente:\n👉 https://wa.me/" + wa + "?text=" + encodeURIComponent("Hola MICABO, mi duda es: " + msg), fuentes: [] };
+      else out = { text: noSe + "Prueba con el temario (p. ej. «¿qué es un centinela?»), el examen o el proyecto. Y si necesitas al equipo humano: ✉️ academiamicabo@hotmail.com" + (uname ? ", " + uname : "") + " (o escribe «hablar con vosotros»).", fuentes: [] };
     }
     /* Con GEMINI_API_KEY: la IA redacta SOLO con el material recuperado (RAG). Si falla, vale la respuesta local. */
     const GKEY = process.env.GEMINI_API_KEY || "";
     if (GKEY && !cmd) {
       try {
         const ctx = fuentes.map(f => "- [" + f.id + "] " + f.t + ". Pregunta: " + f.q + " Respuesta correcta: " + f.a + ". Justificación: " + f.x).join("\n") || "(sin coincidencias del banco)";
-        const sys = "Eres el Sargento MICABO, instructor de una academia gratis para el ascenso a Cabo del Ejército de Tierra español. Responde SOLO con el MATERIAL aportado; nunca inventes normas, artículos ni datos. Español de España, trato de tú, claro y cercano, máximo 130 palabras. Si la respuesta no está en el material, dilo con honestidad y sugiere escribir «hablar con vosotros» para contactar al equipo. Cuando el material cite norma y artículo, menciónalos.";
+        const sys = "Eres el Sargento MICABO, instructor de una academia gratis para el ascenso a Cabo del Ejército de Tierra español. Responde SOLO con el MATERIAL aportado; nunca inventes normas, artículos ni datos. Español de España, trato de tú, claro y cercano, máximo 130 palabras. Si la respuesta no está en el material, dilo con honestidad y sugiere escribir «hablar con vosotros» para contactar al equipo. Cuando el material cite norma y artículo, menciónalos." + (uname ? " El alumno se llama " + uname + "; trátalo por su nombre con naturalidad." : "");
         const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + (process.env.GEMINI_MODEL || "gemini-2.5-flash") + ":generateContent?key=" + GKEY, {
           method: "POST", headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ systemInstruction: { parts: [{ text: sys }] }, contents: [{ role: "user", parts: [{ text: "MATERIAL:\n" + ctx + "\n\nPREGUNTA DEL ALUMNO: " + msg }] }], generationConfig: { temperature: 0.3, maxOutputTokens: 400 } })
@@ -593,7 +596,7 @@ const api = {
         } else log("gemini_err", r.status);
       } catch (e) { log("gemini_exc", e.message); }
     }
-    send(res, 200, { ok: true, text: out.text, fuentes: fuentes.slice(0, 3), modo: out.modo || "local", command: out.command || undefined });
+    send(res, 200, { ok: true, text: out.text, fuentes: fuentes.slice(0, 3), modo: out.modo || "local", command: out.command || undefined, para: uname || undefined });
   },
   "POST /api/curso": (req, res, b, u) => {
     if (!u) return send(res, 401, { error: "Sin sesión" });
