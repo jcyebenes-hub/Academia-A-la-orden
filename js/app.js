@@ -1,7 +1,7 @@
 /* MICABO · Academia de Tropa — motor de la app */
 (function () {
 "use strict";
-window.APPV = "189" /* v127: ventana Bizum con importe + guía (número nunca visible) */; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
+window.APPV = "190" /* v127: ventana Bizum con importe + guía (número nunca visible) */; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
 const $ = (s, el) => (el || document).querySelector(s);
 const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -15,7 +15,7 @@ const store = {
 };
 
 /* ---- estado ---- */
-let state = Object.assign({ course: "cabo", name: "Recluta", xp: 0, streak: 0, lastDay: null, fails: {}, history: [], seen: {}, blanks: {}, srs: {}, daily: {}, stars: {}, notes: {}, tramita: {}, donation: {} }, store.get("state", {}));
+let state = Object.assign({ course: "cabo", name: "Recluta", xp: 0, streak: 0, lastDay: null, fails: {}, history: [], seen: {}, blanks: {}, srs: {}, daily: {}, stars: {}, notes: {}, tramita: {}, donation: {}, mazos: [] }, store.get("state", {}));
 function save() { state.updatedAt = Date.now(); store.set("state", state); paintChips(); }
 function level() { return Math.floor(state.xp / 300) + 1; }
 function paintChips() {
@@ -750,7 +750,9 @@ function vFisicas() {
 /* ---- FLASHCARDS (tipo ascensoacabo / Soldado Español) ---- */
 let FC = null;
 function vCards() {
-  if (!FC || FC.course !== state.course) FC = { course: state.course, deck: shuffle(bank(state.course)), i: 0, good: 0, bad: 0, flip: false };
+  if (MFS) return vMazoEstudio();
+  if (FC && FC.tab === "mios") return vMazos();
+  if (!FC || FC.course !== state.course) FC = { course: state.course, deck: shuffle(bank(state.course)), i: 0, good: 0, bad: 0, flip: false, tab: "banco" };
   const deck = FC.deck, q = deck[FC.i];
   if (!q) {
     view().innerHTML = '<div class="view-head"><a class="back" href="#/mas">←</a><h1>Flashcards 🃏</h1></div><div class="card center"><h3>¡Baraja completada!</h3><p>Sabías <b>' + FC.good + '</b> de ' + deck.length + ' tarjetas.</p><button class="btn btn-green" id="fcAgain">Otra ronda</button> <a class="btn btn-ghost" href="#/fallos">Repasar fallos</a></div>';
@@ -758,7 +760,7 @@ function vCards() {
     return;
   }
   view().innerHTML =
-    '<div class="view-head"><a class="back" href="#/mas">←</a><h1>Flashcards 🃏</h1><span class="badge" style="margin-left:auto">' + (FC.i + 1) + "/" + deck.length + '</span></div>' +
+    '<div class="view-head"><a class="back" href="#/mas">←</a><h1>Flashcards 🃏</h1><span class="badge" style="margin-left:auto">' + (FC.i + 1) + "/" + deck.length + '</span><button class="btn btn-ghost btn-sm" id="fcMios" style="margin-left:8px">✍️ Mis mazos</button></div>' +
     '<div class="t-progress" style="margin-bottom:12px"><i style="width:' + Math.round(100 * FC.i / deck.length) + '%"></i></div>' +
     '<div class="q-card"><div><span class="badge">' + esc(q.t) + '</span> <span class="pill-diff d' + q.d + '">' + diffLabel(q.d) + "</span></div>" +
     '<p class="q-text">' + esc(q.q) + "</p>" +
@@ -767,12 +769,133 @@ function vCards() {
     (FC.flip
       ? '<button class="btn btn-green" id="fcGood">✅ La sabía</button><button class="btn btn-ghost" id="fcBad">❌ No la sabía</button>'
       : '<button class="btn btn-gold" id="fcFlip">Ver respuesta</button>') + "</div>";
+  $("#fcMios").onclick = () => { FC.tab = "mios"; vCards(); };
   if (FC.flip) {
     $("#fcGood").onclick = () => { FC.good++; FC.i++; FC.flip = false; state.xp += 2; state.cardsDone = (state.cardsDone || 0) + 1; if ((state.cardsDone || 0) >= 50) unlock("cards50"); save(); vCards(); };
     $("#fcBad").onclick = () => { FC.bad++; FC.i++; FC.flip = false; vCards(); };
   } else $("#fcFlip").onclick = () => { FC.flip = true; vCards(); };
 }
 
+/* ---- MIS MAZOS (v190): flashcards propias del alumno, inspiración studappy —
+   crear a mano + importación instantánea pegando texto (1 tarjeta por línea, separadores
+   | ; TAB o " - ") + Lo sé/No lo sé con repaso de falladas. Cero IA, cero deps, offline.
+   Viven en state.mazos (dispositivo; el sync cloud es selectivo y no las sube). ---- */
+let MFS = null; /* sesión de estudio de un mazo propio */
+function parseMazo(txt) {
+  const TAB = String.fromCharCode(9);
+  const out = [], skipped = [];
+  String(txt || "").split(/\r?\n/).forEach(function (ln, ix) {
+    const L = ln.trim();
+    if (!L) return;
+    let best = -1, blen = 1;
+    for (const sep of ["|", ";", TAB, " - "]) {
+      const p = L.indexOf(sep);
+      if (p > 0 && (best < 0 || p < best)) { best = p; blen = sep.length; }
+    }
+    if (best < 0) { skipped.push(ix + 1); return; }
+    const f = L.slice(0, best).trim(), b = L.slice(best + blen).trim();
+    if (f && b) out.push({ f: f.slice(0, 240), b: b.slice(0, 240), ok: 0, ko: 0 });
+    else skipped.push(ix + 1);
+  });
+  return { cards: out, skipped: skipped };
+}
+function vMazos() {
+  const ms = state.mazos || (state.mazos = []);
+  const tabs = '<div class="t-nav" style="margin-bottom:12px;gap:8px"><button class="btn btn-ghost" id="tabBanco">🏦 Banco oficial</button><button class="btn btn-gold" id="tabMios">✍️ Mis mazos</button></div>';
+  let body;
+  if (ms.length) {
+    body = '<button class="btn btn-gold btn-block" id="mzNew">➕ Nuevo mazo</button>' +
+      ms.map(function (m) {
+        const t = m.cards.reduce(function (a, c) { a.ok += c.ok || 0; a.ko += c.ko || 0; return a; }, { ok: 0, ko: 0 });
+        const n = t.ok + t.ko;
+        return '<div class="card" style="margin-top:10px"><h3>🗂️ ' + esc(m.name) + "</h3>" +
+          '<p class="small muted">' + m.cards.length + " tarjetas · " + (n ? Math.round(100 * t.ok / n) + "% de acierto en " + n + " repasos" : "sin repasar aún") + "</p>" +
+          '<div class="t-nav" style="justify-content:flex-start"><button class="btn btn-green" data-est="' + m.id + '">Estudiar</button>' +
+          '<button class="btn btn-ghost" data-add="' + m.id + '">➕ Tarjetas</button>' +
+          '<button class="btn btn-ghost" data-del="' + m.id + '">🗑️</button></div></div>';
+      }).join("");
+  } else {
+    body = '<button class="btn btn-gold btn-block" id="mzNew">➕ Crear mi primer mazo</button>' +
+      '<div class="card" style="margin-top:10px"><p><b>Tus tarjetas, tus reglas.</b> Artículos, cifras, vocabulario de inglés… lo que se te resista.</p>' +
+      '<p class="small muted">Importación instantánea: pega una tarjeta por línea separando pregunta y respuesta con <b>|</b>, <b>;</b> o <b> - </b>. Ejemplos:<br>¿Art. 21 LO 9/2011? | Derecho al descanso…<br>Coronel manda en… - Regimiento</p>' +
+      '<p class="small muted">Se quedan en tu dispositivo (por ahora): ni cuentas ni servidores. Tu cuaderno es tuyo.</p></div>';
+  }
+  view().innerHTML = '<div class="view-head"><a class="back" href="#/mas">←</a><h1>Flashcards 🃏</h1></div>' + tabs + body;
+  $("#tabBanco").onclick = () => { FC = null; vCards(); };
+  $("#mzNew").onclick = () => vMazoForm(null);
+  $$("[data-est]").forEach(b => b.onclick = () => {
+    const m = ms.find(x => x.id === b.getAttribute("data-est"));
+    if (!m || !m.cards.length) { toast("Ese mazo no tiene tarjetas"); return; }
+    MFS = { id: m.id, order: shuffle(m.cards.map((c, i) => i)), i: 0, good: 0, bad: 0, flip: false, miss: [] };
+    vCards();
+  });
+  $$("[data-add]").forEach(b => b.onclick = () => vMazoForm(b.getAttribute("data-add")));
+  $$("[data-del]").forEach(b => b.onclick = () => {
+    const m = ms.find(x => x.id === b.getAttribute("data-del"));
+    if (m && confirm("¿Borrar el mazo «" + m.name + "» con sus " + m.cards.length + " tarjetas? No hay vuelta atrás.")) {
+      state.mazos = ms.filter(x => x.id !== m.id); save(); toast("Mazo borrado"); vCards();
+    }
+  });
+}
+function vMazoForm(editId) {
+  const m = editId ? (state.mazos || []).find(x => x.id === editId) : null;
+  view().innerHTML = '<div class="view-head"><a class="back" href="#/cards"><span id="mzBack">←</span></a><h1>' + (m ? "➕ Tarjetas: " + esc(m.name) : "Nuevo mazo ✍️") + "</h1></div>" +
+    '<div class="card">' +
+    (m ? "" : '<p style="margin:0 0 8px"><input id="mzName" type="text" maxlength="40" placeholder="Nombre del mazo (p. ej. Inglés ME7-029)" style="width:100%"></p>') +
+    '<textarea id="mzTxt" rows="9" placeholder="Una tarjeta por línea. Separadores: | ; TAB o \" - \".&#10;¿Art. 21 LO 9/2011? | Derecho al descanso&#10;Coronel manda en… - Regimiento&#10;¿Who commands a squadron? ; The squadron leader" style="width:100%"></textarea>' +
+    '<p class="small muted" id="mzCount" style="margin:6px 0">Pega, y listo: el separador de cada línea hace la tarjeta.</p>' +
+    '<button class="btn btn-gold btn-block" id="mzSave">' + (m ? "Añadir al mazo" : "Crear mazo") + "</button></div>";
+  const ta = $("#mzTxt");
+  ta.oninput = () => { const r = parseMazo(ta.value); $("#mzCount").textContent = r.cards.length + " tarjetas listas" + (r.skipped.length ? " · " + r.skipped.length + " línea(s) sin separador se descartarán" : ""); };
+  $("#mzSave").onclick = () => {
+    const r = parseMazo(ta.value);
+    if (!r.cards.length) { toast("No he podido sacar ninguna tarjeta: revisa los separadores"); return; }
+    let name = m ? m.name : ($("#mzName").value || "").trim();
+    if (!name) { toast("Ponle nombre al mazo"); return; }
+    if (!m) {
+      state.mazos = state.mazos || [];
+      if (state.mazos.length >= 20) { toast("Máximo 20 mazos: borra alguno para crear más"); return; }
+      state.mazos.push({ id: "mz" + Date.now().toString(36), name: name.slice(0, 40), cards: [], created: Date.now() });
+    }
+    const mm = m || state.mazos[state.mazos.length - 1];
+    let extra = r.cards;
+    if (mm.cards.length + extra.length > 200) { extra = extra.slice(0, 200 - mm.cards.length); toast("Tope de 200 tarjetas por mazo: recorto lo que sobre"); }
+    mm.cards = mm.cards.concat(extra);
+    save();
+    toast(extra.length + " tarjetas guardadas" + (r.skipped.length ? " (" + r.skipped.length + " líneas descartadas)" : ""));
+    MFS = null; FC = null; vCards();
+  };
+}
+function vMazoEstudio() {
+  const m = (state.mazos || []).find(x => x.id === MFS.id);
+  if (!m) { MFS = null; return vMazos(); }
+  if (MFS.i >= MFS.order.length) {
+    const falladas = MFS.miss.length;
+    view().innerHTML = '<div class="view-head"><a class="back" href="#/cards">←</a><h1>Flashcards 🃏</h1></div><div class="card center"><h3>¡Mazo completado!</h3>' +
+      "<p>Sabías <b>" + MFS.good + "</b> de " + MFS.order.length + " tarjetas." + (falladas ? " Las " + falladas + " falladas vuelven a la carga." : " Sin fallos: así se hace.") + "</p>" +
+      (falladas ? '<button class="btn btn-gold" id="mzMiss">Repasar solo las falladas</button> ' : "") +
+      '<button class="btn btn-green" id="mzAgain">Otra ronda completa</button> <button class="btn btn-ghost" id="mzBack2">Mis mazos</button></div>';
+    $("#mzAgain").onclick = () => { MFS = { id: m.id, order: shuffle(m.cards.map((c, i) => i)), i: 0, good: 0, bad: 0, flip: false, miss: [] }; vCards(); };
+    $("#mzBack2").onclick = () => { MFS = null; FC = { tab: "mios" }; vCards(); };
+    if (falladas) $("#mzMiss").onclick = () => { MFS.order = MFS.miss.slice(); MFS.i = 0; MFS.good = 0; MFS.bad = 0; MFS.flip = false; MFS.miss = []; vCards(); };
+    return;
+  }
+  const idx = MFS.order[MFS.i], c = m.cards[idx];
+  if (!c) { MFS = null; return vMazos(); }
+  view().innerHTML = '<div class="view-head"><a class="back" href="#/cards">←</a><h1>Flashcards 🃏</h1><span class="badge" style="margin-left:auto">' + (MFS.i + 1) + "/" + MFS.order.length + '</span></div>' +
+    '<div class="t-progress" style="margin-bottom:12px"><i style="width:' + Math.round(100 * MFS.i / MFS.order.length) + '%"></i></div>' +
+    '<div class="q-card"><span class="badge">🗂️ ' + esc(m.name) + "</span>" +
+    '<p class="q-text">' + esc(MFS.flip ? c.b : c.f) + "</p>" +
+    (MFS.flip ? '<p class="small muted" style="margin:6px 0 0">↑ vuelve a pulsar la tarjeta para rellenar huecos si los hay</p>' : "") + "</div>" +
+    '<div class="t-nav" style="justify-content:center">' +
+    (MFS.flip
+      ? '<button class="btn btn-green" id="mzGood">✅ La sabía</button><button class="btn btn-ghost" id="mzBad">❌ No la sabía</button>'
+      : '<button class="btn btn-gold" id="mzFlip">Ver respuesta</button>') + "</div>";
+  if (MFS.flip) {
+    $("#mzGood").onclick = () => { MFS.good++; c.ok = (c.ok || 0) + 1; MFS.i++; MFS.flip = false; state.xp += 2; state.cardsDone = (state.cardsDone || 0) + 1; if ((state.cardsDone || 0) >= 50) unlock("cards50"); save(); vCards(); };
+    $("#mzBad").onclick = () => { MFS.bad++; c.ko = (c.ko || 0) + 1; MFS.miss.push(idx); MFS.i++; MFS.flip = false; save(); vCards(); };
+  } else $("#mzFlip").onclick = () => { MFS.flip = true; vCards(); };
+}
 /* ---- EXÁMENES OFICIALES (tipo ANARO/InnoTest: banco de históricos) ---- */
 function vExams() {
   /* Los históricos se muestran a TODOS los cursos (son archivos históricos): si el examen
