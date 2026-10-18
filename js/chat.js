@@ -38,7 +38,8 @@ function monta() {
   };
   const nm = (window.AO && AO.stateRef && AO.stateRef().name) || "";
   const saludo = nm && nm !== "Recluta" ? "¡A sus órdenes, " + nm + "! 🎖️" : "¡A sus órdenes, soldado! 🎖️";
-  burbuja("bot", saludo + " Pregúntame lo que quieras: dudas del temario o de alguna pregunta de test, cómo va el examen, cómo apoyar al proyecto… o si prefieres hablar con una persona, te digo cómo.");
+  const wb = burbuja("bot", "");
+  teclea(wb, saludo + " Pregúntame lo que quieras: dudas del temario o de alguna pregunta de test, cómo va el examen, cómo apoyar al proyecto… o si prefieres hablar con una persona, te digo cómo.");
   fetch("/api/config").then(r => r.json()).then(d => { WA = (d && d.wa) || ""; }).catch(() => {});
 }
 function burbuja(quien, html) {
@@ -65,6 +66,32 @@ function ejecuta(c) {
     if (c.type === "examen25") { startTest({ course: curso, filter: "all", n: 25, mode: "exam", minutes: 30, label: "Modo examen (chat)" }); return; }
   } catch (e) {}
 }
+/* v192: escritura progresiva (tipo chatbot real) + botones de acción «pincha aquí» */
+function teclea(el, txt, fin) {
+  const ms = $("#chatMsgs");
+  const span = document.createElement("span");
+  el.textContent = ""; el.appendChild(span);
+  const paso = Math.max(2, Math.ceil(txt.length / 140)); /* ~2,2 s máximo siempre */
+  let i = 0;
+  (function tira() {
+    i = Math.min(txt.length, i + paso);
+    span.textContent = txt.slice(0, i);
+    if (ms) ms.scrollTop = ms.scrollHeight;
+    if (i < txt.length) setTimeout(tira, 16);
+    else { el.innerHTML = linkify(esc(txt)); if (fin) fin(); if (ms) ms.scrollTop = ms.scrollHeight; }
+  })();
+}
+function añadeAcciones(accs) {
+  const ms = $("#chatMsgs"); if (!ms) return;
+  const box = document.createElement("div"); box.className = "chat-acc";
+  accs.slice(0, 4).forEach(a => {
+    const b = document.createElement("button"); b.type = "button"; b.className = "chat-chip";
+    b.textContent = a.l || "Ir";
+    b.onclick = () => { if (window.AO) ejecuta(a.c); else burbuja("bot", "Dale a «Abrir la app» y pídemelo dentro: te lo ejecuto al momento. 🫡"); };
+    box.appendChild(b);
+  });
+  ms.appendChild(box); ms.scrollTop = ms.scrollHeight;
+}
 function pregunta(txt) {
   ocupado = true;
   const esp = burbuja("bot", "…");
@@ -73,14 +100,17 @@ function pregunta(txt) {
     .then(r => r.json().then(d => { if (!r.ok) throw new Error(d.error || "HTTP " + r.status); return d; }))
     .then(d => {
       esp.remove();
-      burbuja("bot", d.text || "…");
-      if (d.command) { if (window.AO) setTimeout(() => ejecuta(d.command), 400); else burbuja("bot", "Para que pueda ejecutártelo, dale a «Abrir la app» y pídemelo dentro. 🫡"); }
-      (d.fuentes || []).slice(0, 3).forEach(f => {
-        const b = document.createElement("div"); b.className = "chat-fuente";
-        b.textContent = "📎 " + (f.id || "") + (f.t ? " · " + f.t : "");
-        $("#chatMsgs").appendChild(b);
+      const mb = burbuja("bot", "");
+      teclea(mb, d.text || "…", () => {
+        if (d.command) { if (window.AO) setTimeout(() => ejecuta(d.command), 350); else burbuja("bot", "Para que pueda ejecutártelo, dale a «Abrir la app» y pídemelo dentro. 🫡"); }
+        if (d.acciones && d.acciones.length) añadeAcciones(d.acciones);
+        (d.fuentes || []).slice(0, 3).forEach(f => {
+          const b = document.createElement("div"); b.className = "chat-fuente";
+          b.textContent = "📎 " + (f.id || "") + (f.t ? " · " + f.t : "");
+          $("#chatMsgs").appendChild(b);
+        });
+        const ms = $("#chatMsgs"); if (ms) ms.scrollTop = ms.scrollHeight;
       });
-      const ms = $("#chatMsgs"); if (ms) ms.scrollTop = ms.scrollHeight;
     })
     .catch(e => { esp.remove(); burbuja("bot", "Se me ha ido la conexión con el cuartel (" + e.message + "). Inténtalo otra vez en un momento. 📡"); })
     .finally(() => { ocupado = false; });

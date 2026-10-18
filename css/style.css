@@ -576,3 +576,6 @@ input,select,textarea{border-radius:12px}
 .chat-send{border:0;cursor:pointer;background:var(--gold);color:#fff;font-size:1.05rem;
   width:44px;border-radius:12px}
 @media (max-width:560px){#chatFab{bottom:78px;padding:12px 15px}#chatWin{bottom:140px}}
+
+/* v192: botones de acción dentro del chat */
+.chat-acc{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 0 2px}
