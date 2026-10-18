@@ -250,6 +250,120 @@ window.TEMARIO_PERM = [
 ];
 
 /* v195: el dossier se adapta al curso activo (Cabo o Permanencia) */
+/* v196: TEMARIO CABO 1º — estructura real del curso de actualización (convocatoria I/26
+   BOD nº 62: oposición 35+15 · Guía Docente CB1: módulos/UF de la fase presencial) */
+window.TEMARIO_CB1 = [
+ {
+  "title": "Fase de Oposición · Formación Militar",
+  "peso": "35 preguntas del examen",
+  "intro": "El bloque grande de la oposición: dos tercios de la nota. Normativa pura — aquí el artículo exacto y la cifra exacta valen ascenso.",
+  "oficial": [
+   "Reales Ordenanzas para las FAS — RD 96/2009: principios generales y reglas de comportamiento, disciplina, jerarquía y unidad de mando, deberes del militar, ejercicio y responsabilidad del mando, relaciones entre militares, actuación en operaciones, cumplimiento de las órdenes y disponibilidad.",
+   "Derechos y deberes — LO 9/2011: derechos fundamentales y libertades públicas, derechos profesionales, deberes militares, asociaciones profesionales, derecho de petición, participación y representación.",
+   "Régimen disciplinario — LO 8/2014: faltas leves, graves y muy graves; sanciones; competencias para imponerlas; procedimiento disciplinario; cumplimiento; recursos.",
+   "Código Penal Militar — LO 14/2015: ámbito de aplicación, delitos militares, delitos contra la disciplina, contra los deberes del servicio, contra la seguridad y defensa nacionales, penas.",
+   "Organización del Ejército de Tierra: Cuartel General, Fuerza y Apoyo a la Fuerza, principales mandos y unidades, armas y especialidades.",
+   "Seguridad y régimen interior — RD 194/2010 y OM 50/2011: organización del RI, responsabilidades del mando, servicios y guardias, seguridad de las instalaciones, obligaciones del personal de servicio.",
+   "Liderazgo militar: concepto, responsabilidad del mando, toma de decisiones, comunicación, motivación y cohesión, ejemplo personal."
+  ],
+  "esencial": [
+   "Reparto oficial del examen de oposición (convocatoria I/26): 35 preguntas de Formación Militar + 15 de Sociocultural = 50. Corrección NO = (0,2 × aciertos) − (0,05 × errores).",
+   "El temario oficial de la fase de oposición está publicado en RINCÓN DE TROPA (lo dice la propia convocatoria). En la app tienes tests de todo esto por tema.",
+   "Machaca primero Reales Ordenanzas y LO 8/2014: son el corazón del bloque y las gemelas del banco ya te preparan las trampas."
+  ],
+  "fuentes": [
+   {
+    "t": "Convocatoria I/26 (Res. 551/04582/26 · BOD nº 62)",
+    "u": "https://boe.es"
+   },
+   {
+    "t": "RD 96/2009 · LO 9/2011 · LO 8/2014 · LO 14/2015",
+    "u": "https://boe.es"
+   }
+  ]
+ },
+ {
+  "title": "Fase de Oposición · Formación Sociocultural",
+  "peso": "15 preguntas del examen",
+  "intro": "El tercio restante de la oposición: cultura general al nivel que pide el curso. Menos denso que Formación Militar, pero para sacar el corte cada punto cuenta.",
+  "oficial": [
+   "Constitución Española (1978): estructura de la Constitución, derechos y deberes fundamentales, la Corona, las Cortes Generales, el Gobierno, el Poder Judicial y la organización territorial del Estado.",
+   "Organización del Estado: instituciones, Administración General del Estado, comunidades autónomas, provincias y municipios, funciones de las principales instituciones.",
+   "Cultura general: conceptos básicos de historia y sociedad española, instituciones públicas, geografía física y política, acontecimientos históricos relevantes."
+  ],
+  "esencial": [
+   "La Constitución es la madre de todas: Título preliminar + Títulos I a VIII bien atados sirven para la mayoría de las 15.",
+   "La app tiene tests de Constitución y organización del Estado (heredados del bloque de Organización): sirven igual para esta fase.",
+   "El temario sociocultural exacto lo publica el CEFOT 1 con la convocatoria: este bloque es la guía de estudio, contrasta con Rincón de Tropa."
+  ],
+  "fuentes": [
+   {
+    "t": "Convocatoria I/26 · BOD nº 62 (35+15)",
+    "u": "https://boe.es"
+   },
+   {
+    "t": "Constitución Española 1978",
+    "u": "https://boe.es"
+   }
+  ]
+ },
+ {
+  "title": "Fase a distancia",
+  "peso": "Inglés ME7-029 · Geografía e Historia ME7-030",
+  "intro": "La fase que se hace desde casa con examen telemático (CVCDEF). En la I/26 ya se celebró (31-ago → 11-sep, examen del Módulo de Formación Común el 14-sep): esta es la guía para la próxima convocatoria.",
+  "oficial": [
+   "Inglés — ME7-029: unidades con gramática (verbo to be, verbo to have, formas impersonales del verbo, afirmativa/negativa/interrogativa…), speaking y vocabulario civil y militar elemental.",
+   "Geografía e Historia de España — ME7-030: geografía física (relieve, ríos, climas), geografía política (CCAA y capitales, provincias, ciudades autónomas) e historia de España (de Hispania a la Transición y la Constitución de 1978).",
+   "Formación Común (JUL-22): los contenidos comunes del curso de actualización."
+  ],
+  "esencial": [
+   "El examen de esta fase en la I/26: 50 preguntas + 5 de reserva · 60 minutos (celebrado el 14-sep-2026).",
+   "El ME7-029 completo está en la Biblioteca de la app: aprende el vocabulario militar elemental por unidades — las preguntas de inglés caen de ahí.",
+   "Para la I/27 (est. 1er trimestre 2027) conviene llegar con el inglés llevado: es la asignatura que más suspende."
+  ],
+  "fuentes": [
+   {
+    "t": "ME7-029 Inglés (extracto en la Biblioteca)",
+    "u": ""
+   },
+   {
+    "t": "ME7-030 Geografía e Historia",
+    "u": ""
+   },
+   {
+    "t": "Convocatoria I/26 · fase a distancia 31-ago→11-sep",
+    "u": "https://boe.es"
+   }
+  ]
+ },
+ {
+  "title": "Fase presencial en Academia",
+  "peso": "14-sep → 9-oct-2026 · Módulos 1-3",
+  "intro": "La fase en el CEFOT (en la I/26: 14-sep a 9-oct). Aquí no hay test: hay UFs con evaluación propia — y dos de ellas van a APTO/NO APTO.",
+  "oficial": [
+   "Módulo 1 · Formación Común: UF1 Seguridad en el entorno militar · UF2 Técnico administrativo y logístico · UF3 Técnicas de mando · UF4 Igualdad efectiva y protocolo de acoso.",
+   "Módulo 2 · Formación específica: UF1 Orgánica de las unidades de Infantería (sección a batallón) · UF2 Abreviaturas, signos convencionales y croquis · UF3 Cometidos de pelotones/secciones INF/ILG/IMZ · UF4 Escuadras y equipos de armas de tiro directo · UF5 Armas de tiro indirecto · UF6 Defensa contracarro · UF7 Movimientos, reconocimiento y seguridad · UF8 Empleo de vehículos blindados/mecanizados/acorazados · UF9 Logística de pequeñas unidades.",
+   "Módulo 3 · Instrucción y adiestramiento: UF1 Orden Cerrado · UF2 Educación física · UF3 Instrucción táctica de Infantería (la nota del módulo, de 0 a 10).",
+   "Módulo de Técnicas de Apoyo: informática."
+  ],
+  "esencial": [
+   "Orden Cerrado y Educación física van a APTO/NO APTO: hay que superarlas sí o sí para aprobar el módulo.",
+   "La nota real del módulo la pone Instrucción Táctica (0-10, se exige ≥ 5).",
+   "La UF1 de Orden Cerrado tiene Ev.1: prueba escrita sobre el REGLAMENTO de orden cerrado en vigor (necesitas un 5). El reglamento es material aparte del temario — consíguelo y la app te lo machaca (tandas OC en marcha)."
+  ],
+  "fuentes": [
+   {
+    "t": "Guía Docente CB1 (Módulos 1-3 y evaluación)",
+    "u": ""
+   },
+   {
+    "t": "Convocatoria I/26 · fase presencial 14-sep→9-oct",
+    "u": "https://boe.es"
+   }
+  ]
+ }
+];
+
 window.bloquesDeCurso = function () {
   const c = (window.AO && AO.stateRef && AO.stateRef().course) || "cabo";
   if (c === "perm" && window.TEMARIO_PERM) return {
@@ -257,6 +371,12 @@ window.bloquesDeCurso = function () {
     titulo: "Temario oficial · Acceso a Tropa Permanente (FAS)",
     sub: "Programa oficial del Anexo III de la Orden DEF/1341/2017, confirmado por la convocatoria 2026 (Res. 452/08724/26 · BOD nº 116) · prueba: 100 preguntas · 120 min · P = A − E/3 · generado el ",
     file: "a-la-orden-temario-permanente"
+  };
+  if (c === "cabo1" && window.TEMARIO_CB1) return {
+    bloques: window.TEMARIO_CB1,
+    titulo: "Curso de actualización para el ascenso a Cabo 1º (ET)",
+    sub: "Estructura oficial según la convocatoria I/26 (Res. 551/04582/26 · BOD nº 62): oposición 35 + 15 preguntas · fase a distancia (ME7-029/ME7-030) · fase presencial (Módulos 1-3) · generado el ",
+    file: "a-la-orden-temario-cabo1"
   };
   return { bloques: window.TEMARIO.bloques, titulo: "Temario oficial · Ascenso a Cabo (ET) — completo", sub: null, file: "a-la-orden-temario-cabo" };
 };
