@@ -436,7 +436,7 @@ window.TEMARIO_ORDEN = {
     B3: ["Seguridad Nacional","Doctrina","ESN","OTAN","OSCE","UE","ONU","Misiones","Físicas","Convocatoria"]
   },
   cabo1: {
-    B1: ["El examen","Reales Ordenanzas","Organización","Mando y liderazgo","Régimen disciplinario","Documentación","Geografía","Historia","Tiro","Topografía","Primeros auxilios","NBQ","Logística","Seguridad"],
+    B1: ["El examen","Reales Ordenanzas","Organización","Mando y liderazgo","Régimen disciplinario","Código Penal Militar","Documentación","Geografía","Historia","Tiro","Topografía","Primeros auxilios","NBQ","Logística","Seguridad"],
     B2: ["Inglés","NBQ","Técnicas de mando","Administración"]
   }
 };
