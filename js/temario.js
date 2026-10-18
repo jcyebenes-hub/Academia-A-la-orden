@@ -157,7 +157,111 @@ window.TEMARIO = {
 };
 
 /* ---------- Dossier descargable (HTML imprimible → PDF) ---------- */
-window.temarioDoc = function (bloques, titulo) {
+/* v195: TEMARIO PERMANENCIA — programa oficial (Anexo III · Orden DEF/1341/2017,
+   confirmado por la convocatoria 2026) para el dossier descargable del curso perm */
+window.TEMARIO_PERM = [
+ {
+  "title": "Bloque I · Organización",
+  "peso": "6 temas · Anexo III DEF/1341/2017",
+  "intro": "Los cimientos: el Estado, la Defensa y la estructura de las FAS. Es el bloque más «de cultura general»: sus preguntas suelen ser literales, así que conviene tenerlo muy atado.",
+  "oficial": [
+   "Tema 1. Constitución Española (1978): organización política y territorial del Estado; Título III (las Cortes Generales), Título IV (el Gobierno y la Administración), Título V (relaciones entre el Gobierno y las Cortes), Título VI (el Poder Judicial) y Título VIII (organización territorial).",
+   "Tema 2. Defensa Nacional — LO 5/2005: regulación de la Defensa Nacional, bases de la organización militar, competencias de los órganos del Estado en materia de defensa.",
+   "Tema 3. Régimen Jurídico del Sector Público — Ley 40/2015: disposiciones generales, órganos de las administraciones, Administración General del Estado, ministerios y relaciones interadministrativas.",
+   "Tema 4. Ministerio de Defensa — RD 998/2017: estructura orgánica, organización y competencias de sus órganos principales.",
+   "Tema 5. Organización básica de las Fuerzas Armadas — RD 872/2014 y ORDEN DEF/166/2015: organización general, principios básicos, estructura y desarrollo organizativo.",
+   "Tema 6. Organización de los ejércitos: Estado Mayor de la Defensa · Ejército de Tierra · Armada · Ejército del Aire y del Espacio."
+  ],
+  "esencial": [
+   "La convocatoria 2026 lo confirma literalmente: la oposición se ajusta al Anexo III de la Orden DEF/1341/2017 «y a las modificaciones o actualizaciones vigentes» en la fecha de publicación.",
+   "En la app cada tema lleva su test con contador real: empieza por Constitución y Defensa Nacional, las materias con más preguntas del bloque.",
+   "Truco de examen: aprende QUÉ NORMA va con QUÉ tema (Defensa→LO 5/2005 · Sector Público→L 40/2015 · MINISDEF→RD 998/2017 · FAS→RD 872/2014 + ORDEN DEF/166/2015). Caen como distractor constantemente."
+  ],
+  "fuentes": [
+   {
+    "t": "Orden DEF/1341/2017, Anexo III (programa oficial)",
+    "u": "https://boe.es"
+   },
+   {
+    "t": "Res. 452/08724/26 · BOD nº 116 (17-jun-2026) — convocatoria 2026",
+    "u": "https://boe.es"
+   }
+  ]
+ },
+ {
+  "title": "Bloque II · Jurídico-Social",
+  "peso": "8 temas · Anexo III DEF/1341/2017",
+  "intro": "El bloque de «ser militar»: condición y carrera, derechos y deberes, disciplina, igualdad y procedimiento administrativo. Muy normativo: aquí el artículo exacto vale punto.",
+  "oficial": [
+   "Tema 1. Régimen del personal militar profesional — Ley 39/2007 (carrera militar, categorías y empleos, situaciones administrativas) y Ley 8/2006 (régimen específico de tropa y marinería).",
+   "Tema 2. Reales Ordenanzas para las FAS — RD 96/2009: principios básicos de comportamiento, disciplina, jerarquía, unidad de mando, deberes del militar, ejercicio del mando, relaciones entre militares y responsabilidad en el servicio.",
+   "Tema 3. Derechos y deberes de los miembros de las FAS — LO 9/2011: derechos fundamentales, libertades públicas, derechos profesionales, deberes militares, asociaciones profesionales, participación y representación.",
+   "Tema 4. Régimen disciplinario — LO 8/2014: principios generales, faltas, sanciones, competencias sancionadoras, procedimiento disciplinario y recursos.",
+   "Tema 5. Iniciativas y quejas — RD 176/2014: presentación de iniciativas, tramitación de quejas, derechos del personal militar en este ámbito.",
+   "Tema 6. Igualdad entre mujeres y hombres — LO 3/2007: principio de igualdad, igualdad de trato y oportunidades, discriminación, políticas públicas de igualdad e igualdad en el empleo público.",
+   "Tema 7. Observatorio Militar para la Igualdad: funciones, igualdad en las FAS, prevención del acoso sexual y por razón de sexo, Unidades de Protección frente al Acoso (UPA).",
+   "Tema 8. Procedimiento Administrativo Común — Ley 39/2015: derechos de los interesados, actos administrativos, plazos, notificaciones, recursos administrativos y revisión de actos."
+  ],
+  "esencial": [
+   "Temas 1 a 5 son los clásicos: la app ya los machaca con tests por tema (Carrera militar, Tropa y marinería, Derechos y deberes…).",
+   "Temas 6 a 8 (Igualdad, Observatorio/UPA y PAC) son los recién llegados del programa: tanda nueva de preguntas en camino. Apúntalos para el repaso final.",
+   "El RD 176/2014 (iniciativas y quejas) comparte estructura con el régimen disciplinario (plazos y órganos): estúdialos en tándem y ahorrarás memoria."
+  ],
+  "fuentes": [
+   {
+    "t": "L 39/2007 · L 8/2006 · RD 96/2009 · LO 9/2011",
+    "u": "https://boe.es"
+   },
+   {
+    "t": "LO 8/2014 · RD 176/2014 · LO 3/2007 · L 39/2015",
+    "u": "https://boe.es"
+   }
+  ]
+ },
+ {
+  "title": "Bloque III · Seguridad Nacional, Acción Conjunta y Organizaciones Internacionales",
+  "peso": "7 temas · Anexo III DEF/1341/2017",
+  "intro": "El bloque geopolítico: España en el mundo y las organizaciones donde opera. Es el que más se nota de una convocatoria a otra (ESN vigente, misiones en curso): repásalo cerca del examen.",
+  "oficial": [
+   "Tema 1. Seguridad Nacional — Ley 36/2015: concepto, amenazas y riesgos, sistema de Seguridad Nacional y Estrategia de Seguridad Nacional vigente.",
+   "Tema 2. Doctrina para la acción conjunta — PDC-01: entorno de seguridad, empleo de las FAS, mando y control, operaciones conjuntas, integración en estructuras multinacionales.",
+   "Tema 3. ONU: historia y objetivos, Estados miembros, Asamblea General, Consejo de Seguridad, Secretaría General, Carta de las Naciones Unidas y participación de España.",
+   "Tema 4. OTAN: historia y objetivos, Estados miembros, estructura política y militar, principales órganos, incorporación de España a la Alianza y participación española.",
+   "Tema 5. OSCE: historia, objetivos, Estados participantes, estructura y participación española.",
+   "Tema 6. Unión Europea: historia y evolución, instituciones y organismos (Parlamento Europeo, Consejo Europeo, Consejo de la UE, Comisión Europea), Política Común de Seguridad y Defensa y participación de España.",
+   "Tema 7. España y las misiones internacionales: participación en operaciones internacionales, misiones de mantenimiento de la paz, operaciones de la ONU, OTAN y UE; misiones realizadas y en curso."
+  ],
+  "esencial": [
+   "La prueba de conocimientos es 100 preguntas · 120 min · P = A − E/3 (los blancos no penalizan). Los ejercicios físicos van aparte, puntuados según la Orden DEF/15/2026.",
+   "Para ONU/OTAN/UE/OSCE aprende la estructura de órganos como quien aprende un organigrama: quién es quién y quién manda en qué.",
+   "Misiones en curso: el tema «Misiones» de la app se mantiene al día. Repásalo en la última semana, que es donde más cambian las preguntas con la actualidad."
+  ],
+  "fuentes": [
+   {
+    "t": "Ley 36/2015 · PDC-01 Doctrina para la acción conjunta",
+    "u": "https://boe.es"
+   },
+   {
+    "t": "Anexo III · Orden DEF/1341/2017",
+    "u": "https://boe.es"
+   }
+  ]
+ }
+];
+
+/* v195: el dossier se adapta al curso activo (Cabo o Permanencia) */
+window.bloquesDeCurso = function () {
+  const c = (window.AO && AO.stateRef && AO.stateRef().course) || "cabo";
+  if (c === "perm" && window.TEMARIO_PERM) return {
+    bloques: window.TEMARIO_PERM,
+    titulo: "Temario oficial · Acceso a Tropa Permanente (FAS)",
+    sub: "Programa oficial del Anexo III de la Orden DEF/1341/2017, confirmado por la convocatoria 2026 (Res. 452/08724/26 · BOD nº 116) · prueba: 100 preguntas · 120 min · P = A − E/3 · generado el ",
+    file: "a-la-orden-temario-permanente"
+  };
+  return { bloques: window.TEMARIO.bloques, titulo: "Temario oficial · Ascenso a Cabo (ET) — completo", sub: null, file: "a-la-orden-temario-cabo" };
+};
+
+window.temarioDoc = function (bloques, titulo, sub) {
   const hoy = new Date().toLocaleDateString("es-ES");
   const sec = bloques.map(b =>
     "<section><h2>" + b.title + ' <span style="font-weight:400;font-size:.85em;color:#5f6f63">(' + b.peso + ')</span></h2>' +
@@ -168,20 +272,21 @@ window.temarioDoc = function (bloques, titulo) {
   ).join("");
   return "<!doctype html><html lang='es'><head><meta charset='utf-8'><title>" + titulo + "</title>" +
     "<style>body{font-family:system-ui,Arial;max-width:760px;margin:24px auto;padding:0 16px;color:#1d2a21;line-height:1.45}h1{color:#143d26}h2{border-bottom:2px solid #c9971f;padding-bottom:4px;margin-top:30px}h3{color:#5f6f63;font-size:.95em;margin:14px 0 4px}li{margin:7px 0}.muted{color:#5f6f63;font-size:.85em}header{border:2px solid #143d26;border-radius:10px;padding:10px 14px;margin-bottom:8px}@media print{body{margin:8mm auto}}</style></head><body>" +
-    "<header><h1>▲ MICABO · " + titulo + "</h1><p class='muted'>Temario oficial de ascenso a Cabo (ET) según el temario MADOC del Rincón de Tropa · examen: 50 preguntas + 5 reserva · 70 min · 0,20/acierto − 0,05/error · generado el " + hoy + "</p></header>" +
+    "<header><h1>▲ MICABO · " + titulo + "</h1><p class='muted'>" + (sub || "Temario oficial de ascenso a Cabo (ET) según el temario MADOC del Rincón de Tropa · examen: 50 preguntas + 5 reserva · 70 min · 0,20/acierto − 0,05/error ·") + " generado el " + hoy + "</p></header>" +
     sec +
     "<p class='muted'>Documento de estudio gratuito generado por MICABO · https://micabo.es · MICABO no es un organismo oficial; las normas citadas se enlazan al BOE.</p>" +
     "</body></html>";
 };
 window.descargarTemarioCompleto = function () {
-  const T = window.TEMARIO;
-  const html = window.temarioDoc(T.bloques, "Temario oficial · Ascenso a Cabo (ET) — completo");
-  if (typeof descargaArchivo === "function") descargaArchivo("a-la-orden-temario-cabo-completo.html", html, "text/html");
+  const D = window.bloquesDeCurso();
+  const html = window.temarioDoc(D.bloques, D.titulo, D.sub);
+  if (typeof descargaArchivo === "function") descargaArchivo(D.file + "-completo.html", html, "text/html");
 };
 window.descargarBloque = function (i) {
-  const b = window.TEMARIO.bloques[i]; if (!b) return;
-  const html = window.temarioDoc([b], b.title + " — dossier de examen");
-  if (typeof descargaArchivo === "function") descargaArchivo("a-la-orden-bloque-" + (i + 1) + ".html", html, "text/html");
+  const D = window.bloquesDeCurso();
+  const b = D.bloques[i]; if (!b) return;
+  const html = window.temarioDoc([b], b.title + " — dossier de examen", D.sub);
+  if (typeof descargaArchivo === "function") descargaArchivo(D.file + "-bloque-" + (i + 1) + ".html", html, "text/html");
 };
 
 /* ---- ESTRUCTURA POR CURSO (v120): ramas reales del banco, agrupadas por bloque oficial ---- */

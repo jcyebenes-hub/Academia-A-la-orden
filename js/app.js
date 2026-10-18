@@ -1,7 +1,7 @@
 /* MICABO · Academia de Tropa — motor de la app */
 (function () {
 "use strict";
-window.APPV = "194" /* v127: ventana Bizum con importe + guía (número nunca visible) */; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
+window.APPV = "195" /* v127: ventana Bizum con importe + guía (número nunca visible) */; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
 const $ = (s, el) => (el || document).querySelector(s);
 const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -610,7 +610,7 @@ function vTemario() {
   /* ---- árbol de ramas: por grupos oficiales del curso, con contadores reales ---- */
   const grupos = (window.TEMARIO_GRUPOS && window.TEMARIO_GRUPOS[state.course]) || [];
   const orden = (window.TEMARIO_ORDEN && window.TEMARIO_ORDEN[state.course]) || {};
-  const arbol = grupos.map(g => {
+  const arbol = grupos.map((g, gi) => {
     const names = orden[g.k] || [];
     const presentes = names.filter(t => B.some(q => q.b === g.k && q.t === t));
     const extras = [...new Set(B.filter(q => q.b === g.k).map(q => q.t))].filter(t => presentes.indexOf(t) < 0).sort();
@@ -624,6 +624,7 @@ function vTemario() {
     return '<details class="acc"><summary><b>' + esc(g.t) + '</b> <span class="badge">' + total + ' preg.</span></summary><div class="acc-body">' +
       (g.sub ? '<p class="small muted" style="margin:6px 0">' + esc(g.sub) + '</p>' : "") + filas +
       '<button class="btn btn-gold btn-sm" style="margin-top:8px" data-btest="' + g.k + '">🎯 Test del bloque (' + Math.min(total, 30) + ' preg.)</button>' +
+      (state.course === "perm" && window.TEMARIO_PERM ? '<button class="btn btn-ghost btn-sm" style="margin-top:8px" data-tdoc="' + gi + '">📄 Dossier del bloque</button>' : "") +
       '</div></details>';
   }).join("");
 
@@ -670,7 +671,7 @@ function vTemario() {
 
   view().innerHTML = '<div class="view-head"><h1>Temario oficial · ' + esc(COURSES[state.course].name || COURSES[state.course].nombre) + "</h1></div>" + courseCards() + biblioOficial() + examenCard +
     '<div class="card" style="margin-top:12px"><h3>🌳 Tu temario, por ramas</h3><p class="small muted" style="margin:4px 0 8px">Cada rama lleva su test: toca y entrena. Los contadores son reales (' + B.length.toLocaleString("es-ES") + ' preguntas auditadas en tu curso).</p>' + arbol + "</div>" +
-    (esET ? '<div class="card" style="margin-top:12px"><button class="btn btn-gold btn-block" id="btnTemTodo">⬇️ Descargar TEMARIO COMPLETO (imprimible)</button><p class="small muted" style="margin-top:6px">Se descarga un .html listo para abrir e imprimir como PDF: los 10 bloques, con lo que entra y lo esencial.</p></div>' +
+    ((esET || state.course === "perm") ? '<div class="card" style="margin-top:12px"><button class="btn btn-gold btn-block" id="btnTemTodo">⬇️ Descargar TEMARIO COMPLETO (imprimible)</button><p class="small muted" style="margin-top:6px">' + (esET ? "Se descarga un .html listo para abrir e imprimir como PDF: los 10 bloques, con lo que entra y lo esencial." : "Se descarga un .html listo para abrir e imprimir como PDF: el programa oficial completo (3 bloques · 20 temas) con la normativa de cada tema.") + '</p></div>' +
       '<div class="card" style="margin-top:12px"><h3>📑 Bloques oficiales, uno a uno</h3><p class="small muted" style="margin:4px 0 8px">Cada bloque del temario oficial con su dossier descargable y su test.</p>' + bloquesHtml + "</div>" + comp : "") +
     '<div class="card" style="margin-top:12px"><h3>🔔 Anti-obsoleto</h3><p class="small muted">' + esc(FUENTES) + ' Si cambia la norma o sale convocatoria nueva, actualizamos este dossier y avisamos en el canal de tu curso.</p></div>';
   bindCourses();
