@@ -27,9 +27,9 @@ window.QUESTIONS99 = [
    "q": "La Orden DEF/1341/2017, que aprueba las normas de las fases selectivas de acceso a permanente, es de…",
    "o": [
     "28 de diciembre de 2021",
-    "20 de diciembre de 2017",
     "17 de enero de 2018",
-    "24 de febrero de 2018"
+    "24 de febrero de 2018",
+    "20 de diciembre de 2017"
    ],
    "a": 3,
    "x": "La Orden es del 20-DIC-2017 (se publicó en el BOE de 17-ene-2018 y su corrección de errores en el BOE 24-feb-2018). El examen juega con las tres fechas: aprobación, publicación y corrección.",
@@ -60,12 +60,12 @@ window.QUESTIONS99 = [
    "d": "M",
    "q": "Según la propia Orden DEF/1341/2017, los requisitos de participación de los militares de TROPA Y MARINERÍA están regulados en…",
    "o": [
-    "La disposición transitoria quinta, apartado 7, de la Ley 39/2007",
     "El capítulo IV, artículo 35, del Reglamento de evaluaciones y ascensos (RD 168/2009, de 13 de febrero)",
+    "La disposición transitoria quinta, apartado 7, de la Ley 39/2007",
     "El artículo 24 de las Reales Ordenanzas",
     "El Anexo II de la propia Orden"
    ],
-   "a": 1,
+   "a": 0,
    "x": "Literal de la Orden: los requisitos de T&M van en el capítulo IV, artículo 35, del Reglamento de evaluaciones y ascensos en las FAS (RD 168/2009, de 13 de febrero). La DT 5ª.7 de la LO 39/2007 es la vía de los militares de COMPLEMENTO: la pareja que el examen cruza.",
    "r": "Material Perm · Orden DEF/1341/2017 · introducción (requisitos)",
    "c": "perm",
