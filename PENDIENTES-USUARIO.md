@@ -200,3 +200,36 @@
 - v194 · BATCH 77 — TEMARIO PERMANENCIA AUDITADO (user pegó el programa oficial para verificar). VEREDICTO: contenido correcto, títulos desalineados + typo. Fixes: ① temario.js TEMARIO_GRUPOS.perm → títulos OFICIALES (B1 Organización · B2 Jurídico-Social · B3 Seguridad Nacional, Acción Conjunta y OII) con normativa en el subtítulo (LO 5/2005 · L 40/2015 · RD 998/2017 · RD 872/2014+ORDEN DEF/166/2015 · L 39/2007+L 8/2006 · RD 96/2009 · LO 9/2011 · LO 8/2014 · RD 176/2014 · LO 3/2007 · L 39/2015 · L 36/2015 · PDC-01) — el mapeo b:B1/B2/B3 del banco NO cambia (el contenido ya coincidía; solo estaban los rótulos cruzados). ② server.js chatFAQ.temario perm: programa completo aireado (3 bloques · 6+8+7 temas · normativa por tema) + «la convocatoria 2026 lo confirma literalmente» (Tropa Permanente__CONVOCATORIA.txt L519: «al temario contenido en el Anexo III de la Orden DEF/1341/2017… y a las modificaciones vigentes») + 460+ preguntas de perm + OISD→OII + fuera «ESN 2022» (→ ESN vigente). ③ data.js syllabus perm: títulos oficiales + weight «N temas · Anexo III». GAP DETECTADO para futura Tanda 3-perm: Igualdad (LO 3/2007+Observatorio/UPA), ROFAS (RD 96/2009), RJSP (L 40/2015) y PAC (L 39/2015) sin tag propio en el banco (~0 preguntas dedicadas) → 10 preguntas tm-perfectas cuando el user diga sigue. APPV/CACHE 194.
 - v195 · BATCH 78 — DOSSIER DESCARGABLE PERMANENCIA (pregunta user: «¿puede alguien descargarse o ver el temario de permanencia?» → auditar y reparar: la vista de perm NO tenía descargas (if esET solo Cabo)). temario.js: window.TEMARIO_PERM (3 bloques con el programa oficial Anexo III: 6+8+7 temas con subpuntos + normativa, introducción, «lo esencial» con trucos de estudio y fuentes) · window.bloquesDeCurso() (según curso activo vía AO.stateRef) · temarioDoc(bloques,titulo,sub) con subtítulo parametrizable (perm: programa Anexo III + examen 100/120/P=A−E/3) · descargarTemarioCompleto/descargarBloque course-aware (ficheros a-la-orden-temario-permanente-*.html). app.js vTemario: botón «⬇️ Descargar TEMARIO COMPLETO» también para perm (texto propio) + botón «📄 Dossier del bloque» dentro de cada acordeón B1/B2/B3 (data-tdoc=gi). Cabo SIN cambios de comportamiento (sub null → subtítulo clásico). Cabo1 sigue sin dossier (gap futuro). APPV/CACHE 195.
 - v196 · BATCH 79 — DOSSIER CABO 1º (user: «lo mismo pero para ascenso a Cabo 1» con guía de IA pegada). CONTRASTE: convocatoria cb1 2026 L243-244 = reparto oficial 35 FM + 15 Sociocultural · Guía Docente CB1_25 = módulos/UF reales de fase presencial · ME7-029 unidades. temario.js TEMARIO_CB1 (4 fases) + bloquesDeCurso cabo1 · app.js: ⬇️ completo para cabo1 + tarjeta «El curso, por fases» (data-tdoc índice TEMARIO_CB1; SIN botones en el árbol para no descuadrar) · server.js chat cabo1 con 4 fases + acciones. APPV/CACHE 196.
+
+
+---
+
+# LISTA DE CAZA (lo que falta por localizar) · 18-oct-2026
+
+1. **REGLAMENTO DE ORDEN CERRADO en vigor (ROC)** — el más importante.
+   Para: tandas 2-10 de las 100 preguntas OC (oc011+, con artículo exacto) + examen Ev.1 de Cabo 1º.
+   Cómo identificarlo: documento aparte del temario; vocabulario: posición fundamental, voces de mando,
+   paso ordinario/caminado, descansado, órdenes combinadas, revista de desfiles. OJO: hay versiones antiguas;
+   pasármelo y verifico frescura antes de usarlo. Fuentes típicas: Rincón de Tropa, instructores, compis.
+
+2. **TEMARIO OFICIAL FASE DE OPOSICIÓN de Cabo 1º** (el documento que la convocatoria I/26
+   dice estar en Rincón de Tropa). Para: dossier de la fase de oposición con contenido exacto tema a tema
+   (hoy tenemos la estructura 35+15 y los títulos, no el desglose fino). También el temario SOCIOCULTURAL
+   exacto (las 15 preguntas).
+
+3. **ANEXO III de la Orden DEF/1341/2017** (programa completo de acceso a Permanencia).
+   Para: integrarlo íntegro como hicimos con el CEFOT1 (hoy lo tenemos del programa pegado por el user + convocatoria).
+
+4. **CUADERNILLO DEL EXAMEN I/25 de ascenso a Cabo** (feb-2026). Para: sumar preguntas auténticas al banco
+   (como hicimos con el I/24: 20 preguntas entraron). Si alguien lo tiene, es oro: preguntas reales del último examen.
+
+5. **CUADERNILLO del examen de Cabo 1º I/26** (14-sep-2026) — si circula.
+   Para: añadir el examen más reciente de Cabo 1º al módulo de exámenes oficiales.
+
+6. **CUADERNILLO del examen de Permanencia 2026** — pendiente de citación oficial; cuando se celebre y circule.
+   Para: añadirlo al módulo de exámenes oficiales de perm.
+
+NO urgentes (ya cubierto): temario CEFOT1 (tenido, 2019 y 2025) · ME7-029 Inglés (en biblio)
+· Guía docente CB1 (tenida) · convocatorias (tenidas).
+- 18-oct · CAZA OC REFINADA (user aportó referencias de otra IA, VERIFICADAS por mí): el ROC antiguo (RE6-002, y su sucesora PG-00) está OBSOLETO → las fuentes vigentes de doctrina de OC son: **PG-01 «Orden Cerrado Individual» (oct-2022)** y **PG-02 «Orden Cerrado Unidades. Unidades a Pie» (jul-2022)**. CONFIRMACIÓN INDEPENDIENTE: dos Guías Docentes OFICIALES del CEFOT 1 (ABR-2024, públicas en ejercito.defensa.gob.es — Módulo FF_OC-I y FF_OC-II) las citan como bibliografía/fuente de instrucción («Publicación General Orden Cerrado Individual (PG-01)» y «…Unidades a pie (PG-02)»). Búsqueda pública: los PDF COMPLETOS de PG-01/PG-02 NO están descargables en abierto (solo en Biblioteca Virtual MADOC intranet, o petición a publicaciones.defensa.gob.es). PLAN: user consigue PG-01 (prioridad: doctrina individual = posición fundamental, voces, descanso, movimientos → tandas oc011+) y PG-02 (evoluciones de unidad) → proceso como CEFOT1 → tandas 2-10 de las 100 con cita exacta «PG-01, apartado X». NOTA: el enlace BOD nº 200 (13-oct-2022) que dio la otra IA es el BOD del día completo en secciones; la resolución de aprobación de la PG-01 no estaba en la parte pública que he podido leer — la vigencia queda anclada en las Guías Docentes 2024 (verificadas), no en ese BOD.
+- v197 · BATCH 80 — TANDA 3-PERM LIVE: bank80 pv131-140, 10 MUY DIFÍCILES (d=MD, c=perm, b=B2) en las zonas con 0 tags: ROFAS ×4 (art. 3.1/3.2/49 + tríada «honor, disciplina y valor» — textos literales NOV-2025 Bloque I) · OVM ×1 (LO 9/2011 art. 1.2 la crea; tag DyD) · Igualdad LO 3/2007 ×2 (acoso por razón de sexo art. 7.2 vs acoso sexual · discriminación indirecta art. 6.2) · RJSP ×1 (pareja 40/2015-1oct-RJSP vs 39/2015-26oct-PAC) · PAC ×2 (plazo resolución 3 meses art. 21.3 vs caducidad 6 meses · caducidad por paralización del interesado art. 95.1). Igualdad/RJSP/PAC = canon universal (su material NO desarrolla esas leyes — verificado grep; «UPA» del programa perm queda pendiente de anclar en material). ROFAS sirve también para FM de Cabo 1º. Wiring ×6 completo (app.html · sw ASSETS+CACHE197 · app.js BANK_ALL+APPV 197 · trivial bancoCrudo · PENDIENTES · server BFILES automático). Reparto de respuestas: 0×2 · 1×3 · 2×3 · 3×2.
