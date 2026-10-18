@@ -173,4 +173,4 @@ window.QUESTIONS102 = [
   "t": "Técnicas de mando",
   "id": "fm070"
  }
-]];
+];
