@@ -41,9 +41,9 @@ const COURSES = {
     exam: { questions: 100, reserve: 0, minutes: 120, good: 1, bad: 1 / 3, max: 100, options: 4, formula: "P = Aciertos − Errores / (n−1)" },
     cutoff: "Media − desviación típica", color: "#8e1f1f",
     syllabus: [
-      { code: "B1", title: "Bloque 1 · Organización", weight: "Temario común", topics: ["El examen", "Constitución", "Defensa Nacional", "MINISDEF", "FAS"] },
-      { code: "B2", title: "Bloque 2 · Jurídico-Social", weight: "Temario común", topics: ["Carrera militar", "Tropa y marinería", "Derechos y deberes", "Situaciones", "Concurso"] },
-      { code: "B3", title: "Bloque 3 · Seguridad Nacional", weight: "Temario común", topics: ["Seguridad Nacional", "ESN", "Doctrina", "ONU", "OTAN", "UE", "OSCE", "Misiones", "Físicas", "Convocatoria"] }
+      { code: "B1", title: "Bloque 1 · Organización", weight: "6 temas · Anexo III DEF/1341/2017", topics: ["El examen", "Constitución", "Defensa Nacional", "MINISDEF", "FAS"] },
+      { code: "B2", title: "Bloque 2 · Jurídico-Social", weight: "8 temas · Anexo III DEF/1341/2017", topics: ["Carrera militar", "Tropa y marinería", "Derechos y deberes", "Situaciones", "Concurso"] },
+      { code: "B3", title: "Bloque 3 · Seguridad Nacional, Acción Conjunta y OII", weight: "7 temas · Anexo III DEF/1341/2017", topics: ["Seguridad Nacional", "ESN", "Doctrina", "ONU", "OTAN", "UE", "OSCE", "Misiones", "Físicas", "Convocatoria"] }
     ],
     changelog: [{date:"17-jun-2026",ref:"BOD nº 116 · Res. 452/08724/26",text:"Convocatoria Permanente 2026: 1.000 plazas (ET 540 · Armada 211 · EAyE 249). Plazo: 20 días naturales. Autorizada por RD 170/2026."},
       { date: "2025-07", ref: "BOE 141 · Instrucción 26/2025", text: "Modificada la organización de la Armada." },

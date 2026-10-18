@@ -191,9 +191,9 @@ window.TEMARIO_GRUPOS = {
     { k: "C2", t: "🟩 CAPÍTULO 2 · Instrucción y combate", sub: "táctica, armamento y técnicas" }
   ],
   perm: [
-    { k: "B1", t: "📗 BLOQUE I · Jurídico-social y Defensa Nacional", sub: "Constitución, personal, ordenamiento" },
-    { k: "B2", t: "📘 BLOQUE II · Condición y carrera del militar de tropa", sub: "adquisición, compromiso, situaciones" },
-    { k: "B3", t: "📙 BLOQUE III · Entorno internacional, seguridad y forma física", sub: "OTAN, UE, ONU, misiones, físicas" }
+    { k: "B1", t: "📗 BLOQUE I · Organización", sub: "Constitución · Defensa Nacional (LO 5/2005) · RJSP (L 40/2015) · MINISDEF (RD 998/2017) · FAS (RD 872/2014 + ORDEN DEF/166/2015)" },
+    { k: "B2", t: "📘 BLOQUE II · Jurídico-Social", sub: "Personal (L 39/2007 · L 8/2006) · ROFAS (RD 96/2009) · Derechos y deberes (LO 9/2011) · Disciplinario (LO 8/2014) · Iniciativas (RD 176/2014) · Igualdad (LO 3/2007) · PAC (L 39/2015)" },
+    { k: "B3", t: "📙 BLOQUE III · Seguridad Nacional, Acción Conjunta y OII", sub: "Seguridad Nacional (L 36/2015) · PDC-01 · ONU · OTAN · OSCE · UE · Misiones · (Físicas: prueba de la convocatoria)" }
   ],
   cabo1: [
     { k: "B1", t: "📘 BLOQUE I · Fase de oposición", sub: "temario presencial del curso" },
