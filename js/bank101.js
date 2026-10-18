@@ -66,7 +66,7 @@ window.QUESTIONS101 = [
     "La cúpula operativa del MOPS en operaciones",
     "Un órgano consultivo de la División de Planes"
    ],
-   "a": 0,
+   "a": 1,
    "x": "Literal: el EME es el PRINCIPAL ÓRGANO DE APOYO del JEME, responsable de proporcionarle los ELEMENTOS DE JUICIO necesarios para fundamentar sus decisiones, TRADUCIRLAS EN ÓRDENES y VELAR POR SU CUMPLIMIENTO. Será únicamente responsable ante el JEME.",
    "r": "Temario ACT NOV-2025 · Cap. 1 · Bloque V (org. del ET)",
    "c": "cabo1",
@@ -83,7 +83,7 @@ window.QUESTIONS101 = [
     "El Gabinete, la Asesoría Jurídica y el Instituto de Historia",
     "Las Divisiones de Mando, Apoyo y Sostenimiento"
    ],
-   "a": 1,
+   "a": 0,
    "x": "Literal: el EME se articula en a) la JEFATURA · b) la SECRETARÍA GENERAL del EME · c) la División de PLANES · d) la División de OPERACIONES · e) la División de LOGÍSTICA. El Gabinete y la Asesoría son del Cuartel General, no del EME.",
    "r": "Temario ACT NOV-2025 · Cap. 1 · Bloque V (org. del ET)",
    "c": "cabo1",
