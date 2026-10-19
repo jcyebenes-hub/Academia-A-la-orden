@@ -1,8 +1,13 @@
 // bank78 · ORDEN CERRADO — TANDA 1 (oc001-oc010) · 10 preguntas NORMALES (d=F)
-// FUENTE: canon universal de orden cerrado (doctrina básica, reglamento en vigor) SIN citar
-// artículos no verificables — el temario NOV-25 del user NO trae el capítulo. Cuando el user
-// pase el reglamento: subir dificultad (tandas M/D) con base exacta y revisar estas 10.
-// Método doble pasada · correctas distribuidas (0×3, 1×2, 2×2, 3×3) · sin "todas/ninguna".
+// FUENTE OFICIAL: PG-01 «Orden Cerrado Individual» (MADOC, entrada en vigor 13-10-2022,
+// deroga PG-00). Material aportado por el usuario el 19-oct-2026.
+// v227: REESCRITURA de verificación — la tanda original (v188) se redactó con canon
+// universal; al contrastarla con la PG-01 real aparecieron 4 erratas (ángulo 45° no 60°;
+// descanso = pie DERECHO atrás, un pie de distancia; voz ejecutiva = «Mar»; giros a un
+// costado para saludar a la Bandera) y 3 preguntas que NO son de la PG-01 (fila, hilera y
+// «reunión» son materia de ORDEN CERRADO DE UNIDADES → PG-02, pendiente de aportar).
+// Las 3 se retiran y se sustituyen por 3 preguntas verificadas en la PG-01.
+// Método doble pasada · correctas distribuidas (0×3, 1×3, 2×2, 3×2) · sin «todas/ninguna».
 window.QUESTIONS78 = [
  {
   "c": "cabo",
@@ -10,16 +15,16 @@ window.QUESTIONS78 = [
   "t": "Orden Cerrado",
   "d": "F",
   "id": "oc001",
-  "q": "En orden cerrado, ¿qué es una «fila»?",
+  "q": "Según la PG-01, estando en presencia de un superior, la posición de «firmes» se mantiene…",
   "o": [
-   "La sucesión de individuos colocados unos al lado de otros, a la derecha o a la izquierda unos de otros",
-   "La sucesión de individuos colocados unos detrás de otros, en profundidad",
-   "La formación dispuesta en círculo",
-   "La formación dispersa, con separación entre individuos"
+   "Hasta que ese superior autorice adoptar otra posición más cómoda",
+   "Exactamente dos minutos; después se pasa a «descanso»",
+   "Solo mientras el superior esté dirigiéndonos la palabra",
+   "Hasta que lo ordene el militar de mayor antigüedad de la formación"
   ],
   "a": 0,
-  "x": "Fila = colocados LADO A LADO (de frente). La sucesión unos DETRÁS de otros es la hilera: confundirlas es el error clásico del primer día de instrucción.",
-  "r": "Doctrina básica de Orden Cerrado (reglamento en vigor)"
+  "x": "PG-01, 1.1: la posición de «firmes» se utiliza, entre otros casos, «en presencia de un superior, en tanto éste no autorice a adoptar otra más cómoda». No hay tiempo fijo: el criterio es la autorización del superior. Los otros dos casos de uso son la presentación y saludos a pie firme, y como posición previa o final de los movimientos de una formación a pie firme.",
+  "r": "PG-01. Orden Cerrado Individual (13-10-2022), apdo. 1.1"
  },
  {
   "c": "cabo",
@@ -27,16 +32,16 @@ window.QUESTIONS78 = [
   "t": "Orden Cerrado",
   "d": "F",
   "id": "oc002",
-  "q": "En orden cerrado, ¿qué es una «hilera»?",
+  "q": "En la posición militar de «firmes», ¿cómo deben estar las manos?",
   "o": [
-   "Individuos colocados unos al lado de otros",
-   "La sucesión de individuos colocados unos detrás de otros, en profundidad",
-   "La fila que cierra la formación por la izquierda",
-   "El conjunto de mandos de la unidad"
+   "Cerradas en puño, pegadas a la costura del pantalón",
+   "Entreabiertas, con las palmas hacia adentro, tocando con la punta del dedo índice la costura del pantalón",
+   "Cruzadas por delante, a la altura de la cintura",
+   "Extendidas y separadas del cuerpo unos veinte centímetros"
   ],
   "a": 1,
-  "x": "Hilera = unos DETRÁS de otros (en profundidad); su cabeza es el individuo de adelante. La gemela de esta pregunta (fila) también está en el banco: oc001.",
-  "r": "Doctrina básica de Orden Cerrado (reglamento en vigor)"
+  "x": "PG-01, 1.1: «Las manos, entreabiertas, con las palmas hacia adentro, tocando con la punta del dedo índice la costura del pantalón o sitio análogo. Los dedos, semiflexionados y unidos, salvo el pulgar, que estará naturalmente extendido, estableciéndose un ligero contacto entre las yemas de éste y del índice». Ojo: con ropa de gimnasia o de paisano las manos van extendidas a lo largo de la pierna.",
+  "r": "PG-01. Orden Cerrado Individual (13-10-2022), apdo. 1.1"
  },
  {
   "c": "cabo",
@@ -44,16 +49,16 @@ window.QUESTIONS78 = [
   "t": "Orden Cerrado",
   "d": "F",
   "id": "oc003",
-  "q": "En la posición fundamental, ¿cómo se colocan los pies?",
+  "q": "En la posición de «firmes», ¿qué ángulo forman las puntas de los pies?",
   "o": [
-   "Pies paralelos, separados a la anchura de los hombros",
-   "Talones unidos y puntas de los pies también juntas",
-   "Talones unidos y puntas de los pies separadas, formando aproximadamente un ángulo de 60 grados",
-   "Pie derecho adelante y pie izquierdo atrás"
+   "Unos treinta grados",
+   "Unos sesenta grados",
+   "Unos cuarenta y cinco grados",
+   "Unos noventa grados, formando una escuadra"
   ],
   "a": 2,
-  "x": "Posición fundamental: talones unidos y alineados, puntas separadas formando aprox. 60 grados, cuerpo erguido, hombros hacia atrás y brazos naturalmente caídos.",
-  "r": "Doctrina básica de Orden Cerrado (reglamento en vigor)"
+  "x": "PG-01, 1.1: «Las puntas de los pies, simétricamente abiertas, para que éstos formen un ángulo de unos cuarenta y cinco grados», con los talones alineados y unidos. El dato de los 60 grados es la confusión más habitual: la PG-01 fija 45 grados.",
+  "r": "PG-01. Orden Cerrado Individual (13-10-2022), apdo. 1.1"
  },
  {
   "c": "cabo",
@@ -61,16 +66,16 @@ window.QUESTIONS78 = [
   "t": "Orden Cerrado",
   "d": "F",
   "id": "oc004",
-  "q": "Desde la posición fundamental, a la voz de «Descansado», ¿qué movimiento se realiza con los pies?",
+  "q": "A la voz de «Descanso», ¿cómo se colocan los pies?",
   "o": [
-   "No se mueven: solo se relajan los hombros",
-   "Se separa el pie derecho unos 25 cm del izquierdo",
-   "Se juntan aún más los talones",
-   "Se separa el pie izquierdo unos 25 cm del derecho, sin mover el resto del cuerpo"
+   "El pie izquierdo se separa unos veinticinco centímetros del derecho",
+   "Ambos pies se separan a la anchura de los hombros",
+   "El pie derecho se adelanta un pie respecto al izquierdo",
+   "El pie derecho se lleva atrás y un poco a la derecha, de forma que los talones queden a un pie de distancia"
   ],
   "a": 3,
-  "x": "Descansado: se separa el pie IZQUIERDO unos 25 cm del derecho, manteniendo el resto de la posición. El que se mueve siempre es el izquierdo: trucillo de examen frecuente.",
-  "r": "Doctrina básica de Orden Cerrado (reglamento en vigor)"
+  "x": "PG-01, 1.2.a: «Sin modificar la situación del pie izquierdo ni la dirección del pie derecho, se llevará éste atrás y un poco a la derecha, de forma que los talones queden a un pie de distancia». El pie que se mueve es el DERECHO y el izquierdo no se mueve; el movimiento se ejecuta en un solo tiempo, a la voz ejecutiva «Mar». A la vez, la mano izquierda se coloca delante del cuerpo y sobre su dorso la palma derecha.",
+  "r": "PG-01. Orden Cerrado Individual (13-10-2022), apdo. 1.2.a"
  },
  {
   "c": "cabo",
@@ -78,16 +83,16 @@ window.QUESTIONS78 = [
   "t": "Orden Cerrado",
   "d": "F",
   "id": "oc005",
-  "q": "En la voz de mando «Vista a la—DERECHA», ¿qué parte es la voz ejecutiva?",
+  "q": "En las voces de mando de la PG-01 («Descanso… Mar», «Firmes… Mar», «Saludo… Mar»), ¿cuál es la voz ejecutiva?",
   "o": [
-   "La palabra «derecha», pronunciada con firmeza y énfasis: el movimiento se ejecuta al oírla",
-   "La frase «Vista a la», que anuncia el movimiento",
-   "La última sílaba, dicha en voz baja",
-   "El silencio posterior a la voz"
+   "La primera palabra, que anuncia el movimiento que se va a ejecutar",
+   "La palabra «Mar», a la que se ejecuta el movimiento",
+   "El silencio que media entre las dos voces",
+   "La última sílaba de la primera palabra, pronunciada con más énfasis"
   ],
-  "a": 0,
-  "x": "Toda voz de mando tiene dos partes: la PREVENTIVA (anuncia el movimiento: «Vista a la—») y la EJECUTIVA (la última palabra, con firmeza y énfasis: es el momento de ejecutar).",
-  "r": "Doctrina básica de Orden Cerrado (reglamento en vigor)"
+  "a": 1,
+  "x": "La PG-01 ordena todos los movimientos a pie firme con dos voces: la 1.ª (preventiva) anuncia el movimiento —Descanso, Firmes, Saludo, Derecha «Media vuelta», «Vista a la derecha»— y la 2.ª, «Mar», es la EJECUTIVA: el movimiento se ejecuta al oírla. Ejemplo: «1.ª Descanso. 2.ª Mar».",
+  "r": "PG-01. Orden Cerrado Individual (13-10-2022), apdos. 1.2.a, 1.2.c y 1.2.d"
  },
  {
   "c": "cabo",
@@ -95,16 +100,16 @@ window.QUESTIONS78 = [
   "t": "Orden Cerrado",
   "d": "F",
   "id": "oc006",
-  "q": "¿Cómo se ejecuta el giro a la derecha sobre los pies?",
+  "q": "¿Sobre qué puntos de apoyo se ejecuta el giro a la derecha a pie firme?",
   "o": [
-   "Sobre el talón del pie izquierdo y la punta del derecho",
    "Sobre el talón del pie derecho y la punta del pie izquierdo",
-   "Saltando con ambos pies a la vez",
-   "Deslizando el pie derecho lateralmente, sin girar sobre los pies"
+   "Sobre las puntas de ambos pies",
+   "Sobre la punta del pie izquierdo y el talón del pie derecho",
+   "Sobre los talones de ambos pies, saltando"
   ],
-  "a": 1,
-  "x": "Giro a la derecha: pivotando sobre el TALÓN del pie derecho y la PUNTA del izquierdo; el giro a la izquierda es su espejo (talón izquierdo y punta derecha).",
-  "r": "Doctrina básica de Orden Cerrado (reglamento en vigor)"
+  "a": 2,
+  "x": "PG-01, 1.2.d.(1): «Apoyándose y girando sobre la punta del pie izquierdo y el talón derecho, volverá el cuerpo a este costado». Queda el pie derecho en la posición del nuevo frente y el izquierdo, apoyado en la punta, en el sitio en que giró; el segundo tiempo es cuadrarse con energía al nuevo frente. El giro a la izquierda se hace de modo análogo, con acción inversa de los pies.",
+  "r": "PG-01. Orden Cerrado Individual (13-10-2022), apdo. 1.2.d.(1)"
  },
  {
   "c": "cabo",
@@ -112,16 +117,16 @@ window.QUESTIONS78 = [
   "t": "Orden Cerrado",
   "d": "F",
   "id": "oc007",
-  "q": "¿Qué debe hacer el militar al oír la voz de «Firme»?",
+  "q": "Según la PG-01, ¿en cuál de estas circunstancias se ejecuta el movimiento de «descubrirse»?",
   "o": [
-   "Levantar la mano derecha",
-   "Girar la vista hacia el que manda",
-   "Adoptar y mantener la posición fundamental: quieto e inmóvil, en silencio",
-   "Romper filas y esperar la siguiente voz"
+   "En todo izado y arriado de la Bandera, sin excepción",
+   "Al entrar en cualquier dependencia militar",
+   "Cada vez que se cruza con un superior",
+   "Al iniciar y terminar la lectura de la efeméride diaria y las Reales Ordenanzas"
   ],
-  "a": 2,
-  "x": "«Firme» = adoptar la posición fundamental y quedarse absolutamente quieto e inmóvil, sin hablar ni moverse hasta nueva voz.",
-  "r": "Doctrina básica de Orden Cerrado (reglamento en vigor)"
+  "a": 3,
+  "x": "PG-01, 1.2.b: descubrirse y cubrirse se realizan al iniciar y terminar la lectura de la efeméride diaria y las Reales Ordenanzas (al leer la orden); en el izado y arriado de la Bandera, SOLO el personal que la manipule o acompañe; y cuando se considere oportuno en revistas de policía. El soldado se quita la prenda de cabeza con la mano izquierda, adoptando la posición de «firmes».",
+  "r": "PG-01. Orden Cerrado Individual (13-10-2022), apdo. 1.2.b"
  },
  {
   "c": "cabo",
@@ -129,16 +134,16 @@ window.QUESTIONS78 = [
   "t": "Orden Cerrado",
   "d": "F",
   "id": "oc008",
-  "q": "¿Para qué sirve la voz de «Reunión»?",
+  "q": "Estando en la posición «A discreción», ¿qué se permite?",
   "o": [
-   "Para dispersar la unidad al terminar la instrucción",
-   "Para iniciar la marcha con el paso ordinario",
-   "Para cambiar el sentido de la formación",
-   "Para que el personal acuda con rapidez a formar en el punto señalado"
+   "Cierta libertad de movimiento, conservando siempre fijo uno de los pies, y hablar en voz baja",
+   "Cualquier movimiento, incluido abandonar la formación",
+   "Únicamente mover los brazos, permaneciendo en absoluto silencio",
+   "Solo girar la cabeza a uno y otro lado"
   ],
-  "a": 3,
-  "x": "«Reunión» = acudir con rapidez a formar en el punto que indica el que manda (el punto de reunión). Su opuesto lógico es la voz de disolver/dispersar al final de la instrucción.",
-  "r": "Doctrina básica de Orden Cerrado (reglamento en vigor)"
+  "a": 0,
+  "x": "PG-01, 1.2.a: a discreción se permite «cierta libertad de movimiento, conservando siempre fijo uno de los pies en la posición de firmes para no perder la alineación» —para separar el izquierdo hay que cuadrarse previamente dejando fijo el derecho— y hablar en voz baja. Cualquier otra concesión debe hacerse expresamente por quien mande la Fuerza. Para cesar en esta actitud se manda «Descanso».",
+  "r": "PG-01. Orden Cerrado Individual (13-10-2022), apdo. 1.2.a"
  },
  {
   "c": "cabo",
@@ -146,16 +151,16 @@ window.QUESTIONS78 = [
   "t": "Orden Cerrado",
   "d": "F",
   "id": "oc009",
-  "q": "El saludo militar reglamentario se ejecuta...",
+  "q": "En el saludo a pie firme, ¿dónde se apoyan las yemas de los tres dedos centrales de la mano derecha?",
   "o": [
-   "Con la mano derecha, llevándola con firmeza a la cabeza y dirigiendo la vista a quien se saluda",
-   "Con la mano izquierda, para no soltar el arma con la derecha",
-   "Levantando dos dedos de cualquier mano",
-   "Solo de palabra; el saludo con la mano está prohibido"
+   "En el centro de la frente",
+   "En el extremo derecho de la visera o parte análoga de la prenda de cabeza",
+   "En la sien izquierda",
+   "En la barbilla, para mantenerla recogida"
   ],
-  "a": 0,
-  "x": "Saludo reglamentario: mano DERECHA con firmeza, dedos juntos, dirigiendo al mismo tiempo la VISTA al superior o a la persona a la que se saluda. Mano y vista, a la vez.",
-  "r": "Doctrina básica de Orden Cerrado (reglamento en vigor)"
+  "a": 1,
+  "x": "PG-01, 1.2.c: «Se levantará rápidamente la mano derecha extendida y con los dedos unidos hasta que las yemas de los tres dedos centrales toquen el extremo derecho de la visera o parte análoga de la prenda de cabeza». El codo se flexiona y separa del cuerpo adelante y a la derecha lo justo para que mano y antebrazo queden en línea, con una inclinación de unos cuarenta y cinco grados. El segundo tiempo es bajar el brazo con energía al costado.",
+  "r": "PG-01. Orden Cerrado Individual (13-10-2022), apdo. 1.2.c"
  },
  {
   "c": "cabo",
@@ -163,15 +168,15 @@ window.QUESTIONS78 = [
   "t": "Orden Cerrado",
   "d": "F",
   "id": "oc010",
-  "q": "Al paso de la Bandera de España, el militar de a pie...",
+  "q": "¿Para qué tienen aplicación los giros a un costado?",
   "o": [
-   "Sigue su camino con normalidad",
-   "Se quita la gorra y la agita en alto",
-   "Aplaude desde la posición de descansado",
-   "Adopta la posición fundamental y gira la vista hacia ella en señal de respeto"
+   "Para cambiar de formación y, individualmente, para saludar a la Bandera o Estandarte y al Jefe del Estado",
+   "Únicamente para cambiar de formación",
+   "Solo para iniciar la marcha en paso ordinario",
+   "Exclusivamente para rendir honores al Jefe del Estado"
   ],
-  "a": 3,
-  "x": "La Bandera nacional recibe siempre los honores: el militar se pone en posición fundamental y dirige la vista hacia ella (y saluda si procede). Es de los primeros deberes que se enseñan.",
-  "r": "Doctrina básica de Orden Cerrado (reglamento en vigor)"
+  "a": 0,
+  "x": "PG-01, 1.2.d.(1): «Los giros a un costado tienen aplicación para cambiar de formación e, individualmente, para saludar a la Bandera o Estandarte y al Jefe del Estado». Es un giro de TODO el cuerpo —no basta con girar la cabeza—: primero sobre la punta del pie izquierdo y el talón derecho, y después cuadrarse con energía al nuevo frente.",
+  "r": "PG-01. Orden Cerrado Individual (13-10-2022), apdo. 1.2.d.(1)"
  }
-]
+];
