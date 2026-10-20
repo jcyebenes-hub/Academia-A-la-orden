@@ -1,7 +1,7 @@
 /* MICABO · Academia de Tropa — motor de la app */
 (function () {
 "use strict";
-window.APPV = "275" /* v127: ventana Bizum con importe + guía (número nunca visible) */; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
+window.APPV = "276" /* v127: ventana Bizum con importe + guía (número nunca visible) */; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
 const $ = (s, el) => (el || document).querySelector(s);
 const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -1847,9 +1847,19 @@ function vAjustes() {
     '<div class="switch-row"><span><b>✅ Corrección instantánea (estilo academia)</b><br><span class="small muted">En los tests: al contestar se corrige al momento (verde/rojo, explicación y tarjetas pintadas), como en la academia de tu amigo. Los SIMULACROS mantienen el modo examen real.</span></span><button class="btn btn-ghost btn-sm" id="setIns">' + (state.opts && state.opts.inmediata === false ? "Activar" : "Desactivar") + "</button></div>" +
     '<div class="switch-row"><span><b>⏩ Avanzar solo al acertar</b><br><span class="small muted">En estudio: acierto → siguiente en 1 s; fallo → pausa para leer. Los simulacros nunca avanzan solos.</span></span><button class="btn btn-ghost btn-sm" id="setAuto">' + (state.opts && state.opts.auto === false ? "Activar" : "Desactivar") + "</button></div>" +
     '<div class="switch-row"><span><b>🗑️ Borrar mi progreso</b><br><span class="small muted">XP, racha, fallos e historial</span></span><button class="btn btn-ghost btn-sm" id="setReset">Borrar</button></div>' +
+    '<div class="switch-row"><span><b>🔄 Actualizar la app</b><br><span class="small muted">Si ves una versión antigua: fuerza la descarga de la última</span></span><button class="btn btn-green btn-sm" id="setUpd">Actualizar</button></div>' +
     '<p class="small muted">MICABO v' + (window.APPV || "99") + ' · Banco auditado con 0 incidencias (acta pública). Sin anuncios. Tu progreso queda en tu dispositivo y, si creas cuenta, se sincroniza cifrado · <a href="mailto:academiamicabo@hotmail.com">✉️ academiamicabo@hotmail.com</a></p></div>';
   $("#setName").onchange = e => { state.name = e.target.value.trim() || "Recluta"; save(); toast("¡A su mando, " + state.name + "!"); };
   $("#setDark").onclick = () => { const d = document.documentElement.classList.toggle("dark"); store.set("dark", d); vAjustes(); };
+  const su = $("#setUpd");
+  if (su) su.onclick = async () => {
+    su.textContent = "Actualizando…";
+    try {
+      if (window.caches) { const ks = await caches.keys(); await Promise.all(ks.map(k => caches.delete(k))); }
+      if (navigator.serviceWorker) { const rs = await navigator.serviceWorker.getRegistrations(); await Promise.all(rs.map(r => r.unregister())); }
+    } catch (e) {}
+    location.reload();
+  };
   $("#setSound").onclick = () => { state.sound = (state.sound === false) ? true : false; save(); vAjustes(); };
   $("#setIns").onclick = () => { state.opts = state.opts || {}; state.opts.inmediata = (state.opts.inmediata === false) ? true : false; save(); vAjustes(); toast(state.opts.inmediata !== false ? "✅ Corrección instantánea activada" : "Modo examen: se corrige al final"); };
   $("#setAuto").onclick = () => { state.opts = state.opts || {}; state.opts.auto = (state.opts.auto === false) ? true : false; save(); vAjustes(); toast(state.opts.auto ? "⏩ Avance activado: al acertar, sola" : "Avance manual: tú das a Siguiente"); };

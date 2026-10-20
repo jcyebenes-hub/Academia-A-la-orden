@@ -194,7 +194,18 @@
 <script src="js/app.js"></script>
 <script>
 if ("serviceWorker" in navigator && location.protocol.indexOf("http") === 0) {
-  navigator.serviceWorker.register("sw.js").catch(function(){});
+  /* v276: cuando entra una versión nueva, recargamos UNA vez para no quedarnos
+     con el HTML viejo en memoria (pasó de la v268 a la v275). */
+  var __recargando = false;
+  navigator.serviceWorker.addEventListener("controllerchange", function () {
+    if (__recargando) return;
+    __recargando = true;
+    location.reload();
+  });
+  navigator.serviceWorker.register("sw.js").then(function (reg) {
+    reg.update();
+    setInterval(function () { reg.update(); }, 60 * 60 * 1000); /* cada hora */
+  }).catch(function(){});
 }
 </script>
 </body>
