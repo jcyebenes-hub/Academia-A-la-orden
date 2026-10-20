@@ -6,45 +6,50 @@ window.BIBLIO = [
   "n": "Cabo ET",
   "grupos": [
    {
-    "n": "Temario oficial y convocatoria",
-    "docs": [
-     {
-      "f": "Cabo__Apendice I.pdf",
-      "t": "Apéndice I",
-      "p": 1,
-      "k": 73,
-      "s": "73 KB"
-     },
-     {
-      "f": "Cabo__Convocatoria.pdf",
-      "t": "Convocatoria oficial",
-      "p": 23,
-      "k": 359,
-      "s": "359 KB"
-     },
-     {
-      "f": "Cabo__FE DE ERRATAS.pdf",
-      "t": "Fe de erratas",
-      "p": 1,
-      "k": 131,
-      "s": "131 KB"
-     },
-     {
-      "f": "Cabo__TEMARIO CURSO CABO ACT NOV 2025.pdf",
-      "t": "Temario del curso de Cabo · nov 2025",
-      "p": 236,
-      "k": 4108,
-      "s": "4,0 MB"
-     },
-     {
-      "f": "Cabo__modificacion convocator.pdf",
-      "t": "Modificación de la convocatoria",
-      "p": 2,
-      "k": 64,
-      "s": "64 KB"
-     }
-    ]
-   }
+     "n": "Temario oficial",
+     "docs": [
+      {
+       "f": "Cabo__Apendice I.pdf",
+       "t": "Apéndice I",
+       "p": 1,
+       "k": 73,
+       "s": "73 KB"
+      },
+      {
+       "f": "Cabo__TEMARIO CURSO CABO ACT NOV 2025.pdf",
+       "t": "Temario del curso de Cabo · nov 2025",
+       "p": 236,
+       "k": 4108,
+       "s": "4,0 MB"
+      }
+     ]
+    },
+    {
+     "n": "Convocatoria",
+     "docs": [
+      {
+       "f": "Cabo__Convocatoria.pdf",
+       "t": "Convocatoria oficial",
+       "p": 23,
+       "k": 359,
+       "s": "359 KB"
+      },
+      {
+       "f": "Cabo__FE DE ERRATAS.pdf",
+       "t": "Fe de erratas",
+       "p": 1,
+       "k": 131,
+       "s": "131 KB"
+      },
+      {
+       "f": "Cabo__modificacion convocator.pdf",
+       "t": "Modificación de la convocatoria",
+       "p": 2,
+       "k": 64,
+       "s": "64 KB"
+      }
+     ]
+    }
   ]
  },
  {

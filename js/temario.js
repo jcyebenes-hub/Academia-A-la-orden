@@ -364,8 +364,39 @@ window.TEMARIO_CB1 = [
  }
 ];
 
+/* Convierte un temario por temas (TEMARIO_CABO26 / TEMARIO_CABO1 / TEMARIO_PERM26)
+   al formato del imprimible. Conserva los temas, sus normas y sus contenidos. */
+window.specADoc = function (spec) {
+  const roman = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
+  return spec.bloques.map(b => ({
+    title: "Bloque " + (roman[b.n] || b.n) + " · " + b.titulo,
+    peso: b.temas.length + " temas",
+    intro: b.aviso || spec.fuente,
+    temas: b.temas,
+    oficial: [], esencial: [], fuentes: []
+  }));
+};
+
 window.bloquesDeCurso = function () {
   const c = (window.AO && AO.stateRef && AO.stateRef().course) || "cabo";
+  if (c === "cabo" && window.TEMARIO_CABO26) return {
+    bloques: window.specADoc(window.TEMARIO_CABO26),
+    titulo: "Temario oficial · Ascenso a Cabo (ET)",
+    sub: "2 bloques · 10 temas · " + window.TEMARIO_CABO26.fuente + " ·",
+    file: "a-la-orden-temario-cabo"
+  };
+  if (c === "cabo1" && window.TEMARIO_CABO1) return {
+    bloques: window.specADoc(window.TEMARIO_CABO1),
+    titulo: "Temario oficial · Ascenso a Cabo 1º (ET)",
+    sub: "4 bloques · 16 temas · " + window.TEMARIO_CABO1.fuente + " ·",
+    file: "a-la-orden-temario-cabo1"
+  };
+  if (c === "perm" && window.TEMARIO_PERM26) return {
+    bloques: window.specADoc(window.TEMARIO_PERM26),
+    titulo: "Temario oficial · Tropa Permanente",
+    sub: "3 bloques · 21 temas · " + window.TEMARIO_PERM26.fuente + " ·",
+    file: "a-la-orden-temario-permanente"
+  };
   if (c === "perm" && window.TEMARIO_PERM) return {
     bloques: window.TEMARIO_PERM,
     titulo: "Temario oficial · Acceso a Tropa Permanente (FAS)",
@@ -381,31 +412,69 @@ window.bloquesDeCurso = function () {
   return { bloques: window.TEMARIO.bloques, titulo: "Temario oficial · Ascenso a Cabo (ET) — completo", sub: null, file: "a-la-orden-temario-cabo" };
 };
 
-window.temarioDoc = function (bloques, titulo, sub) {
+/* QR embebido como data URI: el documento descargado lo lleva dentro y
+   funciona sin conexión y sin la carpeta de imágenes al lado. */
+window.qrDataURI = async function () {
+  try {
+    const img = new Image();
+    img.src = "img/qr-arte@2x.png";
+    if (img.decode) { await img.decode(); }
+    else { await new Promise((ok, ko) => { img.onload = ok; img.onerror = ko; }); }
+    /* 320 px basta de sobra para imprimirlo a 96 px: el documento pesa
+       una cuarta parte y el QR sigue leyéndose (probado a 110 px). */
+    const L = 320;
+    const c = document.createElement("canvas");
+    c.width = L; c.height = L;
+    const x = c.getContext("2d");
+    x.fillStyle = "#fdfbf4"; x.fillRect(0, 0, L, L);
+    x.imageSmoothingQuality = "high";
+    x.drawImage(img, 0, 0, L, L);
+    return c.toDataURL("image/jpeg", 0.92);  /* pesa la cuarta parte que el PNG */
+  } catch (e) { return ""; }
+};
+
+window.temarioDoc = function (bloques, titulo, sub, qr) {
   const hoy = new Date().toLocaleDateString("es-ES");
-  const sec = bloques.map(b =>
-    "<section><h2>" + b.title + ' <span style="font-weight:400;font-size:.85em;color:#5f6f63">(' + b.peso + ')</span></h2>' +
-    "<p><i>" + b.intro + "</i></p>" +
-    "<h3>Qué entra (oficial)</h3><ul>" + b.oficial.map(x => "<li>" + x + "</li>").join("") + "</ul>" +
-    "<h3>Lo esencial para el examen</h3><ul>" + b.esencial.map(x => "<li>" + x + "</li>").join("") + "</ul>" +
-    "<h3>Fuentes</h3><p class='muted'>" + b.fuentes.map(f => f.t + " — " + f.u).join("<br>") + "</p></section>"
-  ).join("");
+  const sec = bloques.map(b => {
+    /* temario por temas: cada tema con sus contenidos en viñetas */
+    if (b.temas) {
+      return "<section><h2>" + b.title + ' <span style="font-weight:400;font-size:.85em;color:#5f6f63">(' + b.peso + ')</span></h2>' +
+        (b.intro ? "<p><i>" + b.intro + "</i></p>" : "") +
+        b.temas.map(t => '<div class="t">' +
+          "<h3>Tema " + t.n + " · " + t.titulo + "</h3>" +
+          (t.normativa ? "<p class='muted'>" + t.normativa + "</p>" : "") +
+          (t.nota ? "<p class='muted'><i>" + t.nota + "</i></p>" : "") +
+          "<ul>" + t.contenidos.map(c => "<li>" + c + "</li>").join("") + "</ul>" +
+          (t.teoria ? "<div class='teo'>" + t.teoria + "</div>" : "") +
+          "</div>").join("") + "</section>";
+    }
+    return "<section><h2>" + b.title + ' <span style="font-weight:400;font-size:.85em;color:#5f6f63">(' + b.peso + ')</span></h2>' +
+      "<p><i>" + b.intro + "</i></p>" +
+      "<h3>Qué entra (oficial)</h3><ul>" + b.oficial.map(x => "<li>" + x + "</li>").join("") + "</ul>" +
+      (b.esencial && b.esencial.length ? "<h3>Lo esencial para el examen</h3><ul>" + b.esencial.map(x => "<li>" + x + "</li>").join("") + "</ul>" : "") +
+      (b.fuentes && b.fuentes.length ? "<h3>Fuentes</h3><p class='muted'>" + b.fuentes.map(f => f.t + " — " + f.u).join("<br>") + "</p>" : "") + "</section>";
+  }).join("");
   return "<!doctype html><html lang='es'><head><meta charset='utf-8'><title>" + titulo + "</title>" +
-    "<style>body{font-family:system-ui,Arial;max-width:760px;margin:24px auto;padding:0 16px;color:#1d2a21;line-height:1.45}h1{color:#143d26}h2{border-bottom:2px solid #c9971f;padding-bottom:4px;margin-top:30px}h3{color:#5f6f63;font-size:.95em;margin:14px 0 4px}li{margin:7px 0}.muted{color:#5f6f63;font-size:.85em}header{border:2px solid #143d26;border-radius:10px;padding:10px 14px;margin-bottom:8px}@media print{body{margin:8mm auto}}</style></head><body>" +
-    "<header><h1>▲ MICABO · " + titulo + "</h1><p class='muted'>" + (sub || "Temario oficial de ascenso a Cabo (ET) según el temario MADOC del Rincón de Tropa · examen: 50 preguntas + 5 reserva · 70 min · 0,20/acierto − 0,05/error ·") + " generado el " + hoy + "</p></header>" +
+    "<style>body{font-family:system-ui,Arial;max-width:760px;margin:24px auto;padding:0 16px;color:#1d2a21;line-height:1.45}h1{color:#143d26}h2{border-bottom:2px solid #c9971f;padding-bottom:4px;margin-top:30px}h3{color:#5f6f63;font-size:.95em;margin:14px 0 4px}li{margin:7px 0}.hd{display:flex;gap:16px;align-items:center;justify-content:space-between}.qrbox{flex:0 0 auto;text-align:center;font-size:.62em;color:#5f6f63;line-height:1.25}.qrbox img{width:96px;height:96px;display:block;margin:0 auto 3px}.t{page-break-inside:avoid;margin-bottom:10px}.t h3{margin:16px 0 2px;color:#143d26;font-size:1em}.teo{border-left:3px solid #c9971f;background:#faf7ee;padding:8px 12px;margin:8px 0}.muted{color:#5f6f63;font-size:.85em}header{border:2px solid #143d26;border-radius:10px;padding:10px 14px;margin-bottom:8px}@media print{body{margin:8mm auto}}</style></head><body>" +
+    "<header><div class='hd'>" +
+      "<div><h1>▲ MICABO · " + titulo + "</h1><p class='muted'>" + (sub || "Temario oficial de ascenso a Cabo (ET) según el temario MADOC del Rincón de Tropa · examen: 50 preguntas + 5 reserva · 70 min · 0,20/acierto − 0,05/error ·") + " generado el " + hoy + "</p></div>" +
+      (qr ? "<div class='qrbox'><img src='" + qr + "' alt='Código QR de MICABO'><span>Escanéalo y entrenas<br>en el móvil</span></div>" : "") +
+    "</div></header>" +
     sec +
     "<p class='muted'>Documento de estudio gratuito generado por MICABO · https://micabo.es · MICABO no es un organismo oficial; las normas citadas se enlazan al BOE.</p>" +
     "</body></html>";
 };
-window.descargarTemarioCompleto = function () {
+window.descargarTemarioCompleto = async function () {
   const D = window.bloquesDeCurso();
-  const html = window.temarioDoc(D.bloques, D.titulo, D.sub);
+  const qr = await window.qrDataURI();
+  const html = window.temarioDoc(D.bloques, D.titulo, D.sub, qr);
   if (typeof descargaArchivo === "function") descargaArchivo(D.file + "-completo.html", html, "text/html");
 };
-window.descargarBloque = function (i) {
+window.descargarBloque = async function (i) {
   const D = window.bloquesDeCurso();
   const b = D.bloques[i]; if (!b) return;
-  const html = window.temarioDoc([b], b.title + " — dossier de examen", D.sub);
+  const qr = await window.qrDataURI();
+  const html = window.temarioDoc([b], b.title + " — dossier de examen", D.sub, qr);
   if (typeof descargaArchivo === "function") descargaArchivo(D.file + "-bloque-" + (i + 1) + ".html", html, "text/html");
 };
 

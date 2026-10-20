@@ -1,7 +1,7 @@
 /* MICABO · Academia de Tropa — motor de la app */
 (function () {
 "use strict";
-window.APPV = "268" /* v127: ventana Bizum con importe + guía (número nunca visible) */; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
+window.APPV = "274" /* v127: ventana Bizum con importe + guía (número nunca visible) */; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
 const $ = (s, el) => (el || document).querySelector(s);
 const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -285,7 +285,8 @@ function vTrain() {
         '<button class="tile" id="mTopic"><span class="t-ico">📝</span><b>Por tema</b><span class="t-sub">elige y machaca</span></button>' +
         '<button class="tile" id="mBlock"><span class="t-ico">📦</span><b>Por bloque</b><span class="t-sub">por capítulos</span></button>' +
         '<button class="tile" id="mBiblio"><span class="t-ico">📚</span><b>Biblioteca</b><span class="t-sub">temarios y cuadernos PDF</span></button>' +
-        '<button class="tile" id="mTem"><span class="t-ico">📖</span><b>Temario</b><span class="t-sub">por bloques + dossier</span></button>' +
+        '<button class="tile" id="mTem"><span class="t-ico">📖</span><b>Temario</b><span class="t-sub">los temas, uno a uno</span></button>' +
+        '<button class="tile" id="mConv"><span class="t-ico">📅</span><b>Convocatoria</b><span class="t-sub">fechas, plazas y cortes</span></button>' +
       '</div>' +
     '<p class="small muted center" style="margin-top:12px">Banco auditado: ' + n + ' preguntas verificadas contra normativa vigente en este curso (acta pública 20-sep-2026).</p>';
   bindCourses();
@@ -315,6 +316,7 @@ function vTrain() {
   $("#mMaraton").onclick = () => { M = null; location.hash = "#/maraton"; };
   $("#mBiblio").onclick = () => location.hash = "#/biblio";
   $("#mTem").onclick = () => location.hash = "#/temario";
+  const mc = $("#mConv"); if (mc) mc.onclick = () => location.hash = "#/convocatoria";
 }
 function vPick(kind) {
   const c = COURSES[state.course];
@@ -581,6 +583,170 @@ function vStats() {
   bindCourses();
 }
 
+/* =====================================================================
+   TEMARIO OFICIAL CABO (I/26) — vista limpia, sin convocatoria
+   ===================================================================== */
+/* Renderizador único para los temarios oficiales por temas (Cabo I/26 y Cabo 1º).
+   El spec trae: bloques[].temas[] con {n, titulo, normativa, contenidos, banco,
+   nota, notaBanco, teoria}. Aquí solo se pinta. */
+const ROMANOS = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
+
+/* Índice del temario: SOLO el temario. Sin contadores, sin convocatoria,
+   sin biblioteca, sin descargas sueltas. Cada tema abre su propia ficha. */
+function vTemarioOficial(courseId, spec) {
+  const nTemas = spec.bloques.reduce((s, b) => s + b.temas.length, 0);
+  const nombre = (COURSES[courseId] && (COURSES[courseId].name || COURSES[courseId].nombre)) || "tu curso";
+
+  const bloques = spec.bloques.map(b => {
+    const temas = b.temas.map(t => {
+      /* en el índice solo la norma corta: «Ley Orgánica 8/2014», no el título entero */
+      const normCorta = (t.normativa || "").split("·")[0].split(",")[0].trim();
+      const autor = normCorta ? '<small>' + esc(normCorta) + '</small>' : "";
+      return '<button class="lec-row" data-lec="' + courseId + ':' + b.n + ':' + t.n + '">' +
+        '<span class="lec-n">' + t.n + '</span>' +
+        '<span class="lec-t"><b>' + esc(t.titulo) + '</b>' + autor + '</span>' +
+        '<span class="lec-go" aria-hidden="true">›</span></button>';
+    }).join("");
+    return '<div class="card lec-block">' +
+      '<div class="lec-cap"><span class="lec-rom">' + (ROMANOS[b.n] || b.n) + '</span>' +
+      '<span class="lec-cap-t">' + esc(b.titulo) + '</span></div>' + temas + '</div>';
+  }).join("");
+
+  view().innerHTML = '<div class="view-head"><h1>Temario</h1>' +
+    '<p class="small muted" style="margin:2px 0 0">' + esc(nombre) + ' · ' + spec.bloques.length + ' bloques · ' + nTemas + ' temas</p></div>' +
+    bloques;
+
+  $$("[data-lec]").forEach(b => b.onclick = () => {
+    location.hash = "#/leccion/" + b.getAttribute("data-lec");
+  });
+}
+
+/* Ficha de un tema: leer · descargar · vídeo. Y, aparte, practicarlo. */
+function vLeccion(clave) {
+  const partes = (clave || "").split(":");
+  const courseId = partes[0], nb = parseInt(partes[1], 10), nt = parseInt(partes[2], 10);
+  const spec = courseId === "cabo" ? window.TEMARIO_CABO26
+             : courseId === "cabo1" ? window.TEMARIO_CABO1
+             : courseId === "perm" ? window.TEMARIO_PERM26 : null;
+  if (!spec) { location.hash = "#/temario"; return; }
+  let bloque = null, tema = null;
+  spec.bloques.forEach(b => { if (b.n !== nb) return; b.temas.forEach(t => { if (t.n === nt) { bloque = b; tema = t; } }); });
+  if (!tema) { location.hash = "#/temario"; return; }
+
+  const B = bank(courseId);
+  const nPreg = (tema.banco || []).reduce((s, x) => s + B.filter(q => q.t === x).length, 0);
+  const contenidos = (tema.contenidos || []).map(c => '<li>' + esc(c) + '</li>').join("");
+  const norm = tema.normativa ? '<p class="lec-norm"><b>Normativa</b> · ' + esc(tema.normativa) + '</p>' : "";
+  const nota = tema.nota ? '<p class="lec-norm" style="font-style:italic">' + esc(tema.nota) + '</p>' : "";
+
+  const teoria = tema.teoria
+    ? '<div class="tem-teoria">' + tema.teoria + '</div>'
+    : '<p class="small muted lec-pend">📝 La teoría de este tema está en preparación. Mientras tanto tienes los contenidos y puedes descargarlos.</p>';
+
+  const video = tema.video
+    ? '<a class="lec-acc" href="' + esc(tema.video) + '" target="_blank" rel="noopener"><span class="lec-ico">▶️</span><b>Ver el vídeo</b><small>La explicación del tema, en YouTube</small></a>'
+    : '<span class="lec-acc off"><span class="lec-ico">▶️</span><b>Vídeo</b><small>Próximamente</small></span>';
+
+  view().innerHTML =
+    '<div class="lec-top"><a class="back" href="#/temario" aria-label="Volver al temario">←</a>' +
+      '<span class="small muted">Bloque ' + (ROMANOS[bloque.n] || bloque.n) + ' · ' + esc(bloque.titulo) + '</span></div>' +
+    '<h1 class="lec-h1">Tema ' + tema.n + ' · ' + esc(tema.titulo) + '</h1>' +
+    '<div class="lec-sub">' + norm + nota + '</div>' +
+    '<div class="lec-acciones">' +
+      '<button class="lec-acc" id="lecLeer"><span class="lec-ico">📖</span><b>Leer</b><small>' +
+        (tema.teoria ? 'La teoría, aquí mismo' : 'Los contenidos del tema') + '</small></button>' +
+      '<button class="lec-acc" id="lecDesc"><span class="lec-ico">⬇️</span><b>Descargar</b><small>Para imprimir o leer sin conexión</small></button>' +
+      video +
+    '</div>' +
+    (tema.teoria ? '' : teoria) +
+    '<div class="card" id="lecContenidos" style="margin-top:14px"><h3 style="margin-top:0">Contenidos del tema</h3><ul class="tem-lista">' + contenidos + '</ul></div>' +
+    (tema.teoria ? '<div id="lecTeoria">' + teoria + '</div>' : '') +
+    (nPreg ? '<div class="lec-practica"><span class="small muted">Cuando lo tengas leído:</span>' +
+      '<button class="btn btn-green btn-sm" id="lecTest">🎯 Practicar este tema · ' + nPreg + ' preguntas</button></div>' : '') +
+    '<p class="small muted center" style="margin:22px 0 6px"><a href="#/temario">← Volver al temario</a></p>';
+
+  const desc = $("#lecDesc");
+  if (desc) desc.onclick = async () => {
+    const uno = { bloques: [{ n: bloque.n, titulo: bloque.titulo, temas: [tema] }], fuente: spec.fuente };
+    const qr = await window.qrDataURI();
+    const html = window.temarioDoc(window.specADoc(uno), "Tema " + tema.n + " · " + tema.titulo,
+      "Bloque " + (ROMANOS[bloque.n] || bloque.n) + " · " + bloque.titulo + " · " + spec.fuente + " ·", qr);
+    descargaArchivo("a-la-orden-" + courseId + "-tema-" + bloque.n + "-" + tema.n + ".html", html, "text/html");
+    toast("📄 Tema descargado: ábrelo y, si quieres, imprímelo en PDF");
+  };
+  const leer = $("#lecLeer");
+  if (leer) leer.onclick = () => {
+    const el = $("#lecTeoria") || $(("#lecContenidos"));
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  const test = $("#lecTest");
+  if (test) test.onclick = () => window.galonStart({ course: courseId, filter: "temas", topics: tema.banco, n: 30, mode: "study", label: "Tema " + tema.n + " · " + tema.titulo });
+}
+
+/* =====================================================================
+   CONVOCATORIA — su propia sección, separada del temario
+   ===================================================================== */
+function vConvocatoria() {
+  const c = state.course;
+  const C = window.GALON_CONVOS || { cursos: [] };
+  const curso = (C.cursos || []).filter(x => x.id === c)[0];
+
+  let card = "";
+  if (curso) {
+    const hitos = curso.hitos.map(h => {
+      const ico = h.ahora ? "⏳" : (h.est ? "📅" : "✅");
+      const color = h.ahora ? "var(--gold)" : (h.est ? "var(--muted)" : "var(--ok)");
+      const extra = h.extra ? '<div class="small" style="color:var(--muted);margin-top:2px">' + esc(h.extra) + "</div>" : "";
+      const ref = h.ref ? '<div class="small" style="color:var(--muted);margin-top:2px">' + esc(h.ref) + "</div>" : "";
+      const tilde = h.est && !/pendiente/i.test(String(h.d)) ? ' <span style="color:var(--muted)">~</span>' : "";
+      return '<li style="list-style:none;display:flex;gap:8px;padding:8px 0;border-top:1px dashed var(--line)">' +
+        '<span aria-hidden="true">' + ico + '</span><div><b>' + esc(h.k) + '</b>' +
+        '<div style="color:' + color + ';font-weight:700;font-size:.92rem">' + esc(h.d) + tilde + "</div>" + ref + extra + "</div></li>";
+    }).join("");
+    card = '<div class="card" style="border-color:var(--gold)">' +
+      '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">' +
+      '<h3 style="margin:0">' + esc(curso.nombre) + '</h3><span class="' + curso.badgeClass + '">' + esc(curso.badge) + '</span></div>' +
+      '<p class="small" style="margin:8px 0 4px;color:var(--muted)">' + esc(curso.resumen) + "</p>" +
+      '<ul style="margin:0;padding:0">' + hitos + "</ul></div>";
+  }
+
+  const T = window.TEMARIO;
+  let examen = "";
+  if (c === "cabo" && T && T.examen) {
+    const reparto = T.examen.reparto.map(r => '<div class="topic-row"><span>· ' + esc(r[0]) + '</span><b>' + r[1] + ' preg.</b></div>').join("");
+    examen = '<div class="card" style="margin-top:12px"><h3>📋 La prueba, tal cual es</h3>' +
+      '<p class="small">' + esc(T.examen.preguntas) + " · " + esc(T.examen.duracion) + "<br>" + esc(T.examen.formula) + "<br><b>Notas de corte:</b> " + esc(T.examen.cortes) + "</p>" +
+      '<h3 style="margin-top:12px">Reparto real (examen feb-2026)</h3>' + reparto +
+      '<p class="small muted" style="margin-top:8px">⚠️ La normativa militar pesa el 40 %: 20 de 50 preguntas.</p></div>';
+  } else {
+    const ex = (window.TEMARIO_EXAMEN_CURSO || {})[c];
+    if (ex) examen = '<div class="card" style="margin-top:12px"><h3>' + esc(ex.titulo) + '</h3><p class="small">' + ex.lineas.map(l => "· " + esc(l)).join("<br>") + '</p><p class="small muted" style="margin-top:8px">' + esc(ex.fuente) + "</p></div>";
+    /* Cabo 1º: el reparto oficial de la oposición, que es lo que más se pregunta */
+    if (c === "cabo1") examen += '<div class="card" style="margin-top:12px"><h3>📋 Cómo se reparte el examen</h3>' +
+      '<div class="topic-row"><span>· Formación militar</span><b>35 preg.</b></div>' +
+      '<div class="topic-row"><span>· Formación sociocultural</span><b>15 preg.</b></div>' +
+      '<p class="small muted" style="margin-top:8px">50 preguntas en total. Corrección: 0,20 por acierto y −0,05 por error.</p></div>';
+  }
+
+  /* documentos oficiales de convocatoria (separados de los del temario) */
+  const BIB = (window.BIBLIO || []).filter(x => x.id === c)[0];
+  const conv = BIB ? BIB.grupos.filter(g => /convocatoria/i.test(g.n)).reduce((a, g) => a.concat(g.docs), []) : [];
+  const docs = conv.length ? '<div class="card" style="margin-top:12px"><h3>📄 Documentos oficiales</h3>' +
+    '<p class="small muted" style="margin:4px 0 8px">Convocatoria, correcciones y anexos, tal como se publicaron.</p>' +
+    conv.map(d => '<div class="bib-row"><span class="bib-t">' + esc(d.t) + ' <span class="muted">· ' + d.p + ' págs · ' + (d.s || "") + '</span></span>' +
+      '<span class="bib-act"><a class="btn btn-sm btn-ghost" href="/pdf/temarios/' + encodeURIComponent(d.f) + '" target="_blank" rel="noopener" aria-label="Consultar">📖</a>' +
+      '<a class="btn btn-sm btn-green" href="/pdf/temarios/' + encodeURIComponent(d.f) + '" download aria-label="Descargar">⬇️</a></span></div>').join("") + "</div>" : "";
+
+  view().innerHTML = '<div class="view-head"><h1>Convocatoria</h1></div>' +
+    card + examen + docs +
+    '<div class="card" style="margin-top:12px"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center">' +
+    '<div><b>¿Buscas lo que entra?</b><p class="small muted" style="margin:4px 0 0">Los 10 temas del programa están en el temario.</p></div>' +
+    '<button class="btn btn-green btn-sm" id="irTemario">📖 Ir al temario</button></div></div>' +
+    '<div class="card" style="margin-top:12px"><h3>🔔 Anti-obsoleto</h3><p class="small muted">Las fechas con <b>~</b> son previstas, según convocatorias anteriores. Las oficiales se publican en el BOD. Última revisión: <b>' + esc(C.actualizado || "—") + '</b>. Si sale convocatoria nueva, actualizamos esta ficha y avisamos en el canal del curso.</p></div>';
+
+  const it = $("#irTemario"); if (it) it.onclick = () => location.hash = "#/temario";
+}
+
 /* ---- TEMARIO ---- */
 function biblioOficial() {
   const BIB = window.BIBLIO || [];
@@ -602,6 +768,10 @@ function biblioOficial() {
   })();
 }
 function vTemario() {
+  /* Temarios oficiales por temas: la convocatoria vive en su propia vista */
+  if (state.course === "cabo" && window.TEMARIO_CABO26) { vTemarioOficial("cabo", window.TEMARIO_CABO26); return; }
+  if (state.course === "cabo1" && window.TEMARIO_CABO1) { vTemarioOficial("cabo1", window.TEMARIO_CABO1); return; }
+  if (state.course === "perm" && window.TEMARIO_PERM26) { vTemarioOficial("perm", window.TEMARIO_PERM26); return; }
   const T = window.TEMARIO;
   if (!T) { view().innerHTML = '<div class="view-head"><h1>Temario</h1></div><p class="small muted">Actualizando el temario… recarga en unos segundos.</p>'; return; }
   const esET = state.course === "cabo";
@@ -677,12 +847,20 @@ function vTemario() {
       '<div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0"><button class="btn btn-gold btn-sm" data-tdoc="' + i + '">⬇️ Dossier de la fase</button></div>' +
       "</div></details>").join("") + "</div>" : "";
 
-  view().innerHTML = '<div class="view-head"><h1>Temario oficial · ' + esc(COURSES[state.course].name || COURSES[state.course].nombre) + "</h1></div>" + courseCards() + biblioOficial() + examenCard +
+  /* v270: el temario no lleva convocatoria ni biblioteca dentro.
+     Las fechas, plazas, cortes y la fórmula están en #/convocatoria; los PDF, en #/biblio. */
+  const biblioCard = '<div class="card" style="margin-top:12px;border-color:var(--gold)"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center">' +
+    '<div><b>📅 Convocatoria y documentos</b><p class="small muted" style="margin:4px 0 0">Fechas, plazas, cortes y PDF oficiales: cada cosa en su sección.</p></div>' +
+    '<span style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-green btn-sm" id="irConv2">Convocatoria</button><button class="btn btn-ghost btn-sm" id="irBib2">Biblioteca</button></span></div></div>';
+
+  view().innerHTML = '<div class="view-head"><h1>Temario oficial · ' + esc(COURSES[state.course].name || COURSES[state.course].nombre) + "</h1></div>" + courseCards() + biblioCard +
     '<div class="card" style="margin-top:12px"><h3>🌳 Tu temario, por ramas</h3><p class="small muted" style="margin:4px 0 8px">Cada rama lleva su test: toca y entrena. Los contadores son reales (' + B.length.toLocaleString("es-ES") + ' preguntas auditadas en tu curso).</p>' + arbol + "</div>" +
     ((esET || state.course === "perm" || state.course === "cabo1") ? '<div class="card" style="margin-top:12px"><button class="btn btn-gold btn-block" id="btnTemTodo">⬇️ Descargar TEMARIO COMPLETO (imprimible)</button><p class="small muted" style="margin-top:6px">' + (esET ? "Se descarga un .html listo para abrir e imprimir como PDF: los 10 bloques, con lo que entra y lo esencial." : (state.course === "cabo1" ? "Se descarga un .html listo para abrir e imprimir como PDF: el curso completo por fases (oposición 35+15 · a distancia · presencial con sus módulos y UFs)." : "Se descarga un .html listo para abrir e imprimir como PDF: el programa oficial completo (3 bloques · 20 temas) con la normativa de cada tema.")) + '</p></div>' +
       '<div class="card" style="margin-top:12px"><h3>📑 Bloques oficiales, uno a uno</h3><p class="small muted" style="margin:4px 0 8px">Cada bloque del temario oficial con su dossier descargable y su test.</p>' + bloquesHtml + "</div>" + comp : "") +
     cb1Card + '<div class="card" style="margin-top:12px"><h3>🔔 Anti-obsoleto</h3><p class="small muted">' + esc(FUENTES) + ' Si cambia la norma o sale convocatoria nueva, actualizamos este dossier y avisamos en el canal de tu curso.</p></div>';
   bindCourses();
+  const c2 = document.querySelector("#irConv2"); if (c2) c2.onclick = () => location.hash = "#/convocatoria";
+  const b2 = document.querySelector("#irBib2"); if (b2) b2.onclick = () => location.hash = "#/biblio";
   const bt = document.querySelector("#btnTemTodo"); if (bt) bt.onclick = () => window.descargarTemarioCompleto();
   $$("[data-tdoc]").forEach(b => b.onclick = () => window.descargarBloque(parseInt(b.getAttribute("data-tdoc"), 10)));
   $$("[data-ttest]").forEach(b => b.onclick = () => {
@@ -1679,7 +1857,7 @@ function vAjustes() {
 }
 
 /* ---- router ---- */
-const TABS = { home: "home", entrenar: "entrenar", test: "entrenar", results: "entrenar", tema: "entrenar", bloque: "entrenar", fallos: "entrenar", temario: "temario", stats: "stats", mas: "mas", ranking: "mas", baremo: "mas", fisicas: "mas", ajustes: "mas", cards: "mas", exams: "mas", plan: "mas", duelo: "mas", logros: "mas", diario: "entrenar", custom: "entrenar", srs: "entrenar", maraton: "entrenar", esquemas: "mas", normas: "mas", biblio: "mas", consulta: "mas", apoya: "mas", cuenta: "mas" };
+const TABS = { home: "home", entrenar: "entrenar", test: "entrenar", results: "entrenar", tema: "entrenar", bloque: "entrenar", fallos: "entrenar", temario: "temario", leccion: "temario", convocatoria: "temario", stats: "stats", mas: "mas", ranking: "mas", baremo: "mas", fisicas: "mas", ajustes: "mas", cards: "mas", exams: "mas", plan: "mas", duelo: "mas", logros: "mas", diario: "entrenar", custom: "entrenar", srs: "entrenar", maraton: "entrenar", esquemas: "mas", normas: "mas", biblio: "mas", consulta: "mas", apoya: "mas", cuenta: "mas" };
 /* ===== ☕ aviso de apoyo (suave, con permiso y en el momento justo) =====
    - Solo si hay URL de donación REAL y el usuario no ha apoyado (flag del servidor o su palabra).
    - Nunca antes de 3 sesiones (primero damos, luego pedimos).
@@ -1715,9 +1893,14 @@ function donaTarjeta() {
 }
 
 function descargaArchivo(nombre, contenido, tipo) {
+  /* v271: el ancla debe estar en el documento para que Safari/iOS descargue,
+     y la URL del blob se libera después (antes se quedaba en memoria). */
+  const url = URL.createObjectURL(new Blob([contenido], { type: tipo }));
   const a = document.createElement("a");
-  a.href = URL.createObjectURL(new Blob([contenido], { type: tipo }));
-  a.download = nombre; a.click();
+  a.href = url; a.download = nombre; a.style.display = "none";
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { try { document.body.removeChild(a); URL.revokeObjectURL(url); } catch (e) {} }, 2000);
 }
 /* ===== Mi presentación (tramitador de convocatoria) =====
    Honestidad: MICABO NO tramita oficialmente (la instancia se presenta en la sede
@@ -1894,7 +2077,7 @@ function render() {
   const h = (location.hash || "#/home").replace("#/", "");
   stopTimer();
   try { if (window.speechSynthesis) speechSynthesis.cancel(); } catch (e) {}
-  $$("#tabbar a").forEach(a => a.classList.toggle("on", a.getAttribute("data-tab") === (TABS[h] || "home")));
+  $$("#tabbar a").forEach(a => a.classList.toggle("on", a.getAttribute("data-tab") === (TABS[h] || TABS[h.split("/")[0]] || "home")));
   window.scrollTo(0, 0);
   if (h === "home") vHome();
   else if (h === "entrenar") vTrain();
@@ -1905,6 +2088,8 @@ function render() {
   else if (h === "results") { vResults(); donaTarjeta(); }
   else if (h === "stats") vStats();
   else if (h === "temario") vTemario();
+  else if (h.indexOf("leccion/") === 0) vLeccion(h.split("leccion/")[1]);
+  else if (h === "convocatoria") vConvocatoria();
   else if (h === "ranking") vRanking();
   else if (h === "baremo") vBaremo();
   else if (h === "rincon") vRincon();
