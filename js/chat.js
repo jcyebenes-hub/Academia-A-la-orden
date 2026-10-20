@@ -36,12 +36,28 @@ function monta() {
     burbuja("yo", txt);
     pregunta(txt);
   };
+  aplicaVisibilidad();
   const nm = (window.AO && AO.stateRef && AO.stateRef().name) || "";
   const saludo = nm && nm !== "Recluta" ? "¡A sus órdenes, " + nm + "! 🎖️" : "¡A sus órdenes, soldado! 🎖️";
   const wb = burbuja("bot", "");
   teclea(wb, saludo + " Pregúntame lo que quieras: dudas del temario o de alguna pregunta de test, cómo va el examen, cómo apoyar al proyecto… o si prefieres hablar con una persona, te digo cómo.");
   fetch("/api/config").then(r => r.json()).then(d => { WA = (d && d.wa) || ""; }).catch(() => {});
 }
+/* v275: el botón flotante estorba mientras se responde un test (tapa la opción D
+   en el móvil). Se esconde en el test y en los resultados, y se cierra el chat si
+   estaba abierto al entrar. Se vuelve a mostrar al salir. */
+const OCULTO_EN = /^#\/(test|results)\b/;
+function aplicaVisibilidad() {
+  const fab = document.getElementById("chatFab");
+  if (!fab) return;
+  const ocultar = OCULTO_EN.test(location.hash || "");
+  fab.classList.toggle("chat-oculto", ocultar);
+  fab.setAttribute("aria-hidden", ocultar ? "true" : "false");
+  if (ocultar && abierto) { abierto = false; const w = document.getElementById("chatWin"); if (w) w.classList.remove("on"); }
+}
+window.__chatAplicaVisibilidad = aplicaVisibilidad;
+window.addEventListener("hashchange", aplicaVisibilidad);
+
 function burbuja(quien, html) {
   const m = document.createElement("div");
   m.className = "chat-msg " + (quien === "yo" ? "chat-yo" : "chat-bot");

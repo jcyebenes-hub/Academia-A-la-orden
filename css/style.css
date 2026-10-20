@@ -627,3 +627,6 @@ input,select,textarea{border-radius:12px}
 .lec-h1{font-size:1.24rem;line-height:1.28;margin:0 0 6px;color:var(--green-d)}
 .lec-sub{margin-bottom:4px}
 .lec-pend{margin:10px 0 0}
+/* v275: el botón de dudas desaparece durante el test y los resultados */
+#chatFab.chat-oculto{opacity:0;visibility:hidden;pointer-events:none;transform:scale(.8)}
+#chatFab{transition:opacity .18s ease,transform .18s ease,visibility .18s}
