@@ -759,6 +759,13 @@ En local se probó igual: antes `v276, v268` → después solo `v276`.
 
 **Commits `cd8dcf3` (v276).** El usuario atascado: Ajustes → Actualizar la app.
 
+## 🚀 PUBLICADO: v278 EN PRODUCCIÓN (21-oct-2026)
+
+- APPV **278** · caché **alaorden-v278** · commit `21565f4` en `main`.
+- Verificado en **micabo.es / onrender**: 33 temas con 📖, la teoría del G-36 carga (28.735 car),
+  la calculadora da los puntos correctos y **cero errores** en consola.
+- Si el móvil sigue en 276: **Ajustes → 🔄 Actualizar la app**.
+
 ## 📚 v277 — EL TEMARIO COMPLETO DE CABO, TEMA A TEMA (20-oct-2026)
 
 **Lo que has subido**: el «Temario oposición ascenso a Cabo del ET» completo
