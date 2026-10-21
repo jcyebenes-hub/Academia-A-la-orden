@@ -81,6 +81,7 @@ function toast(msg) { const t = $("#toast"); if (t) { t.textContent = msg; t.cla
 const ANON = (() => { let a = store.get("anon", null); if (!a) { a = Math.random().toString(16).slice(2) + Math.random().toString(16).slice(2); store.set("anon", a); } return a; })();
 window.GALON_ONLINE = { total: 0, users: [], anon: 0 };
 window.cloudUser = function () { return C.user; };
+window.pfuCard = pfuCard;   /* la tarjeta del perfil también la usa la vista de físicas */
 function paintOnline() {
   const O = window.GALON_ONLINE;
   const chip = $("#onlineChip");
@@ -168,6 +169,23 @@ window.abrirPerfil = function () {
 };
 
 /* --- vista #/cuenta --- */
+/* Tarjeta de pruebas físicas dentro del perfil: resumen y acceso directo */
+function pfuCard() {
+  let d = null;
+  try { d = window.AO.stateRef().pfu || null; } catch (e) {}
+  if (!d || !d.edad || !d.sexo) {
+    return '<div class="card" style="margin-bottom:12px;border-color:var(--gold)"><div class="topic-row">' +
+      '<span>🏅 <b>Pruebas físicas PFU</b><br><span class="small muted">Dinos tu edad y sexo una vez y la app calcula tus puntos con el baremo oficial</span></span>' +
+      '<a class="btn btn-gold btn-sm" href="#/fisicas" style="text-decoration:none;white-space:nowrap">Calcular</a></div></div>';
+  }
+  const ult = (d.historial || [])[(d.historial || []).length - 1];
+  return '<div class="card" style="margin-bottom:12px;border-color:var(--gold)"><div class="topic-row">' +
+    '<span>🏅 <b>Pruebas físicas PFU</b><br><span class="small muted">' +
+    (d.sexo === "F" ? "Mujer" : "Hombre") + " · " + d.edad + " años · grupo " +
+    (window.PFUcalc ? window.PFUcalc.grupoEdad(d.edad) : "") +
+    (ult ? " · última marca guardada: <b>" + ult.media + "/100</b>" : "") +
+    '</span></span><a class="btn btn-green btn-sm" href="#/fisicas" style="text-decoration:none;white-space:nowrap">Ver</a></div></div>';
+}
 window.vCuenta = async function () {
   const view = $("#view");
   if (!C.user) {
@@ -247,6 +265,7 @@ window.vCuenta = async function () {
     '<div class="num" style="font-size:1.6rem">' + esc(C.user.name) + '</div>' +
     '<div class="small" style="opacity:.85">' + esc(C.user.email) + (C.user.founder ? " · 🏅 <b>FUNDADOR</b>" : "") + '</div>' +
     (C.user.plan !== "free" && C.user.planEnds ? '<div class="small" style="margin-top:6px;opacity:.85">Renueva: ' + new Date(C.user.planEnds).toLocaleDateString("es-ES") + "</div>" : '<div class="small" style="margin-top:6px"><a class="btn btn-gold btn-sm" href="/index.html#precios" style="text-decoration:none">☕ Apoyar el proyecto</a></div>') + "</div>" +
+    pfuCard() +
     '<div class="card" style="margin-bottom:12px"><div class="topic-row"><span>☁️ <b>Sincronización</b><br><span class="small muted">Tu progreso viaja contigo: cuartel, casa y móvil</span></span><button class="btn btn-green btn-sm" id="btnSync">Sincronizar</button></div></div>' +
     '<div class="card" style="margin-bottom:12px"><h3>🟢 En línea ahora</h3><div id="onlineList"></div></div>' +
     '<div class="card" style="margin-bottom:12px"><h3>🧾 Facturas</h3><div id="invBox">' + invoicesHtml + "</div></div>" +

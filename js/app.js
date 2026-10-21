@@ -1,7 +1,7 @@
 /* MICABO · Academia de Tropa — motor de la app */
 (function () {
 "use strict";
-window.APPV = "276" /* v127: ventana Bizum con importe + guía (número nunca visible) */; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
+window.APPV = "278" /* v127: ventana Bizum con importe + guía (número nunca visible) */; /* v106: acceso con Google (listo para activar), login/registro rediseñado, Lote 8 Bloque II */ /* versión visible en Ajustes y en la biblioteca */
 const $ = (s, el) => (el || document).querySelector(s);
 const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -596,25 +596,40 @@ const ROMANOS = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
 function vTemarioOficial(courseId, spec) {
   const nTemas = spec.bloques.reduce((s, b) => s + b.temas.length, 0);
   const nombre = (COURSES[courseId] && (COURSES[courseId].name || COURSES[courseId].nombre)) || "tu curso";
+  const IDX = window.TEORIA_IDX || {};
 
-  const bloques = spec.bloques.map(b => {
+  const pintaBloque = (b) => {
+    const normCorta = (b.normativa || "").split("·")[0].trim();
+    const autor = normCorta ? "<small>" + esc(normCorta) + "</small>" : "";
     const temas = b.temas.map(t => {
-      /* en el índice solo la norma corta: «Ley Orgánica 8/2014», no el título entero */
-      const normCorta = (t.normativa || "").split("·")[0].split(",")[0].trim();
-      const autor = normCorta ? '<small>' + esc(normCorta) + '</small>' : "";
-      return '<button class="lec-row" data-lec="' + courseId + ':' + b.n + ':' + t.n + '">' +
-        '<span class="lec-n">' + t.n + '</span>' +
-        '<span class="lec-t"><b>' + esc(t.titulo) + '</b>' + autor + '</span>' +
+      const listo = (IDX[b.teoriaKey] || []).indexOf(t.n) >= 0
+        ? '<span class="lec-ok" title="Teoría disponible">📖</span>' : "";
+      return '<button class="lec-row" data-lec="' + courseId + ":" + (b.key || b.n) + ":" + t.n + '">' +
+        '<span class="lec-n">' + t.n + "</span>" +
+        '<span class="lec-t"><b>' + esc(t.titulo) + "</b>" + autor + "</span>" + listo +
         '<span class="lec-go" aria-hidden="true">›</span></button>';
     }).join("");
-    return '<div class="card lec-block">' +
-      '<div class="lec-cap"><span class="lec-rom">' + (ROMANOS[b.n] || b.n) + '</span>' +
-      '<span class="lec-cap-t">' + esc(b.titulo) + '</span></div>' + temas + '</div>';
-  }).join("");
+    return '<div class="card lec-block"><div class="lec-cap"><span class="lec-rom">' +
+      (ROMANOS[b.n] || b.n) + '</span><span class="lec-cap-t">' + esc(b.titulo) + "</span></div>" + temas + "</div>";
+  };
+
+  /* si el temario viene partido en capítulos, se ven las dos partes por separado */
+  const caps = [];
+  spec.bloques.forEach(b => { const c = b.cap || 0; if (caps.indexOf(c) < 0) caps.push(c); });
+  let cuerpo;
+  if (caps.length > 1) {
+    cuerpo = caps.map(c => {
+      const tituloCap = (spec.capitulos && spec.capitulos[c]) || (c === 1 ? "Formación general militar" : "Instrucción táctica y técnica");
+      return '<h2 class="lec-capitulo">CAPÍTULO ' + c + " · " + esc(tituloCap) + "</h2>" +
+        spec.bloques.filter(b => (b.cap || 0) === c).map(pintaBloque).join("");
+    }).join("");
+  } else {
+    cuerpo = spec.bloques.map(pintaBloque).join("");
+  }
 
   view().innerHTML = '<div class="view-head"><h1>Temario</h1>' +
-    '<p class="small muted" style="margin:2px 0 0">' + esc(nombre) + ' · ' + spec.bloques.length + ' bloques · ' + nTemas + ' temas</p></div>' +
-    bloques;
+    '<p class="small muted" style="margin:2px 0 0">' + esc(nombre) + " · " + spec.bloques.length +
+    " bloques · " + nTemas + " temas</p></div>" + cuerpo;
 
   $$("[data-lec]").forEach(b => b.onclick = () => {
     location.hash = "#/leccion/" + b.getAttribute("data-lec");
@@ -624,24 +639,51 @@ function vTemarioOficial(courseId, spec) {
 /* Ficha de un tema: leer · descargar · vídeo. Y, aparte, practicarlo. */
 function vLeccion(clave) {
   const partes = (clave || "").split(":");
-  const courseId = partes[0], nb = parseInt(partes[1], 10), nt = parseInt(partes[2], 10);
+  const courseId = partes[0], nb = partes[1], nt = parseInt(partes[2], 10);
   const spec = courseId === "cabo" ? window.TEMARIO_CABO26
              : courseId === "cabo1" ? window.TEMARIO_CABO1
              : courseId === "perm" ? window.TEMARIO_PERM26 : null;
   if (!spec) { location.hash = "#/temario"; return; }
   let bloque = null, tema = null;
-  spec.bloques.forEach(b => { if (b.n !== nb) return; b.temas.forEach(t => { if (t.n === nt) { bloque = b; tema = t; } }); });
+  spec.bloques.forEach(b => {
+    if (String(b.key || b.n) !== String(nb)) return;
+    b.temas.forEach(t => { if (t.n === nt) { bloque = b; tema = t; } });
+  });
   if (!tema) { location.hash = "#/temario"; return; }
 
   const B = bank(courseId);
   const nPreg = (tema.banco || []).reduce((s, x) => s + B.filter(q => q.t === x).length, 0);
-  const contenidos = (tema.contenidos || []).map(c => '<li>' + esc(c) + '</li>').join("");
   const norm = tema.normativa ? '<p class="lec-norm"><b>Normativa</b> · ' + esc(tema.normativa) + '</p>' : "";
   const nota = tema.nota ? '<p class="lec-norm" style="font-style:italic">' + esc(tema.nota) + '</p>' : "";
 
-  const teoria = tema.teoria
-    ? '<div class="tem-teoria">' + tema.teoria + '</div>'
-    : '<p class="small muted lec-pend">📝 La teoría de este tema está en preparación. Mientras tanto tienes los contenidos y puedes descargarlos.</p>';
+  const teoBloque = (window.TEORIA || {})[bloque.teoriaKey] || {};
+  /* la teoría pesa 480 KB: se trae solo al abrir una ficha y se queda en caché */
+  if (!window.TEORIA && !window.__teoCargando) {
+    window.__teoCargando = true;
+    const sc = document.createElement("script");
+    sc.src = "js/teoria-cabo.js";
+    sc.onload = () => { window.__teoCargando = false; if (location.hash.indexOf("#/leccion/") === 0) render(); };
+    sc.onerror = () => { window.__teoCargando = false; };
+    document.head.appendChild(sc);
+  }
+  const textoTeoria = tema.teoria || teoBloque[tema.n] || "";
+  /* lista de contenidos: si el temario no la trae, se saca de los apartados de la teoría */
+  const listaCont = (() => {
+    if ((tema.contenidos || []).length) return tema.contenidos;
+    const out = [], re = /<h[34][^>]*>(.*?)<\/h[34]>/g;
+    let m;
+    while ((m = re.exec(textoTeoria)) && out.length < 8) {
+      const t = m[1].replace(/<[^>]+>/g, "").trim();
+      if (t && !/^TEMA\s+\d+/i.test(t)) out.push(t);
+    }
+    return out;
+  })();
+  const contenidos = listaCont.map(c => '<li>' + esc(c) + '</li>').join("");
+  const teoria = textoTeoria
+    ? '<div class="tem-teoria">' + textoTeoria + '</div>'
+    : (window.__teoCargando
+        ? '<p class="small muted lec-pend">📖 Trayendo la teoría del tema…</p>'
+        : '<p class="small muted lec-pend">📝 La teoría de este tema está en preparación. Mientras tanto tienes los contenidos y puedes descargarlos.</p>');
 
   const video = tema.video
     ? '<a class="lec-acc" href="' + esc(tema.video) + '" target="_blank" rel="noopener"><span class="lec-ico">▶️</span><b>Ver el vídeo</b><small>La explicación del tema, en YouTube</small></a>'
@@ -649,29 +691,30 @@ function vLeccion(clave) {
 
   view().innerHTML =
     '<div class="lec-top"><a class="back" href="#/temario" aria-label="Volver al temario">←</a>' +
-      '<span class="small muted">Bloque ' + (ROMANOS[bloque.n] || bloque.n) + ' · ' + esc(bloque.titulo) + '</span></div>' +
+      '<span class="small muted">' + (bloque.cap ? "Cap. " + bloque.cap + " · " : "") + 'Bloque ' + (ROMANOS[bloque.n] || bloque.n) + ' · ' + esc(bloque.titulo) + '</span></div>' +
     '<h1 class="lec-h1">Tema ' + tema.n + ' · ' + esc(tema.titulo) + '</h1>' +
     '<div class="lec-sub">' + norm + nota + '</div>' +
     '<div class="lec-acciones">' +
       '<button class="lec-acc" id="lecLeer"><span class="lec-ico">📖</span><b>Leer</b><small>' +
-        (tema.teoria ? 'La teoría, aquí mismo' : 'Los contenidos del tema') + '</small></button>' +
+        (textoTeoria ? 'La teoría, aquí mismo' : 'Los contenidos del tema') + '</small></button>' +
       '<button class="lec-acc" id="lecDesc"><span class="lec-ico">⬇️</span><b>Descargar</b><small>Para imprimir o leer sin conexión</small></button>' +
       video +
     '</div>' +
-    (tema.teoria ? '' : teoria) +
-    '<div class="card" id="lecContenidos" style="margin-top:14px"><h3 style="margin-top:0">Contenidos del tema</h3><ul class="tem-lista">' + contenidos + '</ul></div>' +
-    (tema.teoria ? '<div id="lecTeoria">' + teoria + '</div>' : '') +
+    (textoTeoria ? '' : teoria) +
+    (contenidos ? '<div class="card" id="lecContenidos" style="margin-top:14px"><h3 style="margin-top:0">Qué vas a ver</h3><ul class="tem-lista">' + contenidos + '</ul></div>' : '') +
+    (textoTeoria ? '<div id="lecTeoria">' + teoria + '</div>' : '') +
     (nPreg ? '<div class="lec-practica"><span class="small muted">Cuando lo tengas leído:</span>' +
       '<button class="btn btn-green btn-sm" id="lecTest">🎯 Practicar este tema · ' + nPreg + ' preguntas</button></div>' : '') +
     '<p class="small muted center" style="margin:22px 0 6px"><a href="#/temario">← Volver al temario</a></p>';
 
   const desc = $("#lecDesc");
   if (desc) desc.onclick = async () => {
-    const uno = { bloques: [{ n: bloque.n, titulo: bloque.titulo, temas: [tema] }], fuente: spec.fuente };
+    const temaConTeoria = Object.assign({}, tema, { teoria: textoTeoria || null });
+    const uno = { bloques: [{ n: bloque.n, titulo: bloque.titulo, temas: [temaConTeoria] }], fuente: spec.fuente };
     const qr = await window.qrDataURI();
     const html = window.temarioDoc(window.specADoc(uno), "Tema " + tema.n + " · " + tema.titulo,
       "Bloque " + (ROMANOS[bloque.n] || bloque.n) + " · " + bloque.titulo + " · " + spec.fuente + " ·", qr);
-    descargaArchivo("a-la-orden-" + courseId + "-tema-" + bloque.n + "-" + tema.n + ".html", html, "text/html");
+    descargaArchivo("a-la-orden-" + courseId + "-tema-" + (bloque.key || bloque.n) + "-" + tema.n + ".html", html, "text/html");
     toast("📄 Tema descargado: ábrelo y, si quieres, imprímelo en PDF");
   };
   const leer = $("#lecLeer");
@@ -921,19 +964,6 @@ function vBaremo() {
 }
 
 /* ---- FÍSICAS ---- */
-function vFisicas() {
-  const items = [
-    ["🏋️ Abdominales (3 min)", "Flexiones de tronco. Puntúa de 0 a 5 según marca por edad y sexo."],
-    ["💪 Flexiones de brazos (2 min)", "Flexo-extensiones en suelo. De 0 a 5 puntos."],
-    ["⚡ Circuito agilidad-velocidad (CAV)", "Recorrido cronometrado. De 0 a 5 puntos."],
-    ["🏃 Carrera 2.000 m", "Resistencia. De 0 a 5 puntos. Suma hasta 15 en aptitud psicofísica del concurso."]
-  ];
-  view().innerHTML = '<div class="view-head"><a class="back" href="#/mas">←</a><h1>Pruebas físicas 🏅</h1></div>' +
-    '<div class="card"><span class="badge badge-red">Permanencia · eliminatorias (apto/no apto)</span><ul class="list-clean">' +
-    items.map(i => "<li><b>" + i[0] + "</b><br><span class=\"muted\">" + i[1] + "</span></li>").join("") +
-    '</ul><p class="small muted">En la versión final: baremos por edad/sexo y plan de entrenamiento con la app.</p></div>';
-}
-
 /* ---- FLASHCARDS (tipo ascensoacabo / Soldado Español) ---- */
 let FC = null;
 function vCards() {
@@ -1794,7 +1824,7 @@ function vMas() {
     '<a class="mode" href="#/rincon"><span class="mi">📌</span><b>Mi rincón</b><span>Cuaderno, preguntas ⭐, progreso y descargas</span></a>' +
     '<a class="mode" href="#/tramita"><span class="mi">🧾</span><b>Mi presentación</b><span>Checklist y dossier para la convocatoria</span></a>' +
     '<a class="mode" href="#/baremo"><span class="mi">🧮</span><b>Baremo</b><span>Calcula tu NCO de Cabo</span></a>' +
-    '<a class="mode" href="#/fisicas"><span class="mi">🏅</span><b>Físicas</b><span>Pruebas de permanencia</span></a>' +
+    '<a class="mode" href="#/fisicas"><span class="mi">🏅</span><b>Físicas PFU</b><span>Calcula tus puntos oficiales</span></a>' +
     '<a class="mode" href="#/cards"><span class="mi">🃏</span><b>Flashcards</b><span>Repasa con tarjetas</span></a>' +
     '<a class="mode" href="#/exams"><span class="mi">📜</span><b>Exámenes oficiales</b><span>Históricos + convocatorias</span></a>' +
     '<a class="mode" href="#/duelo"><span class="mi">⚔️</span><b>Duelo 1vs1</b><span>Retar a un rival</span></a>' +
@@ -2104,7 +2134,7 @@ function render() {
   else if (h === "baremo") vBaremo();
   else if (h === "rincon") vRincon();
   else if (h.indexOf("tramita") === 0) (h.indexOf("/") > 0 ? vTramitaCurso(h.split("/")[1]) : vTramita());
-  else if (h === "fisicas") vFisicas();
+  else if (h === "fisicas") window.vFisicas();
   else if (h === "mas") vMas();
   else if (h === "ajustes") vAjustes();
   else if (h === "cards") vCards();

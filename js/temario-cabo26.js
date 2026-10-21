@@ -1,197 +1,137 @@
-/* MICABO · TEMARIO OFICIAL DE CABO (ET) — convocatoria I/26
+/* MICABO · TEMARIO OFICIAL DE CABO (ET)
    ---------------------------------------------------------------------------
-   Estructura y contenidos tal como los entregó el responsable del proyecto
-   (20-oct-2026). 2 bloques · 10 temas.
+   Estructura EXACTA del temario oficial: DIREN CEFOT 1, «Temario oposición
+   ascenso a Cabo del ET», actualización noviembre 2025.
+   2 capítulos · 10 bloques · 33 temas. La numeración de temas se reinicia en
+   cada bloque, igual que en el documento original.
 
-   CÓMO SE AÑADE LA TEORÍA
-   Cada tema tiene un campo `teoria` y cada bloque otro. Se rellenan con HTML
-   simple (<p>, <ul>, <li>, <b>) y la app los pinta tal cual dentro del tema.
-   Mientras estén a null, la ficha muestra «teoría en preparación».
-   El campo `video` de cada tema admite la URL de YouTube; mientras esté vacío
-   la ficha muestra «Vídeo: próximamente».
+   LA TEORÍA NO ESTÁ AQUÍ: está en js/teoria-cabo.js, generada del propio PDF
+   por tools/extrae-temario.py. Cada bloque apunta a su clave con `teoriaKey`
+   («cabo:1.1» … «cabo:1.7» en el capítulo 1; «cabo:2.1» … «cabo:2.3» en el 2).
 
-   El campo `banco` es la lista de nombres de tema del banco de preguntas que
-   alimenta el botón de test de ese tema. Si está vacío, el tema no tiene test.
+   `banco` = nombres de tema del banco de preguntas que alimentan el test.
    --------------------------------------------------------------------------- */
 "use strict";
 window.TEMARIO_CABO26 = {
   actualizado: "20-oct-2026",
-  fuente: "Temario de Cabo (ET) · convocatoria I/26",
+  fuente: "Temario oficial CEFOT 1 · actualización noviembre 2025",
+  capitulos: {
+    1: "Formación general militar",
+    2: "Instrucción táctica y técnica"
+  },
   bloques: [
+    /* =================== CAPÍTULO 1 · FORMACIÓN GENERAL MILITAR =================== */
     {
-      id: "B1", n: 1,
-      titulo: "Formación general militar",
-      teoria: null,
+      n: 1, cap: 1, teoriaKey: "cabo:1.1", key: "1.1",
+      titulo: "Reales Ordenanzas para las FAS",
+      normativa: "Real Decreto 96/2009",
       temas: [
-        {
-          n: 1,
-          titulo: "Reales Ordenanzas para las Fuerzas Armadas",
-          normativa: "Real Decreto 96/2009",
-          contenidos: [
-            "Principios generales de comportamiento del militar.",
-            "Deberes fundamentales.",
-            "Disciplina y jerarquía.",
-            "Unidad de mando.",
-            "Cumplimiento de las órdenes.",
-            "Responsabilidad individual.",
-            "Relaciones entre militares.",
-            "Responsabilidad en el ejercicio del mando.",
-            "Comportamiento en operaciones.",
-            "Disponibilidad para el servicio."
-          ],
-          banco: ["Reales Ordenanzas"],
-          teoria: null
-        },
-        {
-          n: 2,
-          titulo: "Seguridad en las Fuerzas Armadas",
-          normativa: "Real Decreto 194/2010",
-          contenidos: [
-            "Conceptos generales de seguridad militar.",
-            "Seguridad de las instalaciones.",
-            "Protección de personas, material e información.",
-            "Responsabilidades del personal.",
-            "Medidas de seguridad.",
-            "Funciones generales del personal de servicio.",
-            "Prevención de incidentes."
-          ],
-          banco: ["Seguridad en las FAS"],
-          teoria: null
-        },
-        {
-          n: 3,
-          titulo: "Mando y régimen interior",
-          normativa: "",
-          contenidos: [
-            "Organización del régimen interior.",
-            "Responsabilidades de los mandos.",
-            "Servicios y guardias.",
-            "Normas generales de funcionamiento de las unidades.",
-            "Obligaciones del personal de servicio.",
-            "Organización y funcionamiento de las instalaciones militares."
-          ],
-          banco: ["Régimen Interior"],
-          teoria: null
-        },
-        {
-          n: 4,
-          titulo: "Régimen disciplinario y Código Penal Militar",
-          normativa: "Ley Orgánica 8/2014, de Régimen Disciplinario de las Fuerzas Armadas · Ley Orgánica 14/2015, del Código Penal Militar",
-          contenidos: [
-            "Principios del régimen disciplinario.",
-            "Clasificación de las faltas.",
-            "Sanciones disciplinarias.",
-            "Autoridades y competencias sancionadoras.",
-            "Procedimiento disciplinario.",
-            "Recursos.",
-            "Diferencias entre infracción disciplinaria y delito militar.",
-            "Principales delitos militares."
-          ],
-          banco: ["Régimen Disciplinario", "Código Penal Militar"],
-          teoria: null
-        },
-        {
-          n: 5,
-          titulo: "Organización del Ejército de Tierra",
-          normativa: "",
-          contenidos: [
-            "Organización general de las Fuerzas Armadas.",
-            "Estructura básica del Ejército de Tierra.",
-            "Cuartel General, Fuerza y Apoyo a la Fuerza.",
-            "Principales mandos y unidades.",
-            "Organización general de las unidades terrestres.",
-            "Funciones generales de las armas y especialidades."
-          ],
-          banco: ["Organización del ET", "Organización de la Defensa"],
-          teoria: null
-        },
-        {
-          n: 6,
-          titulo: "Derechos y deberes de los militares",
-          normativa: "Ley Orgánica 9/2011",
-          contenidos: [
-            "Derechos fundamentales.",
-            "Libertades públicas y sus limitaciones en el ámbito militar.",
-            "Deberes profesionales.",
-            "Asociaciones profesionales.",
-            "Derecho de petición.",
-            "Participación y representación del personal militar."
-          ],
-          banco: ["Derechos y deberes"],
-          teoria: null
-        },
-        {
-          n: 7,
-          titulo: "Liderazgo militar",
-          normativa: "",
-          orientativos: true,
-          contenidos: [
-            "Concepto de liderazgo.",
-            "Ejercicio del mando.",
-            "Responsabilidad del jefe.",
-            "Comunicación con los subordinados.",
-            "Disciplina y cohesión.",
-            "Motivación del personal.",
-            "Toma de decisiones.",
-            "Ejemplo personal."
-          ],
-          banco: ["Liderazgo"],
-          teoria: null
-        }
+        { n: 1, titulo: "Disposiciones generales", banco: ["Reales Ordenanzas"] },
+        { n: 2, titulo: "Del Militar", banco: ["Reales Ordenanzas"] },
+        { n: 3, titulo: "De la Disciplina", banco: ["Reales Ordenanzas"] },
+        { n: 4, titulo: "De la acción del Mando", banco: ["Reales Ordenanzas"] },
+        { n: 5, titulo: "De las Operaciones", banco: ["Reales Ordenanzas"] }
       ]
     },
     {
-      id: "B2", n: 2,
-      titulo: "Instrucción técnica y táctica",
-      teoria: null,
-      aviso: "Bloque pendiente de confirmar con el contenido exacto de la convocatoria I/26 antes de darlo por definitivo.",
+      n: 2, cap: 1, teoriaKey: "cabo:1.2", key: "1.2",
+      titulo: "Seguridad en las Fuerzas Armadas",
+      normativa: "RD 194/2010 · OM 50/2011",
       temas: [
-        {
-          n: 8,
-          titulo: "Instrucción del combatiente individual",
-          normativa: "",
-          contenidos: [
-            "Equipo individual.",
-            "Preparación para el servicio.",
-            "Técnicas básicas del combatiente.",
-            "Seguridad durante la instrucción.",
-            "Procedimientos generales de actuación individual.",
-            "Transmisiones básicas y procedimientos de comunicación que figuren en el programa."
-          ],
-          banco: ["Instrucción del combatiente", "Transmisiones", "Orden Cerrado", "Escuadra y equipo"],
-          teoria: null
-        },
-        {
-          n: 9,
-          titulo: "Topografía y orientación",
-          normativa: "",
-          contenidos: [
-            "Lectura e interpretación de mapas.",
-            "Escalas.",
-            "Coordenadas.",
-            "Orientación.",
-            "Uso de la brújula.",
-            "Distancias y rumbos.",
-            "Representación del terreno."
-          ],
-          banco: ["Topografía"],
-          teoria: null
-        },
-        {
-          n: 10,
-          titulo: "Armamento y teoría del tiro",
-          normativa: "",
-          contenidos: [
-            "Identificación del armamento incluido en el programa.",
-            "Características generales.",
-            "Elementos y mecanismos.",
-            "Normas de seguridad.",
-            "Conservación y mantenimiento.",
-            "Principios básicos de balística y teoría del tiro."
-          ],
-          banco: ["Armamento", "Armamento y tiro", "Tiro"],
-          teoria: null
-        }
+        { n: 1, titulo: "RD 194/2010 · Normas de seguridad en las FAS", banco: ["Seguridad en las FAS"],
+          contenidos: ["Disposiciones generales.", "Plan de Seguridad.", "De las Guardias de Seguridad.", "De la Policía Militar."] },
+        { n: 2, titulo: "OM 50/2011 · Mando y régimen interior", banco: ["Seguridad en las FAS"],
+          contenidos: ["Guardias de Seguridad."] }
+      ]
+    },
+    {
+      n: 3, cap: 1, teoriaKey: "cabo:1.3", key: "1.3",
+      titulo: "Mando y Régimen Interior",
+      normativa: "Orden Ministerial 50/2011",
+      temas: [
+        { n: 1, titulo: "Disposiciones generales", banco: ["Régimen Interior"] },
+        { n: 2, titulo: "De la acción del mando", banco: ["Régimen Interior"] },
+        { n: 3, titulo: "Del Régimen Interior", banco: ["Régimen Interior"] },
+        { n: 4, titulo: "Los servicios de las instalaciones", banco: ["Régimen Interior"] },
+        { n: 5, titulo: "Las guardias", banco: ["Régimen Interior"] }
+      ]
+    },
+    {
+      n: 4, cap: 1, teoriaKey: "cabo:1.4", key: "1.4",
+      titulo: "Régimen Disciplinario y Código Penal Militar",
+      normativa: "LO 8/2014 · LO 14/2015",
+      temas: [
+        { n: 1, titulo: "LO 8/2014 · Régimen Disciplinario de las FAS", banco: ["Régimen Disciplinario"],
+          contenidos: ["Disposiciones generales.", "Faltas y sanciones.", "Potestad disciplinaria y competencia sancionadora.", "Procedimiento sancionador.", "Ejecución de las sanciones.", "Recursos."] },
+        { n: 2, titulo: "LO 14/2015 · Código Penal Militar", banco: ["Código Penal Militar"],
+          contenidos: ["Ámbito de aplicación y definiciones.", "Del delito militar.", "De las penas.", "Delitos contra la seguridad y defensa nacionales.", "Delitos contra la disciplina.", "Delitos relativos al ejercicio de los derechos fundamentales y libertades públicas.", "Delitos contra los deberes del servicio."] }
+      ]
+    },
+    {
+      n: 5, cap: 1, teoriaKey: "cabo:1.5", key: "1.5",
+      titulo: "Organización del ET y situaciones administrativas",
+      normativa: "Instrucción 14/2021 (act. ODEF 559/2024) · Ley 39/2007",
+      temas: [
+        { n: 1, titulo: "Instrucción 14/2021 · Organización del Ejército de Tierra", banco: ["Organización del ET"] },
+        { n: 2, titulo: "Situaciones administrativas del personal de las FAS", banco: ["Carrera militar"] }
+      ]
+    },
+    {
+      n: 6, cap: 1, teoriaKey: "cabo:1.6", key: "1.6",
+      titulo: "LO 9/2011 · Derechos y deberes",
+      normativa: "Ley Orgánica 9/2011 · RD 176/2014",
+      temas: [
+        { n: 1, titulo: "Disposiciones generales", banco: ["Derechos y deberes"] },
+        { n: 2, titulo: "Derechos y deberes de carácter profesional", banco: ["Derechos y deberes"] },
+        { n: 3, titulo: "Asociaciones profesionales", banco: ["Derechos y deberes"] },
+        { n: 4, titulo: "Del Observatorio de la Vida Militar", banco: ["Derechos y deberes"] },
+        { n: 5, titulo: "RD 176/2014 · Iniciativas y quejas", banco: ["Derechos y deberes"],
+          contenidos: ["Tramitación de iniciativas.", "Tramitación de quejas."] }
+      ]
+    },
+    {
+      n: 7, cap: 1, teoriaKey: "cabo:1.7", key: "1.7",
+      titulo: "Liderazgo",
+      normativa: "",
+      temas: [
+        { n: 1, titulo: "Modelo de liderazgo K-2", banco: ["Liderazgo"] },
+        { n: 2, titulo: "Mando orientado a la misión (MoM)", banco: ["Liderazgo"] }
+      ]
+    },
+
+    /* =================== CAPÍTULO 2 · INSTRUCCIÓN TÁCTICA Y TÉCNICA =================== */
+    {
+      n: 1, cap: 2, teoriaKey: "cabo:2.1", key: "2.1",
+      titulo: "Instrucción técnica y táctica del combatiente",
+      normativa: "",
+      temas: [
+        { n: 1, titulo: "Instrucción técnica de combate",
+          banco: ["Instrucción del combatiente", "Transmisiones", "NBQ", "Primeros auxilios"],
+          contenidos: ["El terreno. Utilización.", "Misiones individuales del combatiente.", "Instrucción NBQ.", "Transmisiones. Conocimientos básicos para transmitir."] },
+        { n: 2, titulo: "Instrucción táctica · Escuadra/Equipo",
+          banco: ["Orden Cerrado", "Escuadra y equipo", "Instrucción del combatiente"] }
+      ]
+    },
+    {
+      n: 2, cap: 2, teoriaKey: "cabo:2.2", key: "2.2",
+      titulo: "Topografía",
+      normativa: "",
+      temas: [
+        { n: 1, titulo: "Cartografía", banco: ["Topografía"] },
+        { n: 2, titulo: "Orientación", banco: ["Topografía"] },
+        { n: 3, titulo: "Navegación", banco: ["Topografía"] }
+      ]
+    },
+    {
+      n: 3, cap: 2, teoriaKey: "cabo:2.3", key: "2.3",
+      titulo: "Armamento y teoría del tiro",
+      normativa: "",
+      temas: [
+        { n: 1, titulo: "Normas generales en el uso y manejo de las armas", banco: ["Armamento", "Armamento y tiro"] },
+        { n: 2, titulo: "Fusil de asalto HK G-36", banco: ["Armamento", "Armamento y tiro"] },
+        { n: 3, titulo: "Pistola HK USP Compact", banco: ["Armamento", "Armamento y tiro"] },
+        { n: 4, titulo: "Ametralladora MG-42", banco: ["Armamento", "Armamento y tiro"] },
+        { n: 5, titulo: "Teoría del tiro", banco: ["Tiro", "Armamento y tiro"] }
       ]
     }
   ]

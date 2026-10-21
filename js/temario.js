@@ -367,14 +367,30 @@ window.TEMARIO_CB1 = [
 /* Convierte un temario por temas (TEMARIO_CABO26 / TEMARIO_CABO1 / TEMARIO_PERM26)
    al formato del imprimible. Conserva los temas, sus normas y sus contenidos. */
 window.specADoc = function (spec) {
-  const roman = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
-  return spec.bloques.map(b => ({
-    title: "Bloque " + (roman[b.n] || b.n) + " · " + b.titulo,
-    peso: b.temas.length + " temas",
-    intro: b.aviso || spec.fuente,
-    temas: b.temas,
-    oficial: [], esencial: [], fuentes: []
-  }));
+  const roman = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
+  const TEO = window.TEORIA || {};
+  return spec.bloques.map(b => {
+    const teo = TEO[b.teoriaKey] || {};
+    const temas = b.temas.map(t => {
+      const h = t.teoria || teo[t.n] || null;
+      let cont = t.contenidos || [];
+      if (!cont.length && h) {          /* la lista sale de los apartados de la teoría */
+        const re = /<h[34][^>]*>(.*?)<\/h[34]>/g; let m;
+        while ((m = re.exec(h)) && cont.length < 8) {
+          const x = m[1].replace(/<[^>]+>/g, "").trim();
+          if (x && !/^TEMA\s+\d+/i.test(x)) cont.push(x);
+        }
+      }
+      return Object.assign({}, t, { teoria: h, contenidos: cont });
+    });
+    return {
+      title: (b.cap ? "Cap. " + b.cap + " · " : "") + "Bloque " + (roman[b.n] || b.n) + " · " + b.titulo,
+      peso: temas.length + " temas",
+      intro: b.aviso || spec.fuente,
+      temas: temas,
+      oficial: [], esencial: [], fuentes: []
+    };
+  });
 };
 
 window.bloquesDeCurso = function () {
@@ -382,7 +398,7 @@ window.bloquesDeCurso = function () {
   if (c === "cabo" && window.TEMARIO_CABO26) return {
     bloques: window.specADoc(window.TEMARIO_CABO26),
     titulo: "Temario oficial · Ascenso a Cabo (ET)",
-    sub: "2 bloques · 10 temas · " + window.TEMARIO_CABO26.fuente + " ·",
+    sub: "10 bloques · 33 temas · " + window.TEMARIO_CABO26.fuente + " ·",
     file: "a-la-orden-temario-cabo"
   };
   if (c === "cabo1" && window.TEMARIO_CABO1) return {
@@ -444,7 +460,9 @@ window.temarioDoc = function (bloques, titulo, sub, qr) {
           "<h3>Tema " + t.n + " · " + t.titulo + "</h3>" +
           (t.normativa ? "<p class='muted'>" + t.normativa + "</p>" : "") +
           (t.nota ? "<p class='muted'><i>" + t.nota + "</i></p>" : "") +
-          "<ul>" + t.contenidos.map(c => "<li>" + c + "</li>").join("") + "</ul>" +
+          ((t.contenidos && t.contenidos.length)
+            ? "<ul>" + t.contenidos.map(c => "<li>" + c + "</li>").join("") + "</ul>"
+            : "") +
           (t.teoria ? "<div class='teo'>" + t.teoria + "</div>" : "") +
           "</div>").join("") + "</section>";
     }

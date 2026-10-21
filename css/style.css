@@ -630,3 +630,60 @@ input,select,textarea{border-radius:12px}
 /* v275: el botón de dudas desaparece durante el test y los resultados */
 #chatFab.chat-oculto{opacity:0;visibility:hidden;pointer-events:none;transform:scale(.8)}
 #chatFab{transition:opacity .18s ease,transform .18s ease,visibility .18s}
+/* v277: temario oficial por capítulos y marca de teoría disponible */
+.lec-capitulo{margin:22px 0 8px;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--gold-d);font-weight:800;padding-left:2px}
+.lec-capitulo:first-of-type{margin-top:6px}
+.lec-ok{font-size:.9rem;opacity:.75;margin-right:2px}
+.tem-teoria h3{font-size:.98rem;color:var(--gold-d);margin:16px 0 6px;text-transform:none;letter-spacing:0}
+.tem-teoria h4{font-size:.94rem;color:var(--green-d);margin:14px 0 4px}
+.tem-teoria p{margin:0 0 9px;line-height:1.55}
+
+/* ===== PFU · calculadora de pruebas físicas (v278) ===== */
+.pfu-seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pfu-seg button{padding:12px;border-radius:12px;border:1.5px solid var(--line);background:#fff;
+  font-weight:700;font-size:.95rem;color:var(--green-d);cursor:pointer}
+.pfu-seg button.on{background:var(--green-d);border-color:var(--green-d);color:#fff}
+.pfu-row{display:flex;align-items:center;gap:10px}
+.pfu-row label{flex:0 0 auto}
+.pfu-row input{flex:1;padding:11px 12px;border:1.5px solid var(--line);border-radius:12px;font-size:1rem}
+.pfu-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:0 0 12px}
+.pfu-tabs button{padding:10px 4px;border-radius:11px;border:1.5px solid var(--line);background:#fff;
+  font-size:.8rem;font-weight:700;color:var(--green-d);cursor:pointer;line-height:1.15}
+.pfu-tabs button.on{background:var(--gold);border-color:var(--gold);color:#2a1f00}
+.pfu-p{padding:12px 0;border-top:1px dashed var(--line)}
+.pfu-p:first-of-type{border-top:0}
+.pfu-ph{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.pfu-ph b{font-size:.98rem}
+.pfu-ico{font-size:1.1rem}
+.pfu-pts{margin-left:auto;font-weight:800;color:var(--green-d);font-size:1.05rem}
+.pfu-pts small{font-weight:600;font-size:.7rem;color:var(--muted)}
+.pfu-pts.good{color:#1b7a3e}.pfu-pts.bad{color:#b3261e}
+.pfu-in{display:flex;gap:8px}
+.pfu-in input{flex:1;padding:12px;border:1.5px solid var(--line);border-radius:12px;font-size:1.05rem;font-weight:700}
+.pfu-crono{flex:0 0 auto;width:46px;border:1.5px solid var(--line);background:#faf7ee;border-radius:12px;
+  font-size:1.1rem;cursor:pointer}
+.pfu-meta{margin-top:6px;font-size:.78rem;color:var(--muted)}
+.pfu-tag{margin-left:4px;padding:1px 7px;border-radius:8px;font-weight:800;font-size:.7rem}
+.pfu-tag.ok{background:#e3f4e7;color:#1b7a3e}.pfu-tag.ko{background:#fde7e5;color:#b3261e}
+.pfu-total{display:flex;align-items:center;gap:16px;border-color:var(--gold)}
+.pfu-num{font-size:2.2rem;font-weight:900;color:var(--green-d);line-height:1}
+.pfu-num small{font-size:.8rem;color:var(--muted);font-weight:600}
+.pfu-tabla{width:100%;border-collapse:collapse;font-size:.78rem}
+.pfu-tabla th,.pfu-tabla td{padding:7px 4px;border-bottom:1px solid var(--line);text-align:center}
+.pfu-tabla th:first-child,.pfu-tabla td:first-child{text-align:left;font-weight:700}
+.pfu-tabla th{color:var(--muted);font-weight:700;font-size:.72rem}
+.pfu-obj{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.pfu-obj input{flex:1}
+.pfu-obj b{white-space:nowrap;color:var(--green-d)}
+.pfu-list{display:grid;gap:6px}
+.pfu-objrow{display:flex;justify-content:space-between;padding:9px 0;border-top:1px dashed var(--line)}
+.pfu-hist{display:grid;gap:4px}
+.pfu-hrow{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;
+  padding:8px 0;border-bottom:1px dashed var(--line);font-size:.9rem}
+.pfu-up{color:#1b7a3e;font-weight:800}.pfu-down{color:#b3261e;font-weight:800}
+.pfu-cronobox{margin-top:12px;border:1.5px solid var(--line);border-radius:14px;padding:14px;background:#fff}
+.pfu-crononum{font-size:2.4rem;font-weight:900;text-align:center;color:var(--green-d);
+  font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.pfu-cronobtns{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+.pfu-cronobtns .btn{font-size:.8rem;padding:9px 4px}

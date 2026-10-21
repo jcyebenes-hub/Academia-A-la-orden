@@ -11,8 +11,8 @@
      · las páginas (app.html, index.html) y el propio sw.js van SIEMPRE a red
        primero: así se ve la versión nueva en cuanto hay conexión.
 */
-const CACHE = "alaorden-v276";
-const CORE = ["./", "index.html", "app.html", "css/style.css", "manifest.json", "icon.png", "js/data.js", "js/app.js", "js/study.js", "js/verdicts.js", "js/trivial.js", "js/cloud.js", "js/tutor.js", "js/donation.js", "js/convocatorias.js", "js/bod-data.js", "js/temario.js", "js/temario-cabo26.js", "js/temario-cabo1.js", "js/temario-perm.js", "js/biblio.js", "js/chat.js", "img/qr-arte.png", "img/qr-arte@2x.png", "img/qr-micabo.png", "img/qr-micabo@2x.png", "img/qr-soldado.png", "img/arte-soldado.png", "img/og.jpg", "img/kofi-logo.png", "img/bizum-logo.png", "checkout.html"];
+const CACHE = "alaorden-v278";
+const CORE = ["./", "index.html", "app.html", "css/style.css", "manifest.json", "icon.png", "js/data.js", "js/app.js", "js/study.js", "js/verdicts.js", "js/trivial.js", "js/cloud.js", "js/tutor.js", "js/donation.js", "js/convocatorias.js", "js/bod-data.js", "js/temario.js", "js/temario-cabo26.js", "js/teoria-idx.js", "js/pfu-data.js", "js/pfu.js", "js/temario-cabo1.js", "js/temario-perm.js", "js/biblio.js", "js/chat.js", "img/qr-arte.png", "img/qr-arte@2x.png", "img/qr-micabo.png", "img/qr-micabo@2x.png", "img/qr-soldado.png", "img/arte-soldado.png", "img/og.jpg", "img/kofi-logo.png", "img/bizum-logo.png", "checkout.html"];
 
 self.addEventListener("install", e => {
   e.waitUntil(
